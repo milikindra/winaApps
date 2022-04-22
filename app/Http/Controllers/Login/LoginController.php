@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
+use GuzzleHttp\Client;
 use App\Models\User;
 use validator;
 use DB;
@@ -33,59 +34,42 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('username', 'password');
         $password = $request->input('password');
         $username = $request->input('username');
-        $user = User::where('username', $username)->first();
 
-        if (!isset($user)) {
-            $message = 'User tidak ditemukan';
+        $loginUrl = config('constants.api_url') . '/login';
+        $post_data = [
+            'username' => $username,
+            'password' => $password,
+        ];
+        $client = new Client();
+        $response = $client->request('POST', $loginUrl, [
+            'json' => $post_data,
+            'http_errors' => false
+        ]);
+        $body = json_decode($response->getBody()->getContents());
+        App::setLocale('id');
+        if ($response->getStatusCode() == 422) {
+            //then there should be some validation JSON here;
+            $errors = json_decode($response->getBody()->getContents());
+            return redirect()->back()->withInput($request->except('passwodr'))->with('error', __('messages.Invalid password'));
+        }
+        if ($body->result) {
+            session([
+                'user' => $body->data,
+            ]);
+            if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+                $request->session()->regenerate();
+                return redirect()->intended('home');
+            }
+        } else {
+            $message = 'Password yang anda masukkan salah';
             Log::debug($request->path() . " | " . $message . " | " . print_r($_POST, TRUE));
             $response = array(
                 'result' => FALSE,
                 'message' => $message
             );
             return redirect(route('login'))->withInput($request->except('passwodr'))->with('error', __('' . $message));
-        } else {
-            if ($user->status == 0) {
-                $message = 'Akun belum aktif/dihapus';
-                Log::debug($request->path() . " | " . $message . " | " . print_r($_POST, TRUE));
-                $response = array(
-                    'result' => FALSE,
-                    'message' => $message
-                );
-            } else {
-                $checkPassword = Hash::check($password, $user->password);
-                if ($checkPassword) {
-                    // $user->is_login = '1';
-                    // $user->save();
-                    $data = User::getLogin($username);
-                    $test  = json_encode(array('id' => 'test'));
-                    session([
-                        'user' => $data,
-                        'user_test' => $test
-                    ]);
-
-                    $message = "User '$username' successfully login";
-                    $response = array(
-                        'result' => TRUE,
-                        'message' => $message,
-                        'data' => $data,
-                    );
-                    if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-                        $request->session()->regenerate();
-                        return redirect()->intended('home');
-                    }
-                } else {
-                    $message = 'Password yang anda masukkan salah';
-                    Log::debug($request->path() . " | " . $message . " | " . print_r($_POST, TRUE));
-                    $response = array(
-                        'result' => FALSE,
-                        'message' => $message
-                    );
-                    return redirect(route('login'))->withInput($request->except('passwodr'))->with('error', __('' . $message));
-                }
-            }
         }
     }
 

@@ -1,8 +1,9 @@
 $(document).ready(function () {
     var table = $("#datatables").DataTable({
+        dom: "Bfrltip",
         processing: true,
         serverSide: true,
-        // drawCallback: function (settings, json) {},
+        drawCallback: function (settings, json) {},
         ajax: {
             url: rute + "/" + 0,
             type: "GET",
@@ -37,10 +38,6 @@ $(document).ready(function () {
                 },
             },
             {
-                data: "gender",
-                name: "gender",
-            },
-            {
                 data: "blood_type",
                 name: "blood_type",
             },
@@ -64,49 +61,6 @@ $(document).ready(function () {
                 data: "tax_id",
                 name: "tax_id",
             },
-
-            // {
-            //     data: "qty",
-            //     name: "qty",
-            //     render: function (data, type, row) {
-            //         return addPeriod(parseFloat(data).toFixed(2), ",");
-            //     },
-            // },
-            // {
-            //     data: "qty",
-            //     name: "qty",
-            //     render: function (data, type, row) {
-            //         return addPeriod(parseFloat(data).toFixed(2), ",");
-            //     },
-            // },
-            // {
-            //     data: "qty",
-            //     name: "qty",
-            //     render: function (data, type, row) {
-            //         return addPeriod(parseFloat(data).toFixed(2), ",");
-            //     },
-            // },
-            // {
-            //     data: "qty",
-            //     name: "qty",
-            //     render: function (data, type, row) {
-            //         return addPeriod(parseFloat(data).toFixed(2), ",");
-            //     },
-            // },
-            // {
-            //     data: "qty",
-            //     name: "qty",
-            //     render: function (data, type, row) {
-            //         return addPeriod(parseFloat(data).toFixed(2), ",");
-            //     },
-            // },
-            // {
-            //     data: "qty",
-            //     name: "qty",
-            //     render: function (data, type, row) {
-            //         return addPeriod(parseFloat(data).toFixed(2), ",");
-            //     },
-            // },
             {
                 data: "user_id",
                 render: function (data, type, row) {
@@ -115,7 +69,7 @@ $(document).ready(function () {
                 orderable: false,
             },
         ],
-        // order: [[0, "desc"]],
+        order: [[0, "asc"]],
     });
 
     window.getActions = function (data, tyoe, row) {
@@ -124,24 +78,17 @@ $(document).ready(function () {
             url_default +
             "/memoInDetail/" +
             data +
-            '" title="Lihat Detail" class="btn btn-icon btn-info" style="margin-right: 5px;"><i class="fas fa-search"></i></a>';
+            '" title="Lihat Detail" class="btn btn-outline-info" style="margin-right: 5px;"><i class="ti ti-search"></i></a>';
         action_view +=
             '<a href="' +
             url_default +
             "/memoInEdit/" +
             data +
-            '" title="Edit" class="btn btn-icon btn-warning" style="margin-right: 5px;"><i class="fas fa-edit"></i></a>';
-        if (row["void"] == 0) {
-            action_view +=
-                '<button onclick="memoInVoid(this)" data-memo_id="' +
-                data +
-                '" title="Void" class="btn btn-icon btn-danger" style="margin-right: 5px;"><i class="fas fa-times"></i></button>';
-        } else {
-            action_view +=
-                '<button onclick="memoInActive(this)" data-memo_id="' +
-                data +
-                '" title="UnVoid" class="btn btn-icon btn-primary" style="margin-right: 5px;"><i class="fas fa-check"></i></button>';
-        }
+            '" title="Edit" class="btn btn-outline-warning" style="margin-right: 5px;"><i class="ti ti-pencil"></i></a>';
+        action_view +=
+            '<button onclick="memoInActive(this)" data-memo_id="' +
+            data +
+            '" title="UnVoid" class="btn btn-outline-primary" style="margin-right: 5px;"><i class="ti ti-check"></i></button>';
 
         return action_view;
     };

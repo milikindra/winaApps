@@ -45,22 +45,22 @@
                         <h3 class="card-title">{{$title}}</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive ">
-                            <table class="table card-table table-vcenter text-nowrap datatable" id="datatables">
+                        <div class="row"></div>
+                        <div class="table-responsive">
+                            <table class="table table-vcenter text-nowrap datatable" id="datatables">
                                 <thead>
-                                    <tr>
+                                    <tr width="100%">
                                         <th>Id Karyawan</th>
                                         <th>Nama Lengkap</th>
                                         <th>NIK</th>
                                         <th>Tempat & tanggal Lahir</th>
-                                        <th>JK</th>
                                         <th>Gol. Darah</th>
                                         <th>Alamat</th>
                                         <th>Telp</th>
                                         <th>SIM</th>
-                                        <th>Kode PTKP</th>
+                                        <th>PTKP</th>
                                         <th>NPWP</th>
-                                        <th></th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

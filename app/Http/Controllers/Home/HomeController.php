@@ -23,7 +23,7 @@ class HomeController extends Controller
             ];
             return View('home', $data);
         } catch (\Exception $e) {
-            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            Log::debug($request->path() . " | " . $message . " | " . print_r($_POST, TRUE));
 
             return abort(500);
         }

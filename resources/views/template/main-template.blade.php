@@ -27,7 +27,7 @@
   {{-- End Other Style --}}
 </head>
 
-<body class="layout-fluid">
+<body>
   <div class=" page">
     {{-- Header --}}
     @include('template.header')
