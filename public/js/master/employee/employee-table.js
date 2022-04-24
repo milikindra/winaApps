@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var table = $("#datatables").DataTable({
-        dom: "Bfrltip",
         processing: true,
         serverSide: true,
         drawCallback: function (settings, json) {},
@@ -42,6 +41,10 @@ $(document).ready(function () {
                 name: "blood_type",
             },
             {
+                data: "religion",
+                name: "religion",
+            },
+            {
                 data: "address",
                 name: "address",
             },
@@ -49,18 +52,7 @@ $(document).ready(function () {
                 data: "phone",
                 name: "phone",
             },
-            {
-                data: "sim_type",
-                name: "sim_type",
-            },
-            {
-                data: "ptkp_type",
-                name: "ptkp_type",
-            },
-            {
-                data: "tax_id",
-                name: "tax_id",
-            },
+
             {
                 data: "user_id",
                 render: function (data, type, row) {

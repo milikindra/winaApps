@@ -1,14 +1,15 @@
-<!-- CSS Files -->
-<link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-<link href="{{ asset('/dist/css/tabler.min.css')}}" rel="stylesheet" />
-<link href="{{ asset('/dist/css/tabler-flags.min.css')}}" rel="stylesheet" />
-<link href="{{ asset('/dist/css/tabler-payments.min.css')}}" rel="stylesheet" />
-<link href="{{ asset('/dist/css/tabler-vendors.min.css')}}" rel="stylesheet" />
-<link href="{{ asset('/dist/css/demo.min.css')}}" rel="stylesheet" />
-<!-- <link href="{{ asset('/dist/css/tabler-icons.css')}}" rel="stylesheet" /> -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+<link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css')}}" />
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}" />
+<link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css')}}" />
 
-<!-- Additional Files-->
-<link href="{{ asset('/dist/libs/tabler-icons-1.65.0/iconfont/tabler-icons.min.css')}}" rel="stylesheet" />
-<link href="{{ asset('/dist/libs/fontawesome-6.1.1/css/all.min.css')}}" rel="stylesheet" />
-<link href="{{ asset('/dist/libs/fontawesome-5.15.4/css/all.min.css')}}" rel="stylesheet" />
-<link href="{{ asset('/dist/libs/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" />
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">

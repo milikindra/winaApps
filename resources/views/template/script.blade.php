@@ -1,18 +1,34 @@
-<script src="{{ asset('/dist/js/jquery-3.6.0.min.js')}}"></script>
-<!-- Libs JS -->
-<!-- <script src="{{ asset('/dist/libs/apexcharts/dist/apexcharts.min.js')}}"></script> -->
-<!-- <script src="{{ asset('/dist/libs/jsvectormap/dist/js/jsvectormap.min.js')}}"></script> -->
-<!-- <script src="{{ asset('/dist/libs/jsvectormap/dist/maps/world.js')}}"></script> -->
-<!-- <script src="{{ asset('/dist/libs/jsvectormap/dist/maps/world-merc.js')}}"></script> -->
-<script src="{{ asset('/dist/libs/fontawesome-5.15.4/js/all.min.js')}}"></script>
-<script src="{{ asset('/dist/libs/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('/dist/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
-<script src="{{ asset('/dist/libs/moment.js/moment.js')}}"></script>
+<script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script>
+    $.widget.bridge("uibutton", $.ui.button);
+</script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('plugins/chart.js/Chart.min.js')}}"></script>
+<script src="{{ asset('plugins/sparklines/sparkline.js')}}"></script>
+<script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+<script src="{{ asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{ asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<script src="{{ asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+<script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<script src="{{ asset('dist/js/adminlte.js')}}"></script>
 
-<!-- <script src="{{ asset('/dist/libs/ionicons-5.5.2/ionicons.js')}}"></script> -->
-<!-- <script src="{{ asset('/dist/libs/ionicons-5.5.2/ionicons.esm.js')}}"></script> -->
-<!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> -->
-<!-- <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
-<!-- Tabler Core -->
-<script src="{{ asset('/dist/js/tabler.min.js')}}"></script>
-<script src="{{ asset('/dist/js/demo.min.js')}}"></script>
+<!-- <script src="{{ asset('dist/js/pages/dashboard.js')}}"></script> -->
+<!-- <script src="{{ asset('dist/js/demo.js')}}"></script> -->
+
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>

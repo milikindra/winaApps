@@ -52,7 +52,7 @@ class LoginController extends Controller
         if ($response->getStatusCode() == 422) {
             //then there should be some validation JSON here;
             $errors = json_decode($response->getBody()->getContents());
-            return redirect()->back()->withInput($request->except('passwodr'))->with('error', __('messages.Invalid password'));
+            return redirect()->back()->withInput($request->except('password'))->with('error', __('messages.Invalid password'));
         }
         if ($body->result) {
             session([
@@ -63,13 +63,13 @@ class LoginController extends Controller
                 return redirect()->intended('home');
             }
         } else {
-            $message = 'Password yang anda masukkan salah';
+            $message = 'gagal login';
             Log::debug($request->path() . " | " . $message . " | " . print_r($_POST, TRUE));
             $response = array(
                 'result' => FALSE,
                 'message' => $message
             );
-            return redirect(route('login'))->withInput($request->except('passwodr'))->with('error', __('' . $message));
+            return redirect(route('login'))->withInput($request->except('password'))->with('error', __('' . $message));
         }
     }
 
