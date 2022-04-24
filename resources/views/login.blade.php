@@ -1,39 +1,32 @@
 @extends('template.login-template')
-
 @section('main-content')
-<div class="page page-center">
-    <div class="container-tight py-4">
-        <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="{{ asset('images/logo.png') }}" height="36"></a>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <!-- <h2 class="heading-section">WINA</h2> -->
+            </div>
         </div>
-        <form class="card card-md" action="{{ route('loginProcess')}}" autocomplete="off">
-            @csrf
-            <div class="card-body">
-                <h2 class="card-title text-center mb-4">Login to your account</h2>
-                <div class="mb-3">
-                    <label class="form-label">Username</label>
-                    <input type="text" class="form-control" name="username" placeholder="Enter Username" required>
-                </div>
-                <div class="mb-2">
-                    <label class="form-label">
-                        Password
-                        <span class="form-label-description">
-                            <a href="{{ route('forget') }}">I forgot password</a>
-                        </span>
-                    </label>
-                    <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
-                </div>
-                <div class="mb-2">
-                    <label class="form-check">
-                        <input type="checkbox" name="remember" class="form-check-input" />
-                        <span class="form-check-label">Remember me on this device</span>
-                    </label>
-                </div>
-                <div class="form-footer">
-                    <button type="submit" class="btn btn-primary w-100">Sign in</button>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <h3 class="mb-4 text-center">Have an account?</h3>
+                    <form action="{{ route('loginProcess') }}" method="GET" class="signin-form">
+                        @csrf
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <input id="password-field" type="password" name="password" class="form-control" placeholder="Password" required>
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>
 @endsection

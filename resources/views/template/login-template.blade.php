@@ -1,4 +1,3 @@
-
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -9,21 +8,29 @@
 * Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
 -->
 <html lang="en">
-  <head>
-      {{-- Title --}}
-    @include('template.title')
-    {{-- End Title --}}
 
-    {{-- Style --}}
-        @include('template.style')
-    {{-- End Style --}}
+<head>
+  {{-- Title --}}
+  @include('template.title')
+  {{-- End Title --}}
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="{{ asset('plugins/login-admin/css/style.css')}}" rel="stylesheet" />
+  {{-- Other Style --}}
+  @method('other-style')
+  {{-- End Other Style --}}
+</head>
 
-    {{-- Other Style --}}
-    @method('other-style')
-    {{-- End Other Style --}}
-  </head>
-  <body  class=" border-top-wide border-primary d-flex flex-column">
-    @yield('main-content')
-    @include('template.script')
-  </body>
+<body class="img js-fullheight" style="background-image: url(plugins/login-admin/images/bg.jpg);">
+  @yield('main-content')
+
+  <script src="{{ asset('plugins/login-admin/js/jquery.min.js')}}"></script>
+  <script src="{{ asset('plugins/login-admin/js/popper.js')}}"></script>
+  <script src="{{ asset('plugins/login-admin/js/bootstrap.min.js')}}"></script>
+  <script src="{{ asset('plugins/login-admin/js/main.js')}}"></script>
+  {{-- Other Script --}}
+  @stack('other-script')
+  {{-- End Other Script --}}
+</body>
+
 </html>

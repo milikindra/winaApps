@@ -62,12 +62,12 @@ function createMenu($page, $parent_page)
     }
     $menu = '<li class="nav-item ' . $activeHome . '">
                 <a class="nav-link" href="' . url('home') . '">
-                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                        <i class="ti ti-home"></i>
-                    </span>
-                    <span class="nav-link-title">
+                    <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                    <i class="nav-icon fas fa-home"></i>
+                    </span
+                    <p>
                         Home
-                    </span>
+                    </p>
                 </a>
             </li>';
     // dimuali perulangan matrix menu
@@ -79,7 +79,7 @@ function createMenu($page, $parent_page)
         }
         $iconParent = '';
         if (isset($parent->icon_class)) {
-            $iconParent = '<span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="' . $parent->icon_class . '"></i> </span>';
+            $iconParent = '<span class="nav-link-icon d-md-none d-lg-inline-block"> <i class="nav-icon ' . $parent->icon_class . '"></i> </span>';
         }
 
         $menuChild = '';
@@ -92,14 +92,14 @@ function createMenu($page, $parent_page)
                 $child->route = '.';
             }
 
-            $menuChild .= '<a class="dropdown-item ' . $activeChild . '" href="' . url($child->route) . '" > ' . $child->module_name . ' </a>';
+            $menuChild .= '<li class="nav-item"><a class="nav-link ' . $activeChild . '" href="' . url($child->route) . '" ><i class="far fa-circle"></i> ' . $child->module_name . ' </a></li>';
         }
 
-        $sub = '<div class="dropdown-menu"> <div class="dropend">' . $menuChild . '</div></div>';
+        $sub = '<ul class="nav nav-treeview">' . $menuChild . '</ul>';
 
-        $menu .= '<li class="nav-item dropdown ' . $activeParent . '">';
-        $menu .= '<a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">' . $iconParent;
-        $menu .= '<span class="nav-link-title">' . $module_name . '</span>';
+        $menu .= '<li class="nav-item ' . $activeParent . '">';
+        $menu .= '<a href="#" class="nav-link">' . $iconParent;
+        $menu .= '<p>' . $module_name . '<i class="right fas fa-angle-left"></i></p>';
         $menu .= '</a>';
         $menu .= $sub;
         $menu .= '</li>';
