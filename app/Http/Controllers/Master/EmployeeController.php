@@ -34,7 +34,6 @@ class EmployeeController extends Controller
             return View('master.employee.employee', $data);
         } catch (\Exception $e) {
             Log::debug(print_r($_POST, TRUE));
-
             return abort(500);
         }
     }
@@ -81,5 +80,36 @@ class EmployeeController extends Controller
 
             return abort(500);
         }
+    }
+
+    public function employeeAdd(Request $request)
+    {
+        // try {
+        $module = $this->module;
+
+        $menu_name = session('user')->menu_name;
+        $user_token = session('user')->api_token;
+        // $url = Config::get("constants.api_url") . "/membershipAdd";
+        //     $json = array(
+        //         'api_token' => $user_token
+        //     );
+        //     $client = new Client();
+        //     $response = $client->request('POST', $url, ['json' => $json]);
+        //     $body = json_decode($response->getBody());
+
+        $data = [
+            'title' => 'Tambah ' . $menu_name->$module->module_name,
+            'parent_page' => $menu_name->$module->parent_name,
+            'page' => $menu_name->$module->module_name,
+            // 'package' => $body->package,
+            // 'category' => $body->category
+        ];
+
+        return view('master.employee.employeeAdd', $data);
+        // } catch (\Exception $e) {
+        //     \Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+
+        //     return abort(500);
+        // }
     }
 }

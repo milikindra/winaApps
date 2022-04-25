@@ -42,5 +42,6 @@ Route::group(
     function () {
         Route::get('employee', [EmployeeController::class, 'employeeShow'])->name('employee')->middleware('userMatrix:M03.01');
         Route::get('employee/data/populate/{void}', [EmployeeController::class, 'populate'])->name('employee/data/populate');
+        Route::get('employeeAdd', [EmployeeController::class, 'employeeAdd'])->name('employeeAdd')->middleware('userMatrix:M03.02');
     }
 );

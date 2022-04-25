@@ -58,11 +58,6 @@ class LoginController extends Controller
             session([
                 'user' => $body->data,
             ]);
-            // if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            //     $request->session()->regenerate();
-            //     return redirect()->intended('home');
-            // }
-
             App::setLocale('id');
             return redirect(route('home'));
         } else {

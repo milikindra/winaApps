@@ -2,6 +2,11 @@ $(document).ready(function () {
     var table = $("#datatables").DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
+        lengthMenu: [
+            [1, 25, 50, 100, 250, 500, 1000],
+            [1, 25, 50, 100, 250, 500, 1000],
+        ],
         drawCallback: function (settings, json) {},
         ajax: {
             url: rute + "/" + 0,
@@ -68,19 +73,15 @@ $(document).ready(function () {
         var action_view =
             '<a href="' +
             url_default +
-            "/memoInDetail/" +
+            "/employeeDetail/" +
             data +
-            '" title="Lihat Detail" class="btn btn-outline-info" style="margin-right: 5px;"><i class="ti ti-search"></i></a>';
+            '" title="Lihat Detail" class="btn btn-sm btn-flat btn-info" style="margin-right: 5px;color:white"><i class="fa fa-search"></i></a>';
         action_view +=
             '<a href="' +
             url_default +
-            "/memoInEdit/" +
+            "/employeeEdit/" +
             data +
-            '" title="Edit" class="btn btn-outline-warning" style="margin-right: 5px;"><i class="ti ti-pencil"></i></a>';
-        action_view +=
-            '<button onclick="memoInActive(this)" data-memo_id="' +
-            data +
-            '" title="UnVoid" class="btn btn-outline-primary" style="margin-right: 5px;"><i class="ti ti-check"></i></button>';
+            '" title="Edit" class="btn btn-sm btn-flat btn-warning" style="margin-right: 5px;color:white"><i class="fa fa-edit"></i></a>';
 
         return action_view;
     };

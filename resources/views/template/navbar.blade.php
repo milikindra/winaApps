@@ -105,12 +105,12 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" title="fullscreen">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('logout')}}" role="button">
+            <a class="nav-link" href="{{ route('logout')}}" role="button" title="logout">
                 <i class="fas fa-power-off"></i>
             </a>
         </li>
