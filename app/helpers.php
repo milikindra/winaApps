@@ -2,6 +2,8 @@
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use App\Tree\ModuleNode;
 
 $activeMenu = "";
@@ -33,23 +35,35 @@ function tanggal_indo($tanggal)
 
 function getMenu()
 {
-    $menu = array();
-    $userid = session('user')->user_id;
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get("constants.api_url") . "/employee/getMenu";
+    $jsone = array(
+        "api_token" => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
 
-    $module = DB::select("call wina_sp_get_module_user ('$userid')");
-    $module = collect($module)->keyBy('module_id')->toArray();
-    $moduleParent = DB::select("call wina_sp_get_module_user_parent ('$userid')");
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = $responseNumber->getBody();
+    return $moduleBody;
 
-    $level = 0;
-    $list = [];
-    $menu = [];
-    foreach ($moduleParent as $node) {
-        $tree = new ModuleNode($node->module_id, $module, $level);
-        $tree->addChildren($module, $node->module_id, $list);
-        array_push($menu, $tree);
-    }
+    // $menu = array();
+    // $userid = session('user')->user_id;
 
-    return json_encode($menu);
+    // $module = DB::select("call wina_sp_get_module_user ('$userid')");
+    // $module = collect($module)->keyBy('module_id')->toArray();
+    // $moduleParent = DB::select("call wina_sp_get_module_user_parent ('$userid')");
+
+    // $level = 0;
+    // $list = [];
+    // $menu = [];
+    // foreach ($moduleParent as $node) {
+    //     $tree = new ModuleNode($node->module_id, $module, $level);
+    //     $tree->addChildren($module, $node->module_id, $list);
+    //     array_push($menu, $tree);
+    // }
+
+    // return json_encode($menu);
 }
 
 function createMenu($page, $parent_page)

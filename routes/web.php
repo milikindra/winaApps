@@ -24,7 +24,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::group(
-    ['middleware' => 'auth'],
+    ['middleware' => 'authApi'],
     function () {
         Route::get('/', [HomeController::class, 'index']);
         Route::post('/', [HomeController::class, 'index']);
@@ -38,7 +38,7 @@ Route::group(
 );
 
 Route::group(
-    ['namespace' => 'Master', 'middleware' => 'auth'],
+    ['namespace' => 'Master', 'middleware' => 'authApi'],
     function () {
         Route::get('employee', [EmployeeController::class, 'employeeShow'])->name('employee')->middleware('userMatrix:M03.01');
         Route::get('employee/data/populate/{void}', [EmployeeController::class, 'populate'])->name('employee/data/populate');

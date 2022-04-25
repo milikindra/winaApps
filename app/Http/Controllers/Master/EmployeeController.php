@@ -75,7 +75,6 @@ class EmployeeController extends Controller
             $table['recordsTotal'] = $body->total;
             $table['recordsFiltered'] = $body->recordsFiltered;
             $table['data'] = $body->employee;
-            Log::info($table);
             return json_encode($table);
         } catch (\Exception $e) {
             Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
