@@ -58,10 +58,8 @@ class LoginController extends Controller
             session([
                 'user' => $body->data,
             ]);
-            if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-                $request->session()->regenerate();
-                return redirect()->intended('home');
-            }
+            $request->session()->regenerate();
+            return redirect()->intended('home');
         } else {
             $message = 'gagal login';
             Log::debug($request->path() . " | " . $message . " | " . print_r($_POST, TRUE));
