@@ -23,8 +23,6 @@ class HomeController extends Controller
             ];
             return View('home', $data);
         } catch (\Exception $e) {
-            Log::debug($request->path() . " | " . $message . " | " . print_r($_POST, TRUE));
-
             return abort(500);
         }
     }

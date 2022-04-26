@@ -26,8 +26,8 @@ Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::group(
     ['middleware' => 'authApi'],
     function () {
-        Route::get('/', [HomeController::class, 'index']);
-        Route::post('/', [HomeController::class, 'index']);
+        // Route::get('/', [HomeController::class, 'index']);
+        // Route::post('/', [HomeController::class, 'index']);
 
         Route::get('home', [HomeController::class, 'index'])->name('home');
         Route::post('home', [HomeController::class, 'index'])->name('home');
