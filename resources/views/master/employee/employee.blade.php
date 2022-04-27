@@ -19,9 +19,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Karyawan</h3>
-                        <h3 class="card-title float-right"><a class="btn btn-white btn-sm btn-flat" style="margin-left: 5px;" href="{{ route('employeeAdd')}}" title="Tambah Karyawan"><i class="fa fa-plus"></i></a></h3>
-                        <h3 class="card-title float-right"><a class="btn btn-white btn-sm btn-flat" style="margin-left: 5px;" title="filter"><i class="fa fa-filter"></i></a></h3>
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 class="card-title">Data Karyawan</h3>
+                            </div>
+                            <div class="col-6 ">
+                                <h3 class="card-title float-right"><a class="btn btn-white btn-sm btn-flat" style="margin-left: 5px; padding:0" href="{{ route('employeeAdd')}}" title="Tambah Karyawan"><i class="fa fa-plus"></i></a></h3>
+                                <h3 class="card-title float-right"><a class="btn btn-white btn-sm btn-flat" style="margin-left: 5px; padding:0" title="filter"><i class="fa fa-filter"></i></a></h3>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

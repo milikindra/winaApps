@@ -17,14 +17,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <!-- general form elements -->
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Formulir Karyawan Baru</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-                    <form id="eform">
+                <div class="card">
+                    <form id="form" action="{{ route('employeeAddSave') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-header">
+                            <div class="row">
+                                <h3 class="card-title">Formulir Karyawan Baru</h3>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -66,7 +66,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Nama Lengkap*</label>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan Nama Lengkap" required>
+                                        <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Masukkan Nama Lengkap" required>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Nomor Induk Kependudukan</label>
-                                        <input type="text" class="form-control" name="national_id" id="national_id" placeholder="Masukkan Nomor Induk Kependudukan" required>
+                                        <input type="text" class="form-control" name="national_id" id="national_id" placeholder="Masukkan Nomor Induk Kependudukan">
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Kabupaten/Kota</label>
-                                        <input type="text" class="form-control" name="city" id="city" placeholder="Masukkan Nomor Induk Kependudukan" required>
+                                        <input type="text" class="form-control" name="city" id="city" placeholder="Masukkan Nomor Induk Kependudukan">
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Desa/Kelurahan</label>
-                                        <input type="text" class="form-control" name="village" id="village" placeholder="Masukkan Nomor Induk Kependudukan" required>
+                                        <input type="text" class="form-control" name="village" id="village" placeholder="Masukkan Nomor Induk Kependudukan">
                                     </div>
                                 </div>
                             </div>
@@ -136,13 +136,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Alamat</label>
-                                        <input type="text" class="form-control" name="address" id="address" placeholder="Masukkan Alamat" required>
+                                        <input type="text" class="form-control" name="address" id="address" placeholder="Masukkan Alamat">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Kode Pos</label>
-                                        <input type="text" class="form-control" name="postalcode" id="postalcode" placeholder="Masukkan Kode Pos">
+                                        <input type="text" class="form-control" name="postal_code" id="postal_code" placeholder="Masukkan Kode Pos">
                                     </div>
                                 </div>
                             </div>
@@ -191,16 +191,17 @@
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input" name="user_image" id="user_image">
-                                                <label class="custom-file-label" for="exampleInputFile">Cari File ..</label>
+                                                <label class="custom-file-label" for="user_image">Cari File ..</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-footer">
-                            <button type="#" class="btn btn-warning float-left">Cancel</button>
-                            <button type="submit" class="btn btn-info float-right">Submit</button>
+                            <a href="javascript:void(0)" onclick="window.history.back()" class="btn btn-warning "><b>Kembali</b></a>
+                            <button type="submit" class="btn btn-info float-right">SIMPAN</button>
                         </div>
                     </form>
                 </div>

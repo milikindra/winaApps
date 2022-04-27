@@ -34,11 +34,13 @@
     </div>
 
     @include('template.footer')
+    @include('sweetalert::alert')
   </div>
   {{-- Script --}}
   @include('template.script')
   @stack('other-script')
   {{-- End Script --}}
+
 </body>
 
 </html>

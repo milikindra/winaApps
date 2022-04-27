@@ -120,3 +120,7 @@ function createMenu($page, $parent_page)
     }
     echo $menu;
 }
+
+// function getUser(){
+
+// }

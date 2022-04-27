@@ -3,10 +3,16 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
+        stateSave: true,
         lengthMenu: [
-            [1, 25, 50, 100, 250, 500, 1000],
-            [1, 25, 50, 100, 250, 500, 1000],
+            [50, 100, 250, 500, 1000],
+            [50, 100, 250, 500, 1000],
         ],
+        buttons: ["excel", "print"],
+        dom:
+            "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         drawCallback: function (settings, json) {},
         ajax: {
             url: rute + "/" + 0,
@@ -25,6 +31,7 @@ $(document).ready(function () {
             {
                 data: "employee_id",
                 name: "employee_id",
+                className: "text-center",
             },
             {
                 data: "full_name",
@@ -33,6 +40,7 @@ $(document).ready(function () {
             {
                 data: "national_id",
                 name: "national_id",
+                className: "text-center",
             },
             {
                 data: "dob",
@@ -40,22 +48,27 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     return moment(data).format("DD MMM YYYY");
                 },
+                className: "text-center",
             },
             {
                 data: "blood_type",
                 name: "blood_type",
+                className: "text-center",
             },
             {
                 data: "religion",
                 name: "religion",
+                className: "text-center",
             },
             {
                 data: "address",
                 name: "address",
+                className: "text-center",
             },
             {
                 data: "phone",
                 name: "phone",
+                className: "text-center",
             },
 
             {
@@ -64,6 +77,7 @@ $(document).ready(function () {
                     return getActions(data, type, row);
                 },
                 orderable: false,
+                className: "text-center",
             },
         ],
         order: [[0, "asc"]],

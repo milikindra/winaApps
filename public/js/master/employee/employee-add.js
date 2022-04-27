@@ -1,10 +1,5 @@
-$(function () {
-    $.validator.setDefaults({
-        submitHandler: function () {
-            alert("Form successful submitted!");
-        },
-    });
-    $("#eform").validate({
+var forms = $("form").each(function () {
+    var validator = $("#form").validate({
         rules: {
             email: {
                 required: true,
@@ -14,7 +9,6 @@ $(function () {
                 required: true,
                 minlength: 5,
             },
-            
         },
         messages: {
             email: {
@@ -25,7 +19,6 @@ $(function () {
                 required: "Please provide a password",
                 minlength: "Your password must be at least 5 characters long",
             },
-            
         },
         errorElement: "span",
         errorPlacement: function (error, element) {
