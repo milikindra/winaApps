@@ -36,6 +36,7 @@ function tanggal_indo($tanggal)
 function getMenu()
 {
     $user_token = session('user')->api_token;
+    // belum di pindah ke session, kalo bisa di pindah ke session aja biar lebih ringan tidak load terus tiap ganti halaman
     $matrixUrl = Config::get("constants.api_url") . "/employee/getMenu";
     $jsone = array(
         "api_token" => $user_token,
@@ -46,24 +47,6 @@ function getMenu()
     $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
     $moduleBody = $responseNumber->getBody();
     return $moduleBody;
-
-    // $menu = array();
-    // $userid = session('user')->user_id;
-
-    // $module = DB::select("call wina_sp_get_module_user ('$userid')");
-    // $module = collect($module)->keyBy('module_id')->toArray();
-    // $moduleParent = DB::select("call wina_sp_get_module_user_parent ('$userid')");
-
-    // $level = 0;
-    // $list = [];
-    // $menu = [];
-    // foreach ($moduleParent as $node) {
-    //     $tree = new ModuleNode($node->module_id, $module, $level);
-    //     $tree->addChildren($module, $node->module_id, $list);
-    //     array_push($menu, $tree);
-    // }
-
-    // return json_encode($menu);
 }
 
 function createMenu($page, $parent_page)
@@ -74,11 +57,9 @@ function createMenu($page, $parent_page)
     if (strtolower($page) == 'home') {
         $activeHome = 'active';
     }
-    $menu = '<li class="nav-item ' . $activeHome . '">
-                <a class="nav-link" href="' . url('home') . '">
-                    <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+    $menu = '<li class="nav-item ">
+                <a class="nav-link ' . $activeHome . '" href="' . url('home') . '">
                     <i class="nav-icon fas fa-home"></i>
-                    </span
                     <p>
                         Home
                     </p>
@@ -87,9 +68,9 @@ function createMenu($page, $parent_page)
     // dimuali perulangan matrix menu
     foreach ($matrix as $parent) {
         $module_name = $parent->module_name;
-        $activeParent = '';
-        if (strtolower($parent_page) === strtolower($module_name)) {
-            $activeParent = 'active';
+        $activeParent = 'active';
+        if (strtolower($parent_page) != strtolower($module_name)) {
+            $activeParent = '';
         }
         $iconParent = '';
         if (isset($parent->icon_class)) {
@@ -98,21 +79,24 @@ function createMenu($page, $parent_page)
 
         $menuChild = '';
         foreach ($parent->children as $child) {
-            $activeChild = '';
-            if (strtolower($page) === strtolower($child->module_name)) {
-                $activechild = 'active';
+            $activeChild = 'active';
+            if (strtolower($page) != strtolower($child->module_name)) {
+                $activeChild = '';
             }
             if ($child->route == null) {
                 $child->route = '.';
             }
 
-            $menuChild .= '<li class="nav-item"><a class="nav-link ' . $activeChild . '" href="' . url($child->route) . '" ><i class="far fa-circle"></i> ' . $child->module_name . ' </a></li>';
+            $menuChild .= '<li class="nav-item">
+                            <a class="nav-link ' . $activeChild . '" 
+                                href="' . url($child->route) . '" >
+                                    <i class="far fa-circle nav-icon"></i> <p>' . $child->module_name . ' </p></a></li>';
         }
 
         $sub = '<ul class="nav nav-treeview">' . $menuChild . '</ul>';
 
-        $menu .= '<li class="nav-item ' . $activeParent . '">';
-        $menu .= '<a href="#" class="nav-link">' . $iconParent;
+        $menu .= '<li class="nav-item ">';
+        $menu .= '<a href="#" class="nav-link ' . $activeParent . '">' . $iconParent;
         $menu .= '<p>' . $module_name . '<i class="right fas fa-angle-left"></i></p>';
         $menu .= '</a>';
         $menu .= $sub;
@@ -121,6 +105,33 @@ function createMenu($page, $parent_page)
     echo $menu;
 }
 
-// function getUser(){
 
-// }
+function kategoriGetRawData()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/kategoriGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+function subKategoriGetRawData()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/subKategoriGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}

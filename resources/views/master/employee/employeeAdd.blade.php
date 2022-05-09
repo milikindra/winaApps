@@ -60,7 +60,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Nomor Induk Karyawan*</label>
-                                        <input type="text" class="form-control" name="employee_id" id="employee_id" placeholder="Masukkan Nomor Induk Karyawan" required>
+                                        <input type="text" class="form-control numaja" name="employee_id" id="employee_id" placeholder="Masukkan Nomor Induk Karyawan" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -96,17 +96,21 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Nomor Induk Kependudukan</label>
-                                        <input type="text" class="form-control" name="national_id" id="national_id" placeholder="Masukkan Nomor Induk Kependudukan">
+                                        <input type="text" class="form-control numaja" name="national_id" id="national_id" placeholder="Masukkan Nomor Induk Kependudukan">
                                     </div>
                                 </div>
                             </div>
-
                             <hr />
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Provinsi</label>
-                                        <input type="text" class="form-control" name="province" id="province" placeholder="Masukkan Kewarganegaraan">
+                                        <select class="form-control select2" name="province" id="province" onchange="getCity()" required>
+                                            <option selected disabled></option>
+                                            @foreach($province as $i)
+                                            <option value="{{$i->province_id}}">{{$i->province_name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -142,7 +146,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Kode Pos</label>
-                                        <input type="text" class="form-control" name="postal_code" id="postal_code" placeholder="Masukkan Kode Pos">
+                                        <input type="text" class="form-control numaja" name="postal_code" id="postal_code" placeholder="Masukkan Kode Pos">
                                     </div>
                                 </div>
                             </div>
@@ -151,13 +155,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Telp</label>
-                                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="Masukkan Nomor Telpon">
+                                        <input type="tel" class="form-control numaja" name="phone" id="phone" placeholder="Masukkan Nomor Telpon">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Status Pernikahan</label>
-                                        <input type="date" class="form-control" name="marital_status" id="marital_status" placeholder="Masukkan tanggal Lahir">
+                                        <input type="text" class="form-control" name="marital_status" id="marital_status" placeholder="Masukkan tanggal Lahir">
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +177,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>NPWP</label>
-                                        <input type="text" class="form-control" name="tax_id" id="tax_id" placeholder="Masukkan Nomor Pokok Wajib Pajak">
+                                        <input type="text" class="form-control numaja" name="tax_id" id="tax_id" placeholder="Masukkan Nomor Pokok Wajib Pajak">
                                     </div>
                                 </div>
                             </div>
@@ -211,5 +215,10 @@
 </section>
 @endsection
 @push('other-script')
+<script>
+    var rute_city = "{{ URL::to('city/getCity') }}";
+    var url_default = "{{ URL('') }}";
+</script>
+
 <script src="{{ asset('js/master/employee/employee-add.js')}}"></script>
 @endpush

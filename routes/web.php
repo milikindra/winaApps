@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Master\EmployeeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Master\CityController;
+use App\Http\Controllers\Master\InventoryController;
 // Route::get('/', function () {
 //     return view('home');
 // });
@@ -39,6 +41,7 @@ Route::group(
 Route::group(
     ['namespace' => 'Master', 'middleware' => 'authApi'],
     function () {
+        // employee
         Route::get('employee', [EmployeeController::class, 'employeeShow'])->name('employee')->middleware('userMatrix:M03.01');
         Route::get('employee/data/populate/{void}', [EmployeeController::class, 'populate'])->name('employee/data/populate');
         Route::get('employeeAdd', [EmployeeController::class, 'employeeAdd'])->name('employeeAdd')->middleware('userMatrix:M03.02');
@@ -46,5 +49,21 @@ Route::group(
         Route::get('employeeDetail/{id}', [EmployeeController::class, 'employeeDetail'])->name('employeeDetail')->middleware('userMatrix:M03.01');
         Route::get('employeeEdit/{id}', [EmployeeController::class, 'employeeEdit'])->name('employeeEdit')->middleware('userMatrix:M03.03');
         // Route::post('employeeEditSave', [EmployeeController::class, 'employeeEditSave'])->name('employeeEditSave')->middleware('userMatrix:M03.03');
+
+        // province
+
+        // city
+        Route::get('getCity', [CityController::class, 'getCity'])->name('getCity');
+
+        // district
+
+        // village
+
+        // merk
+
+        // inventory
+        Route::get('inventory', [InventoryController::class, 'inventoryShow'])->name('inventory')->middleware('userMatrix:M02.01');
+        Route::get('inventory/data/populate/{void}/{kategori}/{subkategori}', [InventoryController::class, 'populate'])->name('inventory/data/populate');
+        Route::get('inventoryAdd', [InventoryController::class, 'inventoryAdd'])->name('inventoryAdd')->middleware('userMatrix:M02.02');
     }
 );

@@ -91,13 +91,25 @@ class EmployeeController extends Controller
             $menu_name = session('user')->menu_name;
             $user_token = session('user')->api_token;
 
-            $data = [
-                'title' => 'Tambah ' . $menu_name->$module->module_name,
-                'parent_page' => $menu_name->$module->parent_name,
-                'page' => $menu_name->$module->module_name,
-            ];
-
-            return view('master.employee.employeeAdd', $data);
+            $url = Config::get('constants.api_url') . '/getProvinceById';
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => 'all',
+                'http_errors' => false
+            ]);
+            $province = json_decode($response->getBody());
+            if ($province->result == TRUE) {
+                $user = $province->data[0];
+                $data = [
+                    'title' => $menu_name->$module->module_name,
+                    'parent_page' => $menu_name->$module->parent_name,
+                    'page' => $menu_name->$module->module_name,
+                    'province' => $province->data
+                ];
+                return view('master.employee.employeeAdd', $data);
+            } else {
+                return abort(500);
+            }
         } catch (\Exception $e) {
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
 
@@ -203,13 +215,19 @@ class EmployeeController extends Controller
                 'http_errors' => false
             ]);
             $body = json_decode($response->getBody());
-            $data = [
-                'title' => $menu_name->$module->module_name,
-                'parent_page' => $menu_name->$module->parent_name,
-                'page' => $menu_name->$module->module_name,
-                'user' => $body->data[0]
-            ];
-            return View('master.employee.employeeDetail', $data);
+
+            if ($body->result == TRUE) {
+                $user = $body->data[0];
+                $data = [
+                    'title' => $menu_name->$module->module_name,
+                    'parent_page' => $menu_name->$module->parent_name,
+                    'page' => $menu_name->$module->module_name,
+                    'user' => $body->data[0]
+                ];
+                return View('master.employee.employeeDetail', $data);
+            } else {
+                return abort(500);
+            }
         } catch (\Exception $e) {
             Log::debug(print_r($_POST, TRUE));
             return abort(500);
@@ -218,6 +236,39 @@ class EmployeeController extends Controller
 
     public function employeeEdit($id)
     {
-        dd($id);
+        try {
+            $module = $this->module;
+
+            $menu_name = session('user')->menu_name;
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/getEmployeeById';
+            $post_data = [
+                'user_id' => session('user')->user_id
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+
+            if ($body->result == TRUE) {
+                $user = $body->data[0];
+                $data = [
+                    'title' => 'Edit ' . $menu_name->$module->module_name,
+                    'parent_page' => $menu_name->$module->parent_name,
+                    'page' => $menu_name->$module->module_name,
+                    'user' => $body->data[0]
+                ];
+
+                return view('master.employee.employeeEdit', $data);
+            } else {
+                return abort(500);
+            }
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+
+            return abort(500);
+        }
     }
 }

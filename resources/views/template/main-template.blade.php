@@ -20,12 +20,12 @@
   {{-- End Style --}}
 </head>
 
-<body>
+<body class="sidebar-collapse sidebar-mini">
   <div class="wrapper">
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__shake" src="{{ asset('images/apps/app.png')}}" alt="Logo" height="60" width="60" />
-    </div>
+    </div> -->
     @include('template.navbar')
     @include('template.aside')
 

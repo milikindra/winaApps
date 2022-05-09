@@ -33,3 +33,32 @@ var forms = $("form").each(function () {
         },
     });
 });
+$(".select2").select2();
+function getCity() {
+    var val = $("#province").val();
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: rute_city,
+        data: "province_id=" + val,
+        success: function (hasil) {
+            alert(hasil);
+            if (hasil == "0") {
+                $("#jumlah").val("0");
+                $("#jumlah").attr("disabled", true);
+                $("#satuan").attr("disabled", true);
+                $("#tambah").attr("disabled", true);
+            } else {
+                var a = $.parseJSON(hasil);
+                $("#jumlah").attr({
+                    disabled: false,
+                    max: parseInt(a.max),
+                    min: 1,
+                });
+                $("#satuan").attr("disabled", false);
+                $("#satuan").html(a.batch);
+                $("#tambah").attr("disabled", false);
+            }
+        },
+    });
+}
