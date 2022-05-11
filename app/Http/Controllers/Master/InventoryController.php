@@ -29,12 +29,16 @@ class InventoryController extends Controller
             $menu_name = session('user')->menu_name;
             $kategori = kategoriGetRawData();
             $subKategori = subKategoriGetRawData();
+            $merk = merkGetRawData();
+            $lokasi = lokasiGetRawData();
             $data = [
                 'title' => $menu_name->$module->module_name,
                 'parent_page' => $menu_name->$module->parent_name,
                 'page' => $menu_name->$module->module_name,
                 'kategori' => $kategori,
-                'subKategori' => $subKategori
+                'subKategori' => $subKategori,
+                'merk' => $merk,
+                'lokasi' => $lokasi,
             ];
             return View('master.inventory.inventory', $data);
         } catch (\Exception $e) {
@@ -89,8 +93,294 @@ class InventoryController extends Controller
         }
     }
 
-    public function employeeAdd(Request $request)
+    public function inventoryAddSave(Request $request)
     {
-        dd($request);
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/inventoryAddSave';
+            if ($request->input('aktif') == 'on') {
+                $aktif = 'Y';
+            } else {
+                $aktif = '';
+            }
+
+            if ($request->input('konsinyansi') == 'on') {
+                $konsinyansi = 'Y';
+            } else {
+                $konsinyansi = '';
+            }
+            $harga_jual = 0;
+            if ($request->input('harga_jual') != null) {
+                $harga_jual = $request->input('harga_jual');
+            }
+            $post_data = [
+                'api_token' => $user_token,
+                'creator' => session('user')->username,
+                'no_stock' => $request->input('kode'),
+                'nm_stock' => $request->input('nama_barang'),
+                'sat' => $request->input('satuan'),
+                'minstock' => $request->input('stok_minimal'),
+                'kategori' => $request->input('kategori'),
+                'kategori2' => $request->input('subkategori'),
+                'merk' => $request->input('merk'),
+                'hrg_jual' => $request->input('harga_jual'),
+                'keterangan' => $request->input('keterangan'),
+                'aktif' => $aktif,
+                'isKonsi' => $konsinyansi,
+                'kodeBJ' => 'I'
+
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            if (isset($body->result) && $body->result) {
+                $data = [
+                    'result' => true
+                ];
+                Alert::toast($body->message, 'success');
+
+                // return redirect()->back()->with('success', $body->message);
+                return redirect()->back();
+            } else {
+                if (!isset($body->result)) {
+                    $errors = [];
+                    foreach ($body as $field => $msg) {
+                        array_push($errors, $msg[0]);
+                    }
+                    return response()->json([
+                        'result' => FALSE,
+                        'errors' => $errors
+                    ]);
+                } else {
+                    return response()->json([
+                        'result' => FALSE,
+                        'message' => $body->message
+                    ]);
+                }
+                Alert::toast($body->message, 'danger');
+                return redirect()->back();;
+            }
+        } catch (\Exception $e) {
+            // Alert::toast("500", 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+
+            // return abort(500);
+        }
+    }
+
+    public function inventoryEdit(request $request, $inventory)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/inventoryEdit';
+
+            $post_data = [
+                'api_token' => $user_token,
+                'user' => session('user')->username,
+                'no_stock' => $inventory
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            return response()->json([
+                'result' => $body->result,
+                'data' => $body->inv
+            ]);
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return abort(500);
+        }
+    }
+
+    public function inventoryUpdate(Request $request)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/inventoryUpdate';
+            if ($request->input('aktif') == 'on') {
+                $aktif = 'Y';
+            } else {
+                $aktif = '';
+            }
+
+            if ($request->input('konsinyansi') == 'on') {
+                $konsinyansi = 'Y';
+            } else {
+                $konsinyansi = '';
+            }
+            $harga_jual = 0;
+            if ($request->input('harga_jual') != null) {
+                $harga_jual = $request->input('harga_jual');
+            }
+            $post_data = [
+                'api_token' => $user_token,
+                'creator' => session('user')->username,
+                'no_stock' => $request->input('kode'),
+                'nm_stock' => $request->input('nama_barang'),
+                'sat' => $request->input('satuan'),
+                'minstock' => $request->input('stok_minimal'),
+                'kategori' => $request->input('kategori'),
+                'kategori2' => $request->input('subkategori'),
+                'merk' => $request->input('merk'),
+                'hrg_jual' => $request->input('harga_jual'),
+                'keterangan' => $request->input('keterangan'),
+                'aktif' => $aktif,
+                'isKonsi' => $konsinyansi,
+                'kodeBJ' => 'I'
+
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            if (isset($body->result) && $body->result) {
+                $data = [
+                    'result' => true
+                ];
+                Alert::toast($body->message, 'success');
+
+                // return redirect()->back()->with('success', $body->message);
+                return redirect()->back();
+            } else {
+                if (!isset($body->result)) {
+                    $errors = [];
+                    foreach ($body as $field => $msg) {
+                        array_push($errors, $msg[0]);
+                    }
+                    return response()->json([
+                        'result' => FALSE,
+                        'errors' => $errors
+                    ]);
+                } else {
+                    return response()->json([
+                        'result' => FALSE,
+                        'message' => $body->message
+                    ]);
+                }
+                Alert::toast($body->message, 'danger');
+                return redirect()->back();;
+            }
+        } catch (\Exception $e) {
+            // Alert::toast("500", 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+
+            // return abort(500);
+        }
+    }
+
+    public function inventoryDelete(request $request, $inventory)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/inventoryDelete';
+
+            $post_data = [
+                'api_token' => $user_token,
+                'user' => session('user')->username,
+                'no_stock' => $inventory
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            return response()->json([
+                'result' => $body->result,
+                'message' => $body->message
+            ]);
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+
+            return abort(500);
+        }
+    }
+
+    public function kartuStok(Request $request)
+    {
+        try {
+            $module = $this->module;
+            $menu_name = session('user')->menu_name;
+            $lokasiRaw = lokasiGetRawData();
+
+            $user_token = session('user')->api_token;
+
+            $item_transfer = '0';
+            if ($request->has('item_transfer')) {
+                $item_transfer = '1';
+            }
+            $data = [
+                'title' => $menu_name->$module->module_name,
+                'parent_page' => $menu_name->$module->parent_name,
+                'page' => $menu_name->$module->module_name,
+                'kode' => $request->input('kode'),
+                'lokasi_input' => $request->input('lokasi'),
+                'sdate' => $request->input('sdate'),
+                'edate' => $request->input('edate'),
+                'item_transfer' => $item_transfer,
+                'lokasi' => $lokasiRaw,
+            ];
+            return View('master.inventory.kartuStok', $data);
+        } catch (\Exception $e) {
+            Log::debug(print_r($_POST, TRUE));
+            return abort(500);
+        }
+    }
+
+    public function kartuStokPopulate(Request $request, $kode, $sdate, $edate, $lokasi, $item_transfer)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $offset = $request->start;
+            $limit = $request->length;
+            $keyword = $request->search['value'];
+            $order = $request->order[0];
+            $sort = [];
+            foreach ($request->order as $key => $o) {
+                $columnIdx = $o['column'];
+                $sortDir = $o['dir'];
+                $sort[] = [
+                    'column' => $request->columns[$columnIdx]['name'],
+                    'dir' => $sortDir
+                ];
+            }
+            $columns = $request->columns;
+            $draw = $request->draw;
+
+            $post_data = [
+                'search' => $keyword,
+                'sort' => $sort,
+                'current_page' => $offset / $limit + 1,
+                'per_page' => $limit,
+                'user' => session('user')->username,
+                'kode' => $kode,
+                'sdate' => $sdate,
+                'edate' => $edate,
+                'lokasi' => $lokasi,
+                'item_transfer' => $item_transfer,
+            ];
+
+            $url = Config::get('constants.api_url') . '/kartuStok/getList';
+            $client = new Client();
+            $response = $client->request('POST', $url, ['json' => $post_data]);
+            $body = json_decode($response->getBody());
+            $table['draw'] = $draw;
+            $table['recordsTotal'] = $body->total;
+            $table['recordsFiltered'] = $body->recordsFiltered;
+            $table['data'] = $body->kartuStok;
+            return json_encode($table);
+        } catch (\Exception $e) {
+            Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
+
+            return abort(500);
+        }
     }
 }

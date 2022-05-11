@@ -135,3 +135,33 @@ function subKategoriGetRawData()
 
     return $moduleBody;
 }
+
+function merkGetRawData()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/merkGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+function lokasiGetRawData()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/lokasiGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}

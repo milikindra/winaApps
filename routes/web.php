@@ -64,6 +64,11 @@ Route::group(
         // inventory
         Route::get('inventory', [InventoryController::class, 'inventoryShow'])->name('inventory')->middleware('userMatrix:M02.01');
         Route::get('inventory/data/populate/{void}/{kategori}/{subkategori}', [InventoryController::class, 'populate'])->name('inventory/data/populate');
-        Route::get('inventoryAdd', [InventoryController::class, 'inventoryAdd'])->name('inventoryAdd')->middleware('userMatrix:M02.02');
+        Route::post('inventoryAddSave', [InventoryController::class, 'inventoryAddSave'])->name('inventoryAddSave')->middleware('userMatrix:M02.02');
+        Route::get('inventory/data/edit/{inv}', [InventoryController::class, 'inventoryEdit'])->name('inventory/data/edit');
+        Route::post('inventoryUpdate', [InventoryController::class, 'inventoryUpdate'])->name('inventoryUpdate')->middleware('userMatrix:M02.03');
+        Route::get('inventory/data/delete/{inv}', [InventoryController::class, 'inventoryDelete'])->name('inventory/data/delete')->middleware('userMatrix:M02.04');
+        Route::post('kartuStok', [InventoryController::class, 'kartuStok'])->name('kartuStok')->middleware('userMatrix:M02.01');;
+        Route::get('kartuStok/data/populate/{kode}/{sdate}/{edate}/{lokasi}/{item_transfer}', [InventoryController::class, 'kartuStokPopulate'])->name('kartuStok/data/populate');
     }
 );

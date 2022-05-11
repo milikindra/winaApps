@@ -20,7 +20,7 @@
   {{-- End Style --}}
 </head>
 
-<body class="sidebar-collapse sidebar-mini">
+<body class="sidebar-collapse sidebar-mini layout-fixed">
   <div class="wrapper">
     <!-- Preloader -->
     <!-- <div class="preloader flex-column justify-content-center align-items-center">

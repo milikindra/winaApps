@@ -34,20 +34,20 @@
                         <div class="row">
                             <div class="col-12">
                                 <label>Kategori</label>
-                                <select class="form-control" id="kategori">
+                                <select class="form-control selects2" id="kategoriFilter">
                                     <option value="all" selected>All</option>
                                     @foreach($kategori as $kat)
-                                    <option value="{{$kat->kategori}}">{{$kat->kategori}}</option>
+                                    <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-12">
                                 <br />
                                 <label>Sub Kategori</label>
-                                <select class="form-control" id="subkategori">
+                                <select class="form-control selects2" id="subkategoriFilter">
                                     <option value="all" selected>All</option>
-                                    @foreach($subKategori as $subkat)
-                                    <option value="{{$subkat->kode}}">{{$subkat->kode}}</option>
+                                    @foreach($subKategori as $kat)
+                                    <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -75,27 +75,37 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post">
+                        <form method="POST" action="{{ route('kartuStok') }}">
+                            @csrf
                             <div class="row">
                                 <div class="col-12">
-                                    <label>Tanggal Awal</label>
-                                    <input type="date" class="form-control" name="sdate" required>
+                                    <label>Kode</label>
+                                    <input type="text" class="form-control" name="kode" id="kode_kartu_stok" required>
                                 </div>
                                 <div class="col-12">
+                                    <br />
+                                    <label>Tanggal Awal</label>
+                                    <input type="date" class="form-control" name="sdate" value="{{date('Y-m-d', strtotime('-1 year'))}}" required>
+                                </div>
+                                <div class="col-12">
+                                    <br />
                                     <label>Tanggal Akhir</label>
                                     <input type="date" class="form-control" name="edate" value="{{date('Y-m-d')}}" required>
                                 </div>
                                 <div class="col-12">
                                     <br />
                                     <label>Lokasi</label>
-                                    <select class="form-control" id="lokasi">
-                                        <option selected>All</option>
+                                    <select class="form-control selects2" name="lokasi" id="lokasi">
+                                        <option value="all" selected>All</option>
+                                        @foreach($lokasi as $lok)
+                                        <option value="{{$lok->id_lokasi}}">{{$lok->id_lokasi}} - {{$lok->keterangan}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check">
                                         <br />
-                                        <input type="checkbox" class="form-check-input"></input>
+                                        <input type="checkbox" name="item_transfer" value="1" class="form-check-input"></input>
                                         <label>Include item transfer</label>
                                     </div>
                                 </div>
@@ -123,12 +133,15 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{ route('inventoryAdd')}}" class="btn btn-info btn-flat btn-sm">Tambah Inventory</a>
+                        <button type="button" class="btn btn-info btn-flat btn-sm" data-toggle="modal" data-target="#addInventory">
+                            Tambah Inventory
+                        </button>
+
                         <hr />
                         <table id="datatables" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr style="text-align: center;">
-                                    <th>Kode</th>
+                                    <th width="10%">Kode</th>
                                     <th>Nama Inventory</th>
                                     <th>Satuan</th>
                                     <th>Saldo</th>
@@ -137,7 +150,7 @@
                                     <th>Transit</th>
                                     <th>Kategori</th>
                                     <th>Subkategori</th>
-                                    <th>Opsi</th>
+                                    <th width="10%">Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -150,17 +163,216 @@
         </div>
     </div>
 </section>
+<!-- Modal -->
+<div class="modal fade" id="addInventory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <form action="{{ route('inventoryAddSave') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Tambah Inventory</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kode</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="kode" placeholder="Masukkan Kode" required>
+                            </div>
+                            <div class="col-sm-3 form-check">
+                                <input type="checkbox" class="form-check-input" name="aktif" checked></input>
+                                <label>AKTIF</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" class="form-check-input" name="konsinyansi"></input>
+                                <label>KONSINYANSI</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Nama Barang</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="nama_barang" rows="2" placeholder="Masukkan Nama Barang"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Satuan</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="satuan" maxlength="5" placeholder="Masukkan satuan">
+                            </div>
+                            <label class="col-sm-2 col-form-label">Stok Minimal</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" name="stok_minimal" placeholder="Masukkan Stok Minimal" value="0" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kategori</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="kategoriAdd" name="kategori">
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach($kategori as $kat)
+                                    <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Subkategori</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="subkategoriAdd" name="subkategori">
+                                    <option value="">Pilih Subkategori</option>
+                                    @foreach($subKategori as $kat)
+                                    <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Merk</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="merkAdd" name="merk">
+                                    <option value="">Pilih Merk</option>
+                                    @foreach($merk as $merks)
+                                    <option value="{{$merks->Kode}}">{{$merks->Kode}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Harga Jual</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control numaja" name="harga_jual" placeholder="Masukkan Harga Jual">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Keterangan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="keterangan" placeholder="keterangan">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class=" modal-footer justify-content-between">
+                    <button type="button" class="btn btn-flat btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-info">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editInventory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <form action="{{ route('inventoryUpdate') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Edit Inventory</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kode</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="kode" name="kode" placeholder="Masukkan Kode" required>
+                            </div>
+                            <div class="col-sm-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="aktif" name="aktif" checked></input>
+                                <label>AKTIF</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" class="form-check-input" id="konsinyansi" name="konsinyansi"></input>
+                                <label>KONSINYANSI</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Nama Barang</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="nama_barang" name="nama_barang" rows="2" placeholder="Masukkan Nama Barang"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Satuan</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="satuan" name="satuan" maxlength="5" placeholder="Masukkan satuan">
+                            </div>
+                            <label class="col-sm-2 col-form-label">Stok Minimal</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" id="stok_minimal" name="stok_minimal" placeholder="Masukkan Stok Minimal" value="0" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kategori</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="kategoriEdit" name="kategori">
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach($kategori as $kat)
+                                    <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Subkategori</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="subkategoriEdit" name="subkategori">
+                                    <option value="">Pilih Subkategori</option>
+                                    @foreach($subKategori as $kat)
+                                    <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Merk</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="merkEdit" name="merk">
+                                    <option value="">Pilih Merk</option>
+                                    @foreach($merk as $merks)
+                                    <option value="{{$merks->Kode}}">{{$merks->Kode}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Harga Jual</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control numaja" id="harga_jual" name="harga_jual" placeholder="Masukkan Harga Jual">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Keterangan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="keterangan">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class=" modal-footer justify-content-between">
+                    <button type="button" class="btn btn-flat btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-info">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- end modal -->
 @endsection
 @push('other-script')
 <script>
     var rute = "{{ URL::to('inventory/data/populate') }}";
+    var rute_delete = "{{ URL::to('inventory/data/delete') }}";
+    var rute_edit = "{{ URL::to('inventory/data/edit') }}";
     var base_url = "{{ route('inventory') }}";
     var url_default = "{{ URL('') }}";
-    var fullDate = new Date();
-    var twoDigitMonth = ("0" + (fullDate.getMonth() + 1)).slice(-2);
-    var lastDay = new Date(fullDate.getFullYear(), fullDate.getMonth() + 1, 0);
-    var sdate = "01" + "-" + twoDigitMonth + "-" + fullDate.getFullYear();
-    var edate = lastDay.getDate() + "-" + twoDigitMonth + "-" + fullDate.getFullYear();
 </script>
 <script src="{{ asset('js/master/inventory/inventory-table.js')}}"></script>
 @endpush
