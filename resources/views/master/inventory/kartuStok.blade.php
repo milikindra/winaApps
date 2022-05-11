@@ -129,5 +129,5 @@
     var base_url = "{{ route('inventory') }}";
     var url_default = "{{ URL('') }}";
 </script>
-<script src="{{ asset('js/master/inventory/inventorykartuStok-table.js')}}"></script>
+<script src="{{ asset('js/master/inventory/inventoryKartuStok-table.js')}}"></script>
 @endpush
