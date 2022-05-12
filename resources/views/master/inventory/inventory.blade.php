@@ -252,6 +252,51 @@
                                 <input type="text" class="form-control" name="keterangan" placeholder="keterangan">
                             </div>
                         </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-sm-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="isMinus" name="isMinus"></input>
+                                <label>NON INVENTORY</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Sales Account</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="salesAcc" name="salesAcc">
+                                    <option></option>
+                                    @foreach($account as $acc)
+                                    <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-3 form-check">
+                                <input type="checkbox" class="form-check-input" name="PphPs23"></input>
+                                <label>PPh Ps 23</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" class="form-check-input" name="PPhPs21"></input>
+                                <label>PPh Ps 21</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Purchase Account</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="purchaseAcc" name="purchaseAcc">
+                                    <option></option>
+                                    @foreach($account as $acc)
+                                    <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-3 form-check">
+                                <input type="checkbox" class="form-check-input" name="PPhPs4Ayat2"></input>
+                                <label>PPh Ps 4 ayat 2</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" class="form-check-input" name="PPhPs21OP"></input>
+                                <label>PPh Ps 21 OP</label>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -283,11 +328,11 @@
                                 <input type="text" class="form-control" id="kode" name="kode" placeholder="Masukkan Kode" required>
                             </div>
                             <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="aktif" name="aktif" checked></input>
+                                <input type="checkbox" class="form-check-input" id="aktifEdit" name="aktif" checked></input>
                                 <label>AKTIF</label>
                             </div>
                             <div class="col-sm-3">
-                                <input type="checkbox" class="form-check-input" id="konsinyansi" name="konsinyansi"></input>
+                                <input type="checkbox" class="form-check-input" id="konsinyansiEdit" name="konsinyansi"></input>
                                 <label>KONSINYANSI</label>
                             </div>
                         </div>
@@ -350,6 +395,51 @@
                             <label class="col-sm-2 col-form-label">Keterangan</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="keterangan">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-sm-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="isMinusEdit" name="isMinus"></input>
+                                <label>NON INVENTORY</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Sales Account</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="salesAccEdit" name="salesAcc">
+                                    <option></option>
+                                    @foreach($account as $acc)
+                                    <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="PphPs23Edit" name="PphPs23"></input>
+                                <label>PPh Ps 23</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" class="form-check-input" id="PPhPs21Edit" name="PPhPs21"></input>
+                                <label>PPh Ps 21</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Purchase Account</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selects2" id="purchaseAccEdit" name="purchaseAcc">
+                                    <option></option>
+                                    @foreach($account as $acc)
+                                    <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="PPhPs4Ayat2Edit" name="PPhPs4Ayat2"></input>
+                                <label>PPh Ps 4 ayat 2</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" class="form-check-input" id="PPhPs21OPEdit" name="PPhPs21OP"></input>
+                                <label>PPh Ps 21 OP</label>
                             </div>
                         </div>
 

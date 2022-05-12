@@ -16,7 +16,6 @@ $(document).ready(function () {
             serverSide: true,
             responsive: true,
             stateSave: true,
-            deferRender: true,
             lengthMenu: [
                 [100, 250, 500, 1000, -1],
                 [100, 250, 500, 1000, "all"],
@@ -181,16 +180,23 @@ $(document).ready(function () {
             success: function (response) {
                 $("#kode").val(inv);
                 if (response.data.aktif == "Y") {
-                    $("#aktif").prop("checked", true);
+                    $("#aktifEdit").prop("checked", true);
                 } else {
-                    $("#aktif").prop("checked", false);
+                    $("#aktifEdit").prop("checked", false);
                 }
 
                 if (response.data.isKonsi == "Y") {
-                    $("#konsinyansi").prop("checked", true);
+                    $("#konsinyansiEdit").prop("checked", true);
                 } else {
-                    $("#konsinyansi").prop("checked", false);
+                    $("#konsinyansiEdit").prop("checked", false);
                 }
+
+                if (response.data.isMinus == "Y") {
+                    $("#isMinusEdit").prop("checked", true);
+                } else {
+                    $("#isMinusEdit").prop("checked", false);
+                }
+
                 $("#nama_barang").val(response.data.nm_stock);
                 $("#satuan").val(response.data.sat);
                 $("#stok_minimal").val(response.data.minstock);
@@ -206,9 +212,41 @@ $(document).ready(function () {
                     .select2()
                     .val(response.data.merk)
                     .trigger("change");
-                console.log(response.data.merk);
                 $("#harga_jual").val(response.data.hrg_jual);
                 $("#keterangan").val(response.data.keterangan);
+                if (response.data.isMinus == "Y") {
+                    $("#isMinusEdit").prop("checked", true);
+                } else {
+                    $("#isMinusEdit").prop("checked", false);
+                }
+                $("#salesAccEdit")
+                    .select2()
+                    .val(response.data.NO_REK1)
+                    .trigger("change");
+                $("#purchaseAccEdit")
+                    .select2()
+                    .val(response.data.NO_REK2)
+                    .trigger("change");
+                if (response.data.PphPs23 == "Y") {
+                    $("#PphPs23Edit").prop("checked", true);
+                } else {
+                    $("#PphPs23Edit").prop("checked", false);
+                }
+                if (response.data.PPhPs21 == "Y") {
+                    $("#PPhPs21Edit").prop("checked", true);
+                } else {
+                    $("#PPhPs21Edit").prop("checked", false);
+                }
+                if (response.data.PPhPs4Ayat2 == "Y") {
+                    $("#PPhPs4Ayat2Edit").prop("checked", true);
+                } else {
+                    $("#PPhPs4Ayat2Edit").prop("checked", false);
+                }
+                if (response.data.PPhPs21OP == "Y") {
+                    $("#PPhPs21OPEdit").prop("checked", true);
+                } else {
+                    $("#PPhPs21OPEdit").prop("checked", false);
+                }
             },
             error: function (xhr, textStatus, ThrownException) {
                 console.log(
@@ -221,44 +259,31 @@ $(document).ready(function () {
         });
 
         $("#editInventory").modal("show");
-        // Swal.fire({
-        //     title: "Apakah anda yakin",
-        //     text: "Anda tidak bisa mengembalikan data yang sudah di hapus",
-        //     icon: "warning",
-        //     showCancelButton: true,
-        //     confirmButtonColor: "#d33",
-        //     cancelButtonColor: "#FFC107",
-        //     confirmButtonText: "Yakin",
-        //     reverseButtons: true,
-        // }).then((result) => {
-        //     if (result.isConfirmed) {
-        //         $.ajax({
-        //             url: rute_delete + "/" + inv,
-        //             type: "GET",
-        //             dataType: "JSON",
-        //             success: function (response) {
-        //                 if (response.result == false) {
-        //                     Toast.fire({
-        //                         icon: "warning",
-        //                         title: "Data tidak bisa dihapus. Data digunakan di tabel lain.",
-        //                     });
-        //                 } else {
-        //                     Toast.fire({
-        //                         icon: "success",
-        //                         title: "Data berhasil di hapus.",
-        //                     });
-        //                     $("#datatables").DataTable().destroy();
-        //                     dt(voids, kategori, subkategori);
-        //                 }
-        //             },
-        //         });
-        //     }
-        // });
     };
 
     // GET KODE FOR FILTER KARTU STOK
     $("#datatables").on("click", "tbody tr", function () {
         var value = $(this).closest("tr").children("td:first").text();
         $("#kode_kartu_stok").val(value);
+    });
+
+    $("#isMinus").change(function () {
+        if ($(this).is(":checked")) {
+            $("#salesAcc").attr("required", "true");
+            $("#purchaseAcc").attr("required", "true");
+        } else {
+            $("#salesAcc").removeAttr("required");
+            $("#purchaseAcc").removeAttr("required");
+        }
+    });
+
+    $("#isMinusEdit").change(function () {
+        if ($(this).is(":checked")) {
+            $("#salesAccEdit").attr("required", "true");
+            $("#purchaseAccEdit").attr("required", "true");
+        } else {
+            $("#salesAccEdit").removeAttr("required");
+            $("#purchaseAccEdit").removeAttr("required");
+        }
     });
 });
