@@ -1,5 +1,12 @@
 $(".selects2").select2();
 $(document).ready(function () {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+    });
+
     var voids = "1";
     var kategori = "all";
     var subkategori = "all";
@@ -146,6 +153,7 @@ $(document).ready(function () {
                     dataType: "JSON",
                     success: function (response) {
                         if (response.result == false) {
+                            console.log(response.result);
                             Toast.fire({
                                 icon: "warning",
                                 title: "Data tidak bisa dihapus. Data digunakan di tabel lain.",
