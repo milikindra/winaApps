@@ -1,5 +1,7 @@
-$(".selects2").select2();
 $(document).ready(function () {
+    $(".selects2").select2({
+        theme: "bootstrap4",
+    });
     var Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -21,7 +23,33 @@ $(document).ready(function () {
                 [100, 250, 500, 1000, -1],
                 [100, 250, 500, 1000, "all"],
             ],
-            buttons: ["excel", "pdf", "print", "csv"],
+            buttons: [
+                {
+                    extend: "print",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                    },
+                },
+                {
+                    extend: "excel",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                    },
+                },
+                {
+                    extend: "pdf",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                    },
+                },
+                {
+                    extend: "csv",
+                    exportOptions: {
+                        ccolumns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                    },
+                },
+            ],
+
             dom:
                 // "<'row'<'col-sm-12'B>>" +
                 "<'row'<'col-sm-6'lB><'col-sm-6'f>>" +
@@ -91,24 +119,24 @@ $(document).ready(function () {
 
     $("#void").change(function () {
         if ($(this).is(":checked")) {
-            $("#datatables").DataTable().destroy();
+            $("#datatables").DataTable().clear().destroy();
             voids = "0";
             dt(voids, kategori, subkategori);
         } else {
-            $("#datatables").DataTable().destroy();
+            $("#datatables").DataTable().clear().destroy();
             voids = "1";
             dt(voids, kategori, subkategori);
         }
     });
 
     $("#kategoriFilter").change(function () {
-        $("#datatables").DataTable().destroy();
+        $("#datatables").DataTable().clear().destroy();
         kategori = $("#kategoriFilter").val();
         dt(voids, kategori, subkategori);
     });
 
     $("#subkategoriFilter").change(function () {
-        $("#datatables").DataTable().destroy();
+        $("#datatables").DataTable().clear().destroy();
         subkategori = $("#subkategoriFilter").val();
         dt(voids, kategori, subkategori);
     });
@@ -163,7 +191,7 @@ $(document).ready(function () {
                                 icon: "success",
                                 title: "Data berhasil di hapus.",
                             });
-                            $("#datatables").DataTable().destroy();
+                            $("#datatables").DataTable().clear().destroy();
                             dt(voids, kategori, subkategori);
                         }
                     },

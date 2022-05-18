@@ -1,14 +1,17 @@
-$("#lokasi").select2();
+$(".selects2").select2({
+    theme: "bootstrap4",
+});
+
 $(document).ready(function () {
-    var kode = $("#kode_kartu_stok").val();
-    var sdate = $("#sdate").val();
-    var edate = $("#edate").val();
-    var lokasi = $("#lokasi").val();
-    var item_transfer = "N";
-    if ($("#checkbox").is(":checked")) {
-        item_transfer = "Y";
-    }
-    function dt(kode, sdate, edate, lokasi, item_transfer) {
+    function dt() {
+        var kode = $("#kode_kartu_stok").val();
+        var sdate = $("#sdate").val();
+        var edate = $("#edate").val();
+        var lokasi = $("#lokasi").val();
+        var item_transfer = "N";
+        if ($("#item_transfer").is(":checked")) {
+            item_transfer = "Y";
+        }
         var table = $("#datatables").DataTable({
             processing: true,
             serverSide: true,
@@ -146,5 +149,10 @@ $(document).ready(function () {
             order: [[2, "asc"]],
         });
     }
-    dt(kode, sdate, edate, lokasi, item_transfer);
+    dt();
+
+    window.kartuStok = function (element) {
+        $("#datatables").DataTable().clear().destroy();
+        dt();
+    };
 });

@@ -8,6 +8,31 @@ use App\Tree\ModuleNode;
 
 $activeMenu = "";
 
+function hasAccess($code, $wh = null)
+{
+    $user_access = session('user')->user_access;
+    if ($wh == null) {
+        foreach ($user_access as $u) {
+            if ($u->module_function_id == $code)
+                return true;
+        }
+        return false;
+    } else {
+        foreach ($user_access as $u) {
+            if ($u->module_function_id == $code)
+                //TODO: address this security hole, user A dpt akses R01 wh 001, tp dia replace 001 jd 'all' -> bisa
+                if ($wh == "all" || $u->warehouse_id == $wh)
+                    return true;
+        }
+        return false;
+    }
+}
+
+function getIntFromString($input)
+{
+    return ((int)(preg_replace('/[^0-9]+/', '', $input)));
+}
+
 function getVersion() //menghindari caching di js
 {
     return rand(1, 100000);
@@ -170,6 +195,22 @@ function accountGetRawData()
 {
     $user_token = session('user')->api_token;
     $matrixUrl = Config::get('constants.api_url') . '/accountGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+
+function inventoryGetRawData()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/inventoryGetRawData';
     $jsone = array(
         'api_token' => $user_token,
         'user_id' => session('user')->user_id

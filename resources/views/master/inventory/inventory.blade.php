@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <label>Kategori</label>
-                                <select class="form-control selects2" id="kategoriFilter">
+                                <select class="form-control selects2" style="width: 100%;" id="kategoriFilter">
                                     <option value="all" selected>All</option>
                                     @foreach($kategori as $kat)
                                     <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
@@ -44,7 +44,7 @@
                             <div class="col-12">
                                 <br />
                                 <label>Sub Kategori</label>
-                                <select class="form-control selects2" id="subkategoriFilter">
+                                <select class="form-control selects2" style="width: 100%;" id="subkategoriFilter">
                                     <option value="all" selected>All</option>
                                     @foreach($subKategori as $kat)
                                     <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
@@ -95,7 +95,7 @@
                                 <div class="col-12">
                                     <br />
                                     <label>Lokasi</label>
-                                    <select class="form-control selects2" name="lokasi" id="lokasi">
+                                    <select class="form-control selects2" style="width: 100%;" name="lokasi" id="lokasi">
                                         <option value="all" selected>All</option>
                                         @foreach($lokasi as $lok)
                                         <option value="{{$lok->id_lokasi}}">{{$lok->id_lokasi}} - {{$lok->keterangan}}</option>
@@ -138,7 +138,7 @@
                         </button>
 
                         <hr />
-                        <table id="datatables" class="table table-bordered table-striped table-hover">
+                        <table id="datatables" style="width: 100%;" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr style="text-align: center;">
                                     <th width="10%">Kode</th>
@@ -210,7 +210,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Kategori</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="kategoriAdd" name="kategori">
+                                <select class="form-control selects2" style="width: 100%;" id="kategoriAdd" name="kategori">
                                     <option value="">Pilih Kategori</option>
                                     @foreach($kategori as $kat)
                                     <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
@@ -221,7 +221,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Subkategori</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="subkategoriAdd" name="subkategori">
+                                <select class="form-control selects2" style="width: 100%;" id="subkategoriAdd" name="subkategori">
                                     <option value="">Pilih Subkategori</option>
                                     @foreach($subKategori as $kat)
                                     <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
@@ -232,7 +232,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Merk</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="merkAdd" name="merk">
+                                <select class="form-control selects2" style="width: 100%;" id="merkAdd" name="merk">
                                     <option value="">Pilih Merk</option>
                                     @foreach($merk as $merks)
                                     <option value="{{$merks->Kode}}">{{$merks->Kode}}</option>
@@ -262,7 +262,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Sales Account</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="salesAcc" name="salesAcc">
+                                <select class="form-control selects2" style="width: 100%;" id="salesAcc" name="salesAcc">
                                     <option></option>
                                     @foreach($account as $acc)
                                     <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
@@ -281,7 +281,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Purchase Account</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="purchaseAcc" name="purchaseAcc">
+                                <select class="form-control selects2" style="width: 100%;" id="purchaseAcc" name="purchaseAcc">
                                     <option></option>
                                     @foreach($account as $acc)
                                     <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
@@ -355,7 +355,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Kategori</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="kategoriEdit" name="kategori">
+                                <select class="form-control selects2" style="width: 100%;" id="kategoriEdit" name="kategori">
                                     <option value="">Pilih Kategori</option>
                                     @foreach($kategori as $kat)
                                     <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
@@ -366,7 +366,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Subkategori</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="subkategoriEdit" name="subkategori">
+                                <select class="form-control selects2" style="width: 100%;" id="subkategoriEdit" name="subkategori">
                                     <option value="">Pilih Subkategori</option>
                                     @foreach($subKategori as $kat)
                                     <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
@@ -377,7 +377,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Merk</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="merkEdit" name="merk">
+                                <select class="form-control selects2" style="width: 100%;" id="merkEdit" name="merk">
                                     <option value="">Pilih Merk</option>
                                     @foreach($merk as $merks)
                                     <option value="{{$merks->Kode}}">{{$merks->Kode}}</option>
@@ -407,7 +407,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Sales Account</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="salesAccEdit" name="salesAcc">
+                                <select class="form-control selects2" style="width: 100%;" id="salesAccEdit" name="salesAcc">
                                     <option></option>
                                     @foreach($account as $acc)
                                     <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
@@ -426,7 +426,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Purchase Account</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" id="purchaseAccEdit" name="purchaseAcc">
+                                <select class="form-control selects2" style="width: 100%;" id="purchaseAccEdit" name="purchaseAcc">
                                     <option></option>
                                     @foreach($account as $acc)
                                     <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
@@ -464,5 +464,5 @@
     var base_url = "{{ route('inventory') }}";
     var url_default = "{{ URL('') }}";
 </script>
-<script src="{{ asset('js/master/inventory/inventory-table.js')}}"></script>
+<script src="{{ asset('js/master/inventory/inventory-table.js?v1')}}"></script>
 @endpush

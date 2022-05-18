@@ -6,6 +6,8 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Master\EmployeeController;
 use App\Http\Controllers\Master\CityController;
 use App\Http\Controllers\Master\InventoryController;
+use App\Http\Controllers\Transaction\SalesOrderController;
+use App\Http\Controllers\Report\ReportStockController;
 // Route::get('/', function () {
 //     return view('home');
 // });
@@ -70,5 +72,22 @@ Route::group(
         Route::get('inventory/data/delete/{inv}', [InventoryController::class, 'inventoryDelete'])->name('inventory/data/delete')->middleware('userMatrix:M02.04');
         Route::post('kartuStok', [InventoryController::class, 'kartuStok'])->name('kartuStok')->middleware('userMatrix:M02.01');;
         Route::get('kartuStok/data/populate/{kode}/{sdate}/{edate}/{lokasi}/{item_transfer}', [InventoryController::class, 'kartuStokPopulate'])->name('kartuStok/data/populate');
+    }
+);
+
+
+Route::group(
+    ['namespace' => 'Transaction', 'middleware' => 'authApi'],
+    function () {
+        Route::get('salesOrder', [SalesOrderController::class, 'salesOrderShow'])->name('salesOrder')->middleware('userMatrix:T01.01');
+        Route::get('salesOrder/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesOrderController::class, 'populate'])->name('salesOrder/data/populate');
+    }
+);
+
+Route::group(
+    ['namespace' => 'Report', 'middleware' => 'authApi'],
+    function () {
+        Route::get('reportStock', [ReportStockController::class, 'reportStockShow'])->name('reportStock')->middleware('userMatrix:R01.01');
+        Route::post('reportPosisiStock', [ReportStockController::class, 'reportPosisiStock'])->name('reportPosisiStock')->middleware('userMatrix:RX01.01');
     }
 );
