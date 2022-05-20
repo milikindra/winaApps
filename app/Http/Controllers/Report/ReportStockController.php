@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 
 use App\Exports\Report\Stock\ReportPosisiStock;
@@ -88,7 +90,17 @@ class ReportStockController extends Controller
         ];
 
         if ($request->action == 'excel') {
-            return Excel::download(new ReportPosisiStock($data), 'Report Posisi Stock.xlsx');
+            // $spreadsheet = new Spreadsheet();
+            // $sheet = $spreadsheet->getActiveSheet();
+            // $sheet->setCellValue('A1', 'Hello World !');
+
+            // $writer = new Xlsx($spreadsheet);
+            // $writer->save('hello world.xlsx');
+            return Excel::download(new ReportPosisiStock($data), 'Report Posisi Stock.xls', true, ['X-Vapor-Base64-Encode' => 'True']);
+
+            // $contents = Excel::raw(new ReportPosisiStock($data), \Maatwebsite\Excel\Excel::XLSX);
+
+            // return view('report.stock.excel.reportPosisiStock2', $data);
         } else {
             return view('report.stock.print.reportPosisiStock', $data);
         }

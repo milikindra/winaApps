@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use \Maatwebsite\Excel\Sheet;
+
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
@@ -26,7 +27,7 @@ class ReportPosisiStock implements FromView, ShouldAutoSize, WithColumnFormattin
     public function columnFormats(): array
     {
         return [
-            'B' => DataType::TYPE_STRING,
+            'B' => NumberFormat::FORMAT_TEXT,
             'D' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
             'E' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
             'F' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
