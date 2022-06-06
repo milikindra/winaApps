@@ -35,3 +35,4 @@
 
 <!-- customJS -->
 <script src="{{ asset('js/custom.js')}}"></script>
+<script src="{{ asset('dist/js/editable-table.js')}}"></script>

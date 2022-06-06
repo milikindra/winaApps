@@ -20,6 +20,16 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
+                            <div class="col-12"><button type="button" class="btn btn-info  btn-sm btn-block" data-toggle="modal" data-target="#addInventory">
+                                    Tambah Inventory
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
                             <div class="col-12">
                                 <h3 class="card-title">Filter Inventory</h3>
                                 <div class="card-tools float-right">
@@ -52,10 +62,10 @@
                                 </select>
                             </div>
                             <div class="col-12">
-                                <div class="form-check">
+                                <div class="custom-control custom-checkbox">
                                     <br />
-                                    <input type="checkbox" class="form-check-input" id="void"></input>
-                                    <label>Show Qty 0</label>
+                                    <input type="checkbox" class="custom-control-input custom-control-input-info" id="void">
+                                    <label for="void" class="custom-control-label">Show Qty 0</label>
                                 </div>
                             </div>
                         </div>
@@ -103,14 +113,16 @@
                                     </select>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-check">
-                                        <br />
-                                        <input type="checkbox" name="item_transfer" value="1" class="form-check-input"></input>
-                                        <label>Include item transfer</label>
+                                    <div class="col-12">
+                                        <div class="custom-control custom-checkbox">
+                                            <br />
+                                            <input type="checkbox" class="custom-control-input custom-control-input-info" value="1" name="item_transfer" id="item_transfer">
+                                            <label for="item_transfer" class="custom-control-label">Include item transfer</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-flat btn-info float-right">Kartu Stok</button>
+                                    <button type="submit" class="btn btn-info float-right">Kartu Stok</button>
                                 </div>
                             </div>
                         </form>
@@ -133,11 +145,6 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <button type="button" class="btn btn-info btn-flat btn-sm" data-toggle="modal" data-target="#addInventory">
-                            Tambah Inventory
-                        </button>
-
-                        <hr />
                         <table id="datatables" style="width: 100%;" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr style="text-align: center;">
@@ -243,7 +250,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Harga Jual</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control numaja" name="harga_jual" placeholder="Masukkan Harga Jual">
+                                <input type="text" class="form-control numajaDesimal" name="harga_jual" placeholder="Masukkan Harga Jual">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -301,8 +308,8 @@
                     </div>
                 </div>
                 <div class=" modal-footer justify-content-between">
-                    <button type="button" class="btn btn-flat btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-flat btn-info">Save</button>
+                    <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info">Save</button>
                 </div>
             </form>
         </div>
@@ -388,7 +395,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Harga Jual</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control numaja" id="harga_jual" name="harga_jual" placeholder="Masukkan Harga Jual">
+                                <input type="text" class="form-control numajaDesimal" id="harga_jual" name="harga_jual" placeholder="Masukkan Harga Jual">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -446,8 +453,8 @@
                     </div>
                 </div>
                 <div class=" modal-footer justify-content-between">
-                    <button type="button" class="btn btn-flat btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-flat btn-info">Save</button>
+                    <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info">Save</button>
                 </div>
             </form>
         </div>
@@ -464,5 +471,5 @@
     var base_url = "{{ route('inventory') }}";
     var url_default = "{{ URL('') }}";
 </script>
-<script src="{{ asset('js/master/inventory/inventory-table.js?v1')}}"></script>
+<script src="{{ asset('js/master/inventory/inventory-table.js?')}}"></script>
 @endpush

@@ -1,0 +1,93 @@
+label {
+    margin-bottom: 0.1rem;
+}
+/* form-control */
+.form-control:focus {
+    border-color: #17a2b8;
+}
+
+/* select2 */
+.select2-container--default.select2-container--open.select2-container--below
+    .select2-selection--single,
+.select2-container--default.select2-container--open.select2-container--below
+    .select2-selection--multiple {
+    border-color: #17a2b8;
+}
+
+.select2-container--default
+    .select2-results__option--highlighted[aria-selected],
+.select2-container--default
+    .select2-results__option--highlighted[aria-selected]:hover {
+    background-color: #17a2b8 !important;
+}
+/* end select2 */
+
+/* input type date */
+/* input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: #17a2b8;
+} */
+
+/* end input type date */
+/* input[type="date"].form-control,
+input[type="time"].form-control,
+input[type="datetime-local"].form-control,
+input[type="month"].form-control::selection {
+    background: #17a2b8;
+} */
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field::selection {
+    background-color: #17a2b8;
+}
+/* 
+input[type="date"]:focus:not([readonly]),
+input[type="datetime-local"]:focus:not([readonly]),
+input[type="email"]:focus:not([readonly]),
+input[type="number"]:focus:not([readonly]),
+input[type="password"]:focus:not([readonly]),
+input[type="search-md"]:focus:not([readonly]),
+input[type="search"]:focus:not([readonly]),
+input[type="tel"]:focus:not([readonly]),
+input[type="text"]:focus:not([readonly]),
+input[type="time"]:focus:not([readonly]),
+input[type="url"]:focus:not([readonly]),
+textarea.md-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #4285f4;
+    box-shadow: 0 1px 0 0 #17a2b8;
+} */
+/* end form-control */
+
+/* datatables */
+div.dt-buttons {
+    margin-bottom: 1em;
+}
+a.dt-button.dropdown-item.buttons-columnVisibility.active {
+    background: #17a2b8;
+}
+a.dt-button.dropdown-item.buttons-columnVisibility:focus {
+    background: #17a2b8;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+    background: #17a2b8;
+}
+.page-item.active .page-link {
+    background: #17a2b8;
+    border-color: #17a2b8;
+}
+.page-link {
+    color: #17a2b8;
+}
+.page-link:hover {
+    color: #17a2b8;
+}
+
+/* end datatables */
+
+/* tabel */
+.table-modal th,
+.table-modal td {
+    padding: 0.1rem;
+}

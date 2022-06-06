@@ -221,3 +221,116 @@ function inventoryGetRawData()
 
     return $moduleBody;
 }
+
+function customerGetRawData($field, $sort)
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/customerGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id,
+        'field' => $field,
+        'sort' => $sort,
+
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+function customerGetById($id)
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/customerGetById';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id,
+        'id_cust' => $id,
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+function salesGetRawData($field, $sort)
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/salesGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id,
+        'field' => $field,
+        'sort' => $sort,
+
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+function bussinessUnitGetRawData()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/bussinessUnitGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+function deptGetRawData()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/deptGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+function vatGetRawData()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/vatGetRawData';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
+function soGetLastDetail()
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/soGetLastDetail';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+

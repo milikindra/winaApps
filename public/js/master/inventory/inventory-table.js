@@ -29,29 +29,33 @@ $(document).ready(function () {
                     exportOptions: {
                         columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                     },
+                    className: "btn-info",
                 },
                 {
                     extend: "excel",
                     exportOptions: {
                         columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                     },
+                    className: "btn-info",
                 },
                 {
                     extend: "pdf",
                     exportOptions: {
                         columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                     },
+                    className: "btn-info",
                 },
                 {
                     extend: "csv",
                     exportOptions: {
-                        ccolumns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                     },
+                    className: "btn-info",
                 },
+                { extend: "colvis", className: "btn-info" },
             ],
 
             dom:
-                // "<'row'<'col-sm-12'B>>" +
                 "<'row'<'col-sm-6'lB><'col-sm-6'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-6'i><'col-sm-6'p>>",
@@ -145,19 +149,19 @@ $(document).ready(function () {
         var action_view =
             '<button onclick="inventoryEdit(this)" data-inventory="' +
             data +
-            '" title="Edit" class="btn btn-sm btn-flat btn-icon btn-warning" style="margin-right: 5px;"><i class="fa fa-edit"></i></button>';
+            '" title="Edit" class="btn btn-sm btn-icon btn-warning" style="margin-right: 5px;"><i class="fa fa-edit"></i></button>';
 
         action_view +=
             '<button onclick="inventoryDelete(this)" data-inventory="' +
             data +
-            '" title="Hapus" class="btn btn-sm btn-flat btn-icon btn-danger" style="margin-right: 5px;"><i class="fa fa-trash"></i></button>';
+            '" title="Hapus" class="btn btn-sm btn-icon btn-danger" style="margin-right: 5px;"><i class="fa fa-trash"></i></button>';
 
         // action_view +=
         //     '<a href="' +
         //     url_default +
         //     "/inventorySaldoAwal/" +
         //     data +
-        //     '" title="Saldo Awal" class="btn btn-sm btn-flat btn-icon btn-success" style="margin-right: 5px;color:white"><i class="fa fa-dollar-sign"></i></a>';
+        //     '" title="Saldo Awal" class="btn btn-sm btn-icon btn-success" style="margin-right: 5px;color:white"><i class="fa fa-dollar-sign"></i></a>';
 
         return action_view;
     };

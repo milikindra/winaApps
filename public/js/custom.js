@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    $(document).on("select2:open", () => {
+        document
+            .querySelector(".select2-container--open .select2-search__field")
+            .focus();
+    });
+
     $(document).on("keydown", ".input-numerical", function (e) {
         if (
             (e.key >= "0" && e.key <= "9") ||
@@ -23,5 +29,8 @@ $(document).ready(function () {
         )
             return true;
         else return false;
+    });
+    $(function () {
+        $(".datepicker").datepicker({ dateFormat: "dd/mm/yy" }).val();
     });
 });

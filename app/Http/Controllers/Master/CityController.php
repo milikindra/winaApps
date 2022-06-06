@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
-// use App\Models\Employee;
-
-
 class CityCOntroller extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
