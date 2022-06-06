@@ -17,12 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-
 use App\Exports\Report\Stock\ReportPosisiStock;
-
-
-use App\Models\Employee;
-
 
 class ReportStockController extends Controller
 {
@@ -96,11 +91,12 @@ class ReportStockController extends Controller
 
             // $writer = new Xlsx($spreadsheet);
             // $writer->save('hello world.xlsx');
-            return Excel::download(new ReportPosisiStock($data), 'Report Posisi Stock.xls', true, ['X-Vapor-Base64-Encode' => 'True']);
+            // return Excel::download(new ReportPosisiStock($data), 'Report Posisi Stock.xls'); --> laravel excel
 
             // $contents = Excel::raw(new ReportPosisiStock($data), \Maatwebsite\Excel\Excel::XLSX);
 
             // return view('report.stock.excel.reportPosisiStock2', $data);
+            return view('report.stock.excel.reportPosisiStockTmp', $data);
         } else {
             return view('report.stock.print.reportPosisiStock', $data);
         }

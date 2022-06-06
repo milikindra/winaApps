@@ -150,10 +150,14 @@
                             </div>
                         </div>
                         <div class="card-footer ">
-                            <button type="submit" name="action" value="excel" class="btn btn-flat btn-info float-right">Excel</button>
-                            <button type="submit" name="action" value="print" class="btn btn-flat btn-default float-right">Print</button>
+                            <button type="submit" name="action" value="print" class="btn btn-warning float-right"><i class="fa fa-print"></i></button>
+                            <button type="submit" name="action" value="excel" class="btn btn-info float-right"><i class="fas fa-file-excel"></i></button>
                         </div>
                     </form>
+
+                    <table>
+                        
+                    </table>
 
 
                 </div>
@@ -166,5 +170,5 @@
 <script>
     // var rute = " {{ URL::to('kartuStok/data/populate') }}"; var base_url="{{ route('reportStock') }}" ; var url_default="{{ URL('') }}" ; 
 </script>
-<script src="{{ asset('js/report/stock.js')}}"></script>
+<script src="{{ asset('js/report/stock/stock.js')}}"></script>
 @endpush

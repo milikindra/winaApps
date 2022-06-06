@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
-use App\Models\Employee;
-
 
 class EmployeeController extends Controller
 {

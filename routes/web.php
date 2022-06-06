@@ -6,8 +6,10 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Master\EmployeeController;
 use App\Http\Controllers\Master\CityController;
 use App\Http\Controllers\Master\InventoryController;
+use App\Http\Controllers\Master\CustomerController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Report\ReportStockController;
+use App\Http\Controllers\Report\ReportHelperCOntroller;
 // Route::get('/', function () {
 //     return view('home');
 // });
@@ -71,7 +73,10 @@ Route::group(
         Route::post('inventoryUpdate', [InventoryController::class, 'inventoryUpdate'])->name('inventoryUpdate')->middleware('userMatrix:M02.03');
         Route::get('inventory/data/delete/{inv}', [InventoryController::class, 'inventoryDelete'])->name('inventory/data/delete')->middleware('userMatrix:M02.04');
         Route::post('kartuStok', [InventoryController::class, 'kartuStok'])->name('kartuStok')->middleware('userMatrix:M02.01');;
+
+        // customer
         Route::get('kartuStok/data/populate/{kode}/{sdate}/{edate}/{lokasi}/{item_transfer}', [InventoryController::class, 'kartuStokPopulate'])->name('kartuStok/data/populate');
+        Route::get('customerGetById/{id}', [CustomerController::class, 'customerGetById'])->name('customerGetById');
     }
 );
 
@@ -79,15 +84,23 @@ Route::group(
 Route::group(
     ['namespace' => 'Transaction', 'middleware' => 'authApi'],
     function () {
+        // salesOrder
         Route::get('salesOrder', [SalesOrderController::class, 'salesOrderShow'])->name('salesOrder')->middleware('userMatrix:T01.01');
         Route::get('salesOrder/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesOrderController::class, 'populate'])->name('salesOrder/data/populate');
+        Route::get('salesOrderAdd', [SalesOrderController::class, 'salesOrderAdd'])->name('salesOrderAdd')->middleware('userMatrix:T01.02');
+        Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
+        Route::get('salesOrderDetail/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
     }
 );
 
 Route::group(
     ['namespace' => 'Report', 'middleware' => 'authApi'],
     function () {
+        // stock
         Route::get('reportStock', [ReportStockController::class, 'reportStockShow'])->name('reportStock')->middleware('userMatrix:R01.01');
         Route::post('reportPosisiStock', [ReportStockController::class, 'reportPosisiStock'])->name('reportPosisiStock')->middleware('userMatrix:RX01.01');
+
+        // helper
+        Route::get('reportHelper', [ReportHelperController::class, 'reportHelperShow'])->name('reportHelper')->middleware('userMatrix:R02.01');
     }
 );

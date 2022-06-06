@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
-use App\Models\Employee;
-
 
 class InventoryController extends Controller
 {
@@ -87,7 +85,6 @@ class InventoryController extends Controller
             $table['recordsTotal'] = $body->total;
             $table['recordsFiltered'] = $body->recordsFiltered;
             $table['data'] = $body->inventory;
-            Log::debug($body->inventory);
             return json_encode($table);
         } catch (\Exception $e) {
             Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
@@ -163,7 +160,6 @@ class InventoryController extends Controller
                 'PPhPs4Ayat2' => $PPhPs4Ayat2,
                 'PPhPs21OP' => $PPhPs21OP,
                 'kodeBJ' => 'I'
-
             ];
             $client = new Client();
             $response = $client->request('POST', $url, [
@@ -177,7 +173,6 @@ class InventoryController extends Controller
                 ];
                 Alert::toast($body->message, 'success');
 
-                // return redirect()->back()->with('success', $body->message);
                 return redirect()->back();
             } else {
                 if (!isset($body->result)) {
@@ -196,7 +191,7 @@ class InventoryController extends Controller
                     ]);
                 }
                 Alert::toast($body->message, 'danger');
-                return redirect()->back();;
+                return redirect()->back();
             }
         } catch (\Exception $e) {
             // Alert::toast("500", 'danger');
