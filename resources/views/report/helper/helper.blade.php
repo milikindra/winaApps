@@ -1,5 +1,4 @@
 @extends('template.main-template')
-
 @section('main-content')
 <div class="content-header">
     <div class="container-fluid">
@@ -64,7 +63,7 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <form action="{{ route('reportPosisiStock') }}" method="POST" enctype="multipart/form-data" target="_blank" id="appTransmitalReceipt" style="display: none;">
+                    <form action="{{ route('reportTransmitalReceipt') }}" method="POST" enctype="multipart/form-data" target="_blank" id="appTransmitalReceipt" style="display: none;">
                         @csrf
                         <div class="card-body">
                             <div class="container-fluid">
@@ -101,36 +100,56 @@
                                             <th width="5%" style="text-align: center;">No.</th>
                                             <th width="40%" style="text-align: center;">Document</th>
                                             <th style="text-align: center;">Description</th>
+                                            <th width="1%" style=" text-align: center;"></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="trTb-0" class="trTb">
+                                        <tr id="trTb-0-0">
                                             <td style="text-align: right;">1</td>
                                             <td>Original Invoice</td>
+                                            <td>
+                                                <select class="form-control selects2 trOriginialInvoice" name="trOriginialInvoice[]" id="trOriginialInvoice-0" onchange="getSelectFromOriginalInvoice('trOriginialInvoice-0')"></select>
+                                            </td>
                                             <td></td>
                                         </tr>
-                                        <tr>
+                                        <tr id=" trTb-0-1">
                                             <td></td>
                                             <td>E-Faktur</td>
-                                            <td></td>
+                                            <td>
+                                                <input class="form-control" name="trEfaktur[]" id="trEfaktur-0">
+                                            </td>
+                                            <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-1')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
                                         </tr>
-                                        <tr>
+                                        <tr id="trTb-0-2">
                                             <td></td>
                                             <td>Original DN</td>
-                                            <td></td>
+                                            <td>
+                                                <input class="form-control" name="trOriginalDn[]" id="trOriginalDn-0">
+                                            </td>
+                                            <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-2')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
                                         </tr>
-                                        <tr>
+                                        <tr id="trTb-0-3">
                                             <td></td>
                                             <td>Copy Purchase Order</td>
-                                            <td></td>
+                                            <td>
+                                                <input class="form-control" name="trOriginalPo[]" id="trOriginalPo-0">
+                                            </td>
+                                            <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-3')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
                                         </tr>
                                     </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td><a href="javascript:void(0)" onclick="addRowTr('trTb-0')" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a></td>
+                                        </tr>
+                                    </tbody>
+
                                 </table>
-                                <table width="100%">
+                                <table width=" 100%">
                                     <tr>
                                         <td style="width: 100%;">
-                                            <a href="javascript:void(0)" onclick="removeRowTr(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
-                                            <a href="javascript:void(0)" onclick="addRowTr(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
+                                            <a href="javascript:void(0)" onclick="removeRowTrTbody(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
+                                            <a href="javascript:void(0)" onclick="addRowTrTbody(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
                                         </td>
                                     </tr>
                                 </table>
@@ -155,7 +174,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trReceivedName" id="trReceivedName" required>
+                                        <input type="text" class="form-control form-control-border" name="trReceivedName" id="trReceivedName">
                                     </div>
                                     <label class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-4">
@@ -165,7 +184,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Date</label>
                                     <div class="col-sm-4">
-                                        <input type="date" class="form-control form-control-border" name="trReceiveDate" id="trReceiveDate" required>
+                                        <input type="text" class="form-control form-control-border" name="trReceiveDate" id="trReceiveDate">
                                     </div>
                                     <label class="col-sm-2 col-form-label">Date</label>
                                     <div class="col-sm-4">
@@ -175,11 +194,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Signature</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trSignature" id="trSignature" required>
+                                        <input type="text" class="form-control form-control-border" name="trSignature" id="trSignature">
                                     </div>
                                     <label class="col-sm-2 col-form-label">Signature</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trSignature" id="trSignature" required>
+                                        <input type="text" class="form-control form-control-border" name="trSignature" id="trSignature">
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +215,8 @@
 @endsection
 @push('other-script')
 <script>
-    var get_customer = "{{ URL::to('customerGetById') }}";
+    var get_customer = "{{ URL::to('customerGetForSi') }}";
+    var get_efaktur = "{{ URL::to('siGetEfaktur') }}";
 
     var customer = <?= json_encode($customer); ?>;
 </script>

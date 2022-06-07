@@ -14,8 +14,11 @@
 <!-- select2 -->
 <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+<!-- editable select -->
+<link href="{{ asset('plugins/jquery-editable-select/dist/jquery-editable-select.min.css')}}" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ asset('dist/css/adminlte.css')}}" />
 <link rel="stylesheet" href="{{ asset('dist/css/custom.css')}}" />
+
 <style>
 </style>

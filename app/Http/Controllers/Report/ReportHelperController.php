@@ -27,21 +27,36 @@ class ReportHelperCOntroller extends Controller
 
     public function reportHelperShow()
     {
-        // try {
+        try {
+            $module = $this->module;
+            $menu_name = session('user')->menu_name;
+            $customer = customerGetRawData('NM_CUST', 'ASC');
+            $data = [
+                'title' => $menu_name->$module->module_name,
+                'parent_page' => $menu_name->$module->parent_name,
+                'page' => $menu_name->$module->module_name,
+                'customer' => $customer,
+            ];
+
+            return View('report.helper.helper', $data);
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return abort(500);
+        }
+    }
+
+    public function reportTransmitalReceipt(request $request)
+    {
         $module = $this->module;
         $menu_name = session('user')->menu_name;
-        $customer = customerGetRawData('NM_CUST', 'ASC');
+        $user_token = session('user')->api_token;
         $data = [
             'title' => $menu_name->$module->module_name,
-            'parent_page' => $menu_name->$module->parent_name,
-            'page' => $menu_name->$module->module_name,
-            'customer' => $customer,
+            'edate' => Carbon::parse($request->edate)->format('d-m-Y'),
+            // 'lokasi' => $request->lokasi,
+            'nilai' => $request->input(),
         ];
-
-        return View('report.helper.helper', $data);
-        // } catch (\Exception $e) {
-        //     Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-        //     return abort(500);
-        // }
+        // dd($request);
+        return view('report.helper.print.reportTransmitalReceipt', $data);
     }
 }

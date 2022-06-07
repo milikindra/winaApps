@@ -256,6 +256,22 @@ function customerGetById($id)
     return $moduleBody;
 }
 
+function customerGetBySi($id)
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/customerGetForSi';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id,
+        'id_cust' => $id,
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}
+
 function salesGetRawData($field, $sort)
 {
     $user_token = session('user')->api_token;
@@ -334,3 +350,18 @@ function soGetLastDetail()
     return $moduleBody;
 }
 
+function siGetEfaktur($id)
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/siGetEfaktur';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id,
+        'no_bukti2' => $id,
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}

@@ -32,7 +32,8 @@
 <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- Toastr -->
 <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
-
+<!-- editable select -->
+<script src="{{asset('plugins/jquery-editable-select/dist/jquery-editable-select.min.js')}}"></script>
 <!-- customJS -->
 <script src="{{ asset('js/custom.js')}}"></script>
 <script src="{{ asset('dist/js/editable-table.js')}}"></script>

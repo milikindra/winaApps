@@ -27,4 +27,10 @@ class CustomerController extends Controller
         $data = customerGetById($id);
         return json_encode($data);
     }
+
+    public function customerGetForSi(request $request, $id)
+    {
+        $data = customerGetBySi($id);
+        return json_encode($data);
+    }
 }

@@ -8,8 +8,10 @@ use App\Http\Controllers\Master\CityController;
 use App\Http\Controllers\Master\InventoryController;
 use App\Http\Controllers\Master\CustomerController;
 use App\Http\Controllers\Transaction\SalesOrderController;
+use App\Http\Controllers\Transaction\SalesInvoiceController;
 use App\Http\Controllers\Report\ReportStockController;
 use App\Http\Controllers\Report\ReportHelperCOntroller;
+use Illuminate\Support\Facades\URL;
 // Route::get('/', function () {
 //     return view('home');
 // });
@@ -77,6 +79,7 @@ Route::group(
         // customer
         Route::get('kartuStok/data/populate/{kode}/{sdate}/{edate}/{lokasi}/{item_transfer}', [InventoryController::class, 'kartuStokPopulate'])->name('kartuStok/data/populate');
         Route::get('customerGetById/{id}', [CustomerController::class, 'customerGetById'])->name('customerGetById');
+        Route::get('customerGetForSi/{id}', [CustomerController::class, 'customerGetForSi'])->name('customerGetForSi');
     }
 );
 
@@ -90,6 +93,10 @@ Route::group(
         Route::get('salesOrderAdd', [SalesOrderController::class, 'salesOrderAdd'])->name('salesOrderAdd')->middleware('userMatrix:T01.02');
         Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
         Route::get('salesOrderDetail/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
+
+        // salesInvoice
+
+        Route::get('siGetEfaktur/{id}', [SalesInvoiceController::class, 'siGetEfaktur'])->name('siGetEfaktur');
     }
 );
 
@@ -102,5 +109,6 @@ Route::group(
 
         // helper
         Route::get('reportHelper', [ReportHelperController::class, 'reportHelperShow'])->name('reportHelper')->middleware('userMatrix:R02.01');
+        Route::post('reportTransmitalReceipt', [ReportHelperController::class, 'reportTransmitalReceipt'])->name('reportTransmitalReceipt')->middleware('userMatrix:RY01.01');
     }
 );
