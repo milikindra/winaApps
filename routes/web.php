@@ -10,7 +10,7 @@ use App\Http\Controllers\Master\CustomerController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Transaction\SalesInvoiceController;
 use App\Http\Controllers\Report\ReportStockController;
-use App\Http\Controllers\Report\ReportHelperCOntroller;
+use App\Http\Controllers\Report\ReportHelperController;
 use Illuminate\Support\Facades\URL;
 // Route::get('/', function () {
 //     return view('home');
