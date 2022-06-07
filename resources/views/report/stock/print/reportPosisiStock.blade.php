@@ -116,7 +116,8 @@
                     <th style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;" width="10%">Qty</th>
                     <th style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;" width="10%">Total</th>
                     <th style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;" width="10%">Harga Rata-rata</th>
-                </tr>
+		    <th style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;" width="10%">Status Konsinyasi</th>
+		</tr>
             </thead>
             <tbody>
                 <?php
@@ -132,13 +133,15 @@
                         <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:center;">{{$posisi->sat}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($posisi->qty,2) }}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($posisi->jml_pok,2) }}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($posisi->rata,2) }}</td>
+			<td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($posisi->rata,2) }}</td>
+			<td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:center;">{{$posisi->isKonsi }}</td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;" colspan="4"><b>Total</b></td>
                     <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($total,2) }}</td>
-                    <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($total_rata,2) }}</td>
+		    <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($total_rata,2) }}</td>
+		    <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;"></td>
                 </tr>
             </tbody>
         </table>
