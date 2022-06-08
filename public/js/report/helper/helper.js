@@ -78,7 +78,6 @@ function getSelectFromOriginalInvoice(id) {
         type: "GET",
         dataType: "JSON",
         success: function (response) {
-            console.log(response);
             $('#' + id + '-1-1').val(response['si'][0]['no_pajak']);
             $('#' + id + '-2-1').val(response['si'][0]['DO_id']);
             $('#' + id + '-3-1').val(response['so'][0]['PO_CUST']);
@@ -104,19 +103,19 @@ window.addRowTrTbody = function (element) {
     str += '<td></td>';
     str += '<td><input type="text" class="form-control" name="row[' + indexs + '][1][0]" id="row-' + indexs + '-1-0" value = "E-Faktur"></td>';
     str += '<td> <input class="form-control"name = "row[' + indexs + '][1][1]"id = "row-' + indexs + '-1-1"></td>';
-    str += '<td><a href=" javascript:void(0)" onclick="removeRowTr("trTb-' + indexs + '-1")" class="btn btn-xs btn-warning float-right " title="remove row "><i class="fa fa-minus"></i></a></td>';
+    str += '<td><a href=" javascript:void(0)" onclick="removeRowTr(&apos;trTb-' + indexs + '-1&apos;)" class="btn btn-xs btn-warning float-right " title="remove row "><i class="fa fa-minus"></i></a></td>';
     str += '</tr>';
     str += '<tr id="trTb-' + indexs + '-2">';
     str += '<td></td>';
     str += '<td><input type="text" class="form-control" name="row[' + indexs + '][2][0]" id="row-' + indexs + '-2-0" value="Original DN"> </td>';
     str += '<td><input class="form-control" name="row[' + indexs + '][2][1]" id="row-' + indexs + '-2-1"></td>';
-    str += '<td><a href=" javascript:void(0)" onclick="removeRowTr("trTb-' + indexs + '-2")" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>';
+    str += '<td><a href=" javascript:void(0)" onclick="removeRowTr(&apos;trTb-' + indexs + '-2&apos;)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>';
     str += '</tr>';
     str += '<tr id="trTb-' + indexs + '-3">';
     str += '<td></td>';
     str += '<td><input type="text" class="form-control" name="row[' + indexs + '][3][0]" id="row-' + indexs + '-3-0" value = "Copy Purchase Order" > </td>';
     str += '<td> <input class = "form-control" name="row[' + indexs + '][3][1]" id = "row-' + indexs + '-3-1" ></td>';
-    str += '<td><a href=" javascript:void(0)" onclick="removeRowTr("trTb-' + indexs + '-3")" class="btn btn-xs btn-warning float-right" title="remove row "><i class="fa fa-minus"></i></a></td>';
+    str += '<td><a href=" javascript:void(0)" onclick="removeRowTr(&apos;trTb-' + indexs + '-3&apos;)" class="btn btn-xs btn-warning float-right" title="remove row "><i class="fa fa-minus"></i></a></td>';
     str += '</tr>';
     str += '</tbody>';
     str += '<tbody><tr><td colspan="3"></td><td><a href="javascript:void(0)" onclick ="addRowTr(&apos;trTb-' + indexs + '&apos;)" class="btn btn-xs btn-info float-right" title="add row"> <i class="fa fa-plus"></i></a></td></tr></tbody>';
@@ -145,7 +144,6 @@ window.removeRowTrTbody = function (element) {
     $(".tr tbody:last").remove();
 };
 
-
 function removeRowTr(id) {
     $('#' + id).remove()
 }
@@ -153,10 +151,7 @@ function removeRowTr(id) {
 function addRowTr(id) {
     var no = $('#' + id + ' tr').length;
     var trId = id + '-' + no;
-
     var tbody = ($('.tr .trTb').length) - 1;
-    console.log(tbody);
-
     var str = '';
     str += '<tr id="' + trId + '">';
     str += '<td></td>';
