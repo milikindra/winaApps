@@ -20,9 +20,7 @@ class SalesInvoiceController extends Controller
     private $module = "T01";
     public function siGetEfaktur(request $request, $id)
     {
-        Log::debug("A");
-        Log::debug($request);
-        Log::debug($id);
+
         $data = siGetEfaktur($id);
         return json_encode($data);
     }
