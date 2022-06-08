@@ -185,8 +185,8 @@
             <div class="form-group row justify-content-md-center">
                 <div class="col-sm-8 form-inline">
                     <input class="custom-control-input custom-control-input-dark custom-control-input-outline" type="checkbox" id="trEmailCb">
-		    <label for="trEmailCb" class="custom-control-label">Email to  </label>
-		    <label>: {{$val['trEmailCb']}}</label>
+                    <label for="trEmailCb" class="custom-control-label">Email to </label>
+                    <label>: {{$val['trEmailCb']}}</label>
                 </div>
             </div>
             <div class="form-group row">
@@ -229,6 +229,6 @@
 
 </html>
 <script type="text/javascript">
-    // window.onafterprint = window.close;
-    // window.print();
+    window.onafterprint = window.close;
+    window.print();
 </script>
