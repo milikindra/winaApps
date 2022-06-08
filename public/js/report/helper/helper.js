@@ -78,7 +78,7 @@ function getSelectFromOriginalInvoice(id) {
         dataType: "JSON",
         success: function (response) {
             $('#trEfaktur-' + idx).val(response['si'][0]['no_pajak']);
-            $('#trOriginalDn-' + idx).val(response['si'][0]['no_sjx']);
+            $('#trOriginalDn-' + idx).val(response['si'][0]['DO_id']);
             $('#trOriginalPo-' + idx).val(response['so'][0]['PO_CUST']);
 
         },
