@@ -47,14 +47,14 @@ class ReportHelperCOntroller extends Controller
 
     public function reportTransmitalReceipt(request $request)
     {
+        // dd($request);
         $module = $this->module;
         $menu_name = session('user')->menu_name;
         $user_token = session('user')->api_token;
         $data = [
             'title' => $menu_name->$module->module_name,
             'edate' => Carbon::parse($request->edate)->format('d-m-Y'),
-            // 'lokasi' => $request->lokasi,
-            'nilai' => $request->input(),
+            'val' => $request->input(),
         ];
         // dd($request);
         return view('report.helper.print.reportTransmitalReceipt', $data);

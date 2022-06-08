@@ -96,7 +96,7 @@ class ReportStockController extends Controller
             // $contents = Excel::raw(new ReportPosisiStock($data), \Maatwebsite\Excel\Excel::XLSX);
 
             // return view('report.stock.excel.reportPosisiStock2', $data);
-            return view('report.stock.excel.reportPosisiStockTmp', $data);
+            return view('report.stock.excel.reportPosisiStock2', $data);
         } else {
             return view('report.stock.print.reportPosisiStock', $data);
         }

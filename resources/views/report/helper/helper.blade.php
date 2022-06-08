@@ -106,33 +106,35 @@
                                     <tbody id="trTb-0" class="trTb">
                                         <tr id="trTb-0-0">
                                             <td style="text-align: right;">1</td>
-                                            <td>Original Invoice</td>
                                             <td>
-                                                <select class="form-control selects2 trOriginialInvoice" name="trOriginialInvoice[]" id="trOriginialInvoice-0" onchange="getSelectFromOriginalInvoice('trOriginialInvoice-0')"></select>
+                                                <input type="text" class="form-control" name="row[0][0][0]" id="row-0-0-0" value="Original Invoice">
+                                            </td>
+                                            <td>
+                                                <select class="form-control selects2 trOriginialInvoice" name="row[0][0][0]" id="row-0-0-1" onchange="getSelectFromOriginalInvoice('row-0')"></select>
                                             </td>
                                             <td></td>
                                         </tr>
-                                        <tr id=" trTb-0-1">
+                                        <tr id="trTb-0-1">
                                             <td></td>
-                                            <td>E-Faktur</td>
+                                            <td><input type="text" class="form-control" name="row[0][1][0]" id="row-0-1-0" value="E-Faktur"></td>
                                             <td>
-                                                <input class="form-control" name="trEfaktur[]" id="trEfaktur-0">
+                                                <input class="form-control" name="row[0][1][1]" id="row-0-1-1">
                                             </td>
                                             <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-1')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
                                         </tr>
                                         <tr id="trTb-0-2">
                                             <td></td>
-                                            <td>Original DN</td>
+                                            <td><input type="text" class="form-control" name="row[0][2][0]" id="row-0-2-0" value="Original DN"></td>
                                             <td>
-                                                <input class="form-control" name="trOriginalDn[]" id="trOriginalDn-0">
+                                                <input class="form-control" name="row[0][2][1]" id="row-0-2-1">
                                             </td>
                                             <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-2')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
                                         </tr>
                                         <tr id="trTb-0-3">
                                             <td></td>
-                                            <td>Copy Purchase Order</td>
+                                            <td><input type="text" class="form-control" name="row[0][3][0]" id="row-0-3-0" value="Copy Purchase Order"></td>
                                             <td>
-                                                <input class="form-control" name="trOriginalPo[]" id="trOriginalPo-0">
+                                                <input class="form-control" name="row[0][3][1]" id="row-0-3-1">
                                             </td>
                                             <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-3')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
                                         </tr>

@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header("Content-Disposition: attachment; filename=Data Posisi Stock.xlsx");
+header("Content-Disposition: attachment; filename=Report Posisi Stock.xls");
 ?>
 <table>
     <thead>
@@ -46,12 +46,15 @@ header("Content-Disposition: attachment; filename=Data Posisi Stock.xlsx");
                 <td style="border: 1px solid #000000;">{{$posisi->qty}}</td>
                 <td style="border: 1px solid #000000;">{{$posisi->jml_pok}}</td>
                 <td style="border: 1px solid #000000;">{{$posisi->rata}}</td>
+                <td style="border: 1px solid #000000;">{{$posisi->isKonsi}}</td>
             </tr>
         <?php } ?>
         <tr>
             <td style="border: 1px solid #000000;" colspan="4"><b>Total</b></td>
             <td style="border: 1px solid #000000;">{{$total}}</td>
             <td style="border: 1px solid #000000;">{{$total_rata}}</td>
+            <td style="border: 1px solid #000000;"></td>
+        </tr>
         </tr>
     </tbody>
 </table>

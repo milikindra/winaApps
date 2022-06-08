@@ -121,19 +121,19 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Customer</label>
                 <div class="col-sm-4">
-                    <label>: {{$nilai['trNmCustomer']}}</label>
+                    <label>: {{$val['trNmCustomer']}}</label>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-4">
-                    <label>: {{$nilai['trAddress']}}</label>
+                    <label>: {{$val['trAddress']}}</label>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">To</label>
                 <div class="col-sm-4">
-                    <label>: {{$nilai['trTo']}}</label>
+                    <label>: {{$val['trTo']}}</label>
                 </div>
             </div>
         </div>
@@ -147,30 +147,24 @@
                     </tr>
                 </thead>
                 <?php
-                $count = count($nilai['trOriginialInvoice']);
-                // dd($count);
-                for ($i = 0; $i < $count; $i++) { ?>
+                $countBlock = count($val['row']);
+                for ($i = 0; $i < $countBlock; $i++) { ?>
                     <tbody style=" border: 1px solid #000000;">
                         <tr>
                             <td style="text-align: right;">{{$i+1}}</td>
                             <td style="border-left:1px solid #000">Original Invoice</td>
-                            <td style="border-left:1px solid #000"> {{$nilai['trOriginialInvoice'][$i]}}</td>
+                            <td style="border-left:1px solid #000"> {{$val['row'][$i][0][0]}}</td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border-left:1px solid #000">E-Faktur</td>
-                            <td style="border-left:1px solid #000"> {{$nilai['trEfaktur'][$i]}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border-left:1px solid #000">Original DN</td>
-                            <td style="border-left:1px solid #000"> {{$nilai['trOriginalDn'][$i]}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="border-left:1px solid #000">Copy Purchase Order</td>
-                            <td style="border-left:1px solid #000"> {{$nilai['trOriginalPo'][$i]}}</td>
-                        </tr>
+                        <?php
+                        $countRow = count($val['row'][$i]);
+                        for ($j = 1; $j < $countRow; $j++) {
+                        ?>
+                            <tr>
+                                <td></td>
+                                <td style="border-left:1px solid #000">{{$val['row'][$i][$j][0]}}</td>
+                                <td style="border-left:1px solid #000">{{$val['row'][$i][$j][1]}}</td>
+                            </tr>
+                        <?php } ?>
                         <tr style="height: 1px;" height="1px">
                             <td colspan="3" style="border-bottom: 1px solid #000; padding:0px"></td>
                         </tr>
@@ -202,7 +196,7 @@
                 </div>
                 <label class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-border" name="trSenderdName" id="trSenderdName" value="{{$nilai['trSenderdName']}}" readonly>
+                    <input type="text" class="form-control form-control-border" name="trSenderdName" id="trSenderdName" value="{{$val['trSenderdName']}}" readonly>
                 </div>
             </div>
             <div class="form-group row">
@@ -212,7 +206,7 @@
                 </div>
                 <label class="col-sm-2 col-form-label">Date</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control form-control-border" name="trSenderdName" id="trSenderdName" value="{{date_format(date_create($nilai['trReceiveDate']),'Y-m-d')}}" readonly>
+                    <input type="date" class="form-control form-control-border" name="trSenderdName" id="trSenderdName" value="{{date_format(date_create($val['trReceiveDate']),'Y-m-d')}}" readonly>
                 </div>
             </div>
             <div class="form-group row">
@@ -226,15 +220,12 @@
                 </div>
             </div>
         </div>
-        <!-- ssssssssss -->
     </div>
-    <!-- ssssssssssssssssss -->
-    <!-- {{dd($nilai)}} -->
 
 </body>
 
 </html>
 <script type="text/javascript">
-    // window.onafterprint = window.close;
-    // window.print();
+    window.onafterprint = window.close;
+    window.print();
 </script>
