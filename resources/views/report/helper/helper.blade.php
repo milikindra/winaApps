@@ -94,6 +94,8 @@
                                 </div>
                             </div>
                             <div class="container-fluid">
+                                <datalist id="si">
+                                </datalist>
                                 <table class="table table-bordered tr" id="tr" style="width: 100%;">
                                     <thead>
                                         <tr>
@@ -103,52 +105,6 @@
                                             <th width="1%" style=" text-align: center;"></th>
                                         </tr>
                                     </thead>
-                                    <tbody id="trTb-0" class="trTb">
-                                        <tr id="trTb-0-0">
-                                            <td style="text-align: right;">1</td>
-                                            <td>
-                                                <input type="text" class="form-control" name="row[0][0][0]" id="row-0-0-0" value="Original Invoice">
-                                            </td>
-                                            <td>
-                                                <input class="form-control" list="si" name="row[0][0][1]" id="row-0-0-1" onchange="getSelectFromOriginalInvoice('row-0')">
-                                                <datalist id="si">
-                                                </datalist>
-                                                <!-- <select class="form-control eds trOriginialInvoice" name="row[0][0][1]" id="row-0-0-1" onchange="getSelectFromOriginalInvoice('row-0')"></select> -->
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                        <tr id="trTb-0-1">
-                                            <td></td>
-                                            <td><input type="text" class="form-control" name="row[0][1][0]" id="row-0-1-0" value="E-Faktur"></td>
-                                            <td>
-                                                <input class="form-control" name="row[0][1][1]" id="row-0-1-1">
-                                            </td>
-                                            <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-1')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
-                                        </tr>
-                                        <tr id="trTb-0-2">
-                                            <td></td>
-                                            <td><input type="text" class="form-control" name="row[0][2][0]" id="row-0-2-0" value="Original DN"></td>
-                                            <td>
-                                                <input class="form-control" name="row[0][2][1]" id="row-0-2-1">
-                                            </td>
-                                            <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-2')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
-                                        </tr>
-                                        <tr id="trTb-0-3">
-                                            <td></td>
-                                            <td><input type="text" class="form-control" name="row[0][3][0]" id="row-0-3-0" value="Copy Purchase Order"></td>
-                                            <td>
-                                                <input class="form-control" name="row[0][3][1]" id="row-0-3-1">
-                                            </td>
-                                            <td><a href=" javascript:void(0)" onclick="removeRowTr('trTb-0-3')" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="3"></td>
-                                            <td><a href="javascript:void(0)" onclick="addRowTr('trTb-0')" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a></td>
-                                        </tr>
-                                    </tbody>
-
                                 </table>
                                 <table width=" 100%">
                                     <tr>
