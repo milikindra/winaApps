@@ -147,24 +147,27 @@
                     </tr>
                 </thead>
                 <?php
-                $countBlock = count($val['row']);
-                for ($i = 0; $i < $countBlock; $i++) { ?>
+                $no = 0;
+                foreach ($val['row'] as $block) {
+                    $no++;
+                ?>
                     <tbody style=" border: 1px solid #000000;">
                         <tr>
-                            <td style="text-align: right;">{{$i+1}}</td>
-                            <td style="border-left:1px solid #000">Original Invoice</td>
-                            <td style="border-left:1px solid #000"> {{$val['row'][$i][0][0]}}</td>
+                            <td style="text-align: right;">{{$no}}</td>
+                            <td style="border-left:1px solid #000"> {{$block[0][0]}}</td>
+                            <td style="border-left:1px solid #000"> {{$block[0][1]}}</td>
                         </tr>
+
                         <?php
-                        $countRow = count($val['row'][$i]);
-                        for ($j = 1; $j < $countRow; $j++) {
+                        foreach (array_slice($block, 1) as $row) {
                         ?>
                             <tr>
                                 <td></td>
-                                <td style="border-left:1px solid #000">{{$val['row'][$i][$j][0]}}</td>
-                                <td style="border-left:1px solid #000">{{$val['row'][$i][$j][1]}}</td>
+                                <td style="border-left:1px solid #000">{{$row[0]}}</td>
+                                <td style="border-left:1px solid #000">{{$row[1]}}</td>
                             </tr>
                         <?php } ?>
+
                         <tr style="height: 1px;" height="1px">
                             <td colspan="3" style="border-bottom: 1px solid #000; padding:0px"></td>
                         </tr>
@@ -226,6 +229,6 @@
 
 </html>
 <script type="text/javascript">
-    window.onafterprint = window.close;
-    window.print();
+    // window.onafterprint = window.close;
+    // window.print();
 </script>

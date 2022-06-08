@@ -110,7 +110,7 @@
                                                 <input type="text" class="form-control" name="row[0][0][0]" id="row-0-0-0" value="Original Invoice">
                                             </td>
                                             <td>
-                                                <select class="form-control selects2 trOriginialInvoice" name="row[0][0][0]" id="row-0-0-1" onchange="getSelectFromOriginalInvoice('row-0')"></select>
+                                                <select class="form-control selects2 trOriginialInvoice" name="row[0][0][1]" id="row-0-0-1" onchange="getSelectFromOriginalInvoice('row-0')"></select>
                                             </td>
                                             <td></td>
                                         </tr>
