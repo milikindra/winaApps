@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    $(".selects2").select2({
-        theme: "bootstrap4",
-    });
+    $(".selects2").select2();
     var Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -12,6 +10,7 @@ $(document).ready(function () {
     var voids = "1";
     var kategori = "all";
     var subkategori = "all";
+
     function dt(voids, kategori, subkategori) {
         var table = $("#datatables").DataTable({
             processing: true,
@@ -23,8 +22,7 @@ $(document).ready(function () {
                 [100, 250, 500, 1000, -1],
                 [100, 250, 500, 1000, "all"],
             ],
-            buttons: [
-                {
+            buttons: [{
                     extend: "print",
                     exportOptions: {
                         columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
@@ -52,11 +50,13 @@ $(document).ready(function () {
                     },
                     className: "btn-info",
                 },
-                { extend: "colvis", className: "btn-info" },
+                {
+                    extend: "colvis",
+                    className: "btn-info"
+                },
             ],
 
-            dom:
-                "<'row'<'col-sm-6'lB><'col-sm-6'f>>" +
+            dom: "<'row'<'col-sm-6'lB><'col-sm-6'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-6'i><'col-sm-6'p>>",
             drawCallback: function (settings, json) {},
@@ -65,8 +65,7 @@ $(document).ready(function () {
                 type: "GET",
                 dataType: "JSON",
             },
-            columns: [
-                {
+            columns: [{
                     data: "no_stock",
                     name: "no_stock",
                 },
@@ -116,7 +115,9 @@ $(document).ready(function () {
                     className: "text-center",
                 },
             ],
-            order: [[0, "asc"]],
+            order: [
+                [0, "asc"]
+            ],
         });
     }
     dt(voids, kategori, subkategori);
@@ -284,9 +285,9 @@ $(document).ready(function () {
             error: function (xhr, textStatus, ThrownException) {
                 console.log(
                     "Error loading data. Exception: " +
-                        ThrownException +
-                        "\n" +
-                        textStatus
+                    ThrownException +
+                    "\n" +
+                    textStatus
                 );
             },
         });

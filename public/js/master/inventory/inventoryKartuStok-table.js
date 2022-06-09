@@ -1,6 +1,4 @@
-$(".selects2").select2({
-    theme: "bootstrap4",
-});
+$(".selects2").select2();
 
 $(document).ready(function () {
     function dt() {
@@ -23,8 +21,7 @@ $(document).ready(function () {
 
             drawCallback: function (settings, json) {},
             ajax: {
-                url:
-                    rute +
+                url: rute +
                     "/" +
                     kode +
                     "/" +
@@ -41,8 +38,7 @@ $(document).ready(function () {
                     alert("Terjadi kesalahan pada server");
                 },
             },
-            columns: [
-                {
+            columns: [{
                     data: "trx",
                     name: "trx",
                     render: function (data, type, row) {
@@ -146,7 +142,9 @@ $(document).ready(function () {
                     orderable: false,
                 },
             ],
-            order: [[2, "asc"]],
+            order: [
+                [2, "asc"]
+            ],
         });
     }
     dt();
