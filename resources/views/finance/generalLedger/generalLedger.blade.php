@@ -48,22 +48,29 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <label>Tanggal Awal</label>
+                                <label>Start Date</label>
                                 <input type="date" class="form-control" id="sdate" name="sdate" min="2000-01-01" value="{{date('Y-m-01')}}">
                             </div>
                             <div class="col-12">
-                                <label>Tanggal Akhir</label>
+                                <label>End Date</label>
                                 <input type="date" class="form-control" id="edate" name="edate" value="{{date('Y-m-d')}}">
                                 <br />
                             </div>
                             <div class="col-12 filterGlHead">
                             </div>
                             <div class="col-12">
-                                <label>Nomor SO</label>
-                                <input type="text" class="form-control" id="so_id" name="so_id" onclick="modalSo()">
+                                <label>SO</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="so_id" name="so_id">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-info btn-flat" onclick="modalSo()"><i class="fas fa-search"></i></button>
+                                    </span>
+                                </div>
+
+
                             </div>
                             <div class="col-12">
-                                <label>Karyawan</label>
+                                <label>Employee</label>
                                 <select class="form-control selects2" id="id_employee" name="id_employee">
                                     <option selected disabled></option>
                                     @foreach($employee as $e)
@@ -108,22 +115,19 @@
                         <table class="table tabelAccountHistory" id="tabelAccountHistory" style="width: 100%;">
                             <thead>
                                 <tr style="text-align: center;">
-                                    <th>Flag Transaction</th>
-                                    <th>No. Rekening</th>
-                                    <th>Nama Rekening</th>
-                                    <th>Nomor</th>
-                                    <th>Tanggal</th>
-                                    <th>No. SO</th>
-                                    <th>Id Karyawan</th>
-                                    <th>No. Pajak</th>
-                                    <th>Tag</th>
-                                    <th>Uraian</th>
-                                    <th>Nilai Debet</th>
-                                    <th>Debet Valas</th>
-                                    <th>Nilai Kredit</th>
-                                    <th>Kredit Valas</th>
-                                    <th>Saldo</th>
-                                    <th>Saldo Valas</th>
+                                    <th>No. Account</th>
+                                    <th>Account Name</th>
+                                    <th>Transaction Number</th>
+                                    <th>Date</th>
+                                    <th>SO</th>
+                                    <th>Employee</th>
+                                    <th>Description</th>
+                                    <th>Debet (IDR)</th>
+                                    <th>Credit (IDR)</th>
+                                    <th>Saldo (IDR)</th>
+                                    <th>Debet (Valas)</th>
+                                    <th>Credit (Valas)</th>
+                                    <th>Saldo (Valas)</th>
                                     <th>Dept</th>
                                 </tr>
                             </thead>

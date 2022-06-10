@@ -3,7 +3,7 @@ var get_accountGl = "generalLedger/data/populateAccount";
 function filterGlHead() {
     var str = '';
     str += '<table class="table gl_account table-modal" id="gl_account" style="width: 100%;">';
-    str += '<thead><tr><th style="width:30%">Kode</th><th style="width:70%">Akun</th></tr></thead>';
+    str += '<thead><tr><th style="width:30%">Account</th><th style="width:70%">Name</th></tr></thead>';
     str += '<tbody class="filterGlBody"></tbody>';
     str += '</table>';
     // str += '<table width="100%"><tr><td style="width: 50%;">';

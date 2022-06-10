@@ -14,7 +14,7 @@
                     <form action="{{ route('loginProcess') }}" method="GET" class="signin-form">
                         @csrf
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username" required>
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
                         </div>
                         <div class="form-group">
                             <input id="password-field" type="password" name="password" class="form-control" placeholder="Password" required>

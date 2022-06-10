@@ -30,16 +30,16 @@ class LoginController extends Controller
         ];
 
         $request->validate([
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
         ]);
 
         $password = $request->input('password');
-        $username = $request->input('username');
+        $email = $request->input('email');
 
         $loginUrl = config('constants.api_url') . '/login';
         $post_data = [
-            'username' => $username,
+            'email' => $email,
             'password' => $password,
         ];
         $client = new Client();
@@ -74,8 +74,8 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         // jika is_login mau di aktifkan gunakan code berikut
-        // $username = session('user')->username;
-        // $user = User::where('username', $username)->first();
+        // $email = session('user')->email;
+        // $user = User::where('email', $email)->first();
         // $user->is_login = '1';
         // $user->save();
 
