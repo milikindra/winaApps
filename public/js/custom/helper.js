@@ -7,12 +7,10 @@ $(document).ready(function () {
 
     $(document).on("keydown", ".input-numerical", function (e) {
         if (
-            (e.key >= "0" && e.key <= "9") ||
-            ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(
+            (e.key >= "0" && e.key <= "9") || ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(
                 e.key
             )
-        ) {
-        } else {
+        ) {} else {
             e.preventDefault();
         }
     });
@@ -31,6 +29,8 @@ $(document).ready(function () {
         else return false;
     });
     $(function () {
-        $(".datepicker").datepicker({ dateFormat: "dd/mm/yy" }).val();
+        $(".datepicker").datepicker({
+            dateFormat: "dd/mm/yy"
+        }).val();
     });
 });

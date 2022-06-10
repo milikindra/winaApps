@@ -36,6 +36,9 @@
     @include('template.footer')
     @include('sweetalert::alert')
   </div>
+  {{-- Modal --}}
+  @stack('other-modal')
+  {{-- End Modal --}}
   {{-- Script --}}
   @include('template.script')
   @stack('other-script')

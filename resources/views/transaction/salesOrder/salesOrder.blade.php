@@ -113,7 +113,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="datatables" class="table table-bordered table-striped table-hover" width="100%">
+                        <table id="datatables" class="table table-bordered table-striped table-hover" style="cursor:pointer" width="100%">
                             <thead id="dtheader">
 
                             </thead>

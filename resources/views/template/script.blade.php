@@ -35,5 +35,5 @@
 <!-- editable select -->
 <script src="{{asset('plugins/jquery-editable-select/dist/jquery-editable-select.min.js')}}"></script>
 <!-- customJS -->
-<script src="{{ asset('js/custom.js')}}"></script>
+<script src="{{ asset('js/custom/helper.js')}}"></script>
 <script src="{{ asset('dist/js/editable-table.js')}}"></script>

@@ -9,9 +9,10 @@ use App\Http\Controllers\Master\InventoryController;
 use App\Http\Controllers\Master\CustomerController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Transaction\SalesInvoiceController;
+use App\Http\Controllers\Finance\GeneralLedgerController;
 use App\Http\Controllers\Report\ReportStockController;
 use App\Http\Controllers\Report\ReportHelperController;
-use Illuminate\Support\Facades\URL;
+// use Illuminate\Support\Facades\URL;
 // Route::get('/', function () {
 //     return view('home');
 // });
@@ -41,6 +42,32 @@ Route::group(
         Route::get('home', [HomeController::class, 'index'])->name('home.index');
         Route::post('home', [HomeController::class, 'index'])->name('home.index');
         Route::get('home', [HomeController::class, 'index'])->name('home');
+    }
+);
+
+Route::group(
+    ['namespace' => 'Transaction', 'middleware' => 'authApi'],
+    function () {
+        // salesOrder
+        Route::get('salesOrder', [SalesOrderController::class, 'salesOrderShow'])->name('salesOrder')->middleware('userMatrix:T01.01');
+        Route::get('salesOrder/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesOrderController::class, 'populate'])->name('salesOrder/data/populate');
+        Route::get('salesOrder/data/populateHead', [SalesOrderController::class, 'populateHead'])->name('salesOrder/data/populateHead');
+        Route::get('salesOrderAdd', [SalesOrderController::class, 'salesOrderAdd'])->name('salesOrderAdd')->middleware('userMatrix:T01.02');
+        Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
+        Route::get('salesOrderDetail/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
+
+        // salesInvoice
+        Route::get('siGetEfaktur/{id}', [SalesInvoiceController::class, 'siGetEfaktur'])->name('siGetEfaktur');
+    }
+);
+
+Route::group(
+    ['namespace' => 'Finance', 'middleware' => 'authApi'],
+    function () {
+        // GL
+        Route::get('generalLedger', [GeneralLedgerController::class, 'generalLedgerShow'])->name('generalLedger')->middleware('userMatrix:F01.01');
+        Route::get('generalLedger/data/populateAccountHistory/{gl_code}/{sdate}/{edate}/{so_id}/{id_employee}/{dept_id}', [GeneralLedgerController::class, 'populateAccountHistory'])->name('generalLedger/data/populateAccountHistory');
+        Route::get('generalLedger/data/populateAccount', [GeneralLedgerController::class, 'populateAccount'])->name('generalLedger/data/populateAccount');
     }
 );
 
@@ -80,23 +107,6 @@ Route::group(
         Route::get('kartuStok/data/populate/{kode}/{sdate}/{edate}/{lokasi}/{item_transfer}', [InventoryController::class, 'kartuStokPopulate'])->name('kartuStok/data/populate');
         Route::get('customerGetById/{id}', [CustomerController::class, 'customerGetById'])->name('customerGetById');
         Route::get('customerGetForSi/{id}', [CustomerController::class, 'customerGetForSi'])->name('customerGetForSi');
-    }
-);
-
-
-Route::group(
-    ['namespace' => 'Transaction', 'middleware' => 'authApi'],
-    function () {
-        // salesOrder
-        Route::get('salesOrder', [SalesOrderController::class, 'salesOrderShow'])->name('salesOrder')->middleware('userMatrix:T01.01');
-        Route::get('salesOrder/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesOrderController::class, 'populate'])->name('salesOrder/data/populate');
-        Route::get('salesOrderAdd', [SalesOrderController::class, 'salesOrderAdd'])->name('salesOrderAdd')->middleware('userMatrix:T01.02');
-        Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
-        Route::get('salesOrderDetail/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
-
-        // salesInvoice
-
-        Route::get('siGetEfaktur/{id}', [SalesInvoiceController::class, 'siGetEfaktur'])->name('siGetEfaktur');
     }
 );
 
