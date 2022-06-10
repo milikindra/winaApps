@@ -53,7 +53,7 @@ function tabelAccountHistory() {
             [10, 100, 250, 500, 1000, -1],
             [10, 100, 250, 500, 1000, "all"],
         ],
-        dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+        dom: "<'row'<'col-sm-6'B><'col-sm-6'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         buttons: [{
