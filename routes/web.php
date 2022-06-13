@@ -68,7 +68,8 @@ Route::group(
         Route::get('generalLedger', [GeneralLedgerController::class, 'generalLedgerShow'])->name('generalLedger')->middleware('userMatrix:F01.01');
         Route::get('generalLedger/data/populateAccountHistory/{gl_code}/{sdate}/{edate}/{so_id}/{id_employee}/{dept_id}', [GeneralLedgerController::class, 'populateAccountHistory'])->name('generalLedger/data/populateAccountHistory');
         Route::get('generalLedger/data/populateAccount', [GeneralLedgerController::class, 'populateAccount'])->name('generalLedger/data/populateAccount');
-        Route::get('generalLedger/data/populateCoaTransaction/{sdate}/{edate}', [GeneralLedgerController::class, 'populateCoaTransaction'])->name('generalLedger/data/populateCoaTransaction');
+        Route::get('generalLedger/data/populateCoaTransaction/{sdate}/{edate}/{trx_type}/{trx_id}', [GeneralLedgerController::class, 'populateCoaTransaction'])->name('generalLedger/data/populateCoaTransaction');
+        Route::post('generalLedger/export', [GeneralLedgerController::class, 'export'])->name('generalLedger/export')->middleware('userMatrix:F01.01');
     }
 );
 

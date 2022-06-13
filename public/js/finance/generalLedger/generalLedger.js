@@ -11,8 +11,6 @@ $(document).ready(function () {
     filterGlHead();
 });
 
-
-
 $("#dataType").change(function () {
     dataReport();
 });
@@ -25,6 +23,7 @@ function dataReport() {
         $("#filterEmployee").css("display", "block");
         $("#filterDepartment").css("display", "block");
         $("#filterSo").css("display", "block");
+
         tableAccountHistory();
     } else {
         $("#appAccountHistory").css("display", "none");
@@ -36,12 +35,14 @@ function dataReport() {
 
     if (dataType == "appCoaTransaction") {
         $("#appCoaTransaction").css("display", "block");
+        $("#filterTrxId").css("display", "block");
+        $("#filterTrxType").css("display", "block");
         tableCoaTransaction();
     } else {
         $("#appCoaTransaction").css("display", "none");
+        $("#filterTrxId").css("display", "none");
+        $("#filterTrxType").css("display", "none");
     }
-
-
 }
 
 function tableAccountHistory() {
@@ -52,9 +53,12 @@ function tableAccountHistory() {
     var so_id = "null";
     var id_employee = $('#id_employee').val();
     var dept_id = $('#dept_id').val();
-    var gl_code = $('#gl_code-0').val();
+    var gl_code = "null";
     if ($('#so_id').val() != "") {
         so_id = $('#so_id').val();
+    }
+    if ($('#gl_code-0').val() != "") {
+        gl_code = $('#gl_code-0').val();
     }
 
     var table = $("#tableAccountHistory").DataTable({
@@ -72,35 +76,10 @@ function tableAccountHistory() {
         dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-        buttons: [{
-                extend: 'print',
-                title: 'PT. Viktori Provindo Automation <br/><small>General Ledger - Account History<small>',
-                className: "btn-info",
-            }, {
-                extend: 'excel',
-                title: 'General Ledger - Account History',
-                className: "btn-info",
-            },
-            {
-                extend: 'pdf',
-                title: 'General Ledger - Account History',
-                className: "btn-info",
-            },
-
-            {
-                extend: 'csv',
-                title: 'General Ledger - Account History',
-                className: "btn-info",
-            }
-        ],
-        drawCallback: function (settings, json) {},
         ajax: {
             url: rute_accountHistory + '/' + gl_code + '/' + sdate + '/' + edate + '/' + so_id + '/' + id_employee + '/' + dept_id,
             type: "GET",
             dataType: "JSON",
-            error: function (xhr, error, thrown) {
-                $("#tableAccountHistory").DataTable().clear().destroy();
-            }
         },
         columns: [{
                 data: "no_rek",
@@ -210,6 +189,25 @@ function tableCoaTransaction() {
     var sdate = $('#sdate').val();
     var edate = $('#edate').val();
 
+    var so_id = "null";
+    var id_employee = $('#id_employee').val();
+    var dept_id = $('#dept_id').val();
+    var gl_code = "null";
+    if ($('#so_id').val() != "") {
+        so_id = $('#so_id').val();
+    }
+    if ($('#gl_code-0').val() != "") {
+        gl_code = $('#gl_code-0').val();
+    }
+
+    if ($('#trx_id').val() != "") {
+        var trx = $('#trx_id').val();
+        var trxId = trx.replaceAll('/', ":")
+    } else {
+        var trxId = 'all';
+    }
+    var trxType = $('#trx_type').val();
+
     var table = $("#tableCoaTransaction").DataTable({
         processing: true,
         serverSide: true,
@@ -225,30 +223,8 @@ function tableCoaTransaction() {
         dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-        buttons: [{
-                extend: 'print',
-                title: 'PT. Viktori Provindo Automation <br/><small>General Ledger - Coa Transaction<small>',
-                className: "btn-info",
-            }, {
-                extend: 'excel',
-                title: 'General Ledger - Coa Transaction',
-                className: "btn-info",
-            },
-            {
-                extend: 'pdf',
-                title: 'General Ledger - Coa Transaction',
-                className: "btn-info",
-            },
-
-            {
-                extend: 'csv',
-                title: 'General Ledger - Coa Transaction',
-                className: "btn-info",
-            }
-        ],
-        drawCallback: function (settings, json) {},
         ajax: {
-            url: rute_coaTransaction + '/' + sdate + '/' + edate,
+            url: rute_coaTransaction + '/' + sdate + '/' + edate + '/' + trxType + '/' + trxId,
             type: "GET",
             dataType: "JSON",
             error: function (xhr, error, thrown) {
@@ -268,11 +244,6 @@ function tableCoaTransaction() {
             {
                 data: "nm_rek",
                 name: "nm_rek",
-                orderable: false,
-            },
-            {
-                data: "no_rek_asli",
-                name: "no_rek_asli",
                 orderable: false,
             },
             {
