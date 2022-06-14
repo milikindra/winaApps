@@ -34,15 +34,16 @@
                         <table id="datatables" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr style="text-align: center;">
-                                    <th>ID Karyawan</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>NIK</th>
-                                    <th>Tempat, Tanggal Lahir</th>
-                                    <th>Golongan Darah</th>
-                                    <th>Agama</th>
-                                    <th>Alamat</th>
+                                    <th>Employee Id</th>
+                                    <th>Full Name</th>
+                                    <th>Nationalty Id</th>
+                                    <th>Date Birth</th>
+                                    <th>Blood Type</th>
+                                    <th>Religion</th>
+                                    <th>Address</th>
                                     <th>Telp.</th>
-                                    <th>Opsi</th>
+                                    <th>Department</th>
+                                    <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>

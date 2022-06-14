@@ -9,26 +9,24 @@ $(document).ready(function () {
             [50, 100, 250, 500, 1000],
         ],
         buttons: ["excel", "print"],
-        dom:
-            "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+        dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         drawCallback: function (settings, json) {},
         ajax: {
-            url: rute + "/" + 0,
+            url: rute + "/" + 1,
             type: "GET",
             dataType: "JSON",
             error: function (xhr, textStatus, ThrownException) {
                 alert(
                     "Error loading data. Exception: " +
-                        ThrownException +
-                        "\n" +
-                        textStatus
+                    ThrownException +
+                    "\n" +
+                    textStatus
                 );
             },
         },
-        columns: [
-            {
+        columns: [{
                 data: "employee_id",
                 name: "employee_id",
                 className: "text-center",
@@ -70,7 +68,11 @@ $(document).ready(function () {
                 name: "phone",
                 className: "text-center",
             },
-
+            {
+                data: "department",
+                name: "department",
+                className: "text-center",
+            },
             {
                 data: "user_id",
                 render: function (data, type, row) {
@@ -80,7 +82,9 @@ $(document).ready(function () {
                 className: "text-center",
             },
         ],
-        order: [[0, "asc"]],
+        order: [
+            [0, "asc"]
+        ],
     });
 
     window.getActions = function (data, tyoe, row) {

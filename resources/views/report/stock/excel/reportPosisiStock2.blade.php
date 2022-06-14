@@ -28,6 +28,7 @@ header("Content-Disposition: attachment; filename=Report Posisi Stock.xls");
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Qty</th>
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Total</th>
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Harga Rata-rata</th>
+            <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Status Konsiyansi</th>
         </tr>
     </thead>
     <tbody>
