@@ -192,7 +192,7 @@ class GeneralLedgerController extends Controller
         $module = $this->module;
         $menu_name = session('user')->menu_name;
         $user_token = session('user')->api_token;
-        // dd($request);
+        // dd($request->input('gl_value')[0]);
         $export = $request->input('exportType');
         $dataType = $request->input('dataType');
 
@@ -213,7 +213,7 @@ class GeneralLedgerController extends Controller
             $response = $client->request('POST', $url, ['json' => $post_data]);
             $body = json_decode($response->getBody());
             $filter  = [
-                'Account Number' => $request->input('gl_code')[0],
+                'Account Number' => $request->input('gl_code')[0] . " - " . $request->input('gl_value')[0],
                 'Start Date' =>  date_format(date_create($request->input('sdate')), 'd-m-Y'),
                 'End Date' => date_format(date_create($request->input('edate')), 'd-m-Y'),
                 'Sales Order' => strtoupper($request->input('so_id') == null ? 'all' : $request->input('so_id')),
