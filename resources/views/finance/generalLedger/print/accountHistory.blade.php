@@ -158,6 +158,6 @@
 
 </html>
 <script type="text/javascript">
-    window.onafterprint = window.close;
+    // window.onafterprint = window.close;
     window.print();
 </script>

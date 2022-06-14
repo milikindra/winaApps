@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- DataTables -->
-<link rel="stylesheet" href="{{ asset('dist/css/adminlte.css')}}" />
-
-<style>
-</style>
 
 <head>
     <title>
@@ -16,13 +11,18 @@
             margin: 10px 20px;
         }
 
+
         body {
             margin: 10px 20px;
+            -webkit-print-color-adjust: exact !important;
+            /* margin: 0; */
+            font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
         .tableBorder {
             border-spacing: 0;
             border: 1px;
+            border-collapse: collapse;
         }
 
         .table-responsive {
@@ -34,8 +34,10 @@
         .tableBorder th {
             padding: 3px;
             border-spacing: 0;
-            border: 1px solid #000;
-            /* text-align: center; */
+            border: 1px solid #fff;
+            background-color: #000;
+            color: #fff;
+            text-align: left;
         }
 
         .tableBorder td {
@@ -125,28 +127,47 @@
             <table class="table tableBorder" id="tr" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th style="border: 1px solid #000000">
-                            <span style="vertical-align: top; text-align:left">Date</span><br />
-                            <span style="vertical-align: bottom; text-align:right">Account Name</span>
-                        </th>
+                        <th>Date</th>
+                        <th>Transaction Name</th>
+                        <th>Transaction Number</th>
+                        <th style=" text-align:center" colspan="2">Description</th>
+                    </tr>
+                    <tr>
+                        <th style="text-indent:5rem">Account Number</th>
+                        <th style="text-indent:5rem">Account Name</th>
+                        <th style="text-indent:5rem">Prime</th>
+                        <th style="text-align:center">Debet</th>
+                        <th style="text-align:center">Credit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($body as $b)
-                    <tr>
-                        <td style="width: 7%;">{{$b->trx}}</td>
-                        <td style="width: 7%;">{{$b->no_rek}}</td>
-                        <td style="width: 18%;">{{$b->nm_rek}}</td>
-                        <td style="width: 10%;">{{$b->no_bukti}}</td>
-                        <td style="width: 10%;">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
-                        <td style="width: 10%;">{{$b->uraian}}</td>
-                        <td style="width: 5%; text-align:right">{{number_format($b->debet)}}</td>
-                        <td style="width: 5%; text-align:right">{{number_format($b->kredit)}}</td>
-                        <td style="width: 5%; text-align:right">{{number_format($b->debet_us)}}</td>
-                        <td style="width: 5%; text-align:right">{{number_format($b->kredit_us)}}</td>
-                        <td style="word-wrap: break-word">{{wordwrap($b->dept,10,'<br>\n')}}</td>
-                    </tr>
-                    @endforeach
+                    <?php foreach ($body as $b) {
+                        $totalDebet = 0;
+                        $totalKredit = 0; ?>
+                        <tr style="border: #000">
+                            <td style="width: 7%;">{{date_format(date_create($b->head->tgl_bukti), 'd-m-Y') }}</td>
+                            <td style="width: 7%;">{{$b->head->trx}}</td>
+                            <td style="width: 7%;">{{$b->head->no_bukti}}</td>
+                            <td style="width: 7%;" colspan="2">{{$b->head->uraian}}</td>
+                        </tr>
+                        <?php foreach ($b->child as $c) { ?>
+                            <tr>
+                                <td style="width: 7%;text-align:left; text-indent:5rem">{{$c->no_rek}}</td>
+                                <td style="width: 7%;text-align:left; text-indent:5rem">{{$c->nm_rek}}</td>
+                                <td style="width: 7%;text-align:left; text-indent:5rem">-</td>
+                                <td style="width: 7%;text-align:right">{{number_format($c->debet)}}</td>
+                                <td style="width: 7%;text-align:right">{{number_format($c->kredit)}}</td>
+                            </tr>
+                        <?php
+                            $totalDebet += $c->debet;
+                            $totalKredit += $c->kredit;
+                        } ?>
+                        <tr style="background-color: #ddd;">
+                            <td colspan="3" style="text-align: right;">Total of : {{$b->head->trx}}</td>
+                            <td style="text-align: right;">{{number_format($totalDebet)}}</td>
+                            <td style="text-align: right;">{{number_format($totalKredit)}}</td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -157,5 +178,5 @@
 </html>
 <script type="text/javascript">
     // window.onafterprint = window.close;
-    // window.print();
+    window.print();
 </script>

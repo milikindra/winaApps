@@ -181,7 +181,7 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="btn-group">
-                                <!-- <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button> -->
+                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
                                 <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
                             </div>
                             <br />

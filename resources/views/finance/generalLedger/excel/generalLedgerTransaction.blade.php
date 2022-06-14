@@ -44,52 +44,8 @@
             border: 1px solid #000;
         }
 
-        table .bottom {
-            width: 100%;
-            table-layout: fixed;
-        }
-
         .fixed-bottom {
             width: 100%;
-        }
-
-        ol {
-            vertical-align: top;
-            margin: 5px 0;
-            padding-left: 22px;
-            font-family: helvetica, sans-serif;
-            font-size: 10px;
-        }
-
-        ol li {
-            font-family: helvetica, sans-serif;
-            font-size: 10px;
-        }
-
-        .footer {
-            font-family: helvetica, sans-serif;
-            font-size: 8px;
-            position: fixed;
-            left: 62%;
-            bottom: -45px;
-            right: 0;
-            height: 80px;
-        }
-
-        .footer .page:after {
-            font-family: helvetica, sans-serif;
-            font-size: 8px;
-            content: "Printed Date : "+ date('d-m-Y H:i:s') + " | Page "+counter(page);
-        }
-
-        .footer .page {
-            font-family: helvetica, sans-serif;
-            font-size: 8px;
-        }
-
-        .form-control:disabled,
-        .form-control[readonly] {
-            background-color: #fff;
         }
     </style>
 </head>
@@ -138,21 +94,39 @@ echo "Some Text"; //no ending ; here
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($body as $b)
+                    <?php
+                    $totalDebet = 0;
+                    $totalDebetUs = 0;
+                    $totalKredit = 0;
+                    $totalKreditUs = 0;
+                    foreach ($body as $b) { ?>
+                        <tr>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{$b->trx}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{$b->no_rek}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{$b->nm_rek}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{$b->no_bukti}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{$b->uraian}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->debet)}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->kredit)}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->debet_us)}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->kredit_us)}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{wordwrap($b->dept,10,'<br>\n')}}</td>
+                        </tr>
+                    <?php
+                        $totalDebet += $b->debet;
+                        $totalKredit += $b->kredit;
+                        $totalDebetUs += $b->debet_us;
+                        $totalKreditUs += $b->kredit_us;
+                    } ?>
                     <tr>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black;" width="7%">{{$b->trx}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black;" width="7%">{{$b->no_rek}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black;" width="7%">{{$b->nm_rek}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black;" width="7%">{{$b->no_bukti}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black;" width="7%">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black;" width="7%">{{$b->uraian}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black; text-align:right" width="7%">{{number_format($b->debet)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black; text-align:right" width="7%">{{number_format($b->kredit)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black; text-align:right" width="7%">{{number_format($b->debet_us)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black; text-align:right" width="7%">{{number_format($b->kredit_us)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;border: 1px solid black;" width="7%">{{wordwrap($b->dept,10,'<br>\n')}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%" colspan="6"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalDebet)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalKredit)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalDebetUs)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalKreditUs)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{wordwrap($b->dept,10,'<br>\n')}}</td>
                     </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>

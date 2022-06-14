@@ -259,14 +259,23 @@ class GeneralLedgerController extends Controller
             ];
 
             if ($export == 'Print') {
-
+                $url = config('constants.api_url') . '/accountGl/getListGlGroupTransaction';
+                $client = new Client();
+                $response = $client->request('POST', $url, ['json' => $post_data]);
+                $body = json_decode($response->getBody());
+                // dd($body);
                 $data = [
                     'title' => "GENERAL LEDGER - TRANSACTION",
                     'filter' => $filter,
                     'body' => $body->coaTrx,
                 ];
+
                 return view('finance.GeneralLEdger.print.generalLedgerTransaction', $data);
             } else {
+                $url = config('constants.api_url') . '/accountGl/getListCoaTransaction';
+                $client = new Client();
+                $response = $client->request('POST', $url, ['json' => $post_data]);
+                $body = json_decode($response->getBody());
                 $head = ['Transaction', 'Account Number', 'Account Name', 'Transaction Number', 'Date', 'Description', 'Debet (IDR)', 'Credit (IDR)', 'Debet (Valas)', 'Credit (Valas)', 'Dept'];
                 $data = [
                     'title' => "GENERAL LEDGER - TRANSACTION",
