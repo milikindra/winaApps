@@ -230,9 +230,9 @@ class GeneralLedgerController extends Controller
             ];
 
             if ($export == 'Print') {
-                return view('finance.GeneralLEdger.print.accountHistory', $data);
+                return view('finance.generalLedger.print.accountHistory', $data);
             } else {
-                return view('finance.GeneralLEdger.excel.accountHistory', $data);
+                return view('finance.generalLedger.excel.accountHistory', $data);
             }
         } else if ($dataType == 'appCoaTransaction') {
             $url = config('constants.api_url') . '/accountGl/getListCoaTransaction';
@@ -265,7 +265,7 @@ class GeneralLedgerController extends Controller
                     'filter' => $filter,
                     'body' => $body->coaTrx,
                 ];
-                return view('finance.GeneralLEdger.print.generalLedgerTransaction', $data);
+                return view('finance.generalLedger.print.generalLedgerTransaction', $data);
             } else {
                 $head = ['Transaction', 'Account Number', 'Account Name', 'Transaction Number', 'Date', 'Description', 'Debet (IDR)', 'Credit (IDR)', 'Debet (Valas)', 'Credit (Valas)', 'Dept'];
                 $data = [
@@ -274,7 +274,7 @@ class GeneralLedgerController extends Controller
                     'head' => $head,
                     'body' => $body->coaTrx,
                 ];
-                return view('finance.GeneralLEdger.excel.generalLedgerTransaction', $data);
+                return view('finance.generalLedger.excel.generalLedgerTransaction', $data);
             }
         }
     }
