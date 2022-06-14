@@ -230,9 +230,9 @@ class GeneralLedgerController extends Controller
             ];
 
             if ($export == 'Print') {
-                return view('finance.GeneralLEdger.print.accountHistory', $data);
+                return view('finance.generalLedger.print.accountHistory', $data);
             } else {
-                return view('finance.GeneralLEdger.excel.accountHistory', $data);
+                return view('finance.generalLedger.excel.accountHistory', $data);
             }
         } else if ($dataType == 'appCoaTransaction') {
             $url = config('constants.api_url') . '/accountGl/getListCoaTransaction';
@@ -269,8 +269,7 @@ class GeneralLedgerController extends Controller
                     'filter' => $filter,
                     'body' => $body->coaTrx,
                 ];
-
-                return view('finance.GeneralLEdger.print.generalLedgerTransaction', $data);
+                return view('finance.generalLedger.print.generalLedgerTransaction', $data);
             } else {
                 $url = config('constants.api_url') . '/accountGl/getListCoaTransaction';
                 $client = new Client();
@@ -283,7 +282,7 @@ class GeneralLedgerController extends Controller
                     'head' => $head,
                     'body' => $body->coaTrx,
                 ];
-                return view('finance.GeneralLEdger.excel.generalLedgerTransaction', $data);
+                return view('finance.generalLedger.excel.generalLedgerTransaction', $data);
             }
         }
     }
