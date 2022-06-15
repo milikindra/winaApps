@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<!-- DataTables -->
 
 <head>
     <title>
@@ -10,6 +11,7 @@
         @page {
             margin: 10px 20px;
         }
+
         body {
             margin: 10px 20px;
             -webkit-print-color-adjust: exact !important;
@@ -125,47 +127,23 @@
             <table class="table tableBorder" id="tr" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Transaction Name</th>
-                        <th>Transaction Number</th>
-                        <th style=" text-align:center" colspan="2">Description</th>
-                    </tr>
-                    <tr>
-                        <th style="text-indent:5rem">Account Number</th>
-                        <th style="text-indent:5rem">Account Name</th>
-                        <th style="text-indent:5rem">Prime</th>
-                        <th style="text-align:center">Debet</th>
-                        <th style="text-align:center">Credit</th>
+                        <th style="text-align: center;" colspan="2">Description</th>
+                        <th style="text-align: center;" colspan="2">Balance</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($body as $b) {
-                        $totalDebet = 0;
-                        $totalKredit = 0; ?>
-                        <tr style="border: #000">
-                            <td style="width: 7%;">{{date_format(date_create($b->head->tgl_bukti), 'd-m-Y') }}</td>
-                            <td style="width: 7%;">{{$b->head->trx}}</td>
-                            <td style="width: 7%;">{{$b->head->no_bukti}}</td>
-                            <td style="width: 7%;" colspan="2">{{$b->head->uraian}}</td>
-                        </tr>
-                        <?php foreach ($b->child as $c) { ?>
-                            <tr>
-                                <td style="width: 7%;text-align:left; text-indent:5rem">{{$c->no_rek}}</td>
-                                <td style="width: 7%;text-align:left; text-indent:5rem">{{$c->nm_rek}}</td>
-                                <td style="width: 7%;text-align:left; text-indent:5rem">-</td>
-                                <td style="width: 7%;text-align:right">{{number_format($c->debet)}}</td>
-                                <td style="width: 7%;text-align:right">{{number_format($c->kredit)}}</td>
-                            </tr>
-                        <?php
-                            $totalDebet += $c->debet;
-                            $totalKredit += $c->kredit;
-                        } ?>
-                        <tr style="background-color: #ddd;">
-                            <td colspan="3" style="text-align: right;">Total of : {{$b->head->trx}}</td>
-                            <td style="text-align: right;">{{number_format($totalDebet)}}</td>
-                            <td style="text-align: right;">{{number_format($totalKredit)}}</td>
-                        </tr>
-                    <?php } ?>
+                    @foreach($body as $b)
+                    @if($b->tipe == "T")
+                    <tr style="background-color: #ddd;">
+                        @else
+                    <tr>
+                        @endif
+                        <td style="width: 10%; border-right:none;">{{$b->no_rek2}}</td>
+                        <td style="width: 50%; border-left:none;border-right:none;"><?= str_replace(' ', '&nbsp;', $b->nm_rek); ?></td>
+                        <td style="width: 30%; text-align:right;border-left:none;border-right:none;">{{accDollars($b->nilai)}}</td>
+                        <td style="width: 10%; text-align:right;border-left:none;">{{accPercent($b->persen)}}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

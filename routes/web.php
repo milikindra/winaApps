@@ -10,6 +10,7 @@ use App\Http\Controllers\Master\CustomerController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Transaction\SalesInvoiceController;
 use App\Http\Controllers\Finance\GeneralLedgerController;
+use App\Http\Controllers\Finance\FinancialReportController;
 use App\Http\Controllers\Report\ReportStockController;
 use App\Http\Controllers\Report\ReportHelperController;
 // use Illuminate\Support\Facades\URL;
@@ -64,12 +65,17 @@ Route::group(
 Route::group(
     ['namespace' => 'Finance', 'middleware' => 'authApi'],
     function () {
-        // GL
+        // generalLedger
         Route::get('generalLedger', [GeneralLedgerController::class, 'generalLedgerShow'])->name('generalLedger')->middleware('userMatrix:F01.01');
         Route::get('generalLedger/data/populateAccountHistory/{gl_code}/{sdate}/{edate}/{so_id}/{id_employee}/{dept_id}', [GeneralLedgerController::class, 'populateAccountHistory'])->name('generalLedger/data/populateAccountHistory');
         Route::get('generalLedger/data/populateAccount', [GeneralLedgerController::class, 'populateAccount'])->name('generalLedger/data/populateAccount');
         Route::get('generalLedger/data/populateCoaTransaction/{sdate}/{edate}/{trx_type}/{trx_id}', [GeneralLedgerController::class, 'populateCoaTransaction'])->name('generalLedger/data/populateCoaTransaction');
         Route::post('generalLedger/export', [GeneralLedgerController::class, 'export'])->name('generalLedger/export')->middleware('userMatrix:F01.01');
+
+        // financialReport
+        Route::get('financialReport', [FinancialReportController::class, 'financialReportShow'])->name('financialReport')->middleware('userMatrix:F02.01');
+        Route::get('financialReport/data/populateIncomeStatement/{sdate}/{edate}/{isTotal}/{isParent}/{isChild}/{isZero}/{isTotalParent}/{isPercent}/{isValas}/{isShowCoa}', [FinancialReportController::class, 'populateIncomeStatement'])->name('financialReport/data/populateIncomeStatement');
+        Route::post('financialReport/export', [FinancialReportController::class, 'export'])->name('financialReport/export')->middleware('userMatrix:F01.01');
     }
 );
 

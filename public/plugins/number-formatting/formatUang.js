@@ -9,6 +9,22 @@ function removePeriod(nStr, remove) {
     return nStr
 }
 
+function minusAccounting(value) {
+    if (value < 0) {
+        return "(" + minusAccounting(-value) + ")";
+    } else {
+        return addPeriod(value, 2);
+    }
+}
+
+function minusAccountingPercent(value) {
+    if (value < 0) {
+        return "(" + minusAccounting(-value) + "%)";
+    } else {
+        return addPeriod(value, 2);
+    }
+}
+
 function addPeriod(nStr, add) {
     nStr += '';
     nStr = removePeriod(nStr, add);
@@ -17,8 +33,7 @@ function addPeriod(nStr, add) {
     if (desimalnya.length > 1) {
         var desimalText = desimalnya[1];
         nStr = desimalnya[0]
-    }
-    else {
+    } else {
         var desimalText = "00"
     }
     nStr += '';
@@ -105,7 +120,7 @@ $(document).ready(function () {
         if ($(this).val() != '') {
             var value = removePeriod($(this).val(), ',');
             var hasil = parseFloat(value);
-//            var hasil = parseFloat(value).toFixed(2);
+            //            var hasil = parseFloat(value).toFixed(2);
             $(this).val(addPeriod(hasil, ','));
         }
         if (e.keyCode == 9) {

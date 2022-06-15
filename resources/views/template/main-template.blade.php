@@ -16,7 +16,7 @@
   @include('template.title')
   {{-- Style --}}
   @include('template.style')
-  @method('other-style')
+  @stack('other-style')
   {{-- End Style --}}
 </head>
 

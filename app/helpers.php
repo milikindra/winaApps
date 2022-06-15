@@ -58,6 +58,25 @@ function tanggal_indo($tanggal)
     return $split[2] . '-' . $bulan[(int)$split[1]] . '-' . $split[0];
 }
 
+function accDollars($value)
+{
+    if ($value < 0) {
+        return "(" . accDollars(-$value) . ")";
+    } else {
+        return number_format($value, 2);
+    }
+}
+
+
+function accPercent($value)
+{
+    if ($value < 0) {
+        return "(" . accPercent(-$value) . "%)";
+    } else {
+        return number_format($value, 2);
+    }
+}
+
 function getMenu()
 {
     $user_token = session('user')->api_token;
