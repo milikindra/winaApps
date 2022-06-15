@@ -228,10 +228,6 @@
 @push('other-script')
 <script>
     var rute_incomeStatement = "{{ URL::to('financialReport/data/populateIncomeStatement') }}";
-    var rute_coaTransaction = "{{ URL::to('generalLedger/data/populateCoaTransaction') }}";
-    var rute_export = "{{ URL::to('generalLedger/export') }}";
 </script>
-<script src="{{ asset('js/custom/accountGl.js')}}"></script>
-<script src="{{ asset('js/custom/salesOrder.js')}}"></script>
-<script src="{{ asset('js/finance/financialReport/financialReport.js?v=1')}}"></script>
+<script src="{{ asset('js/finance/financialReport/financialReport.js')}}"></script>
 @endpush
