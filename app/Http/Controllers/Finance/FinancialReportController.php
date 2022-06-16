@@ -189,7 +189,7 @@ class FinancialReportController extends Controller
             ];
 
             $data = [
-                'title' => "PT. VIKTORI PROVINDO AUTOMATION",
+                'title' => "PT. VIKTORI PROFINDO AUTOMATION",
                 'subtitle' => "FINANCIAL REPORT - INCOME STATEMENT",
                 'filter' => $filter,
                 'body' => $body->bbrl,
@@ -223,7 +223,7 @@ class FinancialReportController extends Controller
             ];
 
             $data = [
-                'title' => "PT. VIKTORI PROVINDO AUTOMATION",
+                'title' => "PT. VIKTORI PROFINDO AUTOMATION",
                 'subtitle' => "FINANCIAL REPORT - BALANCE SHEET",
                 'filter' => $filter,
                 'body' => $body->balance,

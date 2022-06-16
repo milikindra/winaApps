@@ -12,36 +12,37 @@ $(document).ready(function () {
 });
 
 $("#dataType").change(function () {
-    dataReport();
-});
+    $("#appAccountHistory").css("display", "none");
+    $("#filterAccount").css("display", "none");
+    $("#filterEmployee").css("display", "none");
+    $("#filterDepartment").css("display", "none");
+    $("#filterSo").css("display", "none");
 
-function dataReport() {
     var dataType = $("#dataType").val();
     if (dataType == "appAccountHistory") {
+        $("#tableAccountHistory").DataTable().clear();
         $("#appAccountHistory").css("display", "block");
         $("#filterAccount").css("display", "block");
         $("#filterEmployee").css("display", "block");
         $("#filterDepartment").css("display", "block");
         $("#filterSo").css("display", "block");
-
-        tableAccountHistory();
-    } else {
-        $("#appAccountHistory").css("display", "none");
-        $("#filterAccount").css("display", "none");
-        $("#filterEmployee").css("display", "none");
-        $("#filterDepartment").css("display", "none");
-        $("#filterSo").css("display", "none");
     }
-
     if (dataType == "appCoaTransaction") {
+        $("#tableCoaTransaction").DataTable().clear();
         $("#appCoaTransaction").css("display", "block");
         $("#filterTrxId").css("display", "block");
         $("#filterTrxType").css("display", "block");
+    }
+});
+
+function dataReport() {
+    var dataType = $("#dataType").val();
+    if (dataType == "appAccountHistory") {
+        tableAccountHistory();
+    }
+
+    if (dataType == "appCoaTransaction") {
         tableCoaTransaction();
-    } else {
-        $("#appCoaTransaction").css("display", "none");
-        $("#filterTrxId").css("display", "none");
-        $("#filterTrxType").css("display", "none");
     }
 }
 

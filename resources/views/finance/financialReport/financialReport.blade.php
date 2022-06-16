@@ -116,6 +116,16 @@
                                         <label>Show COA</label>
                                     </div>
                                 </div>
+                                <div class="col-12" id="filterSo" style="display: none;">
+                                    <label>SO</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="so_id" name="so_id">
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                    <span id="so_descrription"></span>
+                                </div>
                                 <div class="col-12">
                                     <br />
                                     <a href="javascript:void(0)" class="btn btn-info float-right" id="processFilter" onclick="dataReport()">Process</a>
@@ -213,13 +223,56 @@
                     </div>
                 </div>
 
+                <div class="col-lg-10" style="display: none;" id="appProjectPnl">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 class="card-title">Balance Sheet</h3>
+                                    <div class="card-tools float-right">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
+                            </div>
+                            <br />
+                            <br />
+                            <table class="table tableProjectPnl" id="tableProjectPnl" style="width: 100%;">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th id="no-sort" colspan="2">Description</th>
+                                        <th colsapan="2">Balance</th>
+                                    </tr>
+                                    <tr style="display:none">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer ">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 </form>
 @endsection
 @push('other-modal')
-@include('modalBox.modalAccountGl')
 @include('modalBox.modalSalesOrder')
 @endpush
 @push('other-script')
@@ -227,5 +280,6 @@
     var rute_incomeStatement = "{{ URL::to('financialReport/data/populateIncomeStatement') }}";
     var rute_balancesheet = "{{ URL::to('financialReport/data/populatebalanceSheet') }}";
 </script>
+<script src="{{ asset('js/custom/salesOrder.js')}}"></script>
 <script src="{{ asset('js/finance/financialReport/financialReport.js')}}"></script>
 @endpush

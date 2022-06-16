@@ -11,10 +11,6 @@ $(document).ready(function () {
 });
 
 $("#dataType").change(function () {
-    dataReport();
-});
-
-function dataReport() {
     $("#appIncomeStatement").css("display", "none");
     $("#appBalanceSheet").css("display", "none");
 
@@ -28,9 +24,11 @@ function dataReport() {
     $("#filterPercent").css("display", "none");
     $("#filterValas").css("display", "none");
     $("#filterShowCoa").css("display", "none");
+    $("#filterSo").css("display", "none");
 
     var dataType = $("#dataType").val();
     if (dataType == "appIncomeStatement") {
+        $("#tableIncomeStatement").DataTable().clear();
         $("#appIncomeStatement").css("display", "block");
         $("#filterSdate").css("display", "block");
         $("#filterEdate").css("display", "block");
@@ -42,10 +40,10 @@ function dataReport() {
         $("#filterPercent").css("display", "block");
         $("#filterValas").css("display", "block");
         $("#filterShowCoa").css("display", "block");
-        tableIncomeStatement();
     }
 
     if (dataType == "appBalanceSheet") {
+        $("#tableBalanceSheet").DataTable().clear();
         $("#appBalanceSheet").css("display", "block");
         $("#filterEdate").css("display", "block");
         $("#filterTotal").css("display", "block");
@@ -55,8 +53,27 @@ function dataReport() {
         $("#filterTotalParrent").css("display", "block");
         $("#filterValas").css("display", "block");
         $("#filterShowCoa").css("display", "block");
+    }
+
+    if (dataType == "appProjectPnl") {
+        $("#filterEdate").css("display", "block");
+        $("#filterSo").css("display", "block");
+    }
+});
+
+function dataReport() {
+    var dataType = $("#dataType").val();
+    if (dataType == "appIncomeStatement") {
+        tableIncomeStatement();
+    }
+
+    if (dataType == "appBalanceSheet") {
         tableBalanceSheet();
     }
+    if (dataType == "appProjectPnl") {
+
+    }
+
 }
 
 function tableIncomeStatement() {

@@ -112,7 +112,7 @@ echo "Some Text"; //no ending ; here
             </div> -->
         <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$title}}</h4>
         <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
-            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;"></h6>
+            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$subtitle}}</h6>
         </div>
         <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
             <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;"></h6>

@@ -222,7 +222,8 @@ class GeneralLedgerController extends Controller
             ];
             $head = ['No Account', 'Account Name', 'Transaction Number', 'Date', 'SO', 'Employee', 'Description', 'Debet (IDR)', 'Credit (IDR)', 'Saldo (IDR)', 'Debet (Valas)', 'Credit (Valas)', 'Saldo (Valas)', 'Dept'];
             $data = [
-                'title' => "GENERAL LEDGER - ACCOUNT HISTORY",
+                'title' => "PT. VIKTORI PROFINDO AUTOMATION",
+                'subtitle' => "GENERAL LEDGER - ACCOUNT HISTORY",
                 'filter' => $filter,
                 'head' => $head,
                 'body' => $body->accountGl,
@@ -265,7 +266,8 @@ class GeneralLedgerController extends Controller
                 $body = json_decode($response->getBody());
                 // dd($body);
                 $data = [
-                    'title' => "GENERAL LEDGER - TRANSACTION",
+                    'title' => "PT. VIKTORI PROFINDO AUTOMATION",
+                    'subtitle' => "GENERAL LEDGER - TRANSACTION",
                     'filter' => $filter,
                     'body' => $body->coaTrx,
                 ];
@@ -277,7 +279,8 @@ class GeneralLedgerController extends Controller
                 $body = json_decode($response->getBody());
                 $head = ['Transaction', 'Account Number', 'Account Name', 'Transaction Number', 'Date', 'Description', 'Debet (IDR)', 'Credit (IDR)', 'Debet (Valas)', 'Credit (Valas)', 'Dept'];
                 $data = [
-                    'title' => "GENERAL LEDGER - TRANSACTION",
+                    'title' => "PT. VIKTORI PROFINDO AUTOMATION",
+                    'subtitle' => "GENERAL LEDGER - TRANSACTION",
                     'filter' => $filter,
                     'head' => $head,
                     'body' => $body->coaTrx,

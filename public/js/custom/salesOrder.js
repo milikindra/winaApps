@@ -10,6 +10,8 @@ function modalSo() {
     $("#tabelModalSo").on("click", "tbody tr", function () {
         no_so = $(this).closest("tr").children("td:eq(0)").text();
         $("#so_id").val(no_so);
+        $("#so_descrription").html(no_so);
+
         $("#modalSO").modal("hide");
     });
 }
