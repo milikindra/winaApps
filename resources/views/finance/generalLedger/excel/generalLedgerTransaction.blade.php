@@ -107,10 +107,10 @@ echo "Some Text"; //no ending ; here
                             <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{$b->no_bukti}}</td>
                             <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
                             <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{$b->uraian}}</td>
-                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->debet)}}</td>
-                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->kredit)}}</td>
-                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->debet_us)}}</td>
-                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->kredit_us)}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->debet,2)}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->kredit,2)}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->debet_us,2)}}</td>
+                            <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($b->kredit_us,2)}}</td>
                             <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{wordwrap($b->dept,10,'<br>\n')}}</td>
                         </tr>
                     <?php
@@ -121,10 +121,10 @@ echo "Some Text"; //no ending ; here
                     } ?>
                     <tr>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%" colspan="6"></td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalDebet)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalKredit)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalDebetUs)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalKreditUs)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalDebet,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalKredit,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalDebetUs,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{number_format($totalKreditUs,2)}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{wordwrap($b->dept,10,'<br>\n')}}</td>
                     </tr>
                 </tbody>

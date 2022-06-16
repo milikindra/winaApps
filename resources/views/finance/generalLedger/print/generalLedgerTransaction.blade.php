@@ -158,8 +158,8 @@
                                 <td style="width: 7%;text-align:left; text-indent:5rem">{{$c->no_rek}}</td>
                                 <td style="width: 7%;text-align:left; text-indent:5rem">{{$c->nm_rek}}</td>
                                 <td style="width: 7%;text-align:left; text-indent:5rem">-</td>
-                                <td style="width: 7%;text-align:right">{{number_format($c->debet)}}</td>
-                                <td style="width: 7%;text-align:right">{{number_format($c->kredit)}}</td>
+                                <td style="width: 7%;text-align:right">{{number_format($c->debet,2)}}</td>
+                                <td style="width: 7%;text-align:right">{{number_format($c->kredit,2)}}</td>
                             </tr>
                         <?php
                             $totalDebet += $c->debet;
@@ -167,8 +167,8 @@
                         } ?>
                         <tr style="background-color: #ddd;">
                             <td colspan="3" style="text-align: right;">Total of : {{$b->head->trx}}</td>
-                            <td style="text-align: right;">{{number_format($totalDebet)}}</td>
-                            <td style="text-align: right;">{{number_format($totalKredit)}}</td>
+                            <td style="text-align: right;">{{number_format($totalDebet,2)}}</td>
+                            <td style="text-align: right;">{{number_format($totalKredit,2)}}</td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -181,5 +181,5 @@
 </html>
 <script type="text/javascript">
     // window.onafterprint = window.close;
-    window.print();
+    // window.print();
 </script>

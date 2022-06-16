@@ -147,12 +147,12 @@ echo "Some Text"; //no ending ; here
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->no_SO}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->id_kyw}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->uraian}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->debet)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->kredit)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->saldo)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->debet_us)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->kredit_us)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->saldo_valas)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->debet,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->kredit,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->saldo,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->debet_us,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->kredit_us,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->saldo_valas,2)}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{wordwrap($b->dept,10,'<br>\n')}}</td>
                     </tr>
                     @endforeach

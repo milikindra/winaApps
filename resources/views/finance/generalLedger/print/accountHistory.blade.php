@@ -144,12 +144,12 @@
                         <td style="width: 10%;">{{$b->no_SO}}</td>
                         <td style="width: 10%;">{{$b->id_kyw}}</td>
                         <td style="width: 10%;">{{$b->uraian}}</td>
-                        <td style="width: 5%; text-align:right">{{number_format($b->debet)}}</td>
-                        <td style="width: 5%; text-align:right">{{number_format($b->kredit)}}</td>
-                        <td style="width: 10%; text-align:right">{{number_format($b->saldo)}}</td>
-                        <td style="width: 5%; text-align:right">{{number_format($b->debet_us)}}</td>
-                        <td style="width: 5%; text-align:right">{{number_format($b->kredit_us)}}</td>
-                        <td style="width: 10%; text-align:right">{{number_format($b->saldo_valas)}}</td>
+                        <td style="width: 5%; text-align:right">{{number_format($b->debet,2)}}</td>
+                        <td style="width: 5%; text-align:right">{{number_format($b->kredit,2)}}</td>
+                        <td style="width: 10%; text-align:right">{{number_format($b->saldo,2)}}</td>
+                        <td style="width: 5%; text-align:right">{{number_format($b->debet_us,2)}}</td>
+                        <td style="width: 5%; text-align:right">{{number_format($b->kredit_us,2)}}</td>
+                        <td style="width: 10%; text-align:right">{{number_format($b->saldo_valas,2)}}</td>
                         <td style="word-wrap: break-word">{{wordwrap($b->dept,10,'<br>\n')}}</td>
                     </tr>
                     @endforeach
@@ -163,5 +163,5 @@
 </html>
 <script type="text/javascript">
     // window.onafterprint = window.close;
-    window.print();
+    // window.print();
 </script>
