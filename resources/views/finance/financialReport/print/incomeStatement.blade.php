@@ -138,10 +138,22 @@
                         @else
                     <tr>
                         @endif
+                        @if($b->haschild == "Y")
+                        <td style="width: 10%; border-right:none;"><strong>{{$b->no_rek2}}</strong></td>
+                        <td style="width: 50%; border-left:none;border-right:none;"><strong><?= str_replace(' ', '&nbsp;', $b->nm_rek); ?></strong></td>
+                        @if($b->tipe == "T")
+                        <td style="width: 30%; text-align:right;border-left:none;border-right:none;"><strong>{{accDollars($b->nilai)}}</strong></td>
+                        <td style="width: 10%; text-align:right;border-left:none;"><strong>{{accPercent($b->persen)}}</strong></td>
+                        @else
+                        <td style="width: 30%; text-align:right;border-left:none;border-right:none;"></td>
+                        <td style="width: 10%; text-align:right;border-left:none;"></td>
+                        @endif
+                        @else
                         <td style="width: 10%; border-right:none;">{{$b->no_rek2}}</td>
                         <td style="width: 50%; border-left:none;border-right:none;"><?= str_replace(' ', '&nbsp;', $b->nm_rek); ?></td>
                         <td style="width: 30%; text-align:right;border-left:none;border-right:none;">{{accDollars($b->nilai)}}</td>
                         <td style="width: 10%; text-align:right;border-left:none;">{{accPercent($b->persen)}}</td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -154,5 +166,5 @@
 </html>
 <script type="text/javascript">
     // window.onafterprint = window.close;
-    window.print();
+    // window.print();
 </script>

@@ -122,8 +122,6 @@ class FinancialReportController extends Controller
                 'isChild' => $request->input('isChild'),
                 'isZero' => $request->input('isZero'),
                 'isTotalParent' => $request->input('isTotalParent'),
-                'isRecord' => "Y",
-                'accountPercent' => "",
                 'isPercent' => $request->input('isPercent'),
                 'isValas' => $request->input('isValas'),
                 'isShowCoa' => $request->input('isShowCoa'),

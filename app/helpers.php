@@ -73,7 +73,7 @@ function accPercent($value)
     if ($value < 0) {
         return "(" . accPercent(-$value) . "%)";
     } else {
-        return number_format($value, 2);
+        return number_format($value, 2) . "%";
     }
 }
 

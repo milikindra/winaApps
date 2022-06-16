@@ -80,8 +80,8 @@ function tableIncomeStatement() {
     if ($('#isZero').is(":checked")) {
         isZero = $('#isZero').val();
     }
-    if ($('#isTotalParrent').is(":checked")) {
-        isTotalParrent = $('#isTotalParrent').val();
+    if ($('#isTotalParent').is(":checked")) {
+        isTotalParent = $('#isTotalParent').val();
     }
     if ($('#isPercent').is(":checked")) {
         isPercent = $('#isPercent').val();
@@ -100,7 +100,7 @@ function tableIncomeStatement() {
         stateSave: true,
         deferRender: true,
         scrollX: true,
-        paging: true,
+        paging: false,
         ordering: false,
         lengthMenu: [
             [10, 100, 250, 500, 1000, -1],
@@ -110,7 +110,7 @@ function tableIncomeStatement() {
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         ajax: {
-            url: rute_incomeStatement + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParrent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
+            url: rute_incomeStatement + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
             type: "GET",
             dataType: "JSON",
         },

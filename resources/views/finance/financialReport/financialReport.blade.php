@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="col-12" id="filterTotalParrent" style="display: none;">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="isTotalParrent" value="Y" name="isTotalParrent" checked>
+                                        <input type="checkbox" class="form-check-input" id="isTotalParent" value="Y" name="isTotalParent" checked>
                                         <label>Show Total On Parent</label>
                                     </div>
                                 </div>

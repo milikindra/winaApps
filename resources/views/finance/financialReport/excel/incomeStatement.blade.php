@@ -95,10 +95,22 @@ echo "Some Text"; //no ending ; here
                 <tbody>
                     @foreach($body as $b)
                     <tr>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%">{{$b->no_rek2}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black;" width="7%"><?= str_replace(' ', '&nbsp;', $b->nm_rek); ?></td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{accDollars($b->nilai)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin  solid black; text-align:right" width="7%">{{accPercent($b->persen)}}</td>
+                        @if($b->haschild == "Y")
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black;font-weight: bold;" width="7%">{{$b->no_rek2}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black;font-weight: bold;" width="7%"><?= str_replace(' ', '&nbsp;', $b->nm_rek); ?></td>
+                        @if($b->tipe == "T")
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right;font-weight: bold;" width="7%">{{accDollars($b->nilai)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right;font-weight: bold;" width="7%">{{accPercent($b->persen)}}</td>
+                        @else
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%"></td>
+                        @endif
+                        @else
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black;" width="7%">{{$b->no_rek2}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black;" width="7%"><?= str_replace(' ', '&nbsp;', $b->nm_rek); ?></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%">{{accDollars($b->nilai)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%">{{accPercent($b->persen)}}</td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
