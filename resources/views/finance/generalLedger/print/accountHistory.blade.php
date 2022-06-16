@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- DataTables -->
-<link rel="stylesheet" href="{{ asset('dist/css/adminlte.css')}}" />
-
-<style>
-</style>
 
 <head>
     <title>
@@ -18,11 +13,15 @@
 
         body {
             margin: 10px 20px;
+            -webkit-print-color-adjust: exact !important;
+            /* margin: 0; */
+            font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
         .tableBorder {
             border-spacing: 0;
             border: 1px;
+            border-collapse: collapse;
         }
 
         .table-responsive {
@@ -40,6 +39,7 @@
             text-align: left;
             font-size: 12px;
         }
+
 
         .tableBorder td {
             border-spacing: 0;
@@ -130,7 +130,7 @@
                 <thead>
                     <tr>
                         @foreach($head as $h)
-                        <th style="text-align: center;  border: 1px solid #000000;">{{$h}}</th>
+                        <th style="text-align: center; ">{{$h}}</th>
                         @endforeach
                     </tr>
                 </thead>
