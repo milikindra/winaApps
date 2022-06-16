@@ -39,11 +39,14 @@
             text-align: left;
         }
 
-        .tableBorder td {
+        .tableBorder th {
+            padding: 3px;
             border-spacing: 0;
-            padding: 1px;
-            border: 1px solid #ccc;
-            font-size: 10px;
+            border: 1px solid #fff;
+            background-color: #000;
+            color: #fff;
+            text-align: left;
+            font-size: 12px;
         }
 
         table .bottom {

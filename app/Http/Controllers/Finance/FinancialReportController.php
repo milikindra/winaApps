@@ -184,8 +184,8 @@ class FinancialReportController extends Controller
             $response = $client->request('POST', $url, ['json' => $post_data]);
             $body = json_decode($response->getBody());
             $filter  = [
-                'Start Date' =>  date_format(date_create($request->input('sdate')), 'd-m-Y'),
-                'End Date' => date_format(date_create($request->input('edate')), 'd-m-Y'),
+                'sdate' =>  date_format(date_create($request->input('sdate')), 'd-m-Y'),
+                'edate' => date_format(date_create($request->input('edate')), 'd-m-Y'),
             ];
 
             $data = [

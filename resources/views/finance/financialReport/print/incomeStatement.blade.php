@@ -38,6 +38,7 @@
             background-color: #000;
             color: #fff;
             text-align: left;
+            font-size: 12px;
         }
 
         .tableBorder td {

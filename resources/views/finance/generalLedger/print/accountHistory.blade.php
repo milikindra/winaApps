@@ -34,8 +34,11 @@
         .tableBorder th {
             padding: 3px;
             border-spacing: 0;
-            border: 1px solid #000;
-            text-align: center;
+            border: 1px solid #fff;
+            background-color: #000;
+            color: #fff;
+            text-align: left;
+            font-size: 12px;
         }
 
         .tableBorder td {

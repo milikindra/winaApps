@@ -279,7 +279,7 @@
 @push('other-script')
 <script>
     var rute_incomeStatement = "{{ URL::to('financialReport/data/populateIncomeStatement') }}";
-    var rute_balancesheet = "{{ URL::to('financialReport/data/populatebalanceSheet') }}";
+    var rute_balancesheet = "{{ URL::to('financialReport/data/populateBalanceSheet') }}";
 </script>
 <script src="{{ asset('js/custom/salesOrder.js')}}"></script>
 <script src="{{ asset('js/finance/financialReport/financialReport.js')}}"></script>

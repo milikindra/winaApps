@@ -70,6 +70,8 @@ function dataReport() {
     if (dataType == "appBalanceSheet") {
         tableBalanceSheet();
     }
+    console.log(dataType);
+
     if (dataType == "appProjectPnl") {
 
     }
