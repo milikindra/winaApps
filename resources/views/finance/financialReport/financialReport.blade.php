@@ -169,12 +169,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-10" style="display: none;" id="appCoaTransaction">
+                <div class="col-lg-10" style="display: none;" id="appBalanceSheet">
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <h3 class="card-title">General Ledger</h3>
+                                    <h3 class="card-title">Balance Sheet</h3>
                                     <div class="card-tools float-right">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -187,24 +187,21 @@
                         <div class="card-body table-responsive">
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
-                                <!-- <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button> -->
+                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
                             </div>
                             <br />
                             <br />
-                            <table class="table tableCoaTransaction" id="tableCoaTransaction" style="width: 100%;">
+                            <table class="table tableBalanceSheet" id="tableBalanceSheet" style="width: 100%;">
                                 <thead>
                                     <tr style="text-align: center;">
-                                        <th>Transaction</th>
-                                        <th>No. Account</th>
-                                        <th>Account Name</th>
-                                        <th>Transaction Number</th>
-                                        <th>Date</th>
-                                        <th>Description</th>
-                                        <th>Debet (IDR)</th>
-                                        <th>Credit (IDR)</th>
-                                        <th>Debet (Valas)</th>
-                                        <th>Credit (Valas)</th>
-                                        <th>Dept</th>
+                                        <th id="no-sort" colspan="2">Description</th>
+                                        <th colsapan="2">Balance</th>
+                                    </tr>
+                                    <tr style="display:none">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -228,6 +225,7 @@
 @push('other-script')
 <script>
     var rute_incomeStatement = "{{ URL::to('financialReport/data/populateIncomeStatement') }}";
+    var rute_balancesheet = "{{ URL::to('financialReport/data/populatebalanceSheet') }}";
 </script>
 <script src="{{ asset('js/finance/financialReport/financialReport.js')}}"></script>
 @endpush
