@@ -74,15 +74,8 @@ echo "Some Text"; //no ending ; here
             <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">Per : {{$filter['edate']}}</h6>
         </div>
         <div class="container-fluid">
-            <table>
-                <?php foreach ($filter as $key => $value) { ?>
-                    <tr>
-                        <td><strong>{{$key}}</strong></td>
-                        <td>: {{$value}}</td>
-                    </tr>
-                <?php } ?>
-            </table>
         </div>
+        <br />
         <br />
         <div class="container-fluid">
             <table class="table tableBorder" id="tr" style="width: 100%;">

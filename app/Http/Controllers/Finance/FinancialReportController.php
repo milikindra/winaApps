@@ -186,18 +186,11 @@ class FinancialReportController extends Controller
             $filter  = [
                 'Start Date' =>  date_format(date_create($request->input('sdate')), 'd-m-Y'),
                 'End Date' => date_format(date_create($request->input('edate')), 'd-m-Y'),
-                'Show Total Only' => ($request->input('isTotal') == "Y") ? "Yes" : "-",
-                'Show Parent' => ($request->input('isParent') == "Y") ? "Yes" : "-",
-                'Show Child' => ($request->input('isChild') == "Y") ? "Yes" : "-",
-                'Include Zero Balance' => ($request->input('isZero') == "Y") ? "Yes" : "-",
-                'Show Total On Parent' => ($request->input('isTotalParent') == "Y") ? "Yes" : "-",
-                'Show Percent' => ($request->input('isPercent') == "Y") ? "Yes" : "-",
-                'Show Valas Value' => ($request->input('isValas') == "Y") ? "Yes" : "-",
-                'Show COA' => ($request->input('isShowCoa') == "Y") ? "Yes" : "-",
             ];
 
             $data = [
-                'title' => "FINANCIAL REPORT - INCOME STATEMENT",
+                'title' => "PT. VIKTORI PROVINDO AUTOMATION",
+                'subtitle' => "FINANCIAL REPORT - INCOME STATEMENT",
                 'filter' => $filter,
                 'body' => $body->bbrl,
             ];

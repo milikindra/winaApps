@@ -107,20 +107,13 @@
             </div> -->
         <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$title}}</h4>
         <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
-            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;"></h6>
+            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$subtitle}}</h6>
         </div>
         <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
-            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;"></h6>
+            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">Periode : {{$filter['sdate']}} to : {{$filter['edate']}}</h6>
         </div>
         <div class="container-fluid">
-            <table>
-                <?php foreach ($filter as $key => $value) { ?>
-                    <tr>
-                        <td><strong>{{$key}}</strong></td>
-                        <td>: {{$value}}</td>
-                    </tr>
-                <?php } ?>
-            </table>
+
         </div>
         <br />
         <div class="container-fluid">
