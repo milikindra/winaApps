@@ -42,8 +42,9 @@
 
         .tableBorder td {
             border-spacing: 0;
-            padding: 8px;
-            border: 1px solid #000;
+            padding: 1px;
+            border: 1px solid #ccc;
+            font-size: 10px;
         }
 
         table .bottom {
@@ -107,7 +108,7 @@
             </div> -->
         <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$title}}</h4>
         <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
-            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$subtitle}}</h6>
+            <h5 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$subtitle}}</h5>
         </div>
         <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
             <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">Periode : {{$filter['sdate']}} to : {{$filter['edate']}}</h6>

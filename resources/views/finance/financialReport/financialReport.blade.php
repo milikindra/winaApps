@@ -119,12 +119,13 @@
                                 <div class="col-12" id="filterSo" style="display: none;">
                                     <label>SO</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="so_id" name="so_id">
+                                        <input type="text" class="form-control" id="so_id" name="so_id" onchange>
                                         <span class="input-group-append">
                                             <button type="button" class="btn btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
                                         </span>
                                     </div>
-                                    <span id="so_descrription"></span>
+                                    <br />
+                                    <span id="so_descrription" class="border border-gray rounded" width="100%" style="display: none;"></span>
                                 </div>
                                 <div class="col-12">
                                     <br />

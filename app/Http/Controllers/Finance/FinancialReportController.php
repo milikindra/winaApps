@@ -101,7 +101,7 @@ class FinancialReportController extends Controller
         // }
     }
 
-    public function populatebalanceSheet(request $request, $sdate, $edate, $isTotal, $isParent, $isChild, $isZero, $isTotalParent, $isPercent, $isValas, $isShowCoa)
+    public function populateBalanceSheet(request $request, $sdate, $edate, $isTotal, $isParent, $isChild, $isZero, $isTotalParent, $isPercent, $isValas, $isShowCoa)
     {
         // try {
         $user_token = session('user')->api_token;

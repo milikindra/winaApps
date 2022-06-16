@@ -10,8 +10,15 @@ function modalSo() {
     $("#tabelModalSo").on("click", "tbody tr", function () {
         no_so = $(this).closest("tr").children("td:eq(0)").text();
         $("#so_id").val(no_so);
-        $("#so_descrription").html(no_so);
+        $("#so_descrription").css('display', 'block')
+        var str = "";
+        str += "<small>";
+        str += "SO Date : " + $(this).closest("tr").children("td:eq(1)").text();
+        str += "<br/>Customer : " + $(this).closest("tr").children("td:eq(5)").text();
+        str += "<br/>SO Type : " + $(this).closest("tr").children("td:eq(10)").text();
+        str += "</small>";
 
+        $("#so_descrription").html(str);
         $("#modalSO").modal("hide");
     });
 }
