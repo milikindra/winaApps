@@ -300,7 +300,7 @@
                             </div>
                             <br />
                             <br />
-                            <table class="table tablePnlProject" id="tablePnlProject" style="width: 100%;">
+                            <table class="table tablePnlProject minpadding " id="tablePnlProject" style="width: 100%;">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th id="no-sort">Description</th>

@@ -187,6 +187,53 @@ class GeneralLedgerController extends Controller
         // }
     }
 
+    public function populateCashBankDetail(request $request, $gl_code, $sdate, $edate)
+    {
+        // try {
+        $user_token = session('user')->api_token;
+        $offset = $request->start;
+        $limit = $request->length;
+        $keyword = $request->search['value'];
+        $order = $request->order[0];
+        $sort = [];
+        foreach ($request->order as $key => $o) {
+            $columnIdx = $o['column'];
+            $sortDir = $o['dir'];
+            $sort[] = [
+                'column' => $request->columns[$columnIdx]['name'],
+                'dir' => $sortDir
+            ];
+        }
+        $columns = $request->columns;
+        $draw = $request->draw;
+
+        $post_data = [
+            'search' => $keyword,
+            'sort' => $sort,
+            'current_page' => $offset / $limit + 1,
+            'per_page' => $limit,
+            'user' => session('user')->username,
+            'gl_code' => $gl_code,
+            'sdate' => $sdate,
+            'edate' => $edate,
+        ];
+        $url = Config::get('constants.api_url') . '/accountGl/getListCashBankDetail';
+        $client = new Client();
+        $response = $client->request('POST', $url, ['json' => $post_data]);
+        $body = json_decode($response->getBody());
+        $table['draw'] = $draw;
+        $table['recordsTotal'] = $body->total;
+        $table['recordsFiltered'] = $body->recordsFiltered;
+        $table['data'] = $body->cashBank;
+        return json_encode($table);
+        // } catch (\Exception $e) {
+        //     Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
+
+        //     return abort(500);
+        // }
+    }
+
+
     public function export(request $request)
     {
         $module = $this->module;
@@ -286,6 +333,33 @@ class GeneralLedgerController extends Controller
                     'body' => $body->coaTrx,
                 ];
                 return view('finance.generalLedger.excel.generalLedgerTransaction', $data);
+            }
+        } else if ($dataType == 'appCashBank') {
+            $url = config('constants.api_url') . '/accountGl/getListCashBankDetail';
+            $post_data = [
+                'user' => session('user')->username,
+                'gl_code' => $request->input('gl_code')[0],
+                'sdate' => $request->input('sdate'),
+                'edate' => $request->input('edate')
+            ];
+
+            $client = new Client();
+            $response = $client->request('POST', $url, ['json' => $post_data]);
+            $body = json_decode($response->getBody());
+            $filter  = "SO : " . $request->input('so_id') . " 
+                        Periode : " . date_format(date_create($request->input('sdate')), 'd-m-Y') . " to : " . date_format(date_create($request->input('edate')), 'd-m-Y');
+            $data = [
+                'title' => "PT. VIKTORI PROFINDO AUTOMATION",
+                'subtitle' => "GENERAL LEDGER - CASH/BANK DETAIL",
+                'filter' => $filter,
+                'body' => $body->cashBank,
+            ];
+
+
+            if ($export == 'Print') {
+                return view('finance.generalLedger.print.cashBankDetail', $data);
+            } else {
+                return view('finance.generalLedger.excel.cashBankDetail', $data);
             }
         }
     }

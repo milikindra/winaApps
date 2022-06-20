@@ -13,10 +13,15 @@ $(document).ready(function () {
 
 $("#dataType").change(function () {
     $("#appAccountHistory").css("display", "none");
+    $("#appCoaTransaction").css("display", "none");
+    $("#appCashBank").css("display", "none");
+
     $("#filterAccount").css("display", "none");
     $("#filterEmployee").css("display", "none");
     $("#filterDepartment").css("display", "none");
     $("#filterSo").css("display", "none");
+    $("#filterTrxId").css("display", "none");
+    $("#filterTrxType").css("display", "none");
 
     var dataType = $("#dataType").val();
     if (dataType == "appAccountHistory") {
@@ -33,6 +38,12 @@ $("#dataType").change(function () {
         $("#filterTrxId").css("display", "block");
         $("#filterTrxType").css("display", "block");
     }
+
+    if (dataType == 'appCashBank') {
+        $("#tableCashBank").DataTable().clear();
+        $("#appCashBank").css("display", "block");
+        $("#filterAccount").css("display", "block");
+    }
 });
 
 function dataReport() {
@@ -43,6 +54,10 @@ function dataReport() {
 
     if (dataType == "appCoaTransaction") {
         tableCoaTransaction();
+    }
+
+    if (dataType == "appCashBank") {
+        tableCashBank();
     }
 }
 
@@ -312,4 +327,123 @@ function tableCoaTransaction() {
 
     });
 
+}
+
+function tableCashBank() {
+    $("#tableCashBank").DataTable().clear().destroy();
+
+    var sdate = $('#sdate').val();
+    var edate = $('#edate').val();
+    var gl_code = "null";
+
+    if ($('#gl_code-0').val() != "") {
+        gl_code = $('#gl_code-0').val();
+    }
+
+    var table = $("#tableCashBank").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: false,
+        stateSave: false,
+        deferRender: true,
+        scrollX: true,
+        paging: true,
+        lengthMenu: [
+            [10, 100, 250, 500, 1000, -1],
+            [10, 100, 250, 500, 1000, "all"],
+        ],
+        dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+        ajax: {
+            url: rute_cashBankDetail + '/' + gl_code + '/' + sdate + '/' + edate,
+            type: "GET",
+            dataType: "JSON",
+        },
+        columns: [{
+                data: "NO_REK",
+                name: "NO_REK",
+                orderable: false,
+            },
+            {
+                data: "NM_REK",
+                name: "NM_REK",
+                orderable: false,
+            },
+            {
+                data: "Nomor",
+                name: "Nomor",
+                orderable: false,
+            },
+            {
+                data: "tgl_bukti",
+                name: "tgl_bukti",
+                render: function (data, type, row) {
+                    return moment(data).format("DD MMM YYYY");
+                },
+                orderable: false,
+            },
+            {
+                data: "uraian",
+                name: "uraian",
+                orderable: false,
+            },
+            {
+                data: "debet",
+                name: "debet",
+                className: "dt-body-right",
+                render: function (data, type, row) {
+                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                },
+                orderable: false,
+            },
+            {
+                data: "kredit",
+                name: "kredit",
+                className: "dt-body-right",
+                render: function (data, type, row) {
+                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                },
+                orderable: false,
+            },
+            {
+                data: "saldo",
+                name: "saldo",
+                className: "dt-body-right",
+                render: function (data, type, row) {
+                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                },
+                orderable: false,
+            },
+            {
+                data: "debet_us",
+                name: "debet_us",
+                className: "dt-body-right",
+                render: function (data, type, row) {
+                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                },
+                orderable: false,
+            },
+
+            {
+                data: "kredit_us",
+                name: "kredit_us",
+                className: "dt-body-right",
+                render: function (data, type, row) {
+                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                },
+                orderable: false,
+            },
+            {
+                data: "saldo_valas",
+                name: "saldo_valas",
+                className: "dt-body-right",
+                render: function (data, type, row) {
+                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                },
+                orderable: false,
+            },
+            
+        ],
+    });
 }

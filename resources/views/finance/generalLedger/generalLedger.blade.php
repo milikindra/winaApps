@@ -31,6 +31,9 @@
                                         @if (hasAccess('FX02.01'))
                                         <option value="appCoaTransaction">General Ledger</option>
                                         @endif
+                                        @if (hasAccess('FX03.01'))
+                                        <option value="appCashBank">Cash/Bank Detail</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -211,6 +214,56 @@
                     </div>
                 </div>
 
+                <div class="col-lg-10" style="display: none;" id="appCashBank">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 class="card-title">Cash/Bank Detail</h3>
+                                    <div class="card-tools float-right">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
+                            </div>
+                            <br />
+                            <br />
+                            <table class="table tableCashBank minpadding" id="tableCashBank" style="width: 100%;">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th>No. Account</th>
+                                        <th>Account Name</th>
+                                        <th>Transaction Number</th>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Debet (IDR)</th>
+                                        <th>Credit (IDR)</th>
+                                        <th>Saldo (IDR)</th>
+                                        <th>Debet (Valas)</th>
+                                        <th>Credit (Valas)</th>
+                                        <th>Saldo (Valas)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer ">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
             </div>
         </div>
     </section>
@@ -224,6 +277,7 @@
 <script>
     var rute_accountHistory = "{{ URL::to('generalLedger/data/populateAccountHistory') }}";
     var rute_coaTransaction = "{{ URL::to('generalLedger/data/populateCoaTransaction') }}";
+    var rute_cashBankDetail = "{{ URL::to('generalLedger/data/populateCashBankDetail') }}";
     var rute_export = "{{ URL::to('generalLedger/export') }}";
 </script>
 <script src="{{ asset('js/custom/accountGl.js')}}"></script>
