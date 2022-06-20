@@ -216,7 +216,7 @@
 @endsection
 @push('other-script')
 <script>
-    var rute_city = "{{ URL::to('city/getCity') }}";
+    var rute_city = "{{ URL::to('financial/getCity') }}";
     var url_default = "{{ URL('') }}";
 </script>
 

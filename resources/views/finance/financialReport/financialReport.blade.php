@@ -119,14 +119,68 @@
                                 <div class="col-12" id="filterSo" style="display: none;">
                                     <label>SO</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="so_id" name="so_id" onchange>
+                                        <input type="text" class="form-control" id="so_id" name="so_id" onchange="getPnlProject()" readonly>
                                         <span class="input-group-append">
                                             <button type="button" class="btn btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
                                         </span>
                                     </div>
                                     <br />
                                     <span id="so_descrription" class="border border-gray rounded" width="100%" style="display: none;"></span>
+                                    <br />
                                 </div>
+
+                                <div class="col-12" id="filterShowCoa" style="display: none;">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="isShowCoa" value="Y" name="isShowCoa">
+                                        <label>Show COA</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12" id="filterAssumptionCost" style="display: none;">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="isAssumptionCost" value="Y" name="isAssumptionCost" checked>
+                                        <label>Include Assumption Cost</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12" id="filterOverhead" style="display: none;">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="isOverhead" value="Y" name="isOverhead">
+                                        <label>Include Overhead</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12" id="filterCommision" style="display: none;">
+                                    <table class="table filterCommision table-modal" id="filterCommision" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:50%">Description</th>
+                                                <th style="width:30%">Value</th>
+                                                <th style="width:20%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%">
+                                        <tfoot>
+                                            <tr>
+                                                <td style="width: 50%;">
+                                                </td>
+                                                <td style="width: 50%;">
+                                                    <a href="javascript:void(0)" onclick="removeRowCommision(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
+                                                    <a href="javascript:void(0)" onclick="addRowCommision(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                                <div class="col-12" id="filterPh" style="display: none;">
+                                    <label>Note PH</label>
+                                    <textarea class="form-control" id="notePh" name="notePh"></textarea>
+                                </div>
+
                                 <div class="col-12">
                                     <br />
                                     <a href="javascript:void(0)" class="btn btn-info float-right" id="processFilter" onclick="dataReport()">Process</a>
@@ -158,7 +212,7 @@
                             </div>
                             <br />
                             <br />
-                            <table class="table tableIncomeStatement" id="tableIncomeStatement" style="width: 100%;">
+                            <table class="table tableIncomeStatement minpadding" id="tableIncomeStatement" style="width: 100%;">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th id="no-sort" colspan="2">Description</th>
@@ -202,7 +256,7 @@
                             </div>
                             <br />
                             <br />
-                            <table class="table tableBalanceSheet" id="tableBalanceSheet" style="width: 100%;">
+                            <table class="table tableBalanceSheet minpadding" id="tableBalanceSheet" style="width: 100%;">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th id="no-sort" colspan="2">Description</th>
@@ -229,7 +283,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <h3 class="card-title">Balance Sheet</h3>
+                                    <h3 class="card-title">Project Profit And Loss</h3>
                                     <div class="card-tools float-right">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -246,14 +300,13 @@
                             </div>
                             <br />
                             <br />
-                            <table class="table tableProjectPnl" id="tableProjectPnl" style="width: 100%;">
+                            <table class="table tablePnlProject" id="tablePnlProject" style="width: 100%;">
                                 <thead>
                                     <tr style="text-align: center;">
-                                        <th id="no-sort" colspan="2">Description</th>
+                                        <th id="no-sort">Description</th>
                                         <th colsapan="2">Balance</th>
                                     </tr>
                                     <tr style="display:none">
-                                        <th></th>
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -279,7 +332,9 @@
 @push('other-script')
 <script>
     var rute_incomeStatement = "{{ URL::to('financialReport/data/populateIncomeStatement') }}";
-    var rute_balancesheet = "{{ URL::to('financialReport/data/populateBalanceSheet') }}";
+    var rute_balanceSheet = "{{ URL::to('financialReport/data/populateBalanceSheet') }}";
+    var rute_pnlProjectTable = "{{ URL::to('financialReport/data/populatePnlProject') }}";
+    var rute_pnlProjectSave = "{{ URL::to('pnlProjectSave') }}";
 </script>
 <script src="{{ asset('js/custom/salesOrder.js')}}"></script>
 <script src="{{ asset('js/finance/financialReport/financialReport.js')}}"></script>

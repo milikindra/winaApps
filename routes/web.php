@@ -77,6 +77,9 @@ Route::group(
         Route::post('financialReport/export', [FinancialReportController::class, 'export'])->name('financialReport/export')->middleware('userMatrix:F02.01');
         Route::get('financialReport/data/populateIncomeStatement/{sdate}/{edate}/{isTotal}/{isParent}/{isChild}/{isZero}/{isTotalParent}/{isPercent}/{isValas}/{isShowCoa}', [FinancialReportController::class, 'populateIncomeStatement'])->name('financialReport/data/populateIncomeStatement');
         Route::get('financialReport/data/populateBalanceSheet/{sdate}/{edate}/{isTotal}/{isParent}/{isChild}/{isZero}/{isTotalParent}/{isPercent}/{isValas}/{isShowCoa}', [FinancialReportController::class, 'populateBalanceSheet'])->name('financialReport/data/populateBalanceSheet');
+        Route::get('financialReport/data/populatePnlProject/{edate}/{so_id}/{isAssumptionCost}/{isOverhead}', [FinancialReportController::class, 'populatePnlProject'])->name('financialReport/data/populatePnlProject');
+        Route::get('getPnlProject/{id}', [FinancialReportController::class, 'getPnlProject'])->name('getPnlProject');
+        Route::post('pnlProjectSave', [FinancialReportController::class, 'pnlProjectSave'])->name('pnlProjectSave');
     }
 );
 

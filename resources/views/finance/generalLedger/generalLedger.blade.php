@@ -136,7 +136,7 @@
                             </div>
                             <br />
                             <br />
-                            <table class="table tableAccountHistory" id="tableAccountHistory" style="width: 100%;">
+                            <table class="table tableAccountHistory minpadding" id="tableAccountHistory" style="width: 100%;">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th>No. Account</th>
@@ -186,7 +186,7 @@
                             </div>
                             <br />
                             <br />
-                            <table class="table tableCoaTransaction" id="tableCoaTransaction" style="width: 100%;">
+                            <table class="table tableCoaTransaction minpadding" id="tableCoaTransaction" style="width: 100%;">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th>Transaction</th>

@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
-// use RealRashid\SweetAlert\Facades\Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 // use Illuminate\Support\Carbon;
 // use Maatwebsite\Excel\Facades\Excel;
 // use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -154,6 +154,47 @@ class FinancialReportController extends Controller
         // }
     }
 
+    public function populatePnlProject(request $request, $edate, $so_id, $isAssumptionCost, $isOverhead)
+    {
+        $user_token = session('user')->api_token;
+        $offset = $request->start;
+        $limit = $request->length;
+        // $keyword = $request->search['value'];
+        // $order = $request->order[0];
+        // $sort = [];
+        // foreach ($request->order as $key => $o) {
+        //     $columnIdx = $o['column'];
+        //     $sortDir = $o['dir'];
+        //     $sort[] = [
+        //         'column' => $request->columns[$columnIdx]['name'],
+        //         'dir' => $sortDir
+        //     ];
+        // }
+        $columns = $request->columns;
+        $draw = $request->draw;
+
+        $post_data = [
+            // 'search' => $keyword,
+            // 'sort' => $sort,
+            // 'current_page' => $offset / $limit + 1,
+            'per_page' => $limit,
+            'user' => session('user')->username,
+            'edate' => $edate,
+            'so_id' => $so_id,
+            'isAssumptionCost' => $isAssumptionCost,
+            'isOverhead' => $isOverhead,
+        ];
+        $url = Config::get('constants.api_url') . '/financialReport/getListPnlProject';
+        $client = new Client();
+        $response = $client->request('POST', $url, ['json' => $post_data]);
+        $body = json_decode($response->getBody());
+        $table['draw'] = $draw;
+        $table['recordsTotal'] = $body->total;
+        $table['recordsFiltered'] = $body->recordsFiltered;
+        $table['data'] = $body->balance;
+        return json_encode($table);
+    }
+
 
     public function export(request $request)
     {
@@ -228,12 +269,86 @@ class FinancialReportController extends Controller
                 'filter' => $filter,
                 'body' => $body->balance,
             ];
-            // dd($body->balance);
             if ($export == 'Print') {
                 return view('finance.financialReport.print.balanceSheet', $data);
             } else {
                 return view('finance.financialReport.excel.balanceSheet', $data);
             }
+        } else if ($dataType == 'appProjectPnl') {
+            $url = config('constants.api_url') . '/financialReport/getListPnlProject';
+            $post_data = [
+                'user' => session('user')->username,
+                'edate' => $request->input('edate'),
+                'so_id' => $request->input('so_id'),
+                'isAssumptionCost' => $request->input('isAssumptionCost'),
+                'isOverhead' => $request->input('isOverhead'),
+            ];
+
+            $client = new Client();
+            $response = $client->request('POST', $url, ['json' => $post_data]);
+            $body = json_decode($response->getBody());
+            $filter  = "SO : " . $request->input('so_id') . " 
+                        Per : " . date_format(date_create($request->input('edate')), 'd-m-Y');
+            $data = [
+                'title' => "PT. VIKTORI PROFINDO AUTOMATION",
+                'subtitle' => "FINANCIAL REPORT - PROFIT AND LOSS PROJECT",
+                'filter' => $filter,
+                'body' => $body->balance,
+            ];
+            if ($export == 'Print') {
+                return view('finance.financialReport.print.pnlProject', $data);
+            } else {
+                return view('finance.financialReport.excel.pnlProject', $data);
+            }
         }
+    }
+
+    public function getPnlProject($so_id)
+    {
+        $url = config('constants.api_url') . '/getPnlProject';
+        $post_data = [
+            'user' => session('user')->username,
+            'so_id' => $so_id,
+        ];
+
+        $client = new Client();
+        $response = $client->request('POST', $url, ['json' => $post_data]);
+        $body = json_decode($response->getBody());
+
+        $url = config('constants.api_url') . '/soGetById';
+        $response = $client->request('POST', $url, ['json' => $post_data]);
+        $so = json_decode($response->getBody());
+
+        $data = [
+            'body' => $body->balance,
+            'so' => $so->so,
+        ];
+        return json_encode($data);
+    }
+
+    public function pnlProjectSave(Request $request)
+    {
+        $url = config('constants.api_url') . '/pnlProjectSave';
+        $post_data = [
+            'user' => session('user')->username,
+            'data' => $request['datas'],
+            'so_id' => $request['so_id'],
+            'note_ph' => $request['notePh'],
+        ];
+
+        $client = new Client();
+        $response = $client->request('POST', $url, ['json' => $post_data]);
+        $body = json_decode($response->getBody());
+        $data = [
+            'result' => $body->result,
+            'message' => $body->message
+        ];
+        // if ($data['result'] == true) {
+        //     Alert::toast($body->message, 'success');
+        // } else {
+        //     Alert::toast($body->message, 'danger');
+        // }
+
+        return json_encode($data);
     }
 }

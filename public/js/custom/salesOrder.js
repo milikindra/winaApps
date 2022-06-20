@@ -1,4 +1,5 @@
 var get_salesOrder = "salesOrder/data/populateHead";
+var rute_pnlProject = "getPnlProject";
 
 
 arr = [];
@@ -7,18 +8,20 @@ function modalSo() {
     // arr.push(uid);
     $("#modalSO").modal("show");
     tabelModalSo();
-    $("#tabelModalSo").on("click", "tbody tr", function () {
+    $("#tabelModalSo").one("click", "tbody tr", function () {
         no_so = $(this).closest("tr").children("td:eq(0)").text();
         $("#so_id").val(no_so);
-        $("#so_descrription").css('display', 'block')
+
         var str = "";
         str += "<small>";
         str += "SO Date : " + $(this).closest("tr").children("td:eq(1)").text();
         str += "<br/>Customer : " + $(this).closest("tr").children("td:eq(5)").text();
         str += "<br/>SO Type : " + $(this).closest("tr").children("td:eq(10)").text();
-        str += "</small>";
+        str += "<small>";
 
         $("#so_descrription").html(str);
+        $("#so_descrription").css('display', 'block');
+        $("#so_id").trigger("change");
         $("#modalSO").modal("hide");
     });
 }
@@ -120,4 +123,44 @@ function tabelModalSo() {
             [0, "asc"]
         ],
     });
+}
+
+
+function getPnlProject() {
+    var so_id = $('#so_id').val();
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: rute_pnlProject + '/' + so_id,
+        success: function (hasil) {
+            $("#filterCommision tbody").empty();
+            var a = $.parseJSON(hasil);
+            var rowCount = 0;
+            $.each(a.body, function (i, item) {
+                var str = '';
+                str += "<tr>";
+                str += ' <td> <input type="text" class="form-control form-control-sm" name="commision_desc[]" id="commision_desc-' + rowCount + '" value="' + item.ket + '">  </td>';
+                if (item.nilai == '0.00') {
+                    str += '<td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="commision_value[]" id="commision_value-' + rowCount + '" value="' + item.rate + '"> </td>';
+                    str += '<td><select class="form-control form-control-sm selects2" name="commision_type[]" id="commision_type-' + rowCount + '"> <option value = "prosen" selected>%</option><option value = "idr"> IDR</option></select></td>';
+                } else {
+                    str += '<td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="commision_value[]" id="commision_value-' + rowCount + '" value="' + item.nilai + '"> </td>';
+                    str += '<td><select class="form-control form-control-sm selects2" name="commision_type[]" id="commision_type-' + rowCount + '"> <option value = "prosen">%</option><option value = "idr" selected> IDR</option></select></td>';
+                }
+                str += "</tr>";
+
+                $(".filterCommision").append(str);
+                rowCount++;
+            });
+
+            $.each(a.so, function (i, item) {
+                $("#notePh").html(item.note_ph);
+            });
+
+
+
+        },
+    });
+
+
 }

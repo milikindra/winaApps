@@ -414,3 +414,19 @@ function trxTypeFromGlCard()
 
     return $moduleBody;
 }
+
+// function getTrlProject($so_id)
+// {
+//     $user_token = session('user')->api_token;
+//     $matrixUrl = Config::get('constants.api_url') . '/getTrlProject';
+//     $jsone = array(
+//         'api_token' => $user_token,
+//         'user_id' => session('user')->user_id,
+//         'so_id' => 
+//     );
+//     $numberClient = new Client();
+//     $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+//     $moduleBody = json_decode($responseNumber->getBody());
+
+//     return $moduleBody;
+// }

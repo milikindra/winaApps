@@ -13,6 +13,7 @@ $(document).ready(function () {
 $("#dataType").change(function () {
     $("#appIncomeStatement").css("display", "none");
     $("#appBalanceSheet").css("display", "none");
+    $("#appProjectPnl").css("display", "none");
 
     $("#filterSdate").css("display", "none");
     $("#filterEdate").css("display", "none");
@@ -25,6 +26,10 @@ $("#dataType").change(function () {
     $("#filterValas").css("display", "none");
     $("#filterShowCoa").css("display", "none");
     $("#filterSo").css("display", "none");
+    $("#filterCommision").css("display", "none");
+    $("#filterAssumptionCost").css("display", "none");
+    $("#filterOverhead").css("display", "none");
+    $("#filterPh").css("display", "none");
 
     var dataType = $("#dataType").val();
     if (dataType == "appIncomeStatement") {
@@ -56,9 +61,17 @@ $("#dataType").change(function () {
     }
 
     if (dataType == "appProjectPnl") {
+        $("#tablePnlProject").DataTable().clear();
+        $("#appProjectPnl").css("display", "block");
         $("#filterEdate").css("display", "block");
         $("#filterSo").css("display", "block");
+        $("#filterCommision").css("display", "block");
+        $("#filterAssumptionCost").css("display", "block");
+        $("#filterOverhead").css("display", "block");
+        $("#filterPh").css("display", "block");
     }
+
+
 });
 
 function dataReport() {
@@ -70,10 +83,37 @@ function dataReport() {
     if (dataType == "appBalanceSheet") {
         tableBalanceSheet();
     }
-    console.log(dataType);
 
     if (dataType == "appProjectPnl") {
-
+        var so_id = $('#so_id').val();
+        var notePh = $('#notePh').val();
+        var tbodyRowCount = $("#filterCommision tbody tr").length;
+        var datas = [];
+        for (i = 0; i < tbodyRowCount; i++) {
+            datas[i] = new Object();
+            datas[i].ket = $('#commision_desc-' + i).val();
+            datas[i].value = $('#commision_value-' + i).val();
+            datas[i].type = $('#commision_type-' + i).val();
+        }
+        let _token = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'POST',
+            url: rute_pnlProjectSave,
+            data: {
+                datas: datas,
+                so_id: so_id,
+                notePh: notePh,
+                _token: _token
+            },
+            dataType: "text",
+            success: function (resultData) {
+                console.log("Save Complete")
+            },
+            error: function () {
+                console.log("Something went wrong");
+            }
+        });
+        tablePnlProject();
     }
 
 }
@@ -233,7 +273,7 @@ function tableBalanceSheet() {
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'><'col-sm-6'p>>",
         ajax: {
-            url: rute_balancesheet + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
+            url: rute_balanceSheet + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
             type: "GET",
             dataType: "JSON",
         },
@@ -267,6 +307,97 @@ function tableBalanceSheet() {
                 orderable: false,
                 className: "dt-body-right"
             }
+        ],
+    });
+    $("#no-sort").even().removeClass("sorting_asc sorting_disabled");
+}
+
+
+
+
+var rowCount = 0;
+window.addRowCommision = function (element) {
+    rowCount = $("#filterCommision tbody tr").length;
+    $(".filterCommision").append(
+        '<tr> <td> <input type="text" class="form-control form-control-sm" name="commision_desc[]" id="commision_desc-' +
+        rowCount +
+        '" >  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="commision_value[]" id="commision_value-' +
+        rowCount +
+        '"> </td> <td><select class="form-control form-control-sm selects2" name="commision_type[]" id="commision_type-' +
+        rowCount +
+        '"> <option value = "prosen" selected>%</option><option value = "idr"> IDR</option></select></td></tr>'
+    );
+};
+
+window.removeRowCommision = function (element) {
+    $(".filterCommision tbody tr:last").remove();
+};
+
+function tablePnlProject() {
+    $("#tablePnlProject").DataTable().clear().destroy();
+
+    var edate = $('#edate').val();
+    var so_id = $('#so_id').val();
+    var isAssumptionCost = "N";
+    var isOverhead = "N";
+
+
+    if ($('#isAssumptionCost').is(":checked")) {
+        isAssumptionCost = $('#isAssumptionCost').val();
+    }
+    if ($('#isOverhead').is(":checked")) {
+        isOverhead = $('#isOverhead').val();
+    }
+
+    console.log(rute_pnlProjectTable + '/' + edate + '/' + so_id + '/' + isAssumptionCost + '/' + isOverhead);
+    var table = $("#tablePnlProject").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: false,
+        stateSave: true,
+        deferRender: true,
+        scrollX: true,
+        paging: false,
+        ordering: false,
+        lengthMenu: [
+            [10, 100, 250, 500, 1000, -1],
+            [10, 100, 250, 500, 1000, "all"],
+        ],
+        dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-6'><'col-sm-6'p>>",
+        ajax: {
+            url: rute_pnlProjectTable + '/' + edate + '/' + so_id + '/' + isAssumptionCost + '/' + isOverhead,
+            type: "GET",
+            dataType: "JSON",
+        },
+        columns: [{
+                data: "uraian",
+                name: "uraian",
+                orderable: false,
+            },
+            {
+                data: "nilai",
+                name: "nilai",
+                orderable: false,
+                className: "dt-body-right",
+                render: function (data, type, row) {
+                    if (data != null) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    }
+                },
+            },
+            {
+                data: "prosentase",
+                name: "prosentase",
+                orderable: false,
+                className: "dt-body-right",
+                render: function (data, type, row) {
+                    if (data != null) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",") + "%";
+                    }
+                },
+            },
         ],
     });
     $("#no-sort").even().removeClass("sorting_asc sorting_disabled");
