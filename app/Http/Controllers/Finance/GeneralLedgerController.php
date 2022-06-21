@@ -50,8 +50,29 @@ class GeneralLedgerController extends Controller
 
     public function populateAccountHistory(request $request, $gl_code, $sdate, $edate, $so_id, $id_employee, $dept_id)
     {
+        // try {
         $user_token = session('user')->api_token;
+        $offset = $request->start;
+        $limit = $request->length;
+        $keyword = $request->search['value'];
+        $order = $request->order[0];
+        $sort = [];
+        foreach ($request->order as $key => $o) {
+            $columnIdx = $o['column'];
+            $sortDir = $o['dir'];
+            $sort[] = [
+                'column' => $request->columns[$columnIdx]['name'],
+                'dir' => $sortDir
+            ];
+        }
+        $columns = $request->columns;
+        $draw = $request->draw;
+
         $post_data = [
+            'search' => $keyword,
+            'sort' => $sort,
+            'current_page' => $offset / $limit + 1,
+            'per_page' => $limit,
             'user' => session('user')->username,
             'gl_code' => $gl_code,
             'sdate' => $sdate,
@@ -64,8 +85,16 @@ class GeneralLedgerController extends Controller
         $client = new Client();
         $response = $client->request('POST', $url, ['json' => $post_data]);
         $body = json_decode($response->getBody());
+        $table['draw'] = $draw;
+        $table['recordsTotal'] = $body->total;
+        $table['recordsFiltered'] = $body->recordsFiltered;
         $table['data'] = $body->accountGl;
         return json_encode($table);
+        // } catch (\Exception $e) {
+        //     Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
+
+        //     return abort(500);
+        // }
     }
 
     public function populateAccount(request $request)
