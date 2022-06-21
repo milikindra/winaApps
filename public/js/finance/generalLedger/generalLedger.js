@@ -402,13 +402,14 @@ function tableCashBank() {
         responsive: false,
         stateSave: false,
         deferRender: true,
-        scrollX: true,
-        paging: true,
+        scrollX: false,
+        paging: false,
+        lengthChange: false,
         lengthMenu: [
             [10, 100, 250, 500, 1000, -1],
             [10, 100, 250, 500, 1000, "all"],
         ],
-        dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
+        dom: "<'row'<'col-sm-6'><'col-sm-6'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         ajax: {
