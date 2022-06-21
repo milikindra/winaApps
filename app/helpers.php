@@ -68,14 +68,14 @@ function accDollars($value)
 }
 
 
-function accPercent($value)
-{
-    if ($value < 0) {
-        return "(" . accPercent(-$value) . "%)";
-    } else {
-        return number_format($value, 2) . "%";
-    }
-}
+// function accPercent($value)
+// {
+//     if ($value < 0) {
+//         return "(" . accPercent(-$value) . ")";
+//     } else {
+//         return number_format($value, 2) . "";
+//     }
+// }
 
 function getMenu()
 {

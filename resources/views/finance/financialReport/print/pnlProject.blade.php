@@ -140,11 +140,11 @@
                         @if($b->tipe == "T")
                         <td style="width: 10%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
                         <td style="width: 30%; text-align:right;border-left:none;border-right:none;"><strong>{{accDollars($b->nilai)}}</strong></td>
-                        <td style="width: 10%; text-align:right;border-left:none;"><strong>{{accPercent($b->prosentase)}}</strong></td>
+                        <td style="width: 10%; text-align:right;border-left:none;"><strong>{{accDollars($b->prosentase)}}%</strong></td>
                         @else
                         <td style="width: 10%; border-right:none;">{{$b->uraian}}</td>
                         <td style="width: 30%; text-align:right;border-left:none;border-right:none;">{{accDollars($b->nilai)}}</td>
-                        <td style="width: 10%; text-align:right;border-left:none;">{{accPercent($b->prosentase)}}</td>
+                        <td style="width: 10%; text-align:right;border-left:none;">{{accDollars($b->prosentase)}}%</td>
                         @endif
                         @endif
                     </tr>

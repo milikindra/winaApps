@@ -12,7 +12,7 @@ function dt(voids, kategori, subkategori) {
         processing: true,
         serverSide: true,
         responsive: true,
-        stateSave: true,
+        stateSave: false,
         deferRender: true,
         lengthMenu: [
             [10, 100, 250, 500, 1000, -1],

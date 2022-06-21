@@ -98,13 +98,13 @@ echo "Some Text"; //no ending ; here
                     <tr>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black;" width="7%"><strong>{{$b->uraian}}</strong></td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%"><strong>{{accDollars($b->nilai)}}</strong></td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%"><strong>{{accPercent($b->prosentase)}}</strong></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%"><strong>{{accDollars($b->prosentase)}}</strong>%</td>
                     </tr>
                     @else
                     <tr>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black;" width="7%">{{$b->uraian}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%">{{accDollars($b->nilai)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%">{{accPercent($b->prosentase)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%">{{accDollars($b->prosentase)}}%</td>
                     </tr>
                     @endif
                     @endif

@@ -16,7 +16,7 @@ $(document).ready(function () {
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                stateSave: true,
+                stateSave: false,
                 deferRender: true,
                 bAutoWidth: false,
                 lengthMenu: [
@@ -162,7 +162,7 @@ $(document).ready(function () {
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                stateSave: true,
+                stateSave: false,
                 deferRender: true,
                 bAutoWidth: false,
                 lengthMenu: [

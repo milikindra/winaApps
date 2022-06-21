@@ -55,17 +55,17 @@ class GeneralLedgerController extends Controller
         $offset = $request->start;
         $limit = $request->length;
         $keyword = $request->search['value'];
-        $order = $request->order[0];
+        // $order = $request->order[0];
         $sort = [];
-        foreach ($request->order as $key => $o) {
-            $columnIdx = $o['column'];
-            $sortDir = $o['dir'];
-            $sort[] = [
-                'column' => $request->columns[$columnIdx]['name'],
-                'dir' => $sortDir
-            ];
-        }
-        $columns = $request->columns;
+        // foreach ($request->order as $key => $o) {
+        //     $columnIdx = $o['column'];
+        //     $sortDir = $o['dir'];
+        //     $sort[] = [
+        //         'column' => $request->columns[$columnIdx]['name'],
+        //         'dir' => $sortDir
+        //     ];
+        // }
+        // $columns = $request->columns;
         $draw = $request->draw;
 
         $post_data = [

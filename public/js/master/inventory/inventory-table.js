@@ -16,7 +16,7 @@ $(document).ready(function () {
             processing: true,
             serverSide: true,
             responsive: true,
-            stateSave: true,
+            stateSave: false,
             deferRender: true,
             lengthMenu: [
                 [100, 250, 500, 1000, -1],

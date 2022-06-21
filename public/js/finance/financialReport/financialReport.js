@@ -33,7 +33,8 @@ $("#dataType").change(function () {
 
     var dataType = $("#dataType").val();
     if (dataType == "appIncomeStatement") {
-        $("#tableIncomeStatement").DataTable().clear();
+        $("#tableIncomeStatement table").empty();
+
         $("#appIncomeStatement").css("display", "block");
         $("#filterSdate").css("display", "block");
         $("#filterEdate").css("display", "block");
@@ -119,7 +120,7 @@ function dataReport() {
 }
 
 function tableIncomeStatement() {
-    $("#tableIncomeStatement").DataTable().clear().destroy();
+    $("#tableIncomeStatement").empty();
 
     var sdate = $('#sdate').val();
     var edate = $('#edate').val();
@@ -157,65 +158,63 @@ function tableIncomeStatement() {
         isShowCoa = $('#isShowCoa').val();
     }
 
-    var table = $("#tableIncomeStatement").DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: false,
-        stateSave: true,
-        deferRender: true,
-        scrollX: true,
-        paging: false,
-        ordering: false,
-        lengthMenu: [
-            [10, 100, 250, 500, 1000, -1],
-            [10, 100, 250, 500, 1000, "all"],
-        ],
-        dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-6'><'col-sm-6'p>>",
-        ajax: {
-            url: rute_incomeStatement + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
-            type: "GET",
-            dataType: "JSON",
-        },
-        columns: [{
-                data: "no_rek2",
-                name: "no_rek2",
-                orderable: false,
-            },
-            {
-                data: "nm_rek",
-                name: "nm_rek",
-                orderable: false,
-                render: function (data, type, row) {
-                    return data.split(' ').join('&nbsp;')
-                },
-            },
-            {
-                data: "nilai",
-                name: "nilai",
-                orderable: false,
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    if (data != null) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+    $.ajax({
+        type: 'GET',
+        url: rute_incomeStatement + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
+        dataType: 'json',
+        success: function (data) {
+            $('#title').html('PT. VIKTORI PROFINDO AUTOMATION');;
+            $('#subtitle').html('FINANCIAL REPORT - INCOME STATEMENT');;
+            $('#filter').html('Periode : ' + moment(sdate).format("DD/MM/YYYY") + ' to : ' + moment(edate).format("DD/MM/YYYY"));
+
+            var html = '';
+            html = '<thead> <tr style="text-align: center;"> <th colspan="2">Description</th> <th colsapan="2">Balance</th> </tr></thead>';
+            html += '<tbody>';
+
+            var a = JSON.parse(JSON.stringify(data));
+            $.each(a.data, function (i, item) {
+                html += '<tr>';
+                if (item.haschild == "Y") {
+                    html += '<td><strong>' + item.no_rek2 + '</strong></td>';
+                    html += '<td><strong>' + item.nm_rek + '</strong></td>';
+                    if (item.tipe == "T") {
+                        html += '<td style="text-align:right">' + numbro(item.nilai).format({
+                            thousandSeparated: true,
+                            negative: "parenthesis",
+                            mantissa: 2
+                        }) + '</td>';
+                        html += '<td style="text-align:right">' + numbro(item.persen).format({
+                            thousandSeparated: true,
+                            negative: "parenthesis",
+                            mantissa: 2,
+                            output: "percent"
+                        }) + '</td>';
+                    } else {
+                        html += '<td></td>';
+                        html += '<td></td>';
                     }
-                },
-            },
-            {
-                data: "persen",
-                name: "persen",
-                orderable: false,
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    if (data != null) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",") + "%";
-                    }
-                },
-            },
-        ],
+                } else {
+                    html += '<td>' + item.no_rek2 + '</td>';
+                    html += '<td>' + item.nm_rek.replace(' ', '&nbsp;') + '</td>';
+                    html += '<td style="text-align:right">' + numbro(item.nilai).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    }) + '</td>';
+                    html += '<td style="text-align:right">' + numbro(item.persen).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2,
+                        output: "percent"
+                    }) + '</td>';
+                }
+                html += '</tr>';
+            });
+            html += '</tbody>'
+            $("#tableIncomeStatement").html(html);
+        }
+
     });
-    $("#no-sort").even().removeClass("sorting_asc sorting_disabled");
 }
 
 function tableBalanceSheet() {
@@ -260,7 +259,7 @@ function tableBalanceSheet() {
         processing: true,
         serverSide: true,
         responsive: false,
-        stateSave: true,
+        stateSave: false,
         deferRender: true,
         scrollX: true,
         paging: false,
@@ -354,7 +353,7 @@ function tablePnlProject() {
         processing: true,
         serverSide: true,
         responsive: false,
-        stateSave: true,
+        stateSave: false,
         deferRender: true,
         scrollX: true,
         paging: false,

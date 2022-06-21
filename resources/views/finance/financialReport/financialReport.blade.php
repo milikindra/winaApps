@@ -209,8 +209,16 @@
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
                                 <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-info" name="exportType" value="Pdf">Pdf</button>
                             </div>
                             <br />
+                            <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="title"></h4>
+                            <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
+                                <h5 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="subtitle"></h5>
+                            </div>
+                            <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
+                                <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filter"></h6>
+                            </div>
                             <br />
                             <table class="table tableIncomeStatement minpadding" id="tableIncomeStatement" style="width: 100%;">
                                 <thead>
@@ -218,14 +226,11 @@
                                         <th id="no-sort" colspan="2">Description</th>
                                         <th colsapan="2">Balance</th>
                                     </tr>
-                                    <tr style="display:none">
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td colspan="100%" style="text-align:center">No data available in table </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

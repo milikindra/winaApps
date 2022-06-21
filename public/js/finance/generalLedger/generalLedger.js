@@ -132,7 +132,7 @@ function tableAccountHistory() {
                 data: "tgl_bukti",
                 name: "tgl_bukti",
                 render: function (data, type, row) {
-                    return moment(data).format("DD MMM YYYY");
+                    return moment(data).format("DD/MM/YYYY");
                 },
                 orderable: false,
             },
@@ -311,7 +311,7 @@ function tableCoaTransaction() {
                 data: "tgl_bukti",
                 name: "tgl_bukti",
                 render: function (data, type, row) {
-                    return moment(data).format("DD MMM YYYY");
+                    return moment(data).format("DD/MM/YYYY");
                 },
                 orderable: false,
             },
@@ -435,7 +435,7 @@ function tableCashBank() {
                 data: "tgl_bukti",
                 name: "tgl_bukti",
                 render: function (data, type, row) {
-                    return moment(data).format("DD MMM YYYY");
+                    return moment(data).format("DD/MM/YYYY");
                 },
                 orderable: false,
             },

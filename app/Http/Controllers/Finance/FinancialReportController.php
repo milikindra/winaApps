@@ -17,6 +17,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 // use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Spipu\Html2Pdf\Html2Pdf;
+
 
 class FinancialReportController extends Controller
 {
@@ -51,9 +53,9 @@ class FinancialReportController extends Controller
     {
         // try {
         $user_token = session('user')->api_token;
-        $offset = $request->start;
-        $limit = $request->length;
-        $keyword = $request->search['value'];
+        // $offset = $request->start;
+        // $limit = $request->length;
+        // $keyword = $request->search['value'];
         // $order = $request->order[0];
         // $sort = [];
         // foreach ($request->order as $key => $o) {
@@ -68,10 +70,10 @@ class FinancialReportController extends Controller
         $draw = $request->draw;
 
         $post_data = [
-            'search' => $keyword,
+            // 'search' => $keyword,
             // 'sort' => $sort,
-            'current_page' => $offset / $limit + 1,
-            'per_page' => $limit,
+            // 'current_page' => $offset / $limit + 1,
+            // 'per_page' => $limit,
             'user' => session('user')->username,
             'sdate' => $sdate,
             'edate' => $edate,
@@ -88,9 +90,9 @@ class FinancialReportController extends Controller
         $client = new Client();
         $response = $client->request('POST', $url, ['json' => $post_data]);
         $body = json_decode($response->getBody());
-        $table['draw'] = $draw;
-        $table['recordsTotal'] = $body->total;
-        $table['recordsFiltered'] = $body->recordsFiltered;
+        // $table['draw'] = $draw;
+        // $table['recordsTotal'] = $body->total;
+        // $table['recordsFiltered'] = $body->recordsFiltered;
         $table['data'] = $body->bbrl;
         // log::debug($table);
         return json_encode($table);
@@ -237,8 +239,15 @@ class FinancialReportController extends Controller
             ];
             if ($export == 'Print') {
                 return view('finance.financialReport.print.incomeStatement', $data);
-            } else {
+            } else if ($export == "Excel") {
                 return view('finance.financialReport.excel.incomeStatement', $data);
+            } else if ($export == "Pdf") {
+                $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
+                // $html2pdf->pdf->SetDisplayMode('fullpage');
+                $html2pdf->writeHTML(view('finance.financialReport.pdf.incomeStatement', $data));
+                $html2pdf->output('incomeStatement.pdf', 'D');
+            } else {
+                abort(500);
             }
         } else if ($dataType == 'appBalanceSheet') {
             $url = config('constants.api_url') . '/financialReport/getListBalanceSheet';

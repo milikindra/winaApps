@@ -3,7 +3,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
-        stateSave: true,
+        stateSave: false,
         lengthMenu: [
             [50, 100, 250, 500, 1000],
             [50, 100, 250, 500, 1000],
