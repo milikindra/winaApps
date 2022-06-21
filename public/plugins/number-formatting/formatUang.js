@@ -9,22 +9,6 @@ function removePeriod(nStr, remove) {
     return nStr
 }
 
-function minusAccounting(value) {
-    if (value < 0) {
-        return "(" + minusAccounting(-value) + ")";
-    } else {
-        return addPeriod(value, 2);
-    }
-}
-
-function minusAccountingPercent(value) {
-    if (value < 0) {
-        return "(" + minusAccounting(-value) + "%)";
-    } else {
-        return addPeriod(value, 2);
-    }
-}
-
 function addPeriod(nStr, add) {
     nStr += '';
     nStr = removePeriod(nStr, add);

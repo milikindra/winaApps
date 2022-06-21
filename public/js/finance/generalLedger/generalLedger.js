@@ -25,7 +25,12 @@ $("#dataType").change(function () {
 
     var dataType = $("#dataType").val();
     if (dataType == "appAccountHistory") {
-        $("#tableAccountHistory").DataTable().clear();
+        $("#tableAccountHistory").DataTable({
+            dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            ordering: false
+        }).clear();
         $("#appAccountHistory").css("display", "block");
         $("#filterAccount").css("display", "block");
         $("#filterEmployee").css("display", "block");
@@ -85,6 +90,7 @@ function tableAccountHistory() {
         deferRender: true,
         scrollX: true,
         paging: true,
+        ordering: false,
         lengthMenu: [
             [10, 100, 250, 500, 1000, -1],
             [10, 100, 250, 500, 1000, "all"],
@@ -116,7 +122,7 @@ function tableAccountHistory() {
                 data: "tgl_bukti",
                 name: "tgl_bukti",
                 render: function (data, type, row) {
-                    return moment(data).format("DD MMM YYYY");
+                    return moment(data).format("DD/MM/YYYY");
                 },
                 orderable: false,
             },
@@ -140,7 +146,11 @@ function tableAccountHistory() {
                 name: "debet",
                 className: "dt-body-right",
                 render: function (data, type, row) {
-                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                    return numbro(data).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 4
+                    });
                 },
                 orderable: false,
             },
@@ -149,7 +159,11 @@ function tableAccountHistory() {
                 name: "kredit",
                 className: "dt-body-right",
                 render: function (data, type, row) {
-                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                    return numbro(data).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 4
+                    });
                 },
                 orderable: false,
             },
@@ -158,7 +172,11 @@ function tableAccountHistory() {
                 name: "saldo",
                 className: "dt-body-right",
                 render: function (data, type, row) {
-                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                    return numbro(data).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 4
+                    });
                 },
                 orderable: false,
             },
@@ -167,7 +185,11 @@ function tableAccountHistory() {
                 name: "debet_us",
                 className: "dt-body-right",
                 render: function (data, type, row) {
-                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                    return numbro(data).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 4
+                    });
                 },
                 orderable: false,
             },
@@ -177,7 +199,11 @@ function tableAccountHistory() {
                 name: "kredit_us",
                 className: "dt-body-right",
                 render: function (data, type, row) {
-                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                    return numbro(data).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 4
+                    });
                 },
                 orderable: false,
             },
@@ -186,7 +212,11 @@ function tableAccountHistory() {
                 name: "saldo_valas",
                 className: "dt-body-right",
                 render: function (data, type, row) {
-                    return addPeriod(parseFloat(data).toFixed(2), ",");
+                    return numbro(data).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 4
+                    });
                 },
                 orderable: false,
             },
@@ -443,7 +473,7 @@ function tableCashBank() {
                 },
                 orderable: false,
             },
-            
+
         ],
     });
 }
