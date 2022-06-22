@@ -103,8 +103,16 @@ echo "Some Text"; //no ending ; here
                     @else
                     <tr>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black;" width="7%">{{$b->uraian}}</td>
+                        @if($b->nilai == null)
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%"></td>
+                        @else
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%">{{accDollars($b->nilai)}}</td>
+                        @endif
+                        @if($b->prosentase == null)
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%"></td>
+                        @else
                         <td style="font-family: helvetica,sans-serif;font-size: 10px; border: thin solid black; text-align:right" width="7%">{{accDollars($b->prosentase)}}%</td>
+                        @endif
                     </tr>
                     @endif
                     @endif

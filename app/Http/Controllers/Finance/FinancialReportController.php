@@ -109,7 +109,7 @@ class FinancialReportController extends Controller
         $user_token = session('user')->api_token;
         $offset = $request->start;
         $limit = $request->length;
-        $keyword = $request->search['value'];
+        // $keyword = $request->search['value'];
         // $order = $request->order[0];
         // $sort = [];
         // foreach ($request->order as $key => $o) {
@@ -124,9 +124,9 @@ class FinancialReportController extends Controller
         $draw = $request->draw;
 
         $post_data = [
-            'search' => $keyword,
+            // 'search' => $keyword,
             // 'sort' => $sort,
-            'current_page' => $offset / $limit + 1,
+            // 'current_page' => $offset / $limit + 1,
             'per_page' => $limit,
             'user' => session('user')->username,
             'sdate' => $sdate,
@@ -245,7 +245,7 @@ class FinancialReportController extends Controller
                 $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
                 // $html2pdf->pdf->SetDisplayMode('fullpage');
                 $html2pdf->writeHTML(view('finance.financialReport.pdf.incomeStatement', $data));
-                $html2pdf->output('incomeStatement.pdf', 'D');
+                $html2pdf->output('Income Statement.pdf', 'D');
             } else {
                 abort(500);
             }
@@ -280,8 +280,15 @@ class FinancialReportController extends Controller
             ];
             if ($export == 'Print') {
                 return view('finance.financialReport.print.balanceSheet', $data);
-            } else {
+            } else if ($export == "Excel") {
                 return view('finance.financialReport.excel.balanceSheet', $data);
+            } else if ($export == "Pdf") {
+                $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
+                // $html2pdf->pdf->SetDisplayMode('fullpage');
+                $html2pdf->writeHTML(view('finance.financialReport.pdf.balanceSheet', $data));
+                $html2pdf->output('Balance Sheet.pdf', 'D');
+            } else {
+                abort(500);
             }
         } else if ($dataType == 'appProjectPnl') {
             $url = config('constants.api_url') . '/financialReport/getListPnlProject';
@@ -306,9 +313,17 @@ class FinancialReportController extends Controller
             ];
             if ($export == 'Print') {
                 return view('finance.financialReport.print.pnlProject', $data);
-            } else {
+            } else if ($export == "Excel") {
                 return view('finance.financialReport.excel.pnlProject', $data);
+            } else if ($export == "Pdf") {
+                $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
+                // $html2pdf->pdf->SetDisplayMode('fullpage');
+                $html2pdf->writeHTML(view('finance.financialReport.pdf.pnlProject', $data));
+                $html2pdf->output('Income Statement.pdf', 'D');
+            } else {
+                abort(500);
             }
+
         }
     }
 

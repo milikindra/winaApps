@@ -100,9 +100,6 @@
 
 
 <body>
-    <div class="footer">
-        <span class="page"></span>
-    </div>
     <div style="padding:0px; box-sizing: border-box; position: relative;">
         <!-- <div style=";border-bottom:2px solid #ddd;margin-bottom:10px; position: relative;">
                 <img height="50px" src="{{ asset('images/apps/company.png') }}" alt="WINA">

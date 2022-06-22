@@ -10,3 +10,8 @@
         <b>Version</b> 1.0.0
     </div>
 </footer>
+<div id="overlay">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>

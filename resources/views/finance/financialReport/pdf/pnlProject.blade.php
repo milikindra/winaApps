@@ -117,7 +117,7 @@
             <table class="table tableBorder" id="tr" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th style="text-align: center;">Description</th>
+                        <th style="text-align: center;" width="75%">Description</th>
                         <th style="text-align: center;" colspan="2">Balance</th>
                     </tr>
                 </thead>
@@ -130,20 +130,20 @@
                     <tr>
                         @endif
                         @if($b->tipe == "X")
-                        <td style="width: 10%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
-                        <td style="width: 30%; text-align:right;border-left:none;border-right:none;"></td>
+                        <td style="width: 70%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
+                        <td style="width: 20%; text-align:right;border-left:none;border-right:none;"></td>
                         <td style="width: 10%; text-align:right;border-left:none;"></td>
                         @else
                         @if($b->tipe == "T")
-                        <td style="width: 10%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
-                        <td style="width: 30%; text-align:right;border-left:none;border-right:none;"><strong>{{accDollars($b->nilai)}}</strong></td>
+                        <td style="width: 70%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
+                        <td style="width: 20%; text-align:right;border-left:none;border-right:none;"><strong>{{accDollars($b->nilai)}}</strong></td>
                         <td style="width: 10%; text-align:right;border-left:none;"><strong>{{accDollars($b->prosentase)}}%</strong></td>
                         @else
-                        <td style="width: 10%; border-right:none;">{{$b->uraian}}</td>
+                        <td style="width: 70%; border-right:none;">{{$b->uraian}}</td>
                         @if($b->nilai == null)
-                        <td style="width: 10%; border-left:none;border-right:none;"></td>
+                        <td style="width: 20%; border-left:none;border-right:none;"></td>
                         @else
-                        <td style="width: 30%; text-align:right;border-left:none;border-right:none;">{{accDollars($b->nilai)}}</td>
+                        <td style="width: 20%; text-align:right;border-left:none;border-right:none;">{{accDollars($b->nilai)}}</td>
                         @endif
                         @if($b->prosentase == null)
                         <td style="width: 10%; border-left:none;"></td>

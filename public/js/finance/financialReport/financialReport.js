@@ -10,6 +10,14 @@ $(document).ready(function () {
     $("#dataType").prop("selectedIndex", 1).trigger("change");
 });
 
+$(document).ajaxSend(function (event, request, settings) {
+    $('#loading-indicator').show();
+});
+
+$(document).ajaxComplete(function (event, request, settings) {
+    $('#loading-indicator').hide();
+});
+
 $("#dataType").change(function () {
     $("#appIncomeStatement").css("display", "none");
     $("#appBalanceSheet").css("display", "none");
@@ -49,7 +57,7 @@ $("#dataType").change(function () {
     }
 
     if (dataType == "appBalanceSheet") {
-        $("#tableBalanceSheet").DataTable().clear();
+        $("#tableBalanceSheet table").empty();
         $("#appBalanceSheet").css("display", "block");
         $("#filterEdate").css("display", "block");
         $("#filterTotal").css("display", "block");
@@ -62,7 +70,7 @@ $("#dataType").change(function () {
     }
 
     if (dataType == "appProjectPnl") {
-        $("#tablePnlProject").DataTable().clear();
+        $("#tablePnlProject table").empty();
         $("#appProjectPnl").css("display", "block");
         $("#filterEdate").css("display", "block");
         $("#filterSo").css("display", "block");
@@ -163,9 +171,9 @@ function tableIncomeStatement() {
         url: rute_incomeStatement + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
         dataType: 'json',
         success: function (data) {
-            $('#title').html('PT. VIKTORI PROFINDO AUTOMATION');;
-            $('#subtitle').html('FINANCIAL REPORT - INCOME STATEMENT');;
-            $('#filter').html('Periode : ' + moment(sdate).format("DD/MM/YYYY") + ' to : ' + moment(edate).format("DD/MM/YYYY"));
+            $('#titleIncomeStatement').html('PT. VIKTORI PROFINDO AUTOMATION');;
+            $('#subtitleIncomeStatement').html('FINANCIAL REPORT - INCOME STATEMENT');;
+            $('#filterIncomeStatement').html('Periode : ' + moment(sdate).format("DD/MM/YYYY") + ' to : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
             html = '<thead> <tr style="text-align: center;"> <th colspan="2">Description</th> <th colsapan="2">Balance</th> </tr></thead>';
@@ -178,17 +186,15 @@ function tableIncomeStatement() {
                     html += '<td><strong>' + item.no_rek2 + '</strong></td>';
                     html += '<td><strong>' + item.nm_rek + '</strong></td>';
                     if (item.tipe == "T") {
-                        html += '<td style="text-align:right">' + numbro(item.nilai).format({
+                        html += '<td style="text-align:right"><strong>' + numbro(item.nilai).format({
                             thousandSeparated: true,
                             negative: "parenthesis",
                             mantissa: 2
-                        }) + '</td>';
-                        html += '<td style="text-align:right">' + numbro(item.persen).format({
+                        }) + '</strong></td>';
+                        html += '<td style="text-align:right"><strong>' + numbro(item.persen).format({
                             thousandSeparated: true,
                             negative: "parenthesis",
-                            mantissa: 2,
-                            output: "percent"
-                        }) + '</td>';
+                        }) + '%</strong></td>';
                     } else {
                         html += '<td></td>';
                         html += '<td></td>';
@@ -205,20 +211,20 @@ function tableIncomeStatement() {
                         thousandSeparated: true,
                         negative: "parenthesis",
                         mantissa: 2,
-                        output: "percent"
-                    }) + '</td>';
+                    }) + '%</td>';
                 }
                 html += '</tr>';
             });
             html += '</tbody>'
             $("#tableIncomeStatement").html(html);
         }
-
     });
 }
 
 function tableBalanceSheet() {
-    $("#tableBalanceSheet").DataTable().clear().destroy();
+    $("#overlay").fadeIn(300);
+
+    $("#tableBalanceSheet").empty();
     var sdate = $('#sdate').val();
     var edate = $('#edate').val();
     var isTotal = "N";
@@ -255,60 +261,56 @@ function tableBalanceSheet() {
         isShowCoa = $('#isShowCoa').val();
     }
 
-    var table = $("#tableBalanceSheet").DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: false,
-        stateSave: false,
-        deferRender: true,
-        scrollX: true,
-        paging: false,
-        ordering: false,
-        lengthMenu: [
-            [10, 100, 250, 500, 1000, -1],
-            [10, 100, 250, 500, 1000, "all"],
-        ],
-        dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-6'><'col-sm-6'p>>",
-        ajax: {
-            url: rute_balanceSheet + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
-            type: "GET",
-            dataType: "JSON",
-        },
-        columns: [{
-                data: "no_rek2",
-                name: "no_rek2",
-                orderable: false,
-            },
-            {
-                data: "nm_rek",
-                name: "nm_rek",
-                orderable: false,
-                render: function (data, type, row) {
-                    return data.split(' ').join('&nbsp;')
-                },
-            },
-            {
-                data: "nilai",
-                name: "nilai",
-                orderable: false,
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    if (data != null) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+
+    $.ajax({
+        type: 'GET',
+        url: rute_balanceSheet + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
+        dataType: 'json',
+        success: function (data) {
+            $('#titleBalanceSheet').html('PT. VIKTORI PROFINDO AUTOMATION');;
+            $('#subtitleBalanceSheet').html('FINANCIAL REPORT - BALANCE SHEET');;
+            $('#filterBalanceSheet').html('Per : ' + moment(edate).format("DD/MM/YYYY"));
+
+            var html = '';
+            html = '<thead> <tr style="text-align: center;"> <th colspan="2">Description</th> <th colsapan="2">Balance</th> </tr></thead>';
+            html += '<tbody>';
+
+            var a = JSON.parse(JSON.stringify(data));
+            $.each(a.data, function (i, item) {
+                html += '<tr>';
+                if (item.haschild == "Y") {
+                    html += '<td><strong>' + item.no_rek2 + '</strong></td>';
+                    html += '<td><strong>' + item.nm_rek + '</strong></td>';
+                    if (item.tipe == "T") {
+                        html += '<td style="text-align:right"><stong>' + numbro(item.nilai).format({
+                            thousandSeparated: true,
+                            negative: "parenthesis",
+                            mantissa: 2
+                        }) + '</strong></td>';
+                        html += '<td style="text-align:right"><strong>' + item.valas + '</strong></td>';
+                    } else {
+                        html += '<td></td>';
+                        html += '<td></td>';
                     }
-                },
-            },
-            {
-                data: "valas",
-                name: "valas",
-                orderable: false,
-                className: "dt-body-right"
-            }
-        ],
+                } else {
+                    html += '<td>' + item.no_rek2 + '</td>';
+                    html += '<td>' + item.nm_rek.replace(' ', '&nbsp;') + '</td>';
+                    html += '<td style="text-align:right">' + numbro(item.nilai).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    }) + '</td>';
+                    html += '<td style="text-align:right">' + item.valas + '</td>';
+                }
+                html += '</tr>';
+            });
+            html += '</tbody>'
+            $("#tableBalanceSheet").html(html);
+            setTimeout(function () {
+                $("#overlay").fadeOut(300);
+            }, 500);
+        }
     });
-    $("#no-sort").even().removeClass("sorting_asc sorting_disabled");
 }
 
 
@@ -333,7 +335,9 @@ window.removeRowCommision = function (element) {
 };
 
 function tablePnlProject() {
-    $("#tablePnlProject").DataTable().clear().destroy();
+
+
+    $("#tablePnlProject").empty();
 
     var edate = $('#edate').val();
     var so_id = $('#so_id').val();
@@ -348,56 +352,66 @@ function tablePnlProject() {
         isOverhead = $('#isOverhead').val();
     }
 
-    console.log(rute_pnlProjectTable + '/' + edate + '/' + so_id + '/' + isAssumptionCost + '/' + isOverhead);
-    var table = $("#tablePnlProject").DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: false,
-        stateSave: false,
-        deferRender: true,
-        scrollX: true,
-        paging: false,
-        ordering: false,
-        lengthMenu: [
-            [10, 100, 250, 500, 1000, -1],
-            [10, 100, 250, 500, 1000, "all"],
-        ],
-        dom: "<'row'<'col-sm-6'l><'col-sm-6'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-6'><'col-sm-6'p>>",
-        ajax: {
-            url: rute_pnlProjectTable + '/' + edate + '/' + so_id + '/' + isAssumptionCost + '/' + isOverhead,
-            type: "GET",
-            dataType: "JSON",
-        },
-        columns: [{
-                data: "uraian",
-                name: "uraian",
-                orderable: false,
-            },
-            {
-                data: "nilai",
-                name: "nilai",
-                orderable: false,
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    if (data != null) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+    $.ajax({
+        type: 'GET',
+        url: rute_pnlProjectTable + '/' + edate + '/' + so_id + '/' + isAssumptionCost + '/' + isOverhead,
+        dataType: 'json',
+        success: function (data) {
+            $('#titleProjectPnl').html('PT. VIKTORI PROFINDO AUTOMATION');;
+            $('#subtitleProjectPnl').html('FINANCIAL REPORT - PROFIT AND LOSS PROJECT');;
+            $('#filterProjectPnl').html('SO : ' + so_id + ' Per : ' + moment(edate).format("DD/MM/YYYY"));
+
+            var html = '';
+            html = '<thead> <tr style="text-align: center;"> <th>Description</th> <th colsapan="2">Balance</th> </tr></thead>';
+            html += '<tbody>';
+
+            var a = JSON.parse(JSON.stringify(data));
+            $.each(a.data, function (i, item) {
+                if (item.uraian != '') {
+                    html += '<tr>';
+                    if (item.tipe == "X") {
+                        html += '<td><strong>' + item.uraian + '</strong></td>';
+                        html += '<td></td>';
+                        html += '<td></td>';
+
+                    } else if (item.tipe == "T") {
+                        html += '<td><strong>' + item.uraian + '</strong></td>';
+                        html += '<td style="text-align:right"><strong>' + numbro(item.nilai).format({
+                            thousandSeparated: true,
+                            negative: "parenthesis",
+                            mantissa: 2
+                        }) + '</strong></td>';
+                        html += '<td style="text-align:right"><strong>' + numbro(item.prosentase).format({
+                            thousandSeparated: true,
+                            negative: "parenthesis",
+                            mantissa: 2,
+                        }) + '%</strong></td>';
+                    } else {
+                        html += '<td>' + item.uraian + '</td>';
+                        if (item.nilai == null) {
+                            html += '<td></td>';
+                        } else {
+                            html += '<td style="text-align:right">' + numbro(item.nilai).format({
+                                thousandSeparated: true,
+                                negative: "parenthesis",
+                                mantissa: 2
+                            }) + '</td>';
+                        }
+                        if (item.prosentase == null) {
+                            html += '<td></td>';
+                        } else {
+                            html += '<td style="text-align:right">' + numbro(item.prosentase).format({
+                                thousandSeparated: true,
+                                negative: "parenthesis",
+                                mantissa: 2,
+                            }) + '%</td>';
+                        }
                     }
-                },
-            },
-            {
-                data: "prosentase",
-                name: "prosentase",
-                orderable: false,
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    if (data != null) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",") + "%";
-                    }
-                },
-            },
-        ],
+                    html += '</tr>';
+                }
+            });
+            html += '</tbody>'
+            $("#tablePnlProject").html(html);
+        }
     });
-    $("#no-sort").even().removeClass("sorting_asc sorting_disabled");
 }

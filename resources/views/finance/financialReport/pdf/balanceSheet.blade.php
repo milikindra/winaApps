@@ -109,7 +109,7 @@
             <h5 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$subtitle}}</h5>
         </div>
         <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
-            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">{{$filter}}</h6>
+            <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;">Per : {{$filter['edate']}}</h6>
         </div>
         <br />
         <br />
@@ -117,43 +117,34 @@
             <table class="table tableBorder" id="tr" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th style="text-align: center;">Description</th>
+                        <th style="text-align: center;" colspan="2">Description</th>
                         <th style="text-align: center;" colspan="2">Balance</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($body as $b)
-                    @if($b->uraian !='')
                     @if($b->tipe == "T")
                     <tr style="background-color: #ddd;">
                         @else
                     <tr>
                         @endif
-                        @if($b->tipe == "X")
-                        <td style="width: 10%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
+                        @if($b->haschild == "Y")
+                        <td style="width: 10%; border-right:none;"><strong>{{$b->no_rek2}}</strong></td>
+                        <td style="width: 50%; border-left:none;border-right:none;"><strong><?= str_replace(' ', '&nbsp;', $b->nm_rek); ?></strong></td>
+                        @if($b->tipe == "T")
+                        <td style="width: 30%; text-align:right;border-left:none;border-right:none;"><strong>{{accDollars($b->nilai)}}</strong></td>
+                        <td style="width: 10%; text-align:right;border-left:none;"><strong>{{$b->valas}}</strong></td>
+                        @else
                         <td style="width: 30%; text-align:right;border-left:none;border-right:none;"></td>
                         <td style="width: 10%; text-align:right;border-left:none;"></td>
+                        @endif
                         @else
-                        @if($b->tipe == "T")
-                        <td style="width: 10%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
-                        <td style="width: 30%; text-align:right;border-left:none;border-right:none;"><strong>{{accDollars($b->nilai)}}</strong></td>
-                        <td style="width: 10%; text-align:right;border-left:none;"><strong>{{accDollars($b->prosentase)}}%</strong></td>
-                        @else
-                        <td style="width: 10%; border-right:none;">{{$b->uraian}}</td>
-                        @if($b->nilai == null)
-                        <td style="width: 10%; border-left:none;border-right:none;"></td>
-                        @else
+                        <td style="width: 10%; border-right:none;">{{$b->no_rek2}}</td>
+                        <td style="width: 50%; border-left:none;border-right:none;"><?= str_replace(' ', '&nbsp;', $b->nm_rek); ?></td>
                         <td style="width: 30%; text-align:right;border-left:none;border-right:none;">{{accDollars($b->nilai)}}</td>
-                        @endif
-                        @if($b->prosentase == null)
-                        <td style="width: 10%; border-left:none;"></td>
-                        @else
-                        <td style="width: 10%; text-align:right;border-left:none;">{{accDollars($b->prosentase)}}%</td>
-                        @endif
-                        @endif
+                        <td style="width: 10%; text-align:right;border-left:none;">{{$b->valas}}</td>
                         @endif
                     </tr>
-                    @endif
                     @endforeach
                 </tbody>
             </table>
