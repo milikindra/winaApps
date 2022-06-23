@@ -66,7 +66,6 @@
                                     <input type="date" class="form-control" id="edate" name="edate" value="{{date('Y-m-d')}}">
                                     <br />
                                 </div>
-
                                 <div class="col-12" id="filterTotal" style="display: none;">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="isTotal" value="Y" name="isTotal">
@@ -123,7 +122,7 @@
                                             <button type="button" class="btn btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
                                         </span>
                                     </div>
-                                    <br />
+                                    <p></p>
                                     <span id="so_descrription" class="border border-gray rounded" width="100%" style="display: none;"></span>
                                     <br />
                                 </div>
@@ -147,6 +146,7 @@
                                         <input type="checkbox" class="form-check-input" id="isOverhead" value="Y" name="isOverhead">
                                         <label>Include Overhead</label>
                                     </div>
+                                    <br />
                                 </div>
 
                                 <div class="col-12" id="filterCommision" style="display: none;">
@@ -178,6 +178,25 @@
                                 <div class="col-12" id="filterPh" style="display: none;">
                                     <label>Note PH</label>
                                     <textarea class="form-control" id="notePh" name="notePh"></textarea>
+                                </div>
+
+                                <div class="col-12" id="filterProjectBy" style="display: none;">
+                                    <label>Show Project By</label>
+                                    <select class="form-control selects2" name="showProjectBy" id="showProjectBy">
+                                        <option value="so" selected>SO Date</option>
+                                        <option value="clear">Clear Date</option>
+                                        <option value="cr">CR Date</option>
+                                    </select>
+                                    <br />
+                                </div>
+
+                                <div class="col-12" id="filterProject" style="display: none;">
+                                    <label>Show List</label>
+                                    <select class="form-control selects2" name="showProject" id="showProject">
+                                        <option value="all" selected>All</option>
+                                        <option value="finish">Finish</option>
+                                        <option value="progress">On Progress</option>
+                                    </select>
                                 </div>
 
                                 <div class="col-12">
@@ -223,7 +242,7 @@
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th id="no-sort" colspan="2">Description</th>
-                                        <th colsapan="2">Balance</th>
+                                        <th colspan="2">Balance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -272,7 +291,7 @@
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th id="no-sort" colspan="2">Description</th>
-                                        <th colsapan="2">Balance</th>
+                                        <th colspan="2">Balance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -321,7 +340,74 @@
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th>Description</th>
-                                        <th colsapan="2">Balance</th>
+                                        <th colspan="2">Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer ">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10" style="display: none;" id="appProjectPnlList">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 class="card-title">Project Profit And Loss (List)</h3>
+                                    <div class="card-tools float-right">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-info" name="exportType" value="Pdf">Pdf</button>
+                            </div>
+                            <br />
+                            <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="titleProjectPnl"></h4>
+                            <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
+                                <h5 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="subtitleProjectPnl"></h5>
+                            </div>
+                            <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
+                                <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterProjectPnl"></h6>
+                            </div>
+                            <br />
+                            <table class="table tablePnlProjectList minpadding " id="tablePnlProjectList" style="width: 100%;">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th>SO</th>
+                                        <th>SO Date</th>
+                                        <th>SO Type</th>
+                                        <th>Customer</th>
+                                        <th>Sales</th>
+                                        <th>PO</th>
+                                        <th>Tag</th>
+                                        <th>Last DO</th>
+                                        <th>Payment Date</th>
+                                        <th>Age</th>
+                                        <th>CR Create Date</th>
+                                        <th>Revenue</th>
+                                        <th>COGS</th>
+                                        <th>In Ordered</th>
+                                        <th>Stock In Hand</th>
+                                        <th>Item Adjusment</th>
+                                        <th>Gross Profit</th>
+                                        <th>Gross Profit(%)</th>
+                                        <th>Expense</th>
+                                        <th>Ass Exp</th>
+                                        <th>Profit</th>
+                                        <th>Net Profit (%)</th>
+                                        <th>PH</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -347,6 +433,7 @@
     var rute_incomeStatement = "{{ URL::to('financialReport/data/populateIncomeStatement') }}";
     var rute_balanceSheet = "{{ URL::to('financialReport/data/populateBalanceSheet') }}";
     var rute_pnlProjectTable = "{{ URL::to('financialReport/data/populatePnlProject') }}";
+    var rute_pnlProjectListTable = "{{ URL::to('financialReport/data/populatePnlProjectList') }}";
     var rute_pnlProjectSave = "{{ URL::to('pnlProjectSave') }}";
 </script>
 <script src="{{ asset('js/custom/salesOrder.js')}}"></script>

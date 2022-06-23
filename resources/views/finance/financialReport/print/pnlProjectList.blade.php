@@ -116,44 +116,59 @@
         <div class="container-fluid">
             <table class="table tableBorder" id="tr" style="width: 100%;">
                 <thead>
-                    <tr>
-                        <th style="text-align: center;" width="70%">Description</th>
-                        <th style="text-align: center;" colspan="2">Balance</th>
+                    <tr style="text-align: center;">
+                        <th>SO</th>
+                        <th>SO Date</th>
+                        <th>SO Type</th>
+                        <th>Customer</th>
+                        <th>Sales</th>
+                        <th>PO</th>
+                        <th>Tag</th>
+                        <th>Last DO</th>
+                        <th>Payment Date</th>
+                        <th>Age</th>
+                        <th>CR Create Date</th>
+                        <th>Revenue</th>
+                        <th>COGS</th>
+                        <th>In Ordered</th>
+                        <th>Stock In Hand</th>
+                        <th>Item Adjusment</th>
+                        <th>Gross Profit</th>
+                        <th>Gross Profit(%)</th>
+                        <th>Expense</th>
+                        <th>Ass Exp</th>
+                        <th>Profit</th>
+                        <th>Net Profit (%)</th>
+                        <th>PH</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($body as $b)
-                    @if($b->uraian !='')
-                    @if($b->tipe == "T")
-                    <tr style="background-color: #ddd;">
-                        @else
                     <tr>
-                        @endif
-                        @if($b->tipe == "X")
-                        <td style="width: 70%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
-                        <td style="width: 20%; text-align:right;border-left:none;border-right:none;"></td>
-                        <td style="width: 10%; text-align:right;border-left:none;"></td>
-                        @else
-                        @if($b->tipe == "T")
-                        <td style="width: 70%; border-right:none;"><strong>{{$b->uraian}}</strong></td>
-                        <td style="width: 20%; text-align:right;border-left:none;border-right:none;"><strong>{{accDollars($b->nilai)}}</strong></td>
-                        <td style="width: 10%; text-align:right;border-left:none;"><strong>{{accDollars($b->prosentase)}}%</strong></td>
-                        @else
-                        <td style="width: 70%; border-right:none;">{{$b->uraian}}</td>
-                        @if($b->nilai == null)
-                        <td style="width: 20%; border-left:none;border-right:none;"></td>
-                        @else
-                        <td style="width: 20%; text-align:right;border-left:none;border-right:none;">{{accDollars($b->nilai)}}</td>
-                        @endif
-                        @if($b->prosentase == null)
-                        <td style="width: 10%; border-left:none;"></td>
-                        @else
-                        <td style="width: 10%; text-align:right;border-left:none;">{{accDollars($b->prosentase)}}%</td>
-                        @endif
-                        @endif
-                        @endif
+                        <td>{{$b->no_SO}}</td>
+                        <td style="text-align:center;">{{date_format(date_create($b->tgl_SO), 'd-m-Y') }}</td>
+                        <td style="text-align: center;">{{$b->jenisSO}}</td>
+                        <td>{{$b->nm_cust}}</td>
+                        <td>{{$b->Sales}}</td>
+                        <td>{{$b->no_po}}</td>
+                        <td style="text-align: center;">{{$b->Tag}}</td>
+                        <td style="text-align: center;">{{date_format(date_create($b->tgl_Last_DO), 'd-m-Y') }}</td>
+                        <td style="text-align: center;">{{$b->tgl_clear == null ? '-': date_format(date_create($b->tgl_clear), 'd-m-Y')}}</td>
+                        <td style="text-align: center;">{{$b->umur == null ? '-': $b->umur}}</td>
+                        <td style="text-align: center;">{{date_format(date_create($b->tgl_create_cr), 'd-m-Y') }}</td>
+                        <td style="text-align: right;">{{accDollars($b->REVENUE)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->COGS)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->InOrdered)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->StockInHand)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->ItemAdjustment)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->Gross_Profit)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->prosen1)}}%</td>
+                        <td style="text-align: right;">{{accDollars($b->other_exp)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->Ass_Exp)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->Profit)}}</td>
+                        <td style="text-align: right;">{{accDollars($b->prosen2)}}%</td>
+                        <td>{{$b->note_PH}}</td>
                     </tr>
-                    @endif
                     @endforeach
                 </tbody>
             </table>

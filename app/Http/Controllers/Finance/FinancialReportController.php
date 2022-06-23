@@ -16,7 +16,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 // use Maatwebsite\Excel\Facades\Excel;
 // use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Spipu\Html2Pdf\Html2Pdf;
 
 
@@ -51,29 +51,8 @@ class FinancialReportController extends Controller
 
     public function populateIncomeStatement(request $request, $sdate, $edate, $isTotal, $isParent, $isChild, $isZero, $isTotalParent, $isPercent, $isValas, $isShowCoa)
     {
-        // try {
         $user_token = session('user')->api_token;
-        // $offset = $request->start;
-        // $limit = $request->length;
-        // $keyword = $request->search['value'];
-        // $order = $request->order[0];
-        // $sort = [];
-        // foreach ($request->order as $key => $o) {
-        //     $columnIdx = $o['column'];
-        //     $sortDir = $o['dir'];
-        //     $sort[] = [
-        //         'column' => $request->columns[$columnIdx]['name'],
-        //         'dir' => $sortDir
-        //     ];
-        // }
-        $columns = $request->columns;
-        $draw = $request->draw;
-
         $post_data = [
-            // 'search' => $keyword,
-            // 'sort' => $sort,
-            // 'current_page' => $offset / $limit + 1,
-            // 'per_page' => $limit,
             'user' => session('user')->username,
             'sdate' => $sdate,
             'edate' => $edate,
@@ -90,44 +69,15 @@ class FinancialReportController extends Controller
         $client = new Client();
         $response = $client->request('POST', $url, ['json' => $post_data]);
         $body = json_decode($response->getBody());
-        // $table['draw'] = $draw;
-        // $table['recordsTotal'] = $body->total;
-        // $table['recordsFiltered'] = $body->recordsFiltered;
         $table['data'] = $body->bbrl;
-        // log::debug($table);
         return json_encode($table);
-        // } catch (\Exception $e) {
-        //     Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
-
-        //     return abort(500);
-        // }
     }
 
     public function populateBalanceSheet(request $request, $sdate, $edate, $isTotal, $isParent, $isChild, $isZero, $isTotalParent, $isPercent, $isValas, $isShowCoa)
     {
-        // try {
         $user_token = session('user')->api_token;
-        $offset = $request->start;
-        $limit = $request->length;
-        // $keyword = $request->search['value'];
-        // $order = $request->order[0];
-        // $sort = [];
-        // foreach ($request->order as $key => $o) {
-        //     $columnIdx = $o['column'];
-        //     $sortDir = $o['dir'];
-        //     $sort[] = [
-        //         'column' => $request->columns[$columnIdx]['name'],
-        //         'dir' => $sortDir
-        //     ];
-        // }
-        $columns = $request->columns;
         $draw = $request->draw;
-
         $post_data = [
-            // 'search' => $keyword,
-            // 'sort' => $sort,
-            // 'current_page' => $offset / $limit + 1,
-            'per_page' => $limit,
             'user' => session('user')->username,
             'sdate' => $sdate,
             'edate' => $edate,
@@ -144,42 +94,14 @@ class FinancialReportController extends Controller
         $client = new Client();
         $response = $client->request('POST', $url, ['json' => $post_data]);
         $body = json_decode($response->getBody());
-        $table['draw'] = $draw;
-        $table['recordsTotal'] = $body->total;
-        $table['recordsFiltered'] = $body->recordsFiltered;
         $table['data'] = $body->balance;
         return json_encode($table);
-        // } catch (\Exception $e) {
-        //     Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
-
-        //     return abort(500);
-        // }
     }
 
     public function populatePnlProject(request $request, $edate, $so_id, $isAssumptionCost, $isOverhead)
     {
         $user_token = session('user')->api_token;
-        $offset = $request->start;
-        $limit = $request->length;
-        // $keyword = $request->search['value'];
-        // $order = $request->order[0];
-        // $sort = [];
-        // foreach ($request->order as $key => $o) {
-        //     $columnIdx = $o['column'];
-        //     $sortDir = $o['dir'];
-        //     $sort[] = [
-        //         'column' => $request->columns[$columnIdx]['name'],
-        //         'dir' => $sortDir
-        //     ];
-        // }
-        $columns = $request->columns;
-        $draw = $request->draw;
-
         $post_data = [
-            // 'search' => $keyword,
-            // 'sort' => $sort,
-            // 'current_page' => $offset / $limit + 1,
-            'per_page' => $limit,
             'user' => session('user')->username,
             'edate' => $edate,
             'so_id' => $so_id,
@@ -190,13 +112,29 @@ class FinancialReportController extends Controller
         $client = new Client();
         $response = $client->request('POST', $url, ['json' => $post_data]);
         $body = json_decode($response->getBody());
-        $table['draw'] = $draw;
-        $table['recordsTotal'] = $body->total;
-        $table['recordsFiltered'] = $body->recordsFiltered;
         $table['data'] = $body->balance;
         return json_encode($table);
     }
 
+    public function populatePnlProjectList(request $request, $sdate, $edate, $isAssumptionCost, $isOverhead, $showProjectBy, $showProject)
+    {
+        $user_token = session('user')->api_token;
+        $post_data = [
+            'user' => session('user')->username,
+            'sdate' => $sdate,
+            'edate' => $edate,
+            'isAssumptionCost' => $isAssumptionCost,
+            'isOverhead' => $isOverhead,
+            'showProjectBy' => $showProjectBy,
+            'showProject' => $showProject,
+        ];
+        $url = Config::get('constants.api_url') . '/financialReport/getListPnlProjectList';
+        $client = new Client();
+        $response = $client->request('POST', $url, ['json' => $post_data]);
+        $body = json_decode($response->getBody());
+        $table['data'] = $body->balance;
+        return json_encode($table);
+    }
 
     public function export(request $request)
     {
@@ -205,7 +143,6 @@ class FinancialReportController extends Controller
         $user_token = session('user')->api_token;
         $export = $request->input('exportType');
         $dataType = $request->input('dataType');
-
 
         if ($dataType == 'appIncomeStatement') {
             $url = config('constants.api_url') . '/financialReport/getListIncomeStatement';
@@ -243,7 +180,6 @@ class FinancialReportController extends Controller
                 return view('finance.financialReport.excel.incomeStatement', $data);
             } else if ($export == "Pdf") {
                 $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
-                // $html2pdf->pdf->SetDisplayMode('fullpage');
                 $html2pdf->writeHTML(view('finance.financialReport.pdf.incomeStatement', $data));
                 $html2pdf->output('Income Statement.pdf', 'D');
             } else {
@@ -284,7 +220,6 @@ class FinancialReportController extends Controller
                 return view('finance.financialReport.excel.balanceSheet', $data);
             } else if ($export == "Pdf") {
                 $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
-                // $html2pdf->pdf->SetDisplayMode('fullpage');
                 $html2pdf->writeHTML(view('finance.financialReport.pdf.balanceSheet', $data));
                 $html2pdf->output('Balance Sheet.pdf', 'D');
             } else {
@@ -317,13 +252,56 @@ class FinancialReportController extends Controller
                 return view('finance.financialReport.excel.pnlProject', $data);
             } else if ($export == "Pdf") {
                 $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
-                // $html2pdf->pdf->SetDisplayMode('fullpage');
                 $html2pdf->writeHTML(view('finance.financialReport.pdf.pnlProject', $data));
-                $html2pdf->output('Income Statement.pdf', 'D');
+                $html2pdf->output('Profit And Lost Project.pdf', 'D');
             } else {
                 abort(500);
             }
+        } else if ($dataType == 'appProjectPnlList') {
+            $url = config('constants.api_url') . '/financialReport/getListPnlProjectList';
+            $post_data = [
+                'user' => session('user')->username,
+                'sdate' => $request->input('sdate'),
+                'edate' => $request->input('edate'),
+                'so_id' => $request->input('so_id'),
+                'isAssumptionCost' => $request->input('isAssumptionCost'),
+                'isOverhead' => $request->input('isOverhead'),
+                'showProjectBy' => $request->input('showProjectBy'),
+                'showProject' => $request->input('showProject'),
+            ];
 
+            $client = new Client();
+            $response = $client->request('POST', $url, ['json' => $post_data]);
+            $body = json_decode($response->getBody());
+            $filter  = "Periode : " .  date_format(date_create($request->input('sdate')), 'd-m-Y') . " 
+                        to : " . date_format(date_create($request->input('edate')), 'd-m-Y');
+            $data = [
+                'title' => "PT. VIKTORI PROFINDO AUTOMATION",
+                'subtitle' => "FINANCIAL REPORT - PROFIT AND LOSS PROJECT (LIST)",
+                'filter' => $filter,
+                'body' => $body->balance,
+            ];
+            if ($export == 'Print') {
+                return view('finance.financialReport.print.pnlProjectList', $data);
+            } else if ($export == "Excel") {
+                return view('finance.financialReport.excel.pnlProjectList', $data);
+            } else if ($export == "Pdf") {
+
+                $pdf = SnappyPdf::loadView('finance.financialReport.pdf.pnlProjectList', $data);
+                $pdf->setPaper('A4');
+                $pdf->setOrientation('portrait');
+                $pdf->setOption('margin-right', '3');
+                $pdf->setOption('margin-left', '3');
+                $pdf->setOption('margin-top', '3');
+                $pdf->setOption('margin-bottom', '3');
+                return $pdf->download('Profit And Lost Project (List).pdf');
+
+                // $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
+                // $html2pdf->writeHTML(view('finance.financialReport.pdf.pnlProjectList', $data));
+                // $html2pdf->output('Profit And Lost Project (List).pdf', 'D');
+            } else {
+                abort(500);
+            }
         }
     }
 

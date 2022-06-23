@@ -22,6 +22,7 @@ $("#dataType").change(function () {
     $("#appIncomeStatement").css("display", "none");
     $("#appBalanceSheet").css("display", "none");
     $("#appProjectPnl").css("display", "none");
+    $("#appProjectPnlList").css("display", "none");
 
     $("#filterSdate").css("display", "none");
     $("#filterEdate").css("display", "none");
@@ -38,6 +39,8 @@ $("#dataType").change(function () {
     $("#filterAssumptionCost").css("display", "none");
     $("#filterOverhead").css("display", "none");
     $("#filterPh").css("display", "none");
+    $("#filterProjectBy").css("display", "none");
+    $("#filterProject").css("display", "none");
 
     var dataType = $("#dataType").val();
     if (dataType == "appIncomeStatement") {
@@ -80,6 +83,17 @@ $("#dataType").change(function () {
         $("#filterPh").css("display", "block");
     }
 
+    if (dataType == "appProjectPnlList") {
+        $("#tablePnlProjectList table").empty();
+        $("#appProjectPnlList").css("display", "block");
+        $("#filterSdate").css("display", "block");
+        $("#filterEdate").css("display", "block");
+        $("#filterAssumptionCost").css("display", "block");
+        $("#filterOverhead").css("display", "block");
+        $("#filterProjectBy").css("display", "block");
+        $("#filterProject").css("display", "block");
+
+    }
 
 });
 
@@ -123,6 +137,10 @@ function dataReport() {
             }
         });
         tablePnlProject();
+    }
+
+    if (dataType == "appProjectPnlList") {
+        tablePnlProjectList();
     }
 
 }
@@ -176,7 +194,7 @@ function tableIncomeStatement() {
             $('#filterIncomeStatement').html('Periode : ' + moment(sdate).format("DD/MM/YYYY") + ' to : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
-            html = '<thead> <tr style="text-align: center;"> <th colspan="2">Description</th> <th colsapan="2">Balance</th> </tr></thead>';
+            html = '<thead> <tr style="text-align: center;"> <th colspan="2">Description</th> <th colspan="2">Balance</th> </tr></thead>';
             html += '<tbody>';
 
             var a = JSON.parse(JSON.stringify(data));
@@ -272,37 +290,39 @@ function tableBalanceSheet() {
             $('#filterBalanceSheet').html('Per : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
-            html = '<thead> <tr style="text-align: center;"> <th colspan="2">Description</th> <th colsapan="2">Balance</th> </tr></thead>';
+            html = '<thead> <tr style="text-align: center;"> <th colspan="2">Description</th> <th colspan="2">Balance</th> </tr></thead>';
             html += '<tbody>';
 
             var a = JSON.parse(JSON.stringify(data));
             $.each(a.data, function (i, item) {
-                html += '<tr>';
-                if (item.haschild == "Y") {
-                    html += '<td><strong>' + item.no_rek2 + '</strong></td>';
-                    html += '<td><strong>' + item.nm_rek + '</strong></td>';
-                    if (item.tipe == "T") {
-                        html += '<td style="text-align:right"><stong>' + numbro(item.nilai).format({
+                if (item.nm_rek != '') {
+                    html += '<tr>';
+                    if (item.haschild == "Y") {
+                        html += '<td><strong>' + item.no_rek2 + '</strong></td>';
+                        html += '<td><strong>' + item.nm_rek + '</strong></td>';
+                        if (item.tipe == "T") {
+                            html += '<td style="text-align:right"><strong>' + numbro(item.nilai).format({
+                                thousandSeparated: true,
+                                negative: "parenthesis",
+                                mantissa: 2
+                            }) + '</strong></td>';
+                            html += '<td style="text-align:right"><strong>' + item.valas + '</strong></td>';
+                        } else {
+                            html += '<td></td>';
+                            html += '<td></td>';
+                        }
+                    } else {
+                        html += '<td>' + item.no_rek2 + '</td>';
+                        html += '<td>' + item.nm_rek.replace(' ', '&nbsp;') + '</td>';
+                        html += '<td style="text-align:right">' + numbro(item.nilai).format({
                             thousandSeparated: true,
                             negative: "parenthesis",
                             mantissa: 2
-                        }) + '</strong></td>';
-                        html += '<td style="text-align:right"><strong>' + item.valas + '</strong></td>';
-                    } else {
-                        html += '<td></td>';
-                        html += '<td></td>';
+                        }) + '</td>';
+                        html += '<td style="text-align:right">' + item.valas + '</td>';
                     }
-                } else {
-                    html += '<td>' + item.no_rek2 + '</td>';
-                    html += '<td>' + item.nm_rek.replace(' ', '&nbsp;') + '</td>';
-                    html += '<td style="text-align:right">' + numbro(item.nilai).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    }) + '</td>';
-                    html += '<td style="text-align:right">' + item.valas + '</td>';
+                    html += '</tr>';
                 }
-                html += '</tr>';
             });
             html += '</tbody>'
             $("#tableBalanceSheet").html(html);
@@ -312,9 +332,6 @@ function tableBalanceSheet() {
         }
     });
 }
-
-
-
 
 var rowCount = 0;
 window.addRowCommision = function (element) {
@@ -335,15 +352,11 @@ window.removeRowCommision = function (element) {
 };
 
 function tablePnlProject() {
-
-
     $("#tablePnlProject").empty();
-
     var edate = $('#edate').val();
     var so_id = $('#so_id').val();
     var isAssumptionCost = "N";
     var isOverhead = "N";
-
 
     if ($('#isAssumptionCost').is(":checked")) {
         isAssumptionCost = $('#isAssumptionCost').val();
@@ -362,7 +375,7 @@ function tablePnlProject() {
             $('#filterProjectPnl').html('SO : ' + so_id + ' Per : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
-            html = '<thead> <tr style="text-align: center;"> <th>Description</th> <th colsapan="2">Balance</th> </tr></thead>';
+            html = '<thead> <tr style="text-align: center;"> <th>Description</th> <th colspan="2">Balance</th> </tr></thead>';
             html += '<tbody>';
 
             var a = JSON.parse(JSON.stringify(data));
@@ -412,6 +425,117 @@ function tablePnlProject() {
             });
             html += '</tbody>'
             $("#tablePnlProject").html(html);
+        }
+    });
+}
+
+function tablePnlProjectList() {
+    $("#overlay").fadeIn(300);
+    $("#tablePnlProjectList").empty();
+    var sdate = $('#sdate').val();
+    var edate = $('#edate').val();
+    var isAssumptionCost = "N";
+    var isOverhead = "N";
+    var showProjectBy = $('#showProjectBy').val();
+    var showProject = $('#showProject').val();
+
+    if ($('#isAssumptionCost').is(":checked")) {
+        isAssumptionCost = $('#isAssumptionCost').val();
+    }
+    if ($('#isOverhead').is(":checked")) {
+        isOverhead = $('#isOverhead').val();
+    }
+
+    $.ajax({
+        type: 'GET',
+        url: rute_pnlProjectListTable + '/' + sdate + '/' + edate + '/' + isAssumptionCost + '/' + isOverhead + '/' + showProjectBy + '/' + showProject,
+        dataType: 'json',
+        success: function (data) {
+            $('#titleProjectPnl').html('PT. VIKTORI PROFINDO AUTOMATION');;
+            $('#subtitleProjectPnl').html('FINANCIAL REPORT - PROFIT AND LOSS PROJECT (LIST)');;
+            $('#filterProjectPnl').html('Periode : ' + moment(sdate).format("DD/MM/YYYY") + ' To : ' + moment(edate).format("DD/MM/YYYY"));
+
+            var html = '';
+            html = '<thead> <tr style="text-align: center;"> <th>SO</th> <th>SO Date</th> <th>SO Type</th> <th>Customer</th> <th>Sales</th> <th>PO</th> <th>Tag</th> <th>Last DO</th> <th>Payment Date</th> <th>Age</th> <th>CR Create Date</th> <th>Revenue</th> <th>COGS</th> <th>In Ordered</th> <th>Stock In Hand</th> <th>Item Adjusment</th> <th>Gross Profit</th> <th>Gross Profit(%)</th> <th>Expense</th> <th>Ass Exp</th> <th>Profit</th> <th>Net Profit (%)</th> <th>PH</th> </tr></thead>';
+            html += '<tbody>';
+            var a = JSON.parse(JSON.stringify(data));
+            $.each(a.data, function (i, item) {
+                html += '<tr>';
+                html += '<td>' + item.no_SO + '</td>';
+                html += '<td style="text-align:right">' + moment(item.tgl_SO).format("DD/MM/YYYY") + '</td>';
+                html += '<td>' + item.jenisSO + '</td>';
+                html += '<td>' + item.nm_cust + '</td>';
+                html += '<td>' + item.Sales + '</td>';
+                html += '<td>' + item.no_po + '</td>';
+                html += '<td>' + item.Tag + '</td>';
+                html += '<td style="text-align:right">' + moment(item.tgl_Last_DO).format("DD/MM/YYYY") + '</td>';
+                html += '<td style="text-align:right">' + item.tgl_clear == null ? '-' : moment(item.tgl_clear).format("DD/MM/YYYY") +
+                    '</td>';
+                html += '<td>' + item.umur + '</td>';
+                html += '<td>' + moment(item.tgl_create_cr).format("DD/MM/YYYY") + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.REVENUE).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.COGS).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.InOrdered).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.StockInHand).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.ItemAdjustment).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.Gross_Profit).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.prosen1).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '%</td>';
+                html += '<td style="text-align:right">' + numbro(item.other_exp).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.Ass_Exp).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.Profit).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '</td>';
+                html += '<td style="text-align:right">' + numbro(item.prosen2).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                }) + '%</td>';
+                html += '<td>' + item.note_PH + '</td>';
+                html += '</tr>';
+            });
+            html += '</tbody>'
+            $("#tablePnlProjectList").html(html);
+            setTimeout(function () {
+                $("#overlay").fadeOut(300);
+            }, 500);
         }
     });
 }
