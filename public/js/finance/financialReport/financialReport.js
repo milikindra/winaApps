@@ -451,9 +451,9 @@ function tablePnlProjectList() {
         url: rute_pnlProjectListTable + '/' + sdate + '/' + edate + '/' + isAssumptionCost + '/' + isOverhead + '/' + showProjectBy + '/' + showProject,
         dataType: 'json',
         success: function (data) {
-            $('#titleProjectPnl').html('PT. VIKTORI PROFINDO AUTOMATION');;
-            $('#subtitleProjectPnl').html('FINANCIAL REPORT - PROFIT AND LOSS PROJECT (LIST)');;
-            $('#filterProjectPnl').html('Periode : ' + moment(sdate).format("DD/MM/YYYY") + ' To : ' + moment(edate).format("DD/MM/YYYY"));
+            $('#titleProjectPnlList').html('PT. VIKTORI PROFINDO AUTOMATION');;
+            $('#subtitleProjectPnlList').html('FINANCIAL REPORT - PROFIT AND LOSS PROJECT (LIST)');;
+            $('#filterProjectPnlList').html('Periode : ' + moment(sdate).format("DD/MM/YYYY") + ' To : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
             html = '<thead> <tr style="text-align: center;"> <th>SO</th> <th>SO Date</th> <th>SO Type</th> <th>Customer</th> <th>Sales</th> <th>PO</th> <th>Tag</th> <th>Last DO</th> <th>Payment Date</th> <th>Age</th> <th>CR Create Date</th> <th>Revenue</th> <th>COGS</th> <th>In Ordered</th> <th>Stock In Hand</th> <th>Item Adjusment</th> <th>Gross Profit</th> <th>Gross Profit(%)</th> <th>Expense</th> <th>Ass Exp</th> <th>Profit</th> <th>Net Profit (%)</th> <th>PH</th> </tr></thead>';

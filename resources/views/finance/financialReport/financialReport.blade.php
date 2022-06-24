@@ -373,12 +373,12 @@
                                 <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
                             </div>
                             <br />
-                            <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="titleProjectPnl"></h4>
+                            <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="titleProjectPnlList"></h4>
                             <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
-                                <h5 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="subtitleProjectPnl"></h5>
+                                <h5 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="subtitleProjectPnlList"></h5>
                             </div>
                             <div style="display: inline-block; clear: both; position: static; margin-bottom: 0px; width: 100%;">
-                                <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterProjectPnl"></h6>
+                                <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterProjectPnlList"></h6>
                             </div>
                             <br />
                             <table class="table tablePnlProjectList minpadding " id="tablePnlProjectList" style="width: 100%;">
