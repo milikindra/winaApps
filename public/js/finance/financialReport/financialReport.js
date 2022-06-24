@@ -460,18 +460,28 @@ function tablePnlProjectList() {
             html += '<tbody>';
             var a = JSON.parse(JSON.stringify(data));
             $.each(a.data, function (i, item) {
+                var umur = '-';
+                if (item.umur != null) {
+                    umur = item.umur;
+                }
+
+                var tgl_clear = '-';
+                if (item.tgl_clear != null) {
+                    tgl_clear = moment(item.tgl_clear).format("DD/MM/YYYY")
+                }
+
                 html += '<tr>';
                 html += '<td>' + item.no_SO + '</td>';
-                html += '<td style="text-align:right">' + moment(item.tgl_SO).format("DD/MM/YYYY") + '</td>';
+                html += '<td style="text-align:center">' + moment(item.tgl_SO).format("DD/MM/YYYY") + '</td>';
                 html += '<td>' + item.jenisSO + '</td>';
                 html += '<td>' + item.nm_cust + '</td>';
                 html += '<td>' + item.Sales + '</td>';
                 html += '<td>' + item.no_po + '</td>';
                 html += '<td>' + item.Tag + '</td>';
-                html += '<td style="text-align:right">' + moment(item.tgl_Last_DO).format("DD/MM/YYYY") + '</td>';
-                html += '<td style="text-align:right">' + item.tgl_clear == null ? '-' : moment(item.tgl_clear).format("DD/MM/YYYY") +
+                html += '<td style="text-align:center">' + moment(item.tgl_Last_DO).format("DD/MM/YYYY") + '</td>';
+                html += '<td style="text-align:center">' + tgl_clear  +
                     '</td>';
-                html += '<td>' + item.umur + '</td>';
+                html += '<td>' + umur + '</td>';
                 html += '<td>' + moment(item.tgl_create_cr).format("DD/MM/YYYY") + '</td>';
                 html += '<td style="text-align:right">' + numbro(item.REVENUE).format({
                     thousandSeparated: true,
