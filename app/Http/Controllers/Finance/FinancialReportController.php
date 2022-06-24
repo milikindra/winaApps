@@ -128,6 +128,7 @@ class FinancialReportController extends Controller
             'showProjectBy' => $showProjectBy,
             'showProject' => $showProject,
         ];
+ 
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/financialReport/getListPnlProjectList';
