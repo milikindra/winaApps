@@ -371,7 +371,6 @@
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
                                 <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Pdf">Pdf</button>
                             </div>
                             <br />
                             <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="titleProjectPnl"></h4>

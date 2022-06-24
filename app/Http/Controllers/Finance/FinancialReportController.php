@@ -18,6 +18,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Spipu\Html2Pdf\Html2Pdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class FinancialReportController extends Controller
@@ -286,19 +287,25 @@ class FinancialReportController extends Controller
             } else if ($export == "Excel") {
                 return view('finance.financialReport.excel.pnlProjectList', $data);
             } else if ($export == "Pdf") {
+                // domPDF
+                // $pdf = Pdf::loadView('finance.financialReport.pdf.pnlProjectList', $data);
+                // $pdf->setPaper('A4');
+                // return $pdf->download('Profit And Lost Project (List).pdf');
 
-                $pdf = SnappyPdf::loadView('finance.financialReport.pdf.pnlProjectList', $data);
-                $pdf->setPaper('A4');
-                $pdf->setOrientation('portrait');
-                $pdf->setOption('margin-right', '3');
-                $pdf->setOption('margin-left', '3');
-                $pdf->setOption('margin-top', '3');
-                $pdf->setOption('margin-bottom', '3');
-                return $pdf->download('Profit And Lost Project (List).pdf');
+                // wkhtmltopdf -> snappyPdf
+                // $pdf = SnappyPdf::loadView('finance.financialReport.pdf.pnlProjectList', $data);
+                // $pdf->setPaper('A4');
+                // $pdf->setOrientation('portrait');
+                // $pdf->setOption('margin-right', '3');
+                // $pdf->setOption('margin-left', '3');
+                // $pdf->setOption('margin-top', '3');
+                // $pdf->setOption('margin-bottom', '3');
+                // return $pdf->download('Profit And Lost Project (List).pdf');
 
-                // $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
-                // $html2pdf->writeHTML(view('finance.financialReport.pdf.pnlProjectList', $data));
-                // $html2pdf->output('Profit And Lost Project (List).pdf', 'D');
+                // TCPDF -> Spipu
+                $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
+                $html2pdf->writeHTML(view('finance.financialReport.pdf.pnlProjectList', $data));
+                $html2pdf->output('Profit And Lost Project (List).pdf', 'D');
             } else {
                 abort(500);
             }
