@@ -119,7 +119,6 @@ class FinancialReportController extends Controller
 
     public function populatePnlProjectList(request $request, $sdate, $edate, $isAssumptionCost, $isOverhead, $showProjectBy, $showProject)
     {
-        $user_token = session('user')->api_token;
         $post_data = [
             'user' => session('user')->username,
             'sdate' => $sdate,
@@ -129,12 +128,19 @@ class FinancialReportController extends Controller
             'showProjectBy' => $showProjectBy,
             'showProject' => $showProject,
         ];
-        $url = Config::get('constants.api_url') . '/financialReport/getListPnlProjectList';
-        $client = new Client();
-        $response = $client->request('POST', $url, ['json' => $post_data]);
-        $body = json_decode($response->getBody());
-        $table['data'] = $body->balance;
-        return json_encode($table);
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/financialReport/getListPnlProjectList';
+            $client = new Client();
+            $response = $client->request('POST', $url, ['json' => $post_data]);
+            $body = json_decode($response->getBody());
+            $table['data'] = $body->balance;
+            return json_encode($table);
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            Log::debug($post_data);
+            return abort(500);
+        }
     }
 
     public function export(request $request)
