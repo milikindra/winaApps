@@ -150,12 +150,12 @@ class StatementOfAccountController extends Controller
                 'body' => $body->soa,
             ];
             if ($export == 'Print') {
-                return view('finance.statementOfAccount.print.SupplierSOA', $data);
+                return view('finance.statementOfAccount.print.supplierSOA', $data);
             } else if ($export == "Excel") {
-                return view('finance.statementOfAccount.excel.SupplierSOA', $data);
+                return view('finance.statementOfAccount.excel.supplierSOA', $data);
             } else if ($export == "Pdf") {
                 $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
-                $html2pdf->writeHTML(view('finance.statementOfAccount.pdf.SupplierSOA', $data));
+                $html2pdf->writeHTML(view('finance.statementOfAccount.pdf.supplierSOA', $data));
                 $html2pdf->output('Statement Of Account.pdf', 'D');
             } else {
                 abort(500);
