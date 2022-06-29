@@ -233,7 +233,6 @@ function tableSupplierSOA() {
                 }) + '</td>';
                 html += '<td style="text-align:right">' + paid + '</td>';
                 html += '<td style="text-align:center">'+item.age+'</td>';
-                html += '<td>'+item.sales+'</td>';
                 html += '<td style="text-align:right">' + numbro(item.overdue_1_14).format({
                     thousandSeparated: true,
                     negative: "parenthesis",
@@ -739,23 +738,23 @@ $("#supplier_modal").on("click", function (e) {
     $("#supplierModal").modal("show");
 });
 
-// $("#supplier_save").on("click", function (e) {
-//     e.preventDefault();
-//     var table = $(".tbl_supplier tbody");
-//     var supplier = "";
-//     table.find("tr").each(function (i, el) {
-//         var tds = $(this).find("td");
-//         var kode = tds.eq(0).text().trim();
-//         var inp = $(this).find("input");
-//         var cek = inp.eq(0).val();
-//         if (inp.eq(0).is(":checked")) {
-//             supplier += kode + "||";
-//         }
-//     });
-//     $("#supplier").val(supplier);
-//     $("#supplierModal").modal("hide");
+$("#supplier_save").on("click", function (e) {
+    e.preventDefault();
+    var table = $(".tbl_supplier tbody");
+    var supplier = "";
+    table.find("tr").each(function (i, el) {
+        var tds = $(this).find("td");
+        var kode = tds.eq(0).text().trim();
+        var inp = $(this).find("input");
+        var cek = inp.eq(0).val();
+        if (inp.eq(0).is(":checked")) {
+            supplier += kode + "||";
+        }
+    });
+    $("#supplier").val(supplier);
+    $("#supplierModal").modal("hide");
     
-// });
+});
 
 function dt_inventory() {
     var table = $(".tbl_inventory").DataTable({

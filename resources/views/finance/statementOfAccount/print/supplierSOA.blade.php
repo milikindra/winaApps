@@ -150,8 +150,8 @@
                         <td style="width: 5%; border-right:none;text-align:center;">{{$b->currency}}</td>
                         <td style="width: 5%; border-right:none;text-align:right;">{{accDollars($b->total)}}</td>
                         <td style="width: 5%; border-right:none;text-align:right;">{{accDollars($b->paid)}}</td>
-                        <td style="width: 5%; border-right:none;">{{$b->age}}</td>
-                        <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_1_14)}}</td>
+                        <td style="width: 5%; border-right:none; text-align:right;">{{$b->age}}</td>
+                        <td style=" width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_1_14)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_15_30)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_31_60)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_60)}}</td>
