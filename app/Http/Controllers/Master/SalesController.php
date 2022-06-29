@@ -16,23 +16,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Employee;
 
 
-class CustomerController extends Controller
+class SalesController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    private $module = "M04";
-
-    public function customerGetById(request $request, $id)
-    {
-        $data = customerGetById($id);
-        return json_encode($data);
-    }
-
-    public function customerGetForSi(request $request, $id)
-    {
-        $data = customerGetBySi($id);
-        return json_encode($data);
-    }
+    private $module = "M05";
 
     public function populate(Request $request, $void)
     {
@@ -62,14 +50,14 @@ class CustomerController extends Controller
                 'user' => session('user')->username,
                 'void' => $void,
             ];
-            $url = Config::get('constants.api_url') . '/customer/getList';
+            $url = Config::get('constants.api_url') . '/sales/getList';
             $client = new Client();
             $response = $client->request('POST', $url, ['json' => $post_data]);
             $body = json_decode($response->getBody());
             $table['draw'] = $draw;
             $table['recordsTotal'] = $body->total;
             $table['recordsFiltered'] = $body->recordsFiltered;
-            $table['data'] = $body->customer;
+            $table['data'] = $body->sales;
             return json_encode($table);
         } catch (\Exception $e) {
             Log::debug($request->path()  . " | " . print_r($_POST, TRUE));

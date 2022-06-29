@@ -7,10 +7,13 @@ use App\Http\Controllers\Master\EmployeeController;
 use App\Http\Controllers\Master\CityController;
 use App\Http\Controllers\Master\InventoryController;
 use App\Http\Controllers\Master\CustomerController;
+use App\Http\Controllers\Master\SalesController;
+use App\Http\Controllers\Master\SupplierController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Transaction\SalesInvoiceController;
 use App\Http\Controllers\Finance\GeneralLedgerController;
 use App\Http\Controllers\Finance\FinancialReportController;
+use App\Http\Controllers\Finance\StatementOfAccountController;
 use App\Http\Controllers\Report\ReportStockController;
 use App\Http\Controllers\Report\ReportHelperController;
 // use Illuminate\Support\Facades\URL;
@@ -82,6 +85,12 @@ Route::group(
         Route::get('financialReport/data/populatePnlProjectList/{sdate}/{edate}/{isAssumptionCost}/{isOverhead}/{showProjectBy}/{showProject}', [FinancialReportController::class, 'populatePnlProjectList'])->name('financialReport/data/populatePnlProjectList');
         Route::get('getPnlProject/{id}', [FinancialReportController::class, 'getPnlProject'])->name('getPnlProject');
         Route::post('pnlProjectSave', [FinancialReportController::class, 'pnlProjectSave'])->name('pnlProjectSave');
+
+        // statementOfAccount
+        Route::get('statementOfAccount', [StatementOfAccountController::class, 'statementOfAccountShow'])->name('statementOfAccount')->middleware('userMatrix:F03.01');
+        Route::get('statementOfAccount/data/populateCustomerSOA/{edate}/{customer}/{so}/{sales}/{overdue}/{isTotal}', [statementOfAccountController::class, 'populateCustomerSOA'])->name('statementOfAccount/data/populateCustomerSOA');
+        Route::get('statementOfAccount/data/populateSupplierSOA/{edate}/{supplier}/{inventory}/{tag}/{overdue}/{isTotal}', [statementOfAccountController::class, 'populateSupplierSOA'])->name('statementOfAccount/data/populateSupplierSOA');
+        Route::post('statementOfAccount/export', [StatementOfAccountController::class, 'export'])->name('statementOfAccount/export')->middleware('userMatrix:F03.01');
     }
 );
 
@@ -116,11 +125,18 @@ Route::group(
         Route::post('inventoryUpdate', [InventoryController::class, 'inventoryUpdate'])->name('inventoryUpdate')->middleware('userMatrix:M02.03');
         Route::get('inventory/data/delete/{inv}', [InventoryController::class, 'inventoryDelete'])->name('inventory/data/delete')->middleware('userMatrix:M02.04');
         Route::post('kartuStok', [InventoryController::class, 'kartuStok'])->name('kartuStok')->middleware('userMatrix:M02.01');;
+        Route::get('kartuStok/data/populate/{kode}/{sdate}/{edate}/{lokasi}/{item_transfer}', [InventoryController::class, 'kartuStokPopulate'])->name('kartuStok/data/populate');
 
         // customer
-        Route::get('kartuStok/data/populate/{kode}/{sdate}/{edate}/{lokasi}/{item_transfer}', [InventoryController::class, 'kartuStokPopulate'])->name('kartuStok/data/populate');
         Route::get('customerGetById/{id}', [CustomerController::class, 'customerGetById'])->name('customerGetById');
         Route::get('customerGetForSi/{id}', [CustomerController::class, 'customerGetForSi'])->name('customerGetForSi');
+        Route::get('customer/data/populate/{void}', [CustomerController::class, 'populate'])->name('customer/data/populate');
+
+        // sales
+        Route::get('sales/data/populate/{void}', [SalesController::class, 'populate'])->name('sales/data/populate');
+
+        // supplier
+        Route::get('supplier/data/populate/{void}', [SupplierController::class, 'populate'])->name('supplier/data/populate');
     }
 );
 
