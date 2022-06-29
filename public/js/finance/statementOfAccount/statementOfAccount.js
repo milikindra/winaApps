@@ -162,7 +162,7 @@ function tableCustomerSOA() {
 }
 
 function tableSupplierSOA() {
-    // $("#overlay").fadeIn(300);
+    $("#overlay").fadeIn(300);
     $("#tableSupplierSOA").empty();
 
     var edate = 'all';
@@ -278,9 +278,9 @@ function tableSupplierSOA() {
             });
             html += '</tbody>'
             $("#tableSupplierSOA").html(html);
-            // setTimeout(function () {
-            //     $("#overlay").fadeOut(300);
-            // }, 500);
+            setTimeout(function () {
+                $("#overlay").fadeOut(300);
+            }, 500);
         }
     });
 }
