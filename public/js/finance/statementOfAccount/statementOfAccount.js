@@ -556,7 +556,7 @@ function dt_sales() {
                 name: "NM_SALES",
                 width: "5%",
             },
-             {
+            {
                 data: "ID_SALES",
                 render: function (data, type, row) {
                     return cbSales(data, type, row);

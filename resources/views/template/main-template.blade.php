@@ -21,7 +21,7 @@
   {{-- End Style --}}
 </head>
 
-<body class="sidebar-collapse sidebar-mini layout-fixed">
+<body class="sidebar-collapse sidebar-mini layout-fixed text-xs ">
   <div class="wrapper">
     <!-- Preloader -->
     <!-- <div class="preloader flex-column justify-content-center align-items-center">
