@@ -132,7 +132,7 @@
 <script>
     var rute = "{{ URL::to('salesOrder/data/populate') }}";
     var base_url = "{{ route('salesOrder') }}";
-    var view_url = "{{URL::to('salesOrderDetail')}}";
+    var view_url = "{{URL::to('salesOrderEdit')}}";
     var url_default = "{{ URL('') }}";
 </script>
 <script src="{{ asset('js/transaction/salesOrder/salesOrder-table.js')}}"></script>

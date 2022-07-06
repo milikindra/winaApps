@@ -59,6 +59,9 @@ Route::group(
         Route::get('salesOrderAdd', [SalesOrderController::class, 'salesOrderAdd'])->name('salesOrderAdd')->middleware('userMatrix:T01.02');
         Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
         Route::get('salesOrderDetail/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
+        Route::get('salesOrderEdit/{id}', [SalesOrderController::class, 'salesOrderEdit'])->name('salesOrderEdit')->middleware('userMatrix:T01.03');
+        Route::post('salesOrderUpdate', [SalesOrderController::class, 'salesOrderUpdate'])->name('salesOrderUpdate')->middleware('userMatrix:T01.03');
+        Route::get('salesOrderPrint/{id}', [SalesOrderController::class, 'salesOrderPrint'])->name('salesOrderPrint')->middleware('userMatrix:T01.01');
 
         // salesInvoice
         Route::get('siGetEfaktur/{id}', [SalesInvoiceController::class, 'siGetEfaktur'])->name('siGetEfaktur');

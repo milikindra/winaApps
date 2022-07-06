@@ -430,3 +430,20 @@ function trxTypeFromGlCard()
 
 //     return $moduleBody;
 // }
+
+function getGlobalParam($category, $id)
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/getGlobalParam';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id,
+        'category' => $category,
+        'id' => $id,
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}

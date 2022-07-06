@@ -47,8 +47,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Customer</label>
-                                                <input type="hidden" name="customer_name" id="customer_name" required>
-                                                <select class="form-control form-control-sm selects2 form-control-border" id="customer" name="customer" style="width: 100%;" required>
+                                                <input type="hidden" name="customer_name" id="customer_name" autocomplete="off" required>
+                                                <select class="form-control form-control-sm selects2 form-control-border" id="customer" name="customer" style="width: 100%;" onchange="getCustomer()" required>
                                                     <option selected disabled></option>
                                                     @foreach($customer as $c)
                                                     <option value="{{$c->ID_CUST}}">{{$c->ID_CUST." (".$c->NM_CUST.")"}}</option>
@@ -68,7 +68,7 @@
                                                 <div class="input-group input-group-sm">
                                                     <input type="text" class="form-control form-control-sm form-control-border" name="tempo" id="tempo" required>
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">Hari</span>
+                                                        <span class="input-group-text">Days</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,7 +149,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Sales</label>
-                                                <input type="hidden" name="sales_name" id="sales_name">
+                                                <input type="hidden" name="sales_name" id="sales_name" autocomplete="off">
                                                 <select class="form-control form-control-sm form-control-border selects2" id="sales" name="sales" style="width: 100%;" onchange="" required>
                                                     <option selected disabled></option>
                                                     @foreach($sales as $s)
@@ -213,7 +213,7 @@
                                                                 <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-0">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-0" onchange="addDp(0)">
+                                                                <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-0" autocomplete="off" onchange="addDp(0)">
                                                             </td>
                                                             <td>
                                                                 <select class="form-control form-control-sm" name="dp_tax[]" id="dp_tax-0" onchange="addDp(0)">
@@ -229,7 +229,7 @@
                                                 <table width="100%">
                                                     <tr>
                                                         <td style="width: 50%;">
-                                                            <input type="hidden" value="0" id="totalDpTax" name="totalDpTax" readonly>
+                                                            <input type="hidden" value="0" id="totalDpTax" name="totalDpTax" readonly autocomplete="off">
                                                             <input type="text" class="form-control form-control-sm numajaDesimal" value="0" id="totalDp" name="totalDp" readonly>
                                                         </td>
                                                         <td style="width: 50%;">
@@ -278,22 +278,22 @@
                                                     <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-0">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0)" id="qty-0">
+                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0)" autocomplete="off" id="qty-0">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-0">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal(0)" id="price-0">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal(0)" autocomplete="off" id="price-0">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal(0)" id="disc-0">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal(0)" autocomplete="off" id="disc-0">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal(0)" id="disc2-0">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal(0)" autocomplete="off" id="disc2-0">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal(0)" id="disc_val-0">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal(0)" autocomplete="off" id="disc_val-0">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-0" readonly>
@@ -334,14 +334,14 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total Dpp</label>
                                         <div class="col-sm-8">
-                                            <input type="hidden" name="totalBruto" id="totalBruto">
+                                            <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
                                             <input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Discount</label>
-                                        <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" placeholder="%"></div>
-                                        <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')"></div>
+                                        <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" autocomplete="off" placeholder="%"></div>
+                                        <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" autocomplete="off"></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total PPn</label>
@@ -355,8 +355,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-warning float-right" value="print" title="print"><i class="fa fa-print"></i></button>
-                            <button type="submit" class="btn btn-info float-right" value="save" title="save"><i class="fa fa-save"></i></button>
+                            <button type="submit" class="btn btn-warning float-right" value="print" id="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()"><i class="fa fa-print"></i></button>
+                            <button type="submit" class="btn btn-info float-right" value="save" name="process" title="save"><i class="fa fa-save"></i></button>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,38 @@ $(document).ready(function () {
     var subkategori = "all";
 
     dt(voids, kategori, subkategori);
+    if ($('#customer').val() != '') {
+        getCustomer();
+    }
+
+    var t_dp = $('.down_payment tbody tr').length;
+    if (t_dp > 0) {
+        for (var i = 0; i < t_dp; i++){
+            addDp(i)
+        }
+    }
+
+    var t_det = $('.trx tbody tr').length;
+    for (var i = 0; i < t_det; i++){
+        itemTotal(i);
+    }
+
+
+    $(function() {
+        $('#print').on('submit', function (e) {
+            console.log("A");
+            e.preventDefault();
+            setTimeout(function() {
+                window.location.reload();
+            },0);
+            this.submit();
+        });
+    });
 });
+
+function refreshWindow() {
+    window.location.reload();
+}
 
 function dt(voids, kategori, subkategori) {
     var table = $("#datatables").DataTable({
@@ -55,31 +86,33 @@ function dt(voids, kategori, subkategori) {
     });
 }
 
-$("#customer").change(function () {
+function getCustomer () {
     var id_cust = $("#customer").val();
     $.ajax({
         url: get_customer + "/" + id_cust,
         type: "GET",
         dataType: "JSON",
         success: function (response) {
-            $("#curr").val(response[0].curr);
-            $("#rate_cur").val(response[0].rate);
-            $("#tempo").val(response[0].TEMPO);
-            $("#customer_name").val(response[0].NM_CUST);
-            var customer_address =
-                response[0].ALAMAT1 +
-                "\r\n" +
-                response[0].ALAMAT2 +
-                "\r\n" +
-                response[0].KOTA +
-                "\r\n" +
-                response[0].PROPINSI +
-                "\r\n" +
-                response[0].TELP;
-            $("#customer_address").html(customer_address);
+            if (response.length >0) {
+                $("#curr").val(response[0].curr);
+                $("#rate_cur").val(response[0].rate);
+                $("#tempo").val(response[0].TEMPO);
+                $("#customer_name").val(response[0].NM_CUST);
+                var customer_address =
+                    response[0].ALAMAT1 +
+                    "\r\n" +
+                    response[0].ALAMAT2 +
+                    "\r\n" +
+                    response[0].KOTA +
+                    "\r\n" +
+                    response[0].PROPINSI +
+                    "\r\n" +
+                    response[0].TELP;
+                $("#customer_address").html(customer_address);
+            }
         },
     });
-});
+}
 
 $("#sales").change(function () {
     var id_sales = $("#sales").val();
@@ -204,9 +237,11 @@ $("#dept_save").on("click", function (e) {
     }
 });
 
-var rowCountDp = 0;
+// var rowCountDp = 0;
 window.addRowDp = function (element) {
-    rowCountDp++;
+    var rowCountDp = $('#down_payment tbody tr').length
+    // rowCountDp++;
+
     var vatOption = "";
     jQuery.each(vat, function (i, val) {
         vatOption += "<option>" + val.kode + "</option>";
@@ -215,13 +250,13 @@ window.addRowDp = function (element) {
     $(".down_payment").append(
         '<tr> <td> <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-' +
         rowCountDp +
-        '" onchange="addDp(' + rowCountDp + ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-' +
+        '"  autocomplete="off"  onchange="addDp(' + rowCountDp + ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-' +
         rowCountDp +
         '" onchange="addDp(' + rowCountDp + ')"> </td> <td><select class="form-control form-control-sm" name="dp_tax[]" id="dp_tax-' +
         rowCountDp +
         '" onchange="addDp(' + rowCountDp + ')">' +
         vatOption +
-        '</select></td><td id="dp_tax_value-' + rowCountDp + '" style="display:none"></td></tr>'
+        '</select></td><td id="dp_tax_value-' + rowCountDp + '" style="display:none" ></td></tr>'
     );
 };
 
@@ -274,29 +309,29 @@ window.addRow = function (element) {
         rowCount +
         '" rows="3"></textarea> </td><td> <input type="text" class="form-control form-control-sm" name="ket[]" id="ket--' +
         rowCount +
-        '"> </td><td> <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" id="qty-' +
+        '"> </td><td> <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" autocomplete="off"  id="qty-' +
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
         ')"> </td><td> <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-' +
         rowCount +
-        '"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" id="price-' +
+        '"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" autocomplete="off"  id="price-' +
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
-        ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" id="disc-' +
+        ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" autocomplete="off"  id="disc-' +
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
-        ')"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" id="disc2-' +
+        ')"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" autocomplete="off"  id="disc2-' +
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
-        ')"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;"  name="disc_val[]" id="disc_val-' +
+        ')"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;"  name="disc_val[]" autocomplete="off"  id="disc_val-' +
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
-        ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-' +
+        ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" autocomplete="off"  id="total-' +
         rowCount +
         '" readonly"> <td><select class="form-control form-control-sm" name="tax[]" id="tax-' +
         rowCount +
@@ -345,12 +380,12 @@ function addData(uid) {
 }
 
 function itemTotal(uid) {
-    var qty = $("#qty-" + uid).val() != "" ? parseFloat($("#qty-" + uid).val()) : 0;
-    var price = $("#price-" + uid).val() != "" ? parseFloat($("#price-" + uid).val()) : 0;
-    var disc = $("#disc-" + uid).val() != "" ? parseFloat($("#disc-" + uid).val()) : 0;
-    var disc2 = $("#disc2-" + uid).val() != "" ? parseFloat($("#disc2-" + uid).val()) : 0;
-    var disc_val = $("#disc_val-" + uid).val() != "" ? parseFloat($("#disc_val-" + uid).val()) : 0;
-    var item_disc = $("#itemDisc-" + uid).html() != "" ? parseFloat($("#itemDisc-" + uid).html()) : 0;
+    var qty = $("#qty-" + uid).val() != "" ? parseFloat(removePeriod($("#qty-" + uid).val(),',')) : 0;
+    var price = $("#price-" + uid).val() != "" ? parseFloat(removePeriod($("#price-" + uid).val(),',')) : 0;
+    var disc = $("#disc-" + uid).val() != "" ? parseFloat(removePeriod($("#disc-" + uid).val(),',')) : 0;
+    var disc2 = $("#disc2-" + uid).val() != "" ? parseFloat(removePeriod($("#disc2-" + uid).val(),',')) : 0;
+    var disc_val = $("#disc_val-" + uid).val() != "" ? parseFloat(removePeriod($("#disc_val-" + uid).val(),',')) : 0;
+    var item_disc = $("#itemDisc-" + uid).html() != "" ? parseFloat(removePeriod($("#itemDisc-" + uid).html(),',')) : 0;
 
     var totalBruto = price * qty;
     var total = (price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val;
@@ -424,17 +459,20 @@ function totalPpn() {
     var discountValueHead = $('#discountValueHead').val();
     var totalPpn = 0;
 
-    for (i = 1; i < myTab.rows.length; i++) {
-        var objCells = myTab.rows.item(i).cells;
-
-        if (objCells.item(14).innerHTML > 0) {
-            var itemTaxTotal = (parseFloat(objCells.item(16).innerHTML) - parseFloat(objCells.item(14).innerHTML)) * parseFloat(objCells.item(17).innerHTML) / 100;
-        } else {
-            var itemTaxTotal = parseFloat(objCells.item(12).innerHTML) * parseFloat(objCells.item(17).innerHTML) / 100;
+    if (myTab.rows.length > 0){
+        for (i = 1; i < myTab.rows.length; i++) {
+            var objCells = myTab.rows.item(i).cells;
+            if (objCells.item(14).innerHTML > 0) {
+                var itemTaxTotal = (parseFloat(objCells.item(16).innerHTML) - parseFloat(objCells.item(14).innerHTML)) * parseFloat(objCells.item(17).innerHTML) / 100;
+            } else {
+                if (objCells.item(12).innerHTML != '') {
+                    var itemTaxTotal = parseFloat(objCells.item(12).innerHTML) * parseFloat(objCells.item(17).innerHTML) / 100;
+                }
+            }
+            totalPpn += itemTaxTotal;
         }
-        totalPpn += itemTaxTotal;
-    }
-
+    } 
+    
     var grandTotal = totalDpp - discountValueHead + totalPpn;
     $("#totalPpn").val(totalPpn);
     $("#grandTotal").val(grandTotal);
