@@ -134,7 +134,7 @@
                                 <div class="col-12" id="filterTotalSupplier" style="display: none;margin-bottom:5px;">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="isTotalSupplier" value="Y" name="isTotal">
-                                        <label>Show Total Per Supplier</label>
+                                        <label class="form-check-label">Show Total Per Supplier</label>
                                     </div>
                                 </div>
 
@@ -234,7 +234,7 @@
                                 <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterSupplierSOA"></h6>
                             </div>
                             <br />
-                            <table class="table tableSupplierSOA minpadding" id="tableSupplierSOA" style="width: 100%;">
+                            <table class="table tableSupplierSOA minpadding" id="tableSupplierSOA" style="width: 100%; cursor:pointer">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th>Supplier</th>
@@ -473,7 +473,7 @@
             </div>
             <div class=" modal-footer justify-content-between">
                 <button type="button" class="btn btn-sm btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
-                <button type="submit" id="overdueCustomer_save" class="btn btn-sm btn-info">Save</button>
+                <button type="submit" id="customerNote_save" class="btn btn-sm btn-info">Save</button>
             </div>
         </div>
     </div>
@@ -610,6 +610,39 @@
             <div class=" modal-footer justify-content-between">
                 <button type="button" class="btn btn-sm btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
                 <button type="submit" id="overdueSupplier_save" class="btn btn-sm btn-info">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="supplierNotesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Internal Notes & Estimation Date</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <!-- checkbox -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Internal Notes</label>
+                                        <textarea class="form-control form-control-sm r1" row="1" name="inNotes" id="inNotes"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" modal-footer justify-content-between">
+                <button type="button" class="btn btn-sm btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                <button type="submit" id="supplierNotes_save" class="btn btn-sm btn-info">Save</button>
             </div>
         </div>
     </div>

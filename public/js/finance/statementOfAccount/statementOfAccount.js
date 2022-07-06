@@ -19,6 +19,11 @@ $(document).ready(function () {
         console.group(id_cSOA)
             $("#customerNotesModal").modal("show");
     })
+    $('#tableSupplierSOA').on('dblclick tbody', 'tr', function (e) {
+        id_sSOA = $(this).closest("tr").children("td:eq(0)").text();
+        console.group(id_sSOA)
+            $("#supplierNotesModal").modal("show");
+    })
 });
 
 $("#dataType").change(function () {
@@ -278,11 +283,39 @@ function tableSupplierSOA() {
 
             var a = JSON.parse(JSON.stringify(data));
             $.each(a.data, function (i, item) {
+                var nm_supplier = '';
+                if (item.nm_supplier != null) {
+                    nm_supplier = item.nm_supplier;
+                }
+                var no_pi = '';
+                if (item.no_pi != null) {
+                    no_pi = item.no_pi;
+                }
+                var tgl_bukti = '';
+                if (item.tgl_bukti != null) {
+                    tgl_bukti = moment(item.tgl_bukti).format("DD/MM/YYYY")
+                }
+                var due_date = '';
+                if (item.tgl_due != null) {
+                    due_date = moment(item.tgl_due).format("DD/MM/YYYY")
+                }
                 var no_inv = '';
                 if (item.no_inv != null) {
                     no_inv = item.no_inv;
                 }
-
+                var currency = '';
+                if (item.currency != null) {
+                    currency = item.currency;
+                }
+                if ( item.total != null) {
+                    var total = numbro(item.total).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var total = "";
+                }
                 var paid = '';
                 if (item.paid != null) {
                     paid = numbro(item.paid).format({
@@ -291,62 +324,113 @@ function tableSupplierSOA() {
                         mantissa: 2
                     }) 
                 }
+                var age = '';
+                if (item.age != null) {
+                    age = item.age;
+                }
+                if (item.overdue_1_14 != null) {
+                    var overdue_1_14 = numbro(item.overdue_1_14).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var overdue_1_14 = "";
+                }
+                if (item.overdue_15_30 != null) {
+                    var overdue_15_30 = numbro(item.overdue_15_30).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var overdue_15_30 = "";
+                }
+                if (item.overdue_31_60 != null) {
+                    var overdue_31_60 = numbro(item.overdue_31_60).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var overdue_31_60 = "";
+                }
+                if (item.overdue_60 != null) {
+                    var overdue_60 = numbro(item.overdue_60).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var overdue_60 = "";
+                }
+                if (item.in_1_weeks != null) {
+                    var in_1_weeks = numbro(item.in_1_weeks).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var in_1_weeks = "";
+                }
+                if (item.in_2_weeks != null) {
+                    var in_2_weeks = numbro(item.in_2_weeks).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var in_2_weeks = "";
+                }
+                if (item.on_schedule != null) {
+                    var on_schedule = numbro(item.on_schedule).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var on_schedule = "";
+                }
+                if (item.total_idr != null) {
+                    var total_idr = numbro(item.total_idr).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var total_idr = "";
+                }
 
-                html += '<tr>';
-                html += '<td>'+item.nm_supplier+'</td>';
-                html += '<td>'+item.no_pi+'</td>';
-                html += '<td style="text-align:center">'+ moment(item.tgl_bukti).format("DD/MM/YYYY") +'</td>';
-                html += '<td style="text-align:center">'+ moment(item.tgl_due).format("DD/MM/YYYY") +'</td>';
+                var nm_supplier = item.nm_supplier;
+                if (nm_supplier.substr(0, 17) == 'Total Outstanding') {
+                    html += '<tr style="font-weight:bold">';
+                } else {
+                    html += '<tr>';
+                }
+                html += '<td>'+nm_supplier+'</td>';
+                html += '<td>'+no_pi+'</td>';
+                html += '<td style="text-align:center">'+ tgl_bukti +'</td>';
+                html += '<td style="text-align:center">'+due_date+'</td>';
                 html += '<td>'+no_inv+'</td>';
-                html += '<td style="text-align:center">'+item.currency+'</td>';
-                html += '<td style="text-align:right">' + numbro(item.total).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
+                html += '<td style="text-align:center">'+currency+'</td>';
+                html += '<td style="text-align:right">' +total+ '</td>';
                 html += '<td style="text-align:right">' + paid + '</td>';
-                html += '<td style="text-align:center">'+item.age+'</td>';
-                html += '<td style="text-align:right">' + numbro(item.overdue_1_14).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.overdue_15_30).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.overdue_31_60).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.overdue_60).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.in_1_weeks).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.in_2_weeks).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.on_schedule).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.total_idr).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '</td>';
+                html += '<td style="text-align:center">'+age+'</td>';
+                html += '<td style="text-align:right">' + overdue_1_14+'</td>';
+                html += '<td style="text-align:right">' +overdue_15_30 + '</td>';
+                html += '<td style="text-align:right">' + overdue_31_60 + '</td>';
+                html += '<td style="text-align:right">' + overdue_60 + '</td>';
+                html += '<td style="text-align:right">' + in_1_weeks+ '</td>';
+                html += '<td style="text-align:right">' + in_2_weeks + '</td>';
+                html += '<td style="text-align:right">' + on_schedule + '</td>';
+                html += '<td style="text-align:right">' + total_idr + '</td>';
+                html += '</tr>';
+                if (item.internal_notes != null) {
+                    html += '<tr>';
+                    html += '<td colspan="100%"><small>Notes : <i>'+item.internal_notes+'<i></small></td>';
+                    html += '</tr>';
+                }
+
             });
             html += '</tbody>'
             $("#tableSupplierSOA").html(html);
