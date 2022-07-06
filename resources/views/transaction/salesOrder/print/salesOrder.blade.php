@@ -9,19 +9,12 @@
     <style>
         @page {
             margin-top: 2rem;
-            margin-bottom: 2;
-
-            @bottom-center {
-                content: counter(page);
-            }
+            margin-bottom: 4rem;
         }
 
-        @media all {
-            body {
-                margin: 10px 20px;
-                -webkit-print-color-adjust: exact !important;
-                /* margin: 0; */
-                font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        @media print {
+            .home-page-footer {
+                display: none;
             }
 
             footer {
@@ -36,14 +29,24 @@
                 top: 0;
             }
 
-            a[href]:after {
+            /* a[href]:after {
                 display: none;
                 visibility: hidden;
+            } */
+
+            a[href]:after {
+                content: " ("attr(href) ")";
             }
 
         }
 
 
+        body {
+            margin: 10px 20px;
+            -webkit-print-color-adjust: exact !important;
+            /* margin: 0; */
+            font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
 
         /* 
         .tableBorder {
@@ -105,17 +108,6 @@
             height: 80px;
         }
 
-        .footer .page:after {
-            font-family: helvetica, sans-serif;
-            font-size: 8px;
-            content: "Printed Date : "+ date('d-m-Y H:i:s') + " | Page "+counter(page);
-        }
-
-        .footer .page {
-            font-family: helvetica, sans-serif;
-            font-size: 8px;
-        }
-
         .form-control:disabled,
         .form-control[readonly] {
             background-color: #fff;
@@ -130,28 +122,6 @@
             display: table;
             clear: both;
         }
-
-        /*  */
-        table {
-            page-break-inside: auto
-        }
-
-        tr {
-            page-break-inside: avoid;
-            page-break-after: auto
-        }
-
-        thead {
-            display: table-header-group
-        }
-
-        tfoot {
-            display: table-footer-group
-        }
-
-        /* #pageFooter.first.page {
-            page-break-before: avoid;
-        } */
     </style>
 </head>
 
@@ -268,7 +238,7 @@
                     <?php $i++ ?>
                     @endforeach
                     <tr style="border: none;">
-                        <td><span></span></td>
+                        <td style="height: 1rem;"><span></span></td>
                         <td><span></span></td>
                         <td><span></span></td>
                         <td><span></span></td>

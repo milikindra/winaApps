@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="col-12" id="filterTotalCustomer" style="display: none;margin-bottom:5px;">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="isTotalCustomer" value="1" name="isTotal">
+                                        <input type="checkbox" class="form-check-input" id="isTotalCustomer" value="Y" name="isTotal">
                                         <label class="form-check-label">Show Total Per Customer</label>
                                     </div>
                                 </div>
@@ -175,13 +175,14 @@
                                 <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterCustomerSOA"></h6>
                             </div>
                             <br />
-                            <table class="table tableCustomerSOA minpadding" id="tableCustomerSOA" style="width: 100%;">
+                            <table class="table tableCustomerSOA minpadding" id="tableCustomerSOA" style="width: 100%;cursor:pointer">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th id="no-sort">Customer</th>
                                         <th>Invoice</th>
                                         <th>Invoice Date</th>
                                         <th>Due Date</th>
+                                        <th>Est Date</th>
                                         <th>PO</th>
                                         <th>Total</th>
                                         <th>Sales</th>
@@ -190,7 +191,6 @@
                                         <th>Overdue 31 - 60 days</th>
                                         <th>Overdue 61 - 100 days</th>
                                         <th>Not Due</th>
-                                        <th>Grand Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -273,7 +273,7 @@
         </div>
     </section>
 </form>
-
+<!-- customer -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -306,7 +306,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="soModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -350,7 +349,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="salesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -382,7 +380,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modalOverdueCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -437,7 +434,51 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="customerNotesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Internal Notes & Estimation Date</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-3">
+                            <!-- checkbox -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Estimation Date</label>
+                                        <input type="date" class="form-control form-control-sm" id="estDate" name="estDate">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-9">
+                            <!-- checkbox -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Internal Notes</label>
+                                        <textarea class="form-control form-control-sm r1" row="1" name="inNotes" id="inNotes"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" modal-footer justify-content-between">
+                <button type="button" class="btn btn-sm btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                <button type="submit" id="overdueCustomer_save" class="btn btn-sm btn-info">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- supplier -->
 <div class="modal fade" id="supplierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">

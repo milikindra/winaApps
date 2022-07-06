@@ -13,6 +13,12 @@ $(document).ready(function () {
     dt_sales();
     dt_supplier();
     dt_inventory();
+
+    $('#tableCustomerSOA').on('dblclick tbody', 'tr', function (e) {
+        id_cSOA = $(this).closest("tr").children("td:eq(0)").text();
+        console.group(id_cSOA)
+            $("#customerNotesModal").modal("show");
+    })
 });
 
 $("#dataType").change(function () {
@@ -95,7 +101,7 @@ function tableCustomerSOA() {
     }
     $.ajax({
         type: 'GET',
-        url: rute_customer_soa +  '/' + edate + '/' + customer + '/' + so + '/' + sales + '/' + overdue + '/' + isTotalCustomer,
+        url: rute_customer_soa + '/' + edate + '/' + customer + '/' + so + '/' + sales + '/' + overdue + '/' + isTotalCustomer,
         dataType: 'json',
         success: function (data) {
             $('#titleCustomerSOA').html('PT. VIKTORI PROFINDO AUTOMATION');;
@@ -103,58 +109,121 @@ function tableCustomerSOA() {
             $('#filterCustomerSOA').html('Per : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
-            html = '<thead><tr style="text-align:center"><th id="no-sort">Customer</th><th>Invoice</th><th>Invoice Date</th><th>Due Date</th><th>PO</th><th>Total</th><th>Sales</th><th>Overdue > 100 days</th><th>Overdue 1 - 30 days</th><th>Overdue 31 - 60 days</th><th>Overdue 61 - 100 days</th><th>Not Due</th><th>Grand Total</th></tr></thead>';
+            html = '<thead><tr style="text-align:center"><th id="no-sort">Customer</th><th>Invoice</th><th>Invoice Date</th><th>Due Date</th><th>Est Date</th><th>PO</th><th>Total</th><th>Sales</th><th>Overdue > 100 days</th><th>Overdue 1 - 30 days</th><th>Overdue 31 - 60 days</th><th>Overdue 61 - 100 days</th><th>Not Due</th></tr></thead>';
             html += '<tbody>';
 
             var a = JSON.parse(JSON.stringify(data));
             $.each(a.data, function (i, item) {
-                var due_date = '-';
+                var no_inv = '';
+                if (item.no_inv != null) {
+                    no_inv =item.no_inv 
+                }
+                var tgl_bukti = '';
+                if (item.tgl_bukti != null) {
+                    tgl_bukti = moment(item.tgl_bukti).format("DD/MM/YYYY")
+                }
+                var due_date = '';
                 if (item.tgl_due != null) {
                     due_date = moment(item.tgl_due).format("DD/MM/YYYY")
                 }
-                html += '<tr>';
+                var no_po = '';
+                if (item.no_po != null) {
+                    no_po =item.no_po 
+                }
+                var sales = '';
+                if (item.sales != null) {
+                    sales =item.sales 
+                }
+                if ( item.total != null) {
+                    var total = numbro(item.total).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var total = "";
+                }
+                if (item.overdue_100 != null) {
+                    var overdue_100 = numbro(item.overdue_100).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var overdue_100 = "";
+                }
+                if (item.overdue_1_30 != null) {
+                    var overdue_1_30 = numbro(item.overdue_1_30).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var overdue_1_30 = "";
+                }
+                if (item.overdue_31_60 != null) {
+                    var overdue_31_60 = numbro(item.overdue_31_60).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var overdue_31_60 = "";
+                }
+                if (item.overdue_61_100 != null) {
+                    var overdue_61_100 = numbro(item.overdue_61_100).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var overdue_61_100 = "";
+                }
+                if (item.notdue != null) {
+                    var notdue = numbro(item.notdue).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var notdue = "";
+                }
+                if (item.sisa != null) {
+                    var sisa = numbro(item.sisa).format({
+                        thousandSeparated: true,
+                        negative: "parenthesis",
+                        mantissa: 2
+                    });
+                } else {
+                    var sisa = "";
+                }
+
+                var nm_cust = item.nm_cust;
+                if (nm_cust.substr(0, 17) == 'Total Outstanding') {
+                    html += '<tr style="font-weight:bold">';
+                } else {
+                    html += '<tr>';
+                }
+
                 html += '<td>'+item.nm_cust+'</td>';
-                html += '<td>'+item.no_inv+'</td>';
-                html += '<td style="text-align:center">'+ moment(item.tgl_bukti).format("DD/MM/YYYY") +'</td>';
+                html += '<td>'+no_inv+'</td>';
+                html += '<td style="text-align:center">'+ tgl_bukti +'</td>';
                 html += '<td style="text-align:center">'+ due_date +'</td>';
-                html += '<td style="word-wrap: break-word">'+item.no_po+'</td>';
-                html += '<td style="text-align:right">' + numbro(item.total).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td>'+item.sales+'</td>';
-                html += '<td style="text-align:right">' + numbro(item.overdue_100).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.overdue_1_30).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.overdue_31_60).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.overdue_61_100).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.notdue).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '<td style="text-align:right">' + numbro(item.sisa).format({
-                    thousandSeparated: true,
-                    negative: "parenthesis",
-                    mantissa: 2
-                }) + '</td>';
-                html += '</td>';
+                html += '<td style="text-align:center">-</td>';
+                html += '<td style="word-wrap: break-word">'+no_po+'</td>';
+                html += '<td style="text-align:right">' + total + '</td>';
+                html += '<td>'+sales+'</td>';
+                html += '<td style="text-align:right">' + overdue_100 + '</td>';
+                html += '<td style="text-align:right">' + overdue_1_30 + '</td>';
+                html += '<td style="text-align:right">' + overdue_31_60 + '</td>';
+                html += '<td style="text-align:right">' + overdue_61_100 + '</td>';
+                html += '<td style="text-align:right">' + notdue + '</td>';
+                html += '</tr>';
+                if (item.internal_notes != null) {
+                    html += '<tr>';
+                    html += '<td colspan="100%"><small>Notes : <i>'+item.internal_notes+'<i></small></td>';
+                    html += '</tr>';
+                }
             });
             html += '</tbody>'
             $("#tableCustomerSOA").html(html);
@@ -164,7 +233,7 @@ function tableCustomerSOA() {
         }
     });
 }
-
+    
 function tableSupplierSOA() {
     $("#overlay").fadeIn(300);
     $("#tableSupplierSOA").empty();
@@ -209,12 +278,12 @@ function tableSupplierSOA() {
 
             var a = JSON.parse(JSON.stringify(data));
             $.each(a.data, function (i, item) {
-                var no_inv = '-';
+                var no_inv = '';
                 if (item.no_inv != null) {
                     no_inv = item.no_inv;
                 }
 
-                var paid = '-';
+                var paid = '';
                 if (item.paid != null) {
                     paid = numbro(item.paid).format({
                         thousandSeparated: true,

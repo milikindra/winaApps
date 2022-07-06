@@ -22,6 +22,10 @@ select.form-control-sm ~ .select2-container--default{
     font-size:100%;
 }
 
+
+textarea.r1 {
+  height: calc(1.8125rem + 2px) !important;
+}
 /* end select2 */
 
 /* input type date */

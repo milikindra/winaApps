@@ -52,7 +52,7 @@ class StatementOfAccountController extends Controller
             'so' => ($so == 'all') ? '' : $so,
             'sales' => ($sales == 'all') ? '' : $sales,
             'overdue' => ($overdue == 'all') ? '' : $overdue,
-            'isTotal' => ($isTotal == 'Y') ? 'Y' : '',
+            'isTotal' => ($isTotal == 'Y') ? '1' : '',
         ];
         $url = Config::get('constants.api_url') . '/statementOfAccount/getListCustomerSOA';
         $client = new Client();
@@ -72,7 +72,7 @@ class StatementOfAccountController extends Controller
             'inventory' => ($inventory == 'all') ? '' : $inventory,
             'tag' => ($tag == 'all') ? '' : $tag,
             'overdue' => ($overdue == 'all') ? '' : $overdue,
-            'isTotal' => ($isTotal == 'Y') ? 'Y' : '',
+            'isTotal' => ($isTotal == 'Y') ? '1' : '',
         ];
         $url = Config::get('constants.api_url') . '/statementOfAccount/getListSupplierSOA';
         $client = new Client();
