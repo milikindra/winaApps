@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">{{ $title }}</h1>
+                <h5 class="m-0">{{ $title }}</h5>
             </div>
             <!-- /.col -->
         </div>
@@ -93,8 +93,8 @@
                                 </div>
                                 <div class="col-12" id="filterTotalCustomer" style="display: none;margin-bottom:5px;">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="isTotalCustomer" value="Y" name="isTotal">
-                                        <label>Show Total Per Customer</label>
+                                        <input type="checkbox" class="form-check-input" id="isTotalCustomer" value="1" name="isTotal">
+                                        <label class="form-check-label">Show Total Per Customer</label>
                                     </div>
                                 </div>
 
@@ -288,10 +288,10 @@
                     <table class="table tbl_customer" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
+                                <th style="width: 5%" style="text-align: center;"></th>
                                 <th style="text-align: center;">Kode Customer</th>
                                 <th style="width: 30%" style="text-align: center;">Customer</th>
                                 <th style="width: 65%" style="text-align: center;">Address</th>
-                                <th style="width: 5%" style="text-align: center;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -321,6 +321,7 @@
                     <table class="table tbl_so" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
+                                <th></th>
                                 <th>Nomor</th>
                                 <th>Tanggal</th>
                                 <th>Kode Sales</th>
@@ -335,7 +336,6 @@
                                 <th>No Ref.</th>
                                 <th>Bussiness Unit</th>
                                 <th>Total</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -365,9 +365,9 @@
                     <table class="table tbl_sales" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
+                                <th></th>
                                 <th>Id Sales</th>
                                 <th>Name</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -397,34 +397,34 @@
                     <table class="table tbl_overdueCustomer" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 70%" style="text-align: center;" colspan="2">Overdue</th>
+                                <th style="width: 70%" style="text-align: center;" colspan="3">Overdue</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_100</td>
                                 <td>Overdue > 100 days</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_1_30</td>
                                 <td>Overdue 1 - 30 days</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_31_60</td>
                                 <td>Overdue 31 - 60 days</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_61_100</td>
                                 <td>Overdue 61 - 100 days</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">notdue</td>
                                 <td>Not Due</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -452,11 +452,11 @@
                     <table class="table tbl_supplier" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
+                                <th></th>
                                 <th>Id Supplier</th>
                                 <th>Supplier</th>
                                 <th>Telp.</th>
                                 <th>Address</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -485,6 +485,7 @@
                     <table class="table tbl_inventory" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
+                                <th></th>
                                 <th>Id</th>
                                 <th>Inventory</th>
                                 <th>UOM</th>
@@ -494,7 +495,6 @@
                                 <th>Transit</th>
                                 <th>Category</th>
                                 <th>Subcategory</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -528,39 +528,39 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_1_14</td>
                                 <td>Overdue < 15 days</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_15_30</td>
                                 <td>Overdue 15 - 30 days</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_31_60</td>
                                 <td>Overdue 31 - 60 days</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_60</td>
                                 <td>Overdue > 60 days</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">in_1_weeks</td>
                                 <td>Due In 1 Week</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">in_2_weeks</td>
                                 <td>Due In 1 Week</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                             <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">on_schedule</td>
                                 <td>On Scheduled</td>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                             </tr>
                         </tbody>
                     </table>

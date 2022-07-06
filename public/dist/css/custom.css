@@ -185,3 +185,15 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
 .card-body{
     padding: 1rem;
 }
+
+.text-xs{
+    font-size: 11px !important;
+}
+
+.form-control-sm{
+    font-size: 11px !important;
+}
+
+.input-group-sm .form-control{
+    font-size: 11px !important;
+}

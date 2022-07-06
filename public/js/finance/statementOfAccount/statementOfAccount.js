@@ -108,12 +108,16 @@ function tableCustomerSOA() {
 
             var a = JSON.parse(JSON.stringify(data));
             $.each(a.data, function (i, item) {
+                var due_date = '-';
+                if (item.tgl_due != null) {
+                    due_date = moment(item.tgl_due).format("DD/MM/YYYY")
+                }
                 html += '<tr>';
                 html += '<td>'+item.nm_cust+'</td>';
                 html += '<td>'+item.no_inv+'</td>';
                 html += '<td style="text-align:center">'+ moment(item.tgl_bukti).format("DD/MM/YYYY") +'</td>';
-                html += '<td style="text-align:center">'+ moment(item.tgl_due).format("DD/MM/YYYY") +'</td>';
-                html += '<td>'+item.no_po+'</td>';
+                html += '<td style="text-align:center">'+ due_date +'</td>';
+                html += '<td style="word-wrap: break-word">'+item.no_po+'</td>';
                 html += '<td style="text-align:right">' + numbro(item.total).format({
                     thousandSeparated: true,
                     negative: "parenthesis",
@@ -306,6 +310,13 @@ function dt_customer() {
         },
         columns: [{
                 data: "ID_CUST",
+                render: function (data, type, row) {
+                    return cbCustomer(data, type, row);
+                },
+                orderable: false,
+                className: "text-center",
+            },{
+                data: "ID_CUST",
                 name: "ID_CUST",
             },
             {
@@ -316,14 +327,7 @@ function dt_customer() {
                 data: "ALAMAT1",
                 name: "ALAMAT1",
             },
-            {
-                data: "NO_CUST",
-                render: function (data, type, row) {
-                    return cbCustomer(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
-            },
+            
         ],
         order: [
             [1, "asc"]
@@ -347,7 +351,7 @@ $("#customer_modal").on("click", function (e) {
     var table = $(".tbl_customer tbody");
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         inp.prop( "checked", false );
         for (var j = 0; j < arr_nilai.length - 1; j++) {
@@ -365,7 +369,7 @@ $("#customer_save").on("click", function (e) {
     var customer = "";
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         var cek = inp.eq(0).val();
         if (inp.eq(0).is(":checked")) {
@@ -397,6 +401,13 @@ function dt_so() {
             dataType: "JSON",
         },
         columns: [{
+                data: "NO_BUKTI",
+                render: function (data, type, row) {
+                    return cbSo(data, type, row);
+                },
+                orderable: false,
+                className: "text-center",
+            },{
                 data: "NO_BUKTI",
                 name: "NO_BUKTI",
                 width: "10%",
@@ -466,14 +477,6 @@ function dt_so() {
                     return addPeriod(parseFloat(data).toFixed(2), ",");
                 },
             },
-            {
-                data: "NO_BUKTI",
-                render: function (data, type, row) {
-                    return cbSo(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
-            },
         ],
         order: [
             [1, "asc"]
@@ -497,7 +500,7 @@ $("#so_modal").on("click", function (e) {
     var table = $(".tbl_so tbody");
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         inp.prop( "checked", false );
         for (var j = 0; j < arr_nilai.length - 1; j++) {
@@ -515,7 +518,7 @@ $("#so_save").on("click", function (e) {
     var so = "";
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         var cek = inp.eq(0).val();
         if (inp.eq(0).is(":checked")) {
@@ -548,6 +551,13 @@ function dt_sales() {
         },
         columns: [{
                 data: "ID_SALES",
+                render: function (data, type, row) {
+                    return cbSales(data, type, row);
+                },
+                orderable: false,
+                className: "text-center",
+            },{
+                data: "ID_SALES",
                 name: "ID_SALES",
                 width: "10%",
             },
@@ -556,14 +566,7 @@ function dt_sales() {
                 name: "NM_SALES",
                 width: "5%",
             },
-            {
-                data: "ID_SALES",
-                render: function (data, type, row) {
-                    return cbSales(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
-            },
+            
         ],
         order: [
             [1, "asc"]
@@ -586,7 +589,7 @@ $("#sales_modal").on("click", function (e) {
     var table = $(".tbl_sales tbody");
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         inp.prop( "checked", false );
         for (var j = 0; j < arr_nilai.length - 1; j++) {
@@ -604,7 +607,7 @@ $("#sales_save").on("click", function (e) {
     var sales = "";
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         var cek = inp.eq(0).val();
         if (inp.eq(0).is(":checked")) {
@@ -626,7 +629,7 @@ $("#overdueCustomer_modal").on("click", function (e) {
     var table = $(".tbl_overdueCustomer tbody");
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         inp.prop( "checked", false );
         for (var j = 0; j < arr_nilai.length - 1; j++) {
@@ -644,7 +647,7 @@ $("#overdueCustomer_save").on("click", function (e) {
     var overdue = "";
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         var cek = inp.eq(0).val();
         if (inp.eq(0).is(":checked")) {
@@ -678,6 +681,13 @@ function dt_supplier() {
         },
         columns: [{
                 data: "id_supplier",
+                render: function (data, type, row) {
+                    return cbSupplier(data, type, row);
+                },
+                orderable: false,
+                className: "text-center",
+            },{
+                data: "id_supplier",
                 name: "id_supplier",
                 width: "10%",
             },
@@ -695,14 +705,6 @@ function dt_supplier() {
                 data: "ALAMAT1",
                 name: "ALAMAT1",
                 width: "5%",
-            },
-            {
-                data: "id_supplier",
-                render: function (data, type, row) {
-                    return cbSupplier(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
             },
         ],
         order: [
@@ -726,7 +728,7 @@ $("#supplier_modal").on("click", function (e) {
     var table = $(".tbl_supplier tbody");
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         inp.prop( "checked", false );
         for (var j = 0; j < arr_nilai.length - 1; j++) {
@@ -744,7 +746,7 @@ $("#supplier_save").on("click", function (e) {
     var supplier = "";
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         var cek = inp.eq(0).val();
         if (inp.eq(0).is(":checked")) {
@@ -777,6 +779,13 @@ function dt_inventory() {
             dataType: "JSON",
         },
         columns: [{
+                    data: "no_stock",
+                    render: function (data, type, row) {
+                        return cbInventory(data, type, row);
+                    },
+                    orderable: false,
+                    className: "text-center",
+                },{
                     data: "no_stock",
                     name: "no_stock",
                 },
@@ -816,14 +825,6 @@ function dt_inventory() {
                     data: "kategori2",
                     name: "kategori2",
                 },
-            {
-                data: "no_stock",
-                render: function (data, type, row) {
-                    return cbInventory(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
-            },
         ],
         order: [
             [1, "asc"]
@@ -846,7 +847,7 @@ $("#inventory_modal").on("click", function (e) {
     var table = $(".tbl_inventory tbody");
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         inp.prop( "checked", false );
         for (var j = 0; j < arr_nilai.length - 1; j++) {
@@ -864,7 +865,7 @@ $("#inventory_save").on("click", function (e) {
     var inventory = "";
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         var cek = inp.eq(0).val();
         if (inp.eq(0).is(":checked")) {
@@ -886,7 +887,7 @@ $("#overdueSupplier_modal").on("click", function (e) {
     var table = $(".tbl_overdueSupplier tbody");
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         inp.prop( "checked", false );
         for (var j = 0; j < arr_nilai.length - 1; j++) {
@@ -904,7 +905,7 @@ $("#overdueSupplier_save").on("click", function (e) {
     var overdue = "";
     table.find("tr").each(function (i, el) {
         var tds = $(this).find("td");
-        var kode = tds.eq(0).text().trim();
+        var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
         var cek = inp.eq(0).val();
         if (inp.eq(0).is(":checked")) {
