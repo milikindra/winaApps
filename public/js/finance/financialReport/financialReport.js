@@ -115,7 +115,7 @@ function dataReport() {
         for (i = 0; i < tbodyRowCount; i++) {
             datas[i] = new Object();
             datas[i].ket = $('#commision_desc-' + i).val();
-            datas[i].value = $('#commision_value-' + i).val();
+            datas[i].value = parseFloat(removePeriod($('#commision_value-' + i).val(),','));
             datas[i].type = $('#commision_type-' + i).val();
         }
         let _token = $('meta[name="csrf-token"]').attr('content');
