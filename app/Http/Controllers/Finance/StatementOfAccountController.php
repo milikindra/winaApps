@@ -124,7 +124,7 @@ class StatementOfAccountController extends Controller
                 'so' => $request->input('so'),
                 'sales' => $request->input('sales'),
                 'overdue' => $request->input('overdue'),
-                'isTotal' => $request->input('isTotal'),
+                'isTotal' => ($request->input('isTotal') == 'Y') ? '1' : '',
             ];
 
             $client = new Client();
@@ -159,7 +159,7 @@ class StatementOfAccountController extends Controller
                 'inventory' => $request->input('inventory'),
                 'tag' => $request->input('tag'),
                 'overdue' => $request->input('overdue'),
-                'isTotal' => $request->input('isTotal'),
+                'isTotal' => ($request->input('isTotal') == 'Y') ? '1' : '',
             ];
 
             $client = new Client();

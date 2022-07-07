@@ -144,25 +144,48 @@ echo "Some Text"; //no ending ; here
                 </thead>
                 <tbody>
                     @foreach($body as $b)
+                    @if(substr($b->nm_supplier,0,17) == 'Total Outstanding')
+                    <tr style="font-weight: bold;">
+                        @else
                     <tr>
+                        @endif
+                        <?php
+                        $tgl_bukti = ($b->tgl_bukti != '') ? date_format(date_create($b->tgl_bukti), 'd-m-Y') : '';
+                        $tgl_due = ($b->tgl_due != '') ? date_format(date_create($b->tgl_due), 'd-m-Y') : '';
+                        $total = ($b->total != '') ? number_format($b->total, 2) : '';
+                        $paid = ($b->paid != '') ? number_format($b->paid, 2) : '';
+                        $overdue_1_14 = ($b->overdue_1_14 != '') ? number_format($b->overdue_1_14, 2) : '';
+                        $overdue_15_30 = ($b->overdue_15_30 != '') ? number_format($b->overdue_15_30, 2) : '';
+                        $overdue_31_60 = ($b->overdue_31_60 != '') ? number_format($b->overdue_31_60, 2) : '';
+                        $overdue_60 = ($b->overdue_60 != '') ? number_format($b->overdue_60, 2) : '';
+                        $in_1_weeks = ($b->in_1_weeks != '') ? number_format($b->in_1_weeks, 2) : '';
+                        $in_2_weeks = ($b->in_2_weeks != '') ? number_format($b->in_2_weeks, 2) : '';
+                        $on_schedule = ($b->on_schedule != '') ? number_format($b->on_schedule, 2) : '';
+                        $total_idr = ($b->total_idr != '') ? number_format($b->total_idr, 2) : '';
+                        ?>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="15%">{{$b->nm_supplier}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->no_pi}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{date_format(date_create($b->tgl_due), 'd-m-Y') }}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$tgl_bukti }}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$tgl_due }}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->no_inv}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->currency}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->total,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->paid,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$total)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$paid)}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right;" width=" 7%">{{$b->age}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->overdue_1_14,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->overdue_15_30,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->overdue_31_60,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->overdue_60,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->in_1_weeks,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->in_2_weeks,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->on_schedule,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->total_idr,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_1_14)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_15_30)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_31_60)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_60)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$in_1_weeks)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$in_2_weeks)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$on_schedule)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$total_idr)}}</td>
                     </tr>
+                    @if(!empty($b->internal_notes))
+                    <tr>
+                        <td colspan="100%" style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;">Notes : <i>{{$b->internal_notes}}</i></td>
+                    </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>

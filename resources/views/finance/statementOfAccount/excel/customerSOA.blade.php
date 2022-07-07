@@ -127,6 +127,7 @@ echo "Some Text"; //no ending ; here
                         <th style="text-align: center;  border: 1px solid #000000;">Invoice</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Invoice Date</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Due Date</th>
+                        <th style="text-align: center;  border: 1px solid #000000;">Est Date</th>
                         <th style="text-align: center;  border: 1px solid #000000;">PO</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Total</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Sales</th>
@@ -140,21 +141,43 @@ echo "Some Text"; //no ending ; here
                 </thead>
                 <tbody>
                     @foreach($body as $b)
+                    @if(substr($b->nm_cust,0,17) == 'Total Outstanding')
+                    <tr style="font-weight: bold;">
+                        @else
                     <tr>
+                        @endif
+                        <?php
+                        $tgl_bukti = ($b->tgl_bukti != '') ? date_format(date_create($b->tgl_bukti), 'd-m-Y') : '';
+                        $tgl_due = ($b->tgl_due != '') ? date_format(date_create($b->tgl_due), 'd-m-Y') : '';
+                        $est_date = ($b->est_date != '') ? date_format(date_create($b->est_date), 'd-m-Y') : '';
+                        $total = ($b->total != '') ? number_format($b->total, 2) : '';
+                        $overdue_100 = ($b->overdue_100 != '') ? number_format($b->overdue_100, 2) : '';
+                        $overdue_1_30 = ($b->overdue_1_30 != '') ? number_format($b->overdue_1_30, 2) : '';
+                        $overdue_31_60 = ($b->overdue_31_60 != '') ? number_format($b->overdue_31_60, 2) : '';
+                        $overdue_61_100 = ($b->overdue_61_100 != '') ? number_format($b->overdue_61_100, 2) : '';
+                        $notdue = ($b->notdue != '') ? number_format($b->notdue, 2) : '';
+                        $sisa = ($b->sisa != '') ? number_format($b->sisa, 2) : '';
+                        ?>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="15%">{{$b->nm_cust}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->no_inv}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{date_format(date_create($b->tgl_due), 'd-m-Y') }}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$tgl_bukti }}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$tgl_due }}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$est_date }}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->no_po}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->total,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$total}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->sales}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->overdue_100,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->overdue_1_30,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->overdue_31_60,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->overdue_61_100,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->notdue,2)}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{number_format($b->sisa,2)}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_100}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_1_30}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_31_60}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_61_100}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$notdue}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$sisa}}</td>
                     </tr>
+                    @if(!empty($b->internal_notes))
+                    <tr>
+                        <td colspan="100%" style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;">Notes : <i>{{$b->internal_notes}}</i></td>
+                    </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>

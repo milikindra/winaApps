@@ -124,6 +124,7 @@
                         <th style="text-align: center;">Invoice</th>
                         <th style="text-align: center;">Invoice Date</th>
                         <th style="text-align: center;">Due Date</th>
+                        <th style="text-align: center;">Est Date</th>
                         <th style="text-align: center;">PO</th>
                         <th style="text-align: center;">Total</th>
                         <th style="text-align: center;">Sales</th>
@@ -137,11 +138,16 @@
                 </thead>
                 <tbody>
                     @foreach($body as $b)
+                    @if(substr($b->nm_cust,0,17) == 'Total Outstanding')
+                    <tr style="font-weight: bold;">
+                        @else
                     <tr>
+                        @endif
                         <td style="width: 20%; border-right:none;">{{$b->nm_cust}}</td>
                         <td style="width: 15%; border-right:none;">{{$b->no_inv}}</td>
                         <td style="width: 5%; border-right:none;text-align:center;">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
                         <td style="width: 5%; border-right:none;text-align:center;">{{date_format(date_create($b->tgl_due), 'd-m-Y') }}</td>
+                        <td style="width: 5%; border-right:none;text-align:center;">{{date_format(date_create($b->est_date), 'd-m-Y') }}</td>
                         <td style="width: 15%; border-right:none;">{{$b->no_po}}</td>
                         <td style="width: 5%; border-right:none;text-align:right;">{{accDollars($b->total)}}</td>
                         <td style="width: 5%; border-right:none;">{{$b->sales}}</td>
@@ -152,6 +158,11 @@
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->notdue)}}</td>
                         <td style="width: 5%; text-align:right;">{{accDollars($b->sisa)}}</td>
                     </tr>
+                    @if(!empty($b->internal_notes))
+                    <tr>
+                        <td colspan="100%">Notes : <i>{{$b->internal_notes}}</i></td>
+                    </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>

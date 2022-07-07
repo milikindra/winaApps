@@ -141,7 +141,11 @@
                 </thead>
                 <tbody>
                     @foreach($body as $b)
+                    @if(substr($b->nm_supplier,0,17) == 'Total Outstanding')
+                    <tr style="font-weight: bold;">
+                        @else
                     <tr>
+                        @endif
                         <td style="width: 20%; border-right:none;">{{$b->nm_supplier}}</td>
                         <td style="width: 15%; border-right:none;">{{$b->no_pi}}</td>
                         <td style="width: 5%; border-right:none;text-align:center;">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
@@ -160,6 +164,11 @@
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->on_schedule)}}</td>
                         <td style="width: 5%; text-align:right;">{{accDollars($b->total_idr)}}</td>
                     </tr>
+                    @if(!empty($b->internal_notes))
+                    <tr>
+                        <td colspan="100%">Notes : <i>{{$b->internal_notes}}</i></td>
+                    </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
