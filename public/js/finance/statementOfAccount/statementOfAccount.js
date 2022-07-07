@@ -259,7 +259,7 @@ $("#customerNote_save").on("click", function (e) {
     let _token = $("input[name=_token]").val();
     $.ajax({
         type: 'POST',
-        url: rute_cnm,
+        url: rute_internal_notes,
         data: {
                 soaType: soaType,
                 cnmInvoice: cnmInvoice,
@@ -269,7 +269,6 @@ $("#customerNote_save").on("click", function (e) {
             },
         dataType: 'json',
         success: function (data) {
-            console.log(data);
             Toast.fire({
                 icon: "success",
                 title: "Successfully save data",
@@ -466,6 +465,7 @@ function tableSupplierSOA() {
                 html += '<td style="text-align:right">' + in_2_weeks + '</td>';
                 html += '<td style="text-align:right">' + on_schedule + '</td>';
                 html += '<td style="text-align:right">' + total_idr + '</td>';
+                html += '<td style="display:none">' + item.internal_notes + '</td>';
                 html += '</tr>';
                 if (item.internal_notes != null) {
                     html += '<tr>';
@@ -484,10 +484,44 @@ function tableSupplierSOA() {
 }
 
 $('#tableSupplierSOA').on('dblclick tbody', 'tr', function (e) {
-    id_sSOA = $(this).closest("tr").children("td:eq(1)").text();
-    console.log(id_sSOA)
-        $("#supplierNotesModal").modal("show");
+    
+     $("#snmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
+    if ($(this).closest("tr").children("td:eq(17)").text() != 'null') {
+        $("#snmInNotes").html($(this).closest("tr").children("td:eq(17)").text());
+    } else {
+        $("#snmInNotes").html('');
+    }
+    
+    $("#supplierNotesModal").modal("show");
+
 })
+
+$("#supplierNote_save").on("click", function (e) {
+    var soaType = 'supplier';
+    var snmInvoice = $("#snmInvoice").val();
+    var snmInNotes = $("#snmInNotes").val();
+    let _token = $("input[name=_token]").val();
+    $.ajax({
+        type: 'POST',
+        url: rute_internal_notes,
+        data: {
+                soaType: soaType,
+                snmInvoice: snmInvoice,
+                snmInNotes: snmInNotes,
+                _token: _token
+            },
+        dataType: 'json',
+        success: function (data) {
+            Toast.fire({
+                icon: "success",
+                title: "Successfully save data",
+            });
+        }
+    });
+    $("#supplierNotesModal").modal("hide");
+    $("#processFilter").trigger("click");
+    
+});
 
 function dt_customer() {
     var table = $(".tbl_customer").DataTable({

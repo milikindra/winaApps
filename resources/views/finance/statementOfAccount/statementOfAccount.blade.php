@@ -637,13 +637,22 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <!-- checkbox -->
+                        <div class="col-sm-12 col-md-12 col-lg-2">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Purchase Invoice</label>
+                                        <input type="text" class="form-control form-control-sm" id="snmInvoice" name="snmInvoice" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-8">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Internal Notes</label>
-                                        <textarea class="form-control form-control-sm r1" row="1" name="inNotes" id="inNotes"></textarea>
+                                        <textarea class="form-control form-control-sm r1" row="1" name="snmInNotes" id="snmInNotes"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -653,7 +662,7 @@
             </div>
             <div class=" modal-footer justify-content-between">
                 <button type="button" class="btn btn-sm btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
-                <button type="submit" id="supplierNotes_save" class="btn btn-sm btn-info">Save</button>
+                <button type="submit" id="supplierNote_save" class="btn btn-sm btn-info">Save</button>
             </div>
         </div>
     </div>
@@ -667,7 +676,7 @@
 <script>
     var rute_customer_soa = "{{ URL::to('statementOfAccount/data/populateCustomerSOA') }}";
     var rute_supplier_soa = "{{ URL::to('statementOfAccount/data/populateSupplierSOA') }}";
-    var rute_cnm = "{{ URL::to('statementOfAccount/internalNotes') }}";
+    var rute_internal_notes = "{{ URL::to('statementOfAccount/internalNotes') }}";
     var get_customer = "{{ URL::to('customer/data/populate') }}";
     var get_salesOrder = "{{ URL::to('salesOrder/data/populateHead') }}";
     var get_sales = "{{ URL::to('sales/data/populate') }}";
