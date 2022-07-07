@@ -130,6 +130,12 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     padding: 0.1rem;
 }
 
+.scroly{
+overflow-y: scroll;
+display: block;
+max-height: 25rem;
+-webkit-overflow-scrolling: touch;
+}
 
 /* SPINNER */
 #overlay {

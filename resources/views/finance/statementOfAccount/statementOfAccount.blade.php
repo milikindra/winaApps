@@ -175,7 +175,7 @@
                                 <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterCustomerSOA"></h6>
                             </div>
                             <br />
-                            <table class="table tableCustomerSOA minpadding" id="tableCustomerSOA" style="width: 100%;cursor:pointer">
+                            <table class="table tableCustomerSOA minpadding scroly" id="tableCustomerSOA" style="cursor:pointer">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th id="no-sort">Customer</th>
@@ -234,7 +234,7 @@
                                 <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterSupplierSOA"></h6>
                             </div>
                             <br />
-                            <table class="table tableSupplierSOA minpadding" id="tableSupplierSOA" style="width: 100%; cursor:pointer">
+                            <table class="table tableSupplierSOA minpadding" id="tableSupplierSOA" style="width: 100%; cursor:pointer;">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th>Supplier</th>
