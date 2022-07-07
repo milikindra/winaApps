@@ -1,29 +1,19 @@
 $(document).ready(function () {
     $.fn.dataTable.ext.errMode = 'none';
     $(".selects2").select2();
-    var Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-    });
+
     $("#dataType").prop("selectedIndex", 1).trigger("change");
     dt_customer();
     dt_so();
     dt_sales();
     dt_supplier();
     dt_inventory();
-
-    $('#tableCustomerSOA').on('dblclick tbody', 'tr', function (e) {
-        id_cSOA = $(this).closest("tr").children("td:eq(0)").text();
-        console.group(id_cSOA)
-            $("#customerNotesModal").modal("show");
-    })
-    $('#tableSupplierSOA').on('dblclick tbody', 'tr', function (e) {
-        id_sSOA = $(this).closest("tr").children("td:eq(0)").text();
-        console.group(id_sSOA)
-            $("#supplierNotesModal").modal("show");
-    })
+});
+var Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
 });
 
 $("#dataType").change(function () {
@@ -131,6 +121,10 @@ function tableCustomerSOA() {
                 if (item.tgl_due != null) {
                     due_date = moment(item.tgl_due).format("DD/MM/YYYY")
                 }
+                var est_date = '';
+                if (item.est_date != null) {
+                    est_date = moment(item.est_date).format("DD/MM/YYYY")
+                }
                 var no_po = '';
                 if (item.no_po != null) {
                     no_po =item.no_po 
@@ -214,7 +208,7 @@ function tableCustomerSOA() {
                 html += '<td>'+no_inv+'</td>';
                 html += '<td style="text-align:center">'+ tgl_bukti +'</td>';
                 html += '<td style="text-align:center">'+ due_date +'</td>';
-                html += '<td style="text-align:center">-</td>';
+                html += '<td style="text-align:center">'+ est_date +'</td>';
                 html += '<td style="word-wrap: break-word">'+no_po+'</td>';
                 html += '<td style="text-align:right">' + total + '</td>';
                 html += '<td>'+sales+'</td>';
@@ -223,6 +217,8 @@ function tableCustomerSOA() {
                 html += '<td style="text-align:right">' + overdue_31_60 + '</td>';
                 html += '<td style="text-align:right">' + overdue_61_100 + '</td>';
                 html += '<td style="text-align:right">' + notdue + '</td>';
+                html += '<td style="display:none">' + item.internal_notes + '</td>';
+                html += '<td style="display:none">' + item.est_date + '</td>';
                 html += '</tr>';
                 if (item.internal_notes != null) {
                     html += '<tr>';
@@ -238,6 +234,52 @@ function tableCustomerSOA() {
         }
     });
 }
+
+$('#tableCustomerSOA').on('dblclick tbody', 'tr', function (e) {
+    $("#cnmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
+    if ($(this).closest("tr").children("td:eq(13)").text() != 'null') {
+        $("#cnmInNotes").html($(this).closest("tr").children("td:eq(13)").text());
+    } else {
+        $("#cnmInNotes").html('');
+    }
+    if ($(this).closest("tr").children("td:eq(14)").text() != 'null') {
+        $("#cnmEstDate").val($(this).closest("tr").children("td:eq(14)").text());
+    } else {
+        $("#cnmEstDate").val('');
+    }
+    $("#customerNotesModal").modal("show");
+
+})
+
+$("#customerNote_save").on("click", function (e) {
+    var soaType = 'customer';
+    var cnmInvoice = $("#cnmInvoice").val();
+    var cnmEstDate = $("#cnmEstDate").val();
+    var cnmInNotes = $("#cnmInNotes").val();
+    let _token = $("input[name=_token]").val();
+    $.ajax({
+        type: 'POST',
+        url: rute_cnm,
+        data: {
+                soaType: soaType,
+                cnmInvoice: cnmInvoice,
+                cnmEstDate: cnmEstDate,
+                cnmInNotes: cnmInNotes,
+                _token: _token
+            },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            Toast.fire({
+                icon: "success",
+                title: "Successfully save data",
+            });
+        }
+    });
+    $("#customerNotesModal").modal("hide");
+    $("#processFilter").trigger("click");
+    
+});
     
 function tableSupplierSOA() {
     $("#overlay").fadeIn(300);
@@ -440,6 +482,12 @@ function tableSupplierSOA() {
         }
     });
 }
+
+$('#tableSupplierSOA').on('dblclick tbody', 'tr', function (e) {
+    id_sSOA = $(this).closest("tr").children("td:eq(1)").text();
+    console.log(id_sSOA)
+        $("#supplierNotesModal").modal("show");
+})
 
 function dt_customer() {
     var table = $(".tbl_customer").DataTable({

@@ -50,8 +50,6 @@ function trGetCustomer() {
 
 function trGetSelectBox() {
     var id_cust = $("#trCustomer").val();
-
-    // var option = '';
     $.ajax({
         url: get_customer + "/" + id_cust,
         type: "GET",

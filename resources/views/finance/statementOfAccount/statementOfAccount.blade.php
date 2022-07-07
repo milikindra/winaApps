@@ -234,7 +234,7 @@
                                 <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterSupplierSOA"></h6>
                             </div>
                             <br />
-                            <table class="table tableSupplierSOA minpadding" id="tableSupplierSOA" style="width: 100%; cursor:pointer;">
+                            <table class="table tableSupplierSOA minpadding scroly" id="tableSupplierSOA" style="cursor:pointer;">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th>Supplier</th>
@@ -446,24 +446,35 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="col-sm-12 col-md-12 col-lg-2">
+                            <!-- checkbox -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Invoice</label>
+                                        <input type="text" class="form-control form-control-sm" id="cnmInvoice" name="cnmInvoice" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-2">
                             <!-- checkbox -->
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Estimation Date</label>
-                                        <input type="date" class="form-control form-control-sm" id="estDate" name="estDate">
+                                        <input type="date" class="form-control form-control-sm" id="cnmEstDate" name="cnmEstDate">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-9">
+                        <div class="col-sm-12 col-md-12 col-lg-8">
                             <!-- checkbox -->
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Internal Notes</label>
-                                        <textarea class="form-control form-control-sm r1" row="1" name="inNotes" id="inNotes"></textarea>
+                                        <textarea class="form-control form-control-sm r1" row="1" name="cnmInNotes" id="cnmInNotes"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -656,6 +667,7 @@
 <script>
     var rute_customer_soa = "{{ URL::to('statementOfAccount/data/populateCustomerSOA') }}";
     var rute_supplier_soa = "{{ URL::to('statementOfAccount/data/populateSupplierSOA') }}";
+    var rute_cnm = "{{ URL::to('statementOfAccount/internalNotes') }}";
     var get_customer = "{{ URL::to('customer/data/populate') }}";
     var get_salesOrder = "{{ URL::to('salesOrder/data/populateHead') }}";
     var get_sales = "{{ URL::to('sales/data/populate') }}";

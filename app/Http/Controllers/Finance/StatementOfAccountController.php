@@ -82,6 +82,30 @@ class StatementOfAccountController extends Controller
         return json_encode($table);
     }
 
+    public function internalNotes(request $request)
+    {
+        $url = config('constants.api_url') . '/statementOfAccount/updateIn';
+        if ($request->input('soaType') == 'customer') {
+            $post_data = [
+                'user' => session('user')->username,
+                'soaType' => $request->input('soaType'),
+                'cnmInvoice' => $request->input('cnmInvoice'),
+                'cnmEstDate' => $request->input('cnmEstDate'),
+                'cnmInNotes' => $request->input('cnmInNotes')
+            ];
+        } else {
+            $post_data = [
+                'user' => session('user')->username,
+                'soaType' => $request->input('soaType'),
+                'snmInvoice' => $request->input('snmInvoice'),
+                'snmInNotes' => $request->input('snmInNotes')
+            ];
+        }
+
+        $client = new Client();
+        $response = $client->request('POST', $url, ['json' => $post_data]);
+        $body = json_decode($response->getBody());
+    }
 
     public function export(request $request)
     {

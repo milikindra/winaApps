@@ -93,7 +93,8 @@ Route::group(
         Route::get('statementOfAccount', [StatementOfAccountController::class, 'statementOfAccountShow'])->name('statementOfAccount')->middleware('userMatrix:F03.01');
         Route::get('statementOfAccount/data/populateCustomerSOA/{edate}/{customer}/{so}/{sales}/{overdue}/{isTotal}', [statementOfAccountController::class, 'populateCustomerSOA'])->name('statementOfAccount/data/populateCustomerSOA');
         Route::get('statementOfAccount/data/populateSupplierSOA/{edate}/{supplier}/{inventory}/{tag}/{overdue}/{isTotal}', [statementOfAccountController::class, 'populateSupplierSOA'])->name('statementOfAccount/data/populateSupplierSOA');
-        Route::post('statementOfAccount/export', [StatementOfAccountController::class, 'export'])->name('statementOfAccount/export')->middleware('userMatrix:F03.01');
+        Route::post('statementOfAccount/internalNotes', [StatementOfAccountController::class, 'internalNotes'])->name('statementOfAccount/internalNotes')->middleware('userMatrix:F03.02');
+        Route::post('statementOfAccount/export', [StatementOfAccountController::class, 'export'])->name('statementOfAccount/export')->middleware('userMatrix:F03.03');
     }
 );
 
