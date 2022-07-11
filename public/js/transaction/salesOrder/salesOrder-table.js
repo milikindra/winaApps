@@ -18,7 +18,7 @@ $(document).ready(function () {
                 responsive: false,
                 stateSave: false,
                 deferRender: true,
-                bAutowidth : false,
+                bAutoWidth: false,
                 lengthMenu: [
                     [100, 250, 500, 1000, -1],
                     [100, 250, 500, 1000, "all"],
@@ -34,13 +34,21 @@ $(document).ready(function () {
                     {
                         extend: "pdf",
                         className: "btn-info"
-                    }
+                    },
+                    {
+                        extend: "csv",
+                        className: "btn-info"
+                    },
+                    {
+                        extend: "colvis",
+                        className: "btn-info"
+                    },
                 ],
                 dom:
                     // "<'row'<'col-sm-12'B>>" +
-                    "<'row'<'col-sm-6 dt-com-sm'l><'col-sm-6 form-control-sm dt-com-sm'f>>" +
-                    "<'row'<'col-sm-12 dt-com-sm'tr>>" +
-                    "<'row'<'col-sm-6 dt-com-sm'i><'col-sm-6 dt-com-sm'p>>",
+                    "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-6'i><'col-sm-6'p>>",
                 // drawCallback: function (settings, json) {},
 
                 ajax: {
@@ -61,32 +69,35 @@ $(document).ready(function () {
                 columns: [{
                         data: "NO_BUKTI",
                         name: "NO_BUKTI",
+                        width: "15%",
                     },
                     {
                         data: "TGL_BUKTI",
                         name: "TGL_BUKTI",
+                        width: "10%",
                         render: function (data, type, row) {
-                            return moment(data).format("DD/MM/YYYY");
+                            return moment(data).format("DD MMM YYYY");
                         },
                     },
                     {
                         data: "NM_CUST",
                         name: "NM_CUST",
+                        width: "50%",
                     },
                     {
                         data: "Dept",
                         name: "Dept",
-                        className: "fc-wrap",
                     },
                     {
                         data: "PO_CUST",
                         name: "PO_CUST",
-                        className: "fc-wrap",
+                        width: "10%",
                     },
                     {
                         data: "totdpp",
                         name: "totdpp",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -95,6 +106,7 @@ $(document).ready(function () {
                         data: "totppn",
                         name: "totppn",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -103,6 +115,7 @@ $(document).ready(function () {
                         data: "total",
                         name: "total",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -111,6 +124,7 @@ $(document).ready(function () {
                         data: "QTY",
                         name: "QTY",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -119,6 +133,7 @@ $(document).ready(function () {
                         data: "SJ_QTY",
                         name: "SJ_QTY",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -127,6 +142,7 @@ $(document).ready(function () {
                         data: "RJ_QTY",
                         name: "RJ_QTY",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -143,7 +159,7 @@ $(document).ready(function () {
                 responsive: false,
                 stateSave: false,
                 deferRender: true,
-                bAutowidth : false,
+                bAutoWidth: false,
                 lengthMenu: [
                     [5, 100, 250, 500, 1000, -1],
                     [5, 100, 250, 500, 1000, "all"],
@@ -151,9 +167,9 @@ $(document).ready(function () {
                 buttons: ["excel", "pdf", "print", "csv", "colvis"],
                 dom:
                     // "<'row'<'col-sm-12'B>>" +
-                    "<'row'<'col-sm-6 dt-com-sm'l><'col-sm-6 dt-com-sm'f>>" +
-                    "<'row'<'col-sm-12 dt-com-sm'tr>>" +
-                    "<'row'<'col-sm-6 dt-com-sm'i><'col-sm-6 dt-com-sm'p>>",
+                    "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-6'i><'col-sm-6'p>>",
                 // drawCallback: function (settings, json) {},
 
                 ajax: {
@@ -174,32 +190,34 @@ $(document).ready(function () {
                 columns: [{
                         data: "NO_BUKTI",
                         name: "NO_BUKTI",
+                        width: "10%",
                     },
                     {
                         data: "TGL_BUKTI",
                         name: "TGL_BUKTI",
+                        width: "5%",
                         render: function (data, type, row) {
-                            return moment(data).format("DD/MM/YYYY");
+                            return moment(data).format("DD MMM YYYY");
                         },
                     },
                     {
                         data: "NM_CUST",
                         name: "NM_CUST",
+                        width: "20%",
                     },
                     {
                         data: "Dept",
                         name: "Dept",
-                        className: "fc-wrap",
                     },
                     {
                         data: "PO_CUST",
                         name: "PO_CUST",
-                        className: "fc-wrap",
                     },
                     {
                         data: "totdpp",
                         name: "totdpp",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -208,6 +226,7 @@ $(document).ready(function () {
                         data: "totppn",
                         name: "totppn",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -216,6 +235,7 @@ $(document).ready(function () {
                         data: "total",
                         name: "total",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -223,10 +243,12 @@ $(document).ready(function () {
                     {
                         data: "NO_STOCK",
                         name: "NO_STOCK",
+                        width: "10%",
                     },
                     {
                         data: "NM_STOCK",
                         name: "NM_STOCK",
+                        width: "30%",
                     },
                     {
                         data: "QTY",
@@ -244,6 +266,7 @@ $(document).ready(function () {
                         data: "HARGA",
                         name: "HARGA",
                         className: "dt-body-right",
+                        width: "10%",
                         render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
                         },
@@ -273,7 +296,6 @@ $(document).ready(function () {
     }
 
     function filterSO() {
-        // $("#datatables").DataTable().clear().destroy();
         if ($("#void").is(":checked")) {
             var voids = "Y";
         } else {
@@ -283,11 +305,11 @@ $(document).ready(function () {
         $("#dtheader tr").remove();
         if (voids == "N") {
             tbl =
-                '<tr style="text-align: center;"><th>SO</th><th>Date</th><th width="10%">Customer</th><th width="10%">Dept</th><th>PO Customer</th><th>Total DPP</th><th>Total PPn</th><th>Total</th><th>Qty SO</th><th>Qty DO</th><th>Qty SR</th></tr>';
+                '<tr style="text-align: center;"><th>SO</th><th>Date</th><th>Customers</th><th>Dept</th><th>PO Customer</th><th>Total DPP</th><th>Total PPn</th><th>Total</th><th>Qty SO</th><th>Qty DO</th><th>Qty SR</th></tr>';
             $("#datatables thead").append(tbl);
         } else {
             tbl =
-                '<tr style="text-align: center;"><th>SO</th><th>Date</th><th width="10%">Customer</th><th width="10%">Dept</th><th>PO Customer</th><th>Total DPP</th><th>Total PPn</th><th>Total</th><th>Kode Inventory</th><th width="20%">Nama Inventory</th><th>Qty SO</th><th>SAT</th><th>Harga</th><th>Qty DO</th><th>Qty SR</th></tr>';
+                '<tr style="text-align: center;"><th>SO</th><th>Date</th><th width="10%">Customers</th><th>Dept</th><th>PO Customer</th><th>Total DPP</th><th>Total PPn</th><th>Total</th><th>Inventory Id</th><th width="20%">Inventory Name</th><th>Qty SO</th><th>UoM</th><th>Price</th><th>Qty DO</th><th>Qty SR</th></tr>';
             $("#datatables thead").append(tbl);
         }
         var kategori = $("#kategoriFilter").val();
@@ -309,6 +331,9 @@ $(document).ready(function () {
         filterSO();
     });
     $("#edate").change(function () {
+        filterSO();
+    });
+    $("#kategoriFilter").change(function () {
         filterSO();
     });
     $("#kategoriFilter").change(function () {

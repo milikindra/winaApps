@@ -113,7 +113,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
-                        <table id="datatables" class="table table-bordered table-hover minpadding table-hover tbl-sm" style="cursor:pointer" width="100%">
+                        <table id="datatables" class="table table-bordered table-hover minpadding table-hover tbl-sm scroly" style="cursor:pointer" width="100%">
                             <thead id="dtheader">
 
                             </thead>
