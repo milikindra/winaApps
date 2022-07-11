@@ -230,8 +230,6 @@ class InventoryController extends Controller
 
     public function inventoryUpdate(Request $request)
     {
-        Log::debug($request->input());
-
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/inventoryUpdate';

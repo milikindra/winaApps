@@ -156,7 +156,7 @@ $(document).ready(function () {
         action_view +=
             '<button onclick="inventoryDelete(this)" data-inventory="' +
             data +
-            '" title="Hapus" class="btn btn-sm btn-icon btn-danger" style="margin-right: 5px;"><i class="fa fa-trash"></i></button>';
+            '" title="Delete" class="btn btn-sm btn-icon btn-danger" style="margin-right: 5px;"><i class="fa fa-trash"></i></button>';
 
         // action_view +=
         //     '<a href="' +

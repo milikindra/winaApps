@@ -35,7 +35,7 @@ $(document).ready(function () {
                 type: "GET",
                 dataType: "JSON",
                 error: function (xhr, textStatus, ThrownException) {
-                    alert("Terjadi kesalahan pada server");
+                    alert("Something Wrong");
                 },
             },
             columns: [{
