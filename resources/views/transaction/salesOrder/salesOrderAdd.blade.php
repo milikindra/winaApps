@@ -40,7 +40,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Nomor</label>
+                                                <label>Id</label>
                                                 <input type="text" class="form-control form-control-sm form-control-border" name="nomor" id="nomor" autofocus required>
                                             </div>
                                         </div>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Tempo</label>
+                                                <label>Due</label>
                                                 <div class="input-group input-group-sm">
                                                     <input type="text" class="form-control form-control-sm form-control-border" name="tempo" id="tempo" required>
                                                     <div class="input-group-append">
@@ -117,7 +117,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Jenis</label>
+                                                <label>Type</label>
                                                 <select class="form-control form-control-sm form-control-border selects2" id="jenis" name="jenis" style="width: 100%;" required>
                                                     <option selected disabled></option>
                                                     <option value="CO">Component</option>
@@ -203,7 +203,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="width:50%">Down Payment</th>
-                                                            <th style="width:30%">Nilai</th>
+                                                            <th style="width:30%">Value</th>
                                                             <th style="width:20%">Tax</th>
                                                         </tr>
                                                     </thead>
@@ -252,16 +252,16 @@
                                     <table class="table trx table-modal" id="trx" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th style="width: 5%">Kode</th>
-                                                <th style="width: 10%">Nama</th>
-                                                <th style="width: 5%">Ket</th>
+                                                <th style="width: 5%">Id</th>
+                                                <th style="width: 10%">Name</th>
+                                                <th style="width: 5%">Desc</th>
                                                 <th style="width: 2%">Qty</th>
-                                                <th style="width: 2%">Sat</th>
-                                                <th style="width: 2%">Harga</th>
+                                                <th style="width: 2%">UoM</th>
+                                                <th style="width: 2%">Price</th>
                                                 <th style="width: 2%">Disc % 1</th>
                                                 <th style="width: 2%">Disc % 2</th>
                                                 <th style="width: 2%">Disc</th>
-                                                <th style="width: 2%">Jumlah</th>
+                                                <th style="width: 2%">Total</th>
                                                 <th style="width: 2%">Tax</th>
                                                 <th style="width: 2%">State</th>
                                             </tr>
@@ -379,8 +379,8 @@
                     <table class="table tbl_bu" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Keterangan</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Description</th>
                                 <th style="width: 10%" style="text-align: center;">%</th>
                             </tr>
                         </thead>
@@ -425,8 +425,8 @@
                     <table class="table tbl_dept" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Keterangan</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Description</th>
                                 <th style="width: 10%" style="text-align: center;">%</th>
                             </tr>
                         </thead>
@@ -470,9 +470,9 @@
                     <table class="table" id="datatables" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Nama</th>
-                                <th style="width: 10%" style="text-align: center;">Sat</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Name</th>
+                                <th style="width: 10%" style="text-align: center;">UoM</th>
                             </tr>
                         </thead>
                         <tbody>

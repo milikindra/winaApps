@@ -406,8 +406,8 @@
                     <table class="table tbl_bu" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Keterangan</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Description</th>
                                 <th style="width: 10%" style="text-align: center;">%</th>
                             </tr>
                         </thead>
@@ -452,8 +452,8 @@
                     <table class="table tbl_dept" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Keterangan</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Description</th>
                                 <th style="width: 10%" style="text-align: center;">%</th>
                             </tr>
                         </thead>
@@ -497,9 +497,9 @@
                     <table class="table" id="datatables" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Nama</th>
-                                <th style="width: 10%" style="text-align: center;">Sat</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Name</th>
+                                <th style="width: 10%" style="text-align: center;">UoM</th>
                             </tr>
                         </thead>
                         <tbody>
