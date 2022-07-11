@@ -9,6 +9,7 @@ use App\Http\Controllers\Master\InventoryController;
 use App\Http\Controllers\Master\CustomerController;
 use App\Http\Controllers\Master\SalesController;
 use App\Http\Controllers\Master\SupplierController;
+use App\Http\Controllers\Master\VintrasController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Transaction\SalesInvoiceController;
 use App\Http\Controllers\Finance\GeneralLedgerController;
@@ -141,6 +142,9 @@ Route::group(
 
         // supplier
         Route::get('supplier/data/populate/{void}', [SupplierController::class, 'populate'])->name('supplier/data/populate');
+
+        // vintras
+        Route::get('vintras/data/populate/{period}', [VintrasController::class, 'populate'])->name('vintras/data/populate');
     }
 );
 

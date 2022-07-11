@@ -1,6 +1,9 @@
 label {
     margin-bottom: 0.1rem;
 }
+.margbot-5{
+    margin-bottom: 5px;
+}
 
 /* form-control */
 .form-control:focus {
@@ -207,3 +210,4 @@ max-height: 25rem;
 .input-group-sm .form-control{
     font-size: 11px !important;
 }
+

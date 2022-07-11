@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class CityCOntroller extends Controller
+class CityController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 

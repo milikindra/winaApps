@@ -19,7 +19,7 @@ use Illuminate\Support\Carbon;
 
 // use App\Exports\Report\Stock\ReportPosisiStock;
 
-class ReportHelperCOntroller extends Controller
+class ReportHelperController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 

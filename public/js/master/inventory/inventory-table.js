@@ -15,7 +15,7 @@ $(document).ready(function () {
         var table = $("#datatables").DataTable({
             processing: true,
             serverSide: true,
-            responsive: true,
+            responsive: false,
             stateSave: false,
             deferRender: true,
             lengthMenu: [
@@ -56,7 +56,8 @@ $(document).ready(function () {
                 },
             ],
 
-            dom: "<'row'<'col-sm-6'lB><'col-sm-6'f>>" +
+            dom: "<'row'<'col-sm-12'B>>" +
+                "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-6'i><'col-sm-6'p>>",
             drawCallback: function (settings, json) {},
@@ -170,13 +171,13 @@ $(document).ready(function () {
     window.inventoryDelete = function (element) {
         var inv = $(element).data("inventory");
         Swal.fire({
-            title: "Apakah anda yakin",
-            text: "Anda tidak bisa mengembalikan data yang sudah di hapus",
+            title: "Are you sure?",
+            text: "You cannot restore deleted data",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#FFC107",
-            confirmButtonText: "Yakin",
+            confirmButtonText: "Yes",
             reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
@@ -189,12 +190,12 @@ $(document).ready(function () {
                             console.log(response.result);
                             Toast.fire({
                                 icon: "warning",
-                                title: "Data tidak bisa dihapus. Data digunakan di tabel lain.",
+                                title: "Data cannot be deleted. The data is used in another table.",
                             });
                         } else {
                             Toast.fire({
                                 icon: "success",
-                                title: "Data berhasil di hapus.",
+                                title: "Data has been successfully deleted",
                             });
                             $("#datatables").DataTable().clear().destroy();
                             dt(voids, kategori, subkategori);
@@ -281,6 +282,7 @@ $(document).ready(function () {
                 } else {
                     $("#PPhPs21OPEdit").prop("checked", false);
                 }
+                $("#vintrasIdEdit").val(response.data.VINTRASID);
             },
             error: function (xhr, textStatus, ThrownException) {
                 console.log(
@@ -318,6 +320,140 @@ $(document).ready(function () {
         } else {
             $("#salesAccEdit").removeAttr("required");
             $("#purchaseAccEdit").removeAttr("required");
+        }
+    });
+
+    $(".btnVintras").on("click", function (e) {
+        e.preventDefault();
+        $("#vintrasPeriod").modal("show");
+    });
+
+    $("#vintrasYear").change(function () {
+        var periode = $("#vintrasYear").val();
+        dtVintras(periode);
+    });
+
+    function dtVintras(periode) {
+        $("#vintrasTable").DataTable().clear().destroy();
+        var table = $("#vintrasTable").DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: false,
+            stateSave: false,
+            deferRender: true,
+            lengthMenu: [
+                [100, 250, 500, 1000, -1],
+                [100, 250, 500, 1000, "all"],
+            ],
+            dom: 
+                "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            drawCallback: function (settings, json) {},
+            ajax: {
+                url: rute_vintras + "/" + periode,
+                type: "GET",
+                dataType: "JSON",
+            },
+            columns: [{
+                    data: "Kode_Ref",
+                    name: "Kode_Ref",
+                },
+                {
+                    data: "Spec_Barang",
+                    name: "Spec_Barang",
+                    render: function (data, type, row) {
+                        var str = "";
+                        html = $.parseHTML(data),
+                        nodeNames = ""; 
+                        $.each(html, function (i, el) {
+                            nodeNames += this.data;
+                        });
+                        // console.log(nodeNames)
+                        return nodeNames;
+                    },
+                },
+                {
+                    data: "Tanggal",
+                    name: "Tanggal",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY");
+                    },
+                },
+                {
+                    data: "Nama_Pelanggan",
+                    name: "Nama_Pelanggan",
+                },
+                {
+                    data: "Brand",
+                    name: "Brand",
+                },
+                {
+                    data: "Ket_Ref",
+                    name: "Ket_Ref",
+                },
+                {
+                    data: "Spec_Lain",
+                    name: "Spec_Lain",
+                }
+                ,
+                {
+                    data: "Keterangan",
+                    name: "Keterangan",
+                }
+            ],
+            order: [
+                [0, "asc"]
+            ],
+        });
+    }
+
+    $('#vintrasTable tbody').on('dblclick', 'tr', function (e) {
+        // var view_url = "{{ route('salesOrderDetail') }}";
+        no_ref = $(this).closest("tr").children("td:eq(0)").text();
+        $('.vintrasId').val(no_ref);
+        $("#vintrasPeriod").modal("hide");
+    })
+
+    $('#btnAddSave').on('click', function (e) {
+        if ($('#vintrasId').val() == "") {
+            e.preventDefault();
+            var form = $(this).parents('form');
+            Swal.fire({
+            title: "Are you sure?",
+            text: "This Item Does Not Have Vintras Id",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#17a2b8",
+            cancelButtonColor: "#FFC107",
+            confirmButtonText: "Yes, Process it!",
+            reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+    });
+
+    $('#btnEditSave').on('click', function (e) {
+        if ($('#vintrasIdEdit').val() == "") {
+            e.preventDefault();
+            var form = $(this).parents('form');
+            Swal.fire({
+            title: "Are you sure?",
+            text: "This Item Does Not Have Vintras Id",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#17a2b8",
+            cancelButtonColor: "#FFC107",
+            confirmButtonText: "Yes, Process it!",
+            reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
         }
     });
 });

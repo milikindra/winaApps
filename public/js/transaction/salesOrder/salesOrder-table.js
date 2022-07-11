@@ -15,7 +15,7 @@ $(document).ready(function () {
             var table = $("#datatables").DataTable({
                 processing: true,
                 serverSide: true,
-                responsive: true,
+                responsive: false,
                 stateSave: false,
                 deferRender: true,
                 bAutowidth : false,
@@ -66,7 +66,7 @@ $(document).ready(function () {
                         data: "TGL_BUKTI",
                         name: "TGL_BUKTI",
                         render: function (data, type, row) {
-                            return moment(data).format("DD MMM YYYY");
+                            return moment(data).format("DD/MM/YYYY");
                         },
                     },
                     {
@@ -81,6 +81,7 @@ $(document).ready(function () {
                     {
                         data: "PO_CUST",
                         name: "PO_CUST",
+                        className: "fc-wrap",
                     },
                     {
                         data: "totdpp",
@@ -139,7 +140,7 @@ $(document).ready(function () {
             var table = $("#datatables").DataTable({
                 processing: true,
                 serverSide: true,
-                responsive: true,
+                responsive: false,
                 stateSave: false,
                 deferRender: true,
                 bAutowidth : false,
@@ -178,7 +179,7 @@ $(document).ready(function () {
                         data: "TGL_BUKTI",
                         name: "TGL_BUKTI",
                         render: function (data, type, row) {
-                            return moment(data).format("DD MMM YYYY");
+                            return moment(data).format("DD/MM/YYYY");
                         },
                     },
                     {
@@ -193,6 +194,7 @@ $(document).ready(function () {
                     {
                         data: "PO_CUST",
                         name: "PO_CUST",
+                        className: "fc-wrap",
                     },
                     {
                         data: "totdpp",
@@ -280,11 +282,11 @@ $(document).ready(function () {
         $("#dtheader tr").remove();
         if (voids == "N") {
             tbl =
-                '<tr style="text-align: center;"><th>SO</th><th>Date</th><th>Customer</th><th>Dept</th><th>PO Customer</th><th>Total DPP</th><th>Total PPn</th><th>Total</th><th>Qty SO</th><th>Qty DO</th><th>Qty SR</th></tr>';
+                '<tr style="text-align: center;"><th>SO</th><th>Date</th><th width="10%">Customer</th><th width="10%">Dept</th><th>PO Customer</th><th>Total DPP</th><th>Total PPn</th><th>Total</th><th>Qty SO</th><th>Qty DO</th><th>Qty SR</th></tr>';
             $("#datatables thead").append(tbl);
         } else {
             tbl =
-                '<tr style="text-align: center;"><th>SO</th><th>Date</th><th width="10%">Customer</th><th>Dept</th><th>PO Customer</th><th>Total DPP</th><th>Total PPn</th><th>Total</th><th>Kode Inventory</th><th width="20%">Nama Inventory</th><th>Qty SO</th><th>SAT</th><th>Harga</th><th>Qty DO</th><th>Qty SR</th></tr>';
+                '<tr style="text-align: center;"><th>SO</th><th>Date</th><th width="10%">Customer</th><th width="10%">Dept</th><th>PO Customer</th><th>Total DPP</th><th>Total PPn</th><th>Total</th><th>Kode Inventory</th><th width="20%">Nama Inventory</th><th>Qty SO</th><th>SAT</th><th>Harga</th><th>Qty DO</th><th>Qty SR</th></tr>';
             $("#datatables thead").append(tbl);
         }
         var kategori = $("#kategoriFilter").val();

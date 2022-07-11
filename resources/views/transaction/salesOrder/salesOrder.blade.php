@@ -112,9 +112,9 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="datatables" class="table table-bordered table-striped table-hover tbl-sm" style="cursor:pointer" width="100%">
-                            <thead id="dtheader">
+                    <div class="card-body table-responsive">
+                        <table id="datatables" class="table table-bordered table-hover minpadding table-hover tbl-sm" style="cursor:pointer" width="100%">
+                            <thead id="">
 
                             </thead>
                             <tbody>

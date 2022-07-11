@@ -51,11 +51,11 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-12" id="filterEdate" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterEdate" style="display: none;">
                                     <label>End Date</label>
                                     <input type="date" class="form-control form-control-sm" id="edate" name="edate" value="{{date('Y-m-d')}}">
                                 </div>
-                                <div class="col-12" id="filterCustomer" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterCustomer" style="display: none;">
                                     <label>Customers</label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" class="form-control" name="customer" id="customer">
@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12" id="filterSO" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterSO" style="display: none;">
                                     <label>SO</label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" class="form-control" name="so" id="so">
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12" id="filterSales" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterSales" style="display: none;">
                                     <label>Sales</label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" class="form-control" name="sales" id="sales">
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12" id="filterOverdueCustomer" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterOverdueCustomer" style="display: none;">
                                     <label>Overdue</label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" class="form-control" name="overdueCustomer" id="overdueCustomer">
@@ -91,14 +91,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12" id="filterTotalCustomer" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterTotalCustomer" style="display: none;">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="isTotalCustomer" value="Y" name="isTotal">
                                         <label class="form-check-label">Show Total Per Customer</label>
                                     </div>
                                 </div>
-
-                                <div class="col-12" id="filterSupplier" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterSupplier" style="display: none;">
                                     <label>Supplier</label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" class="form-control" name="supplier" id="supplier">
@@ -107,7 +106,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12" id="filterInventory" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterInventory" style="display: none;">
                                     <label>Inventory</label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" class="form-control" name="inventory" id="inventory">
@@ -116,13 +115,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12" id="filterTag" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterTag" style="display: none;">
                                     <label>Tag</label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" class="form-control" name="tag" id="tag">
                                     </div>
                                 </div>
-                                <div class="col-12" id="filterOverdueSupplier" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterOverdueSupplier" style="display: none;">
                                     <label>Overdue</label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" class="form-control" name="overdueSupplier" id="overdueSupplier">
@@ -131,7 +130,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12" id="filterTotalSupplier" style="display: none;margin-bottom:5px;">
+                                <div class="col-12 margbot-5" id="filterTotalSupplier" style="display: none;">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="isTotalSupplier" value="Y" name="isTotal">
                                         <label class="form-check-label">Show Total Per Supplier</label>
@@ -175,9 +174,9 @@
                                 <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterCustomerSOA"></h6>
                             </div>
                             <br />
-                            <table class="table tableCustomerSOA minpadding scroly" id="tableCustomerSOA" style="cursor:pointer">
+                            <table class="table tableCustomerSOAtable-bordered minpadding table-hover tbl-sm scroly" id="tableCustomerSOA" style="cursor:pointer" width="100%">
                                 <thead>
-                                    <tr style="text-align: center;">
+                                    <tr style=" text-align: center;">
                                         <th id="no-sort">Customer</th>
                                         <th>Invoice</th>
                                         <th>Invoice Date</th>
@@ -234,7 +233,7 @@
                                 <h6 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="filterSupplierSOA"></h6>
                             </div>
                             <br />
-                            <table class="table tableSupplierSOA minpadding scroly" id="tableSupplierSOA" style="cursor:pointer;">
+                            <table class="table tableSupplierSOA table-bordered minpadding table-hover tbl-sm scroly" id="tableSupplierSOA" style="cursor:pointer;" width="100%">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th>Supplier</th>
@@ -285,7 +284,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <table class="table tbl_customer" style="width: 100%;">
+                    <table class="table tbl-sm tbl_customer" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th style="width: 5%" style="text-align: center;"></th>
@@ -317,7 +316,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid table-responsive">
-                    <table class="table tbl_so" style="width: 100%;">
+                    <table class="table tbl-sm tbl_so" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th></th>
@@ -360,7 +359,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid table-responsive">
-                    <table class="table tbl_sales" style="width: 100%;">
+                    <table class="table tbl-sm tbl_sales" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th></th>
@@ -391,7 +390,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <table class="table tbl_overdueCustomer" style="width: 100%;">
+                    <table class="table tbl-sm tbl_overdueCustomer" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th style="width: 70%" style="text-align: center;" colspan="3">Overdue</th>
@@ -501,7 +500,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid table-responsive">
-                    <table class="table tbl_supplier" style="width: 100%;">
+                    <table class="table tbl-sm tbl_supplier" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th></th>
@@ -534,7 +533,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid table-responsive">
-                    <table class="table tbl_inventory" style="width: 100%;">
+                    <table class="table tbl-sm tbl_inventory" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th></th>
@@ -572,7 +571,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <table class="table tbl_overdueSupplier" style="width: 100%;">
+                    <table class="table tbl-sm tbl_overdueSupplier" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th style="width: 70%" style="text-align: center;" colspan="2">Overdue</th>

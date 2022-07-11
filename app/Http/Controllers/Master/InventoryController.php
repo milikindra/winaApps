@@ -118,10 +118,10 @@ class InventoryController extends Controller
             } else {
                 $isMinus = '';
             }
-            if ($request->input('PphPs23') == 'on') {
-                $PphPs23 = 'Y';
+            if ($request->input('PPhPs23') == 'on') {
+                $PPhPs23 = 'Y';
             } else {
-                $PphPs23 = '';
+                $PPhPs23 = '';
             }
             if ($request->input('PPhPs21') == 'on') {
                 $PPhPs21 = 'Y';
@@ -155,11 +155,12 @@ class InventoryController extends Controller
                 'isMinus' => $isMinus,
                 'NO_REK1' => $request->input('salesAcc'),
                 'NO_REK2' => $request->input('purchaseAcc'),
-                'PphPs23' => $PphPs23,
+                'PPhPs23' => $PPhPs23,
                 'PPhPs21' => $PPhPs21,
                 'PPhPs4Ayat2' => $PPhPs4Ayat2,
                 'PPhPs21OP' => $PPhPs21OP,
-                'kodeBJ' => 'I'
+                'kodeBJ' => 'I',
+                'VINTRASID' => $request->input('vintrasId')
             ];
             $client = new Client();
             $response = $client->request('POST', $url, [
@@ -196,7 +197,6 @@ class InventoryController extends Controller
         } catch (\Exception $e) {
             // Alert::toast("500", 'danger');
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-
             return abort(500);
         }
     }
@@ -230,6 +230,8 @@ class InventoryController extends Controller
 
     public function inventoryUpdate(Request $request)
     {
+        Log::debug($request->input());
+
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/inventoryUpdate';
@@ -253,10 +255,10 @@ class InventoryController extends Controller
             } else {
                 $isMinus = '';
             }
-            if ($request->input('PphPs23Edit') == 'on') {
-                $PphPs23 = 'Y';
+            if ($request->input('PPhPs23Edit') == 'on') {
+                $PPhPs23 = 'Y';
             } else {
-                $PphPs23 = '';
+                $PPhPs23 = '';
             }
             if ($request->input('PPhPs21Edit') == 'on') {
                 $PPhPs21 = 'Y';
@@ -290,12 +292,12 @@ class InventoryController extends Controller
                 'isMinus' => $isMinus,
                 'NO_REK1' => $request->input('salesAccEdit'),
                 'NO_REK2' => $request->input('purchaseAccEdit'),
-                'PphPs23' => $PphPs23,
+                'PPhPs23' => $PPhPs23,
                 'PPhPs21' => $PPhPs21,
                 'PPhPs4Ayat2' => $PPhPs4Ayat2,
                 'PPhPs21OP' => $PPhPs21OP,
-                'kodeBJ' => 'I'
-
+                'kodeBJ' => 'I',
+                'VINTRASID' => $request->input('vintrasId')
             ];
             $client = new Client();
             $response = $client->request('POST', $url, [

@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">{{ $title }}</h1>
+                <h5 class="m-0">{{ $title }}</h5>
             </div>
             <!-- /.col -->
         </div>
@@ -21,7 +21,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-12"><button type="button" class="btn btn-info  btn-sm btn-block" data-toggle="modal" data-target="#addInventory">
-                                    Tambah Inventory
+                                    Add Inventory
                                 </button>
                             </div>
                         </div>
@@ -42,30 +42,28 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12">
-                                <label>Kategori</label>
-                                <select class="form-control selects2" style="width: 100%;" id="kategoriFilter">
+                            <div class="col-12 margbot-5">
+                                <label>Category</label>
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="kategoriFilter">
                                     <option value="all" selected>All</option>
                                     @foreach($kategori as $kat)
                                     <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-12">
-                                <br />
-                                <label>Sub Kategori</label>
-                                <select class="form-control selects2" style="width: 100%;" id="subkategoriFilter">
+                            <div class="col-12 margbot-5">
+                                <label>Subcategory</label>
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="subkategoriFilter">
                                     <option value="all" selected>All</option>
                                     @foreach($subKategori as $kat)
                                     <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-12">
-                                <div class="custom-control custom-checkbox">
-                                    <br />
-                                    <input type="checkbox" class="custom-control-input custom-control-input-info" id="void">
-                                    <label for="void" class="custom-control-label">Show Qty 0</label>
+                            <div class="col-12 margbot-5">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="void">
+                                    <label class="form-check-label">Show Qty 0</label>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +73,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="card-title">Filter Kartu Stok</h3>
+                                <h3 class="card-title">Filter Stock Card</h3>
                                 <div class="card-tools float-right">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
@@ -88,41 +86,35 @@
                         <form method="POST" action="{{ route('kartuStok') }}">
                             @csrf
                             <div class="row">
-                                <div class="col-12">
-                                    <label>Kode</label>
-                                    <input type="text" class="form-control" name="kode" id="kode_kartu_stok" required>
+                                <div class="col-12 margbot-5">
+                                    <label>Code</label>
+                                    <input type="text" class="form-control form-control-sm" name="kode" id="kode_kartu_stok" required>
                                 </div>
-                                <div class="col-12">
-                                    <br />
-                                    <label>Tanggal Awal</label>
-                                    <input type="date" class="form-control" name="sdate" value="{{date('Y-m-d', strtotime('-1 year'))}}" required>
+                                <div class="col-12 margbot-5">
+                                    <label>Start Date</label>
+                                    <input type="date" class="form-control form-control-sm" name="sdate" value="{{date('Y-m-d', strtotime('-1 year'))}}" required>
                                 </div>
-                                <div class="col-12">
-                                    <br />
-                                    <label>Tanggal Akhir</label>
-                                    <input type="date" class="form-control" name="edate" value="{{date('Y-m-d')}}" required>
+                                <div class="col-12 margbot-5">
+                                    <label>End Date</label>
+                                    <input type="date" class="form-control form-control-sm" name="edate" value="{{date('Y-m-d')}}" required>
                                 </div>
-                                <div class="col-12">
-                                    <br />
-                                    <label>Lokasi</label>
-                                    <select class="form-control selects2" style="width: 100%;" name="lokasi" id="lokasi">
+                                <div class="col-12 margbot-5">
+                                    <label>Location</label>
+                                    <select class="form-control form-control-sm selects2" style="width: 100%;" name="lokasi" id="lokasi">
                                         <option value="all" selected>All</option>
                                         @foreach($lokasi as $lok)
                                         <option value="{{$lok->id_lokasi}}">{{$lok->id_lokasi}} - {{$lok->keterangan}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <div class="col-12">
-                                        <div class="custom-control custom-checkbox">
-                                            <br />
-                                            <input type="checkbox" class="custom-control-input custom-control-input-info" value="1" name="item_transfer" id="item_transfer">
-                                            <label for="item_transfer" class="custom-control-label">Include item transfer</label>
-                                        </div>
+                                <div class="col-12 margbot-5">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" value="1" name="item_transfer" id="item_transfer">
+                                        <label class="form-check-label">Include item transfer</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-info float-right">Kartu Stok</button>
+                                    <button type="submit" class="btn btn-sm btn-info float-right">Stock Card</button>
                                 </div>
                             </div>
                         </form>
@@ -134,7 +126,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="card-title">Data Inventory</h3>
+                                <h3 class="card-title">Inventory Data</h3>
                                 <div class="card-tools float-right">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
@@ -144,20 +136,20 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="datatables" style="width: 100%;" class="table table-bordered table-striped table-hover">
+                    <div class="card-body table-responsive">
+                        <table id="datatables" style="width: 100%;" class="table table-bordered table-hover tbl-sm sroly">
                             <thead>
                                 <tr style="text-align: center;">
-                                    <th width="10%">Kode</th>
-                                    <th>Nama Inventory</th>
-                                    <th>Satuan</th>
+                                    <th width="10%">Code</th>
+                                    <th>Item</th>
+                                    <th>UoM</th>
                                     <th>Saldo</th>
                                     <th>Booked</th>
                                     <th>Order</th>
                                     <th>Transit</th>
-                                    <th>Kategori</th>
-                                    <th>Subkategori</th>
-                                    <th width="10%">Opsi</th>
+                                    <th>Category</th>
+                                    <th>Subcategory</th>
+                                    <th width="10%">Option</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -177,139 +169,159 @@
             <form action="{{ route('inventoryAddSave') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title">Tambah Inventory</h5>
+                    <h5 class="modal-title">Add Inventory</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Kode</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Code</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="kode" placeholder="Masukkan Kode" required>
-                            </div>
-                            <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" name="aktif" checked></input>
-                                <label>AKTIF</label>
+                                <input type="text" class="form-control form-control-sm" name="kode" placeholder="Insert Code" required>
                             </div>
                             <div class="col-sm-3">
-                                <input type="checkbox" class="form-check-input" name="konsinyansi"></input>
-                                <label>KONSINYANSI</label>
+                                <a class="btn btn-info btn-sm btnVintras" href="javascript:void(0)">Import Data From VINTRAS</a>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="aktif" checked></input>
+                                    <label class="form-check-label">ACTIVE</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="konsinyansi" checked></input>
+                                    <label class="form-check-label">CONSIGNMENT</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Nama Barang</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Item Name</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="nama_barang" rows="2" placeholder="Masukkan Nama Barang"></textarea>
+                                <textarea class="form-control form-control-sm" name="nama_barang" rows="2" placeholder="Insert Item Name"></textarea>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Satuan</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">UoM</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="satuan" maxlength="5" placeholder="Masukkan satuan">
+                                <input type="text" class="form-control form-control-sm" name="satuan" maxlength="5" placeholder="Insert Unit Of Measurment">
                             </div>
-                            <label class="col-sm-2 col-form-label">Stok Minimal</label>
+                            <label class="col-sm-2 col-form-label">Minimum Stock</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control" name="stok_minimal" placeholder="Masukkan Stok Minimal" value="0" min="0">
+                                <input type="number" class="form-control form-control-sm" name="stok_minimal" placeholder="Insert Minimum Stock" value="0" min="0">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Kategori</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Category</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="kategoriAdd" name="kategori">
-                                    <option value="">Pilih Kategori</option>
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="kategoriAdd" name="kategori">
+                                    <option value="">Select Category</option>
                                     @foreach($kategori as $kat)
                                     <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Subkategori</label>
+                            <label class="col-sm-2 col-form-label">Vintras Id</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="subkategoriAdd" name="subkategori">
-                                    <option value="">Pilih Subkategori</option>
+                                <input type="text" class="form-control form-control-sm vintrasId" name="vintrasId" id="vintrasId" placeholder="Does Not Have Vintras Id" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Subcategory</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="subkategoriAdd" name="subkategori">
+                                    <option value="">Select Subcategory</option>
                                     @foreach($subKategori as $kat)
                                     <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Merk</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Brand</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="merkAdd" name="merk">
-                                    <option value="">Pilih Merk</option>
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="merkAdd" name="merk">
+                                    <option value="">Select Brand</option>
                                     @foreach($merk as $merks)
                                     <option value="{{$merks->Kode}}">{{$merks->Kode}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Harga Jual</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Selling Price</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control numajaDesimal" name="harga_jual" placeholder="Masukkan Harga Jual">
+                                <input type="text" class="form-control form-control-sm numajaDesimal" name="harga_jual" placeholder="Insert Selling Price">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Keterangan</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="keterangan" placeholder="keterangan">
+                                <input type="text" class="form-control form-control-sm" name="keterangan" placeholder="Description">
                             </div>
                         </div>
                         <hr />
-                        <div class="form-group row">
-                            <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="isMinus" name="isMinus"></input>
-                                <label>NON INVENTORY</label>
+                        <div class="form-group row margbot-5">
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="isMinus" name="isMinus"></input>
+                                    <label class="form-check-label">NON INVENTORY</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row margbot-5">
                             <label class="col-sm-2 col-form-label">Sales Account</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="salesAcc" name="salesAcc">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="salesAcc" name="salesAcc">
                                     <option></option>
                                     @foreach($account as $acc)
                                     <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" name="PphPs23"></input>
-                                <label>PPh Ps 23</label>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="PPhPs23"></input>
+                                    <label class="form-check-label">PPh Ps 23</label>
+                                </div>
                             </div>
                             <div class="col-sm-3">
-                                <input type="checkbox" class="form-check-input" name="PPhPs21"></input>
-                                <label>PPh Ps 21</label>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="PPhPs21"></input>
+                                    <label class="form-check-label">PPh Ps 21</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row margbot-5">
                             <label class="col-sm-2 col-form-label">Purchase Account</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="purchaseAcc" name="purchaseAcc">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="purchaseAcc" name="purchaseAcc">
                                     <option></option>
                                     @foreach($account as $acc)
                                     <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" name="PPhPs4Ayat2"></input>
-                                <label>PPh Ps 4 ayat 2</label>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="PPhPs4Ayat2"></input>
+                                    <label class="form-check-label">PPh Ps 4 ayat 2</label>
+                                </div>
                             </div>
                             <div class="col-sm-3">
-                                <input type="checkbox" class="form-check-input" name="PPhPs21OP"></input>
-                                <label>PPh Ps 21 OP</label>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="PPhPs21OP"></input>
+                                    <label class="form-check-label">PPh Ps 21 OP</label>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class=" modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info">Save</button>
+                    <button type="submit" id="btnAddSave" class="btn btn-info">Save</button>
                 </div>
             </form>
         </div>
@@ -329,51 +341,62 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Kode</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Code</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="kode" name="kode" placeholder="Masukkan Kode" required>
-                            </div>
-                            <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="aktifEdit" name="aktif" checked></input>
-                                <label>AKTIF</label>
+                                <input type="text" class="form-control form-control-sm" id="kode" name="kode" placeholder="Insert Code" required>
                             </div>
                             <div class="col-sm-3">
-                                <input type="checkbox" class="form-check-input" id="konsinyansiEdit" name="konsinyansi"></input>
-                                <label>KONSINYANSI</label>
+                                <a class="btn btn-info btn-sm btnVintras" href="javascript:void(0)">Import Data From VINTRAS</a>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="aktifEdit" name="aktif" checked></input>
+                                    <label class="form-check-label">ACTIVE</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="konsinyansiEdit" name="konsinyansi" checked></input>
+                                    <label class="form-check-label">CONSIGNMENT</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Nama Barang</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Item Name</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="nama_barang" name="nama_barang" rows="2" placeholder="Masukkan Nama Barang"></textarea>
+                                <textarea class="form-control form-control-sm" id="nama_barang" name="nama_barang" rows="2" placeholder="Insert Item Name"></textarea>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Satuan</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">UoM</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="satuan" name="satuan" maxlength="5" placeholder="Masukkan satuan">
+                                <input type="text" class="form-control form-control-sm" id="satuan" name="satuan" maxlength="5" placeholder="Insert Unit of Measurment">
                             </div>
-                            <label class="col-sm-2 col-form-label">Stok Minimal</label>
+                            <label class="col-sm-2 col-form-label">Minimum Stock</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control" id="stok_minimal" name="stok_minimal" placeholder="Masukkan Stok Minimal" value="0" min="0">
+                                <input type="number" class="form-control form-control-sm" id="stok_minimal" name="stok_minimal" placeholder="Insert Minimum Stock" value="0" min="0">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Kategori</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Category</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="kategoriEdit" name="kategori">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="kategoriEdit" name="kategori">
                                     <option value="">Pilih Kategori</option>
                                     @foreach($kategori as $kat)
                                     <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Subkategori</label>
+                            <label class="col-sm-2 col-form-label">Vintras Id</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="subkategoriEdit" name="subkategori">
+                                <input type="text" class="form-control form-control-sm vintrasId" name="vintrasId" id="vintrasIdEdit" placeholder="Does Not Have Vintras Id" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Subcategory</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="subkategoriEdit" name="subkategori">
                                     <option value="">Pilih Subkategori</option>
                                     @foreach($subKategori as $kat)
                                     <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
@@ -381,82 +404,147 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Merk</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Brand</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="merkEdit" name="merk">
-                                    <option value="">Pilih Merk</option>
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="merkEdit" name="merk">
+                                    <option value="">Select Brand</option>
                                     @foreach($merk as $merks)
                                     <option value="{{$merks->Kode}}">{{$merks->Kode}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Harga Jual</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Selling Price</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control numajaDesimal" id="harga_jual" name="harga_jual" placeholder="Masukkan Harga Jual">
+                                <input type="text" class="form-control form-control-sm numajaDesimal" id="harga_jual" name="harga_jual" placeholder="Inset Selling Price">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Keterangan</label>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="keterangan">
+                                <input type="text" class="form-control form-control-sm" id="keterangan" name="keterangan" placeholder="Description">
                             </div>
                         </div>
                         <hr />
-                        <div class="form-group row">
-                            <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="isMinusEdit" name="isMinus"></input>
-                                <label>NON INVENTORY</label>
+                        <div class="form-group row margbot-5">
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="isMinusEdit" name="isMinus"></input>
+                                    <label class="form-check-label">NON INVENTORY</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row margbot-5">
                             <label class="col-sm-2 col-form-label">Sales Account</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="salesAccEdit" name="salesAcc">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="salesAccEdit" name="salesAcc">
                                     <option></option>
                                     @foreach($account as $acc)
                                     <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="PphPs23Edit" name="PphPs23"></input>
-                                <label>PPh Ps 23</label>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PPhPs23Edit" name="PPhPs23"></input>
+                                    <label class="form-check-label">PPh Ps 23</label>
+                                </div>
                             </div>
                             <div class="col-sm-3">
-                                <input type="checkbox" class="form-check-input" id="PPhPs21Edit" name="PPhPs21"></input>
-                                <label>PPh Ps 21</label>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PPhPs21Edit" name="PPhPs21"></input>
+                                    <label class="form-check-label">PPh Ps 21</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row margbot-5">
                             <label class="col-sm-2 col-form-label">Purchase Account</label>
                             <div class="col-sm-4">
-                                <select class="form-control selects2" style="width: 100%;" id="purchaseAccEdit" name="purchaseAcc">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="purchaseAccEdit" name="purchaseAcc">
                                     <option></option>
                                     @foreach($account as $acc)
                                     <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="PPhPs4Ayat2Edit" name="PPhPs4Ayat2"></input>
-                                <label>PPh Ps 4 ayat 2</label>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PPhPs4Ayat2Edit" name="PPhPs4Ayat2"></input>
+                                    <label class="form-check-label">PPh Ps 4 ayat 2</label>
+                                </div>
                             </div>
                             <div class="col-sm-3">
-                                <input type="checkbox" class="form-check-input" id="PPhPs21OPEdit" name="PPhPs21OP"></input>
-                                <label>PPh Ps 21 OP</label>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PPhPs21OPEdit" name="PPhPs21OP"></input>
+                                    <label class="form-check-label">PPh Ps 21 OP</label>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class=" modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info">Save</button>
+                    <button type="submit" id="btnEditSave" class="btn btn-info">Save</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="vintrasPeriod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Vintras Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="form-group row margbot-5">
+                        <label class="col-sm-1 col-form-label">Period</label>
+                        <div class="col-sm-2">
+                            <select class="form-control form-control-sm selects2" style="width: 100%;" id="vintrasYear" name="vintrasYear">
+                                <option selected disabled>Select Period</option>
+                                <?php
+                                $start = 2018;
+                                $end = date("Y");
+                                for ($end; $end >= $start; $end--) {
+                                    echo "<option>" . $end . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card-body table-responsive">
+                            <table id="vintrasTable" style="width: 100%;" class="table table-bordered table-hover tbl-sm scroly">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th style="width: 20%;">Ref. Code</th>
+                                        <th style="width: 25%;">Specification</th>
+                                        <th style="width: 10%;">Date</th>
+                                        <th style="width: 20%;">Cutomers</th>
+                                        <th>Brand</th>
+                                        <th>Ref. Description</th>
+                                        <th>Other Specification</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=" modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -466,6 +554,7 @@
 @push('other-script')
 <script>
     var rute = "{{ URL::to('inventory/data/populate') }}";
+    var rute_vintras = "{{ URL::to('vintras/data/populate') }}";
     var rute_delete = "{{ URL::to('inventory/data/delete') }}";
     var rute_edit = "{{ URL::to('inventory/data/edit') }}";
     var base_url = "{{ route('inventory') }}";
