@@ -273,6 +273,7 @@ $(document).ready(function () {
     }
 
     function filterSO() {
+        // $("#datatables").DataTable().clear().destroy();
         if ($("#void").is(":checked")) {
             var voids = "Y";
         } else {
@@ -308,9 +309,6 @@ $(document).ready(function () {
         filterSO();
     });
     $("#edate").change(function () {
-        filterSO();
-    });
-    $("#kategoriFilter").change(function () {
         filterSO();
     });
     $("#kategoriFilter").change(function () {
