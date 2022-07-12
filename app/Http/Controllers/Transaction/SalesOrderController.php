@@ -376,7 +376,7 @@ class SalesOrderController extends Controller
             if ($request->input('process') == 'print') {
                 return redirect('salesOrderPrint/' . $request->input('nomor'));
             } else {
-                return redirect('salesOrderEdit/' . $request->input('nomor'));
+                return redirect('salesOrderDetail/' . $request->input('nomor'));
             }
         } catch (\Exception $e) {
             Alert::toast("500 - Failed to Update Data", 'danger');
@@ -426,6 +426,57 @@ class SalesOrderController extends Controller
     }
 
 
+    public function salesOrderStatus(request $request, $so_id)
+    {
+        $user_token = session('user')->api_token;
+        $url = Config::get('constants.api_url') . '/salesOrderStatus';
+
+        $post_data = [
+            'api_token' => $user_token,
+            'user' => session('user')->username,
+            'NO_BUKTI' => $so_id
+        ];
+        $client = new Client();
+        $response = $client->request('POST', $url, [
+            'json' => $post_data,
+            'http_errors' => false
+        ]);
+        $body = json_decode($response->getBody());
+        return json_encode($body);
+    }
+
+    public function salesOrderDelete(Request $request, $so_id)
+    {
+        // try {
+        $user_token = session('user')->api_token;
+        $url = Config::get('constants.api_url') . '/salesOrderDelete';
+
+        $post_data = [
+            'api_token' => $user_token,
+            'user' => session('user')->username,
+            'NO_BUKTI' => $so_id
+        ];
+        $client = new Client();
+        $response = $client->request('POST', $url, [
+            'json' => $post_data,
+            'http_errors' => false
+        ]);
+        $body = json_decode($response->getBody());
+        if ($body->result == true) {
+            Alert::toast($body->message, 'success');
+            return redirect('salesOrder');
+        } else {
+            Alert::toast($body->message, 'danger');
+            return redirect('salesOrderDetail/' . $so_id);
+        }
+
+
+        // } catch (\Exception $e) {
+        //     Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+        //     return abort(500);
+        // }
+    }
+
     public function salesOrderDetail(request $request, $so_id)
     {
         try {
@@ -467,56 +518,9 @@ class SalesOrderController extends Controller
             ];
             return View('transaction.salesOrder.salesOrderDetail', $data);
         } catch (\Exception $e) {
-            Alert::toast("500 - Failed to View Data", 'danger');
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-            return redirect()->back();
+            return abort(500);
         }
-    }
-
-    public function salesOrderEdit(request $request, $so_id)
-    {
-        // try {
-        $user_token = session('user')->api_token;
-        $url = Config::get('constants.api_url') . '/salesOrderDetail';
-
-        $post_data = [
-            'api_token' => $user_token,
-            'user' => session('user')->username,
-            'NO_BUKTI' => $so_id
-        ];
-        $client = new Client();
-        $response = $client->request('POST', $url, [
-            'json' => $post_data,
-            'http_errors' => false
-        ]);
-        $body = json_decode($response->getBody());
-
-        $module = $this->module;
-        $menu_name = session('user')->menu_name;
-        $customer = customerGetRawData('NM_CUST', 'ASC');
-        $sales = salesGetRawData('ID_SALES', 'ASC');
-        $bu = bussinessUnitGetRawData();
-        $dept = deptGetRawData();
-        $inventory = inventoryGetRawData();
-        $vat = vatGetRawData();
-
-        $data = [
-            'title' => $menu_name->$module->module_name,
-            'parent_page' => $menu_name->$module->parent_name,
-            'page' => $menu_name->$module->module_name,
-            'customer' => $customer,
-            'sales' => $sales,
-            'bu' => $bu,
-            'dept' => $dept,
-            'inventory' => $inventory,
-            'vat' => $vat,
-            'so' => $body->so,
-        ];
-        return View('transaction.salesOrder.salesOrderEdit', $data);
-        // } catch (\Exception $e) {
-        //     Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-        //     return abort(500);
-        // }
     }
 
     public function populateHead(Request $request)

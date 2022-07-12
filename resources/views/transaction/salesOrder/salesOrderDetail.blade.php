@@ -13,7 +13,7 @@
     </div>
     <!-- /.container-fluid -->
 </div>
-<form action="{{ route('salesOrderAddSave') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('salesOrderUpdate') }}" method="POST" enctype="multipart/form-data" id="frmSo">
     @csrf
     <section class="content">
         <div class="container-fluid">
@@ -23,7 +23,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <h5 class="card-title">New Sales Order</h5>
+                                    <h5 class="card-title">Detail Sales Order</h5>
                                     <div class="card-tools float-right">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -41,7 +41,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Id</label>
-                                                <input type="text" class="form-control form-control-sm form-control-border" name="nomor" id="nomor" autofocus required>
+                                                <input type="text" class="form-control form-control-sm form-control-border" name="nomor" id="nomor" autofocus required value="{{$so->head[0]->NO_BUKTI}}">
+                                                <input type="hidden" name="nomor_old" id="nomor_old" required value="{{$so->head[0]->NO_BUKTI}}" readonly>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -49,9 +50,12 @@
                                                 <label>Customer</label>
                                                 <input type="hidden" name="customer_name" id="customer_name" required>
                                                 <select class="form-control form-control-sm selects2 form-control-border" id="customer" name="customer" style="width: 100%;" required>
-                                                    <option selected disabled></option>
                                                     @foreach($customer as $c)
+                                                    @if($c->ID_CUST == $so->head[0]->ID_CUST)
+                                                    <option value="{{$c->ID_CUST}}" selected>{{$c->ID_CUST." (".$c->NM_CUST.")"}}</option>
+                                                    @else
                                                     <option value="{{$c->ID_CUST}}">{{$c->ID_CUST." (".$c->NM_CUST.")"}}</option>
+                                                    @endif
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -59,32 +63,32 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Attn</label>
-                                                <input type="text" class="form-control form-control-sm form-control-border" name="attn" id="attn">
+                                                <input type="text" class="form-control form-control-sm form-control-border" name="attn" id="attn" value="{{$so->head[0]->attn}}">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Due</label>
                                                 <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control form-control-sm form-control-border" name="tempo" id="tempo" required>
+                                                    <input type="text" class="form-control form-control-sm form-control-border" name="tempo" id="tempo" required value="{{$so->head[0]->TEMPO}}">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">Hari</span>
+                                                        <span class="input-group-text">Days</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Pay.Term</label>
-                                                <input type="text" class="form-control form-control-sm form-control-border" name="payterm" id="payterm" value="CASH" required>
+                                                <input type="text" class="form-control form-control-sm form-control-border" name="payterm" id="payterm" value="CASH" required value="{{$so->head[0]->pay_Term}}">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Currency</label>
-                                                <input type="text" class="form-control form-control-sm form-control-border" name="curr" id="curr" readonly>
+                                                <input type="text" class="form-control form-control-sm form-control-border" name="curr" id="curr" readonly value="{{$so->head[0]->curr}}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Rate Rp.</label>
-                                                <input type="text" class="form-control form-control-sm form-control-border" name="rate_cur" id="rate_cur" required>
+                                                <input type="text" class="form-control form-control-sm form-control-border" name="rate_cur" id="rate_cur" required value="{{$so->head[0]->rate}}">
                                             </div>
                                         </div>
                                     </div>
@@ -94,34 +98,38 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Date</label>
-                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_order" id="date_order" value="{{date('Y-m-d')}}" required>
+                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_order" id="date_order" value="{{date('Y-m-d')}}" required value="{{$so->head[0]->TGL_BUKTI}}">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Due Date</label>
-                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_due" id="date_due" value="{{date('Y-m-d')}}" required>
+                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_due" id="date_due" value="{{date('Y-m-d')}}" required value="{{$so->head[0]->tgl_due}}">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>PO Customer</label>
-                                                <input type="text" class="form-control form-control-sm form-control-border" name="po_customer" id="po_customer" required>
+                                                <input type="text" class="form-control form-control-sm form-control-border" name="po_customer" id="po_customer" required value="{{$so->head[0]->PO_CUST}}">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Quotation Ref.</label>
-                                                <input type="text" class="form-control form-control-sm form-control-border" name="quotation_ref" id="quotation_ref" required>
+                                                <input type="text" class="form-control form-control-sm form-control-border" name="quotation_ref" id="quotation_ref" required value="{{$so->head[0]->no_ref}}">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Type</label>
                                                 <select class="form-control form-control-sm form-control-border selects2" id="jenis" name="jenis" style="width: 100%;" required>
-                                                    <option selected disabled></option>
-                                                    <option value="CO">Component</option>
+                                                    @if($so->head[0]->jenis == 'CO')
+                                                    <option value="CO" selected>Component</option>
                                                     <option value="PR">Project</option>
+                                                    @else
+                                                    <option value="CO">Component</option>
+                                                    <option value="PR" selected>Project</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
@@ -139,7 +147,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Ship To</label>
-                                                <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="4" required></textarea>
+                                                <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="4" required>{{$so->head[0]->alamatkirim}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -149,11 +157,14 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Sales</label>
-                                                <input type="hidden" name="sales_name" id="sales_name" value="">
+                                                <input type="hidden" name="sales_name" id="sales_name" value="{{$so->head[0]->NM_SALES}}">
                                                 <select class="form-control form-control-sm form-control-border selects2" id="sales" name="sales" style="width: 100%;" onchange="" required>
-                                                    <option selected disabled></option>
                                                     @foreach($sales as $s)
+                                                    @if($s->ID_SALES == $so->head[0]->ID_SALES)
+                                                    <option value="{{$s->ID_SALES}}" selected>{{$s->ID_SALES." (".$s->NM_SALES.")"}}</option>
+                                                    @else
                                                     <option value="{{$s->ID_SALES}}">{{$s->ID_SALES." (".$s->NM_SALES.")"}}</option>
+                                                    @endif
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -162,8 +173,8 @@
                                             <div class="col-md-12">
                                                 <label>Bussiness Unit</label>
                                                 <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control form-control-sm form-control-border" name="bu" id="bu_val" required>
-                                                    <div class="input-group-append">
+                                                    <input type="text" class="form-control form-control-sm form-control-border" name="bu" id="bu_val" required value="{{$so->head[0]->DIVISI}}">
+                                                    <div class="input-group-append input-group-append-edit">
                                                         <button type="button" class="btn btn-info" id="bu_modal">
                                                             <i class="fa fa-search"></i> </button>
                                                     </div>
@@ -174,8 +185,8 @@
                                             <div class="col-md-12">
                                                 <label>Dept.</label>
                                                 <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control form-control-sm form-control-border" name="dept" id="dept_val" required>
-                                                    <div class="input-group-append">
+                                                    <input type="text" class="form-control form-control-sm form-control-border" name="dept" id="dept_val" required value="{{$so->head[0]->Dept}}">
+                                                    <div class="input-group-append input-group-append-edit">
                                                         <a href="javascript:void(0)" class="btn btn-info" id="dept_modal"><i class="fa fa-search"></i></a>
                                                     </div>
                                                 </div>
@@ -184,7 +195,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Tag</label>
-                                                <input type="text" class="form-control form-control-sm form-control-border" name="tag" id="tag">
+                                                <input type="text" class="form-control form-control-sm form-control-border" name="tag" id="tag" value="{{$so->head[0]->tag}}">
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +205,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Internal Notes</label>
-                                                <textarea class="form-control form-control-sm" name="notes" id="notes" rows="4"></textarea>
+                                                <textarea class="form-control form-control-sm" name="notes" id="notes" rows="4">{{$so->head[0]->KETERANGAN}}</textarea>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -208,22 +219,30 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <?php $i = 0; ?>
+                                                        @foreach($so->um as $um)
                                                         <tr>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-0">
+                                                                <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-{{$i}}" value="{{$um->keterangan}}">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-0" onchange="addDp(0)">
+                                                                <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-{{$i}}" onchange="addDp({{$i}})" value="{{$um->nilai}}">
                                                             </td>
                                                             <td>
-                                                                <select class="form-control form-control-sm" name="dp_tax[]" id="dp_tax-0" onchange="addDp(0)">
+                                                                <select class="form-control form-control-sm" name="dp_tax[]" id="dp_tax-{{$i}}" onchange="addDp({{$i}})">
                                                                     @foreach($vat as $v)
+                                                                    @if($v->kode == $um->tax)
+                                                                    <option value="{{$v->kode}}" selected>{{$v->kode}}</option>
+                                                                    @else
                                                                     <option value="{{$v->kode}}">{{$v->kode}}</option>
+                                                                    @endif
                                                                     @endforeach
                                                                 </select>
                                                             </td>
-                                                            <td id="dp_tax_value-0" style="display:none"></td>
+                                                            <td id="dp_tax_value-{{$i}}" style="display:none"></td>
                                                         </tr>
+                                                        <?php $i++; ?>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                                 <table width="100%">
@@ -267,54 +286,62 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php $j = 0; ?>
+                                            @foreach($so->detail as $det)
                                             <tr>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-0" onclick="addData(0)" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-{{$j}}" onclick="addData({{$j}})" value="{{$det->NO_STOCK}}" readonly>
                                                 </td>
                                                 <td>
-                                                    <textarea class="form-control form-control-sm" name="nm_stock[]" id="nm_stock-0" rows="3"></textarea>
+                                                    <textarea class="form-control form-control-sm" name="nm_stock[]" id="nm_stock-{{$j}}" rows="3">{{$det->NM_STOCK}} </textarea>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-0">
+                                                    <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-{{$j}}" value="{{$det->KET}}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0)" id="qty-0">
+                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal({{$j}})" id="qty-{{$j}}" value="{{$det->QTY}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-0">
+                                                    <input type=" text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal(0)" id="price-0">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{$det->HARGA}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal(0)" id="disc-0">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal({{$j}})" id="disc-{{$j}}" value="{{$det->DISC1}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal(0)" id="disc2-0">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal({{$j}})" id="disc2-{{$j}}" value="{{$det->DISC2}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal(0)" id="disc_val-0">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal({{$j}})" id="disc_val-{{$j}}" value="{{$det->DISCRP}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-0" readonly>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-{{$j}}" value="{{$det->JUMLAH}}" readonly>
                                                 </td>
                                                 <td>
-                                                    <select class="form-control form-control-sm" name="tax[]" id="tax-0" onchange="itemTotal(0)">
+                                                    <select class="form-control form-control-sm" name="tax[]" id="tax-{{$j}}" onchange="itemTotal({{$j}})">
                                                         @foreach($vat as $v)
+                                                        @if($v->kode == $det->tax)
+                                                        <option value="{{$v->kode}}" selected>{{$v->kode}}</option>
+                                                        @else
                                                         <option value="{{$v->kode}}">{{$v->kode}}</option>
+                                                        @endif
                                                         @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-0" onclick="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-{{$j}}" onclick="" readonly>
                                                 </td>
-                                                <td style="display: none;" id="itemTotal-0"></td>
-                                                <td style="display: none;" id="itemTax-0"></td>
-                                                <td style="display: none;" id="itemDisc-0"></td>
-                                                <td style="display: none;" id="itemTotalDiscHead-0"></td>
-                                                <td style="display: none;" id="itemBruto-0"></td>
-                                                <td style="display: none;" id="itemTaxValue-0"></td>
+                                                <td style="display: none;" id="itemTotal-{{$j}}"></td>
+                                                <td style="display: none;" id="itemTax-{{$j}}"></td>
+                                                <td style="display: none;" id="itemDisc-{{$j}}"></td>
+                                                <td style="display: none;" id="itemTotalDiscHead-{{$j}}"></td>
+                                                <td style="display: none;" id="itemBruto-{{$j}}"></td>
+                                                <td style="display: none;" id="itemTaxValue-{{$j}}"></td>
                                             </tr>
+                                            <?php $j++; ?>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                     <table width="100%">
@@ -335,28 +362,31 @@
                                         <label class="col-sm-4">Total Dpp</label>
                                         <div class="col-sm-8">
                                             <input type="hidden" name="totalBruto" id="totalBruto">
-                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
+                                            <input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Discount</label>
-                                        <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" placeholder="%"></div>
-                                        <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')"></div>
+                                        <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border " style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" placeholder="%" value="{{$so->head[0]->discH}}"></div>
+                                        <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border " style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" value="{{$so->head[0]->rp_disch}}"></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total PPn</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-warning float-right" value="print" title="print"><i class="fa fa-print"></i></button>
-                            <button type="submit" class="btn btn-info float-right" value="save" title="save"><i class="fa fa-save"></i></button>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{{ url('salesOrderPrint/'.$so->head[0]->NO_BUKTI) }}" target="_blank" class="btn btn-sm btn-warning  float-right" id="print" title="print"><i class="fas fa-print"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
+                            <button type="submit" class="btn btn-sm btn-warning float-right" value="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()" style="display: none;"><i class="fa fa-print"></i></button>
+                            <button type="submit" class="btn btn-sm btn-info float-right" value="save" name="process" title="save" style="display: none;"><i class="fa fa-save"></i></button>
                         </div>
                     </div>
                 </div>
@@ -379,8 +409,8 @@
                     <table class="table tbl_bu" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Keterangan</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Description</th>
                                 <th style="width: 10%" style="text-align: center;">%</th>
                             </tr>
                         </thead>
@@ -394,7 +424,7 @@
                                     {{$b->keterangan}}
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm numajaDesimal">
+                                    <input type="text" class="form-control form-control-sm ">
                                 </td>
                             </tr>
                             @endforeach
@@ -425,8 +455,8 @@
                     <table class="table tbl_dept" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Keterangan</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Description</th>
                                 <th style="width: 10%" style="text-align: center;">%</th>
                             </tr>
                         </thead>
@@ -440,7 +470,7 @@
                                     {{$d->keterangan}}
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm numajaDesimal">
+                                    <input type="text" class="form-control form-control-sm ">
                                 </td>
                             </tr>
                             @endforeach
@@ -470,9 +500,9 @@
                     <table class="table" id="datatables" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Kode</th>
-                                <th style="width: 70%" style="text-align: center;">Nama</th>
-                                <th style="width: 10%" style="text-align: center;">Sat</th>
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Name</th>
+                                <th style="width: 10%" style="text-align: center;">UoM</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -489,6 +519,8 @@
     var rute = "{{ URL::to('salesOrder/data/populate') }}";
     var get_customer = "{{ URL::to('customerGetById') }}";
     var get_inventory = "{{ URL::to('inventory/data/populate') }}";
+    var get_statusSo = "{{ URL::to('salesOrderStatus') }}";
+    var void_url = "{{ URL::to('salesOrder/void') }}";
     var base_url = "{{ route('salesOrder') }}";
     var url_default = "{{ URL('') }}";
     var vat = <?= json_encode($vat); ?>;
@@ -496,6 +528,7 @@
     var customer = <?= json_encode($customer); ?>;
 </script>
 <script src="{{ asset('js/transaction/salesOrder/salesOrder-add.js')}}"></script>
+<script src="{{ asset('js/transaction/salesOrder/salesOrder-edit.js')}}"></script>
 <script>
 
 </script>

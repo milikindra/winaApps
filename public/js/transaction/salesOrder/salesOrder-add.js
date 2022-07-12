@@ -24,7 +24,6 @@ $(document).ready(function () {
 
     $(function() {
         $('#print').on('submit', function (e) {
-            console.log("A");
             e.preventDefault();
             setTimeout(function() {
                 window.location.reload();

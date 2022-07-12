@@ -76,7 +76,7 @@ $(document).ready(function () {
                         name: "TGL_BUKTI",
                         width: "10%",
                         render: function (data, type, row) {
-                            return moment(data).format("DD MMM YYYY");
+                            return moment(data).format("DD/MMM/YYYY");
                         },
                     },
                     {
@@ -197,7 +197,7 @@ $(document).ready(function () {
                         name: "TGL_BUKTI",
                         width: "5%",
                         render: function (data, type, row) {
-                            return moment(data).format("DD MMM YYYY");
+                            return moment(data).format("DD/MMM/YYYY");
                         },
                     },
                     {
