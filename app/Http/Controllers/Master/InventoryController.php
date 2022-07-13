@@ -95,114 +95,112 @@ class InventoryController extends Controller
 
     public function inventoryAddSave(Request $request)
     {
-        // try {
-        $user_token = session('user')->api_token;
-        $url = Config::get('constants.api_url') . '/inventoryAddSave';
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/inventoryAddSave';
 
-        $aktif = '';
-        if ($request->input('aktif') == 'on') {
-            $aktif = 'Y';
-        } else if ($request->input('kodeBJ') == 'G') {
-            $aktif = 'Y';
-        }
-
-        $konsinyansi = '';
-        if ($request->input('konsinyansi') == 'on' && $request->input('kodeBJ') != 'G') {
-            $konsinyansi = 'Y';
-        }
-
-        $harga_jual = 0;
-        if ($request->input('harga_jual') != null) {
-            $harga_jual = $request->input('harga_jual');
-        }
-        $isMinus = '';
-        if ($request->input('isMinus') == 'on') {
-            $isMinus = 'Y';
-        } else if ($request->input('kodeBJ') == 'G') {
-            $isMinus = 'Y';
-        }
-        $PPhPs23 = '';
-        if ($request->input('PPhPs23') == 'on') {
-            $PPhPs23 = 'Y';
-        }
-        $PPhPs21 = '';
-        if ($request->input('PPhPs21') == 'on') {
-            $PPhPs21 = 'Y';
-        }
-        $PPhPs4Ayat2 = '';
-        if ($request->input('PPhPs4Ayat2') == 'on') {
-            $PPhPs4Ayat2 = 'Y';
-        }
-        $PPhPs21OP = '';
-        if ($request->input('PPhPs21OP') == 'on') {
-            $PPhPs21OP = 'Y';
-        }
-        $post_data = [
-            'api_token' => $user_token,
-            'creator' => session('user')->username,
-            'no_stock' => $request->input('kode'),
-            'nm_stock' => $request->input('nama_barang'),
-            'sat' => $request->input('satuan'),
-            'minstock' => $request->input('stok_minimal'),
-            'kategori' => $request->input('kategori'),
-            'kategori2' => $request->input('subkategori'),
-            'merk' => $request->input('merk'),
-            'hrg_beli' => 0,
-            'hrg_jual' => $harga_jual,
-            'keterangan' => $request->input('keterangan'),
-            'aktif' => $aktif,
-            'isKonsi' => $konsinyansi,
-            'isMinus' => $isMinus,
-            'NO_REK1' => $request->input('salesAcc'),
-            'NO_REK2' => $request->input('purchaseAcc'),
-            'PPhPs23' => $PPhPs23,
-            'PPhPs21' => $PPhPs21,
-            'PPhPs4Ayat2' => $PPhPs4Ayat2,
-            'PPhPs21OP' => $PPhPs21OP,
-            'kodeBJ' => $request->input('kodeBJ'),
-            'VINTRASID' => $request->input('vintrasId'),
-            'no_stockGroup' => $request->input('no_stockGroup'),
-            'nm_stockGroup' => $request->input('nm_stockGroup'),
-            'qtyGroup' => $request->input('qtyGroup'),
-            'satGroup' => $request->input('satGroup')
-        ];
-        $client = new Client();
-        $response = $client->request('POST', $url, [
-            'json' => $post_data,
-            'http_errors' => false
-        ]);
-        $body = json_decode($response->getBody());
-        if (isset($body->result) && $body->result) {
-            $data = [
-                'result' => true
-            ];
-            Alert::toast($body->message, 'success');
-
-            return redirect()->back();
-        } else {
-            if (!isset($body->result)) {
-                $errors = [];
-                foreach ($body as $field => $msg) {
-                    array_push($errors, $msg[0]);
-                }
-                return response()->json([
-                    'result' => FALSE,
-                    'errors' => $errors
-                ]);
-            } else {
-                return response()->json([
-                    'result' => FALSE,
-                    'message' => $body->message
-                ]);
+            $aktif = '';
+            if ($request->input('aktif') == 'on') {
+                $aktif = 'Y';
+            } else if ($request->input('kodeBJ') == 'G') {
+                $aktif = 'Y';
             }
-            Alert::toast($body->message, 'danger');
-            return redirect()->back();
+            $konsinyansi = '';
+            if ($request->input('konsinyansi') == 'on' && $request->input('kodeBJ') != 'G') {
+                $konsinyansi = 'Y';
+            }
+            $harga_jual = 0;
+            if ($request->input('harga_jual') != null) {
+                $harga_jual = $request->input('harga_jual');
+            }
+            $isMinus = '';
+            if ($request->input('isMinus') == 'on') {
+                $isMinus = 'Y';
+            } else if ($request->input('kodeBJ') == 'G') {
+                $isMinus = 'Y';
+            }
+            $PPhPs23 = '';
+            if ($request->input('PPhPs23') == 'on') {
+                $PPhPs23 = 'Y';
+            }
+            $PPhPs21 = '';
+            if ($request->input('PPhPs21') == 'on') {
+                $PPhPs21 = 'Y';
+            }
+            $PPhPs4Ayat2 = '';
+            if ($request->input('PPhPs4Ayat2') == 'on') {
+                $PPhPs4Ayat2 = 'Y';
+            }
+            $PPhPs21OP = '';
+            if ($request->input('PPhPs21OP') == 'on') {
+                $PPhPs21OP = 'Y';
+            }
+            $post_data = [
+                'api_token' => $user_token,
+                'creator' => session('user')->username,
+                'no_stock' => $request->input('kode'),
+                'nm_stock' => $request->input('nama_barang'),
+                'sat' => $request->input('satuan'),
+                'minstock' => $request->input('stok_minimal'),
+                'kategori' => $request->input('kategori'),
+                'kategori2' => $request->input('subkategori'),
+                'merk' => $request->input('merk'),
+                'hrg_beli' => 0,
+                'hrg_jual' => $harga_jual,
+                'keterangan' => $request->input('keterangan'),
+                'aktif' => $aktif,
+                'isKonsi' => $konsinyansi,
+                'isMinus' => $isMinus,
+                'NO_REK1' => $request->input('salesAcc'),
+                'NO_REK2' => $request->input('purchaseAcc'),
+                'PPhPs23' => $PPhPs23,
+                'PPhPs21' => $PPhPs21,
+                'PPhPs4Ayat2' => $PPhPs4Ayat2,
+                'PPhPs21OP' => $PPhPs21OP,
+                'kodeBJ' => $request->input('kodeBJ'),
+                'VINTRASID' => $request->input('vintrasId'),
+                'no_stockGroup' => $request->input('no_stockGroup'),
+                'nm_stockGroup' => $request->input('nm_stockGroup'),
+                'qtyGroup' => $request->input('qtyGroup'),
+                'satGroup' => $request->input('satGroup')
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            if (isset($body->result) && $body->result) {
+                $data = [
+                    'result' => true
+                ];
+                Alert::toast($body->message, 'success');
+
+                return redirect()->back();
+            } else {
+                if (!isset($body->result)) {
+                    $errors = [];
+                    foreach ($body as $field => $msg) {
+                        array_push($errors, $msg[0]);
+                    }
+                    return response()->json([
+                        'result' => FALSE,
+                        'errors' => $errors
+                    ]);
+                } else {
+                    return response()->json([
+                        'result' => FALSE,
+                        'message' => $body->message
+                    ]);
+                }
+                Alert::toast($body->message, 'danger');
+                return redirect()->back();
+            }
+        } catch (\Exception $e) {
+            Alert::toast("500", 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return abort(500);
         }
-        // } catch (\Exception $e) {
-        //     // Alert::toast("500", 'danger');
-        //     Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-        //     return abort(500);
-        // }
     }
 
     public function inventoryEdit(request $request, $inventory)
@@ -224,7 +222,8 @@ class InventoryController extends Controller
             $body = json_decode($response->getBody());
             return response()->json([
                 'result' => $body->result,
-                'data' => $body->inv
+                'data' => $body->inv,
+                'child' => $body->child
             ]);
         } catch (\Exception $e) {
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
@@ -237,49 +236,46 @@ class InventoryController extends Controller
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/inventoryUpdate';
+            $aktif = '';
             if ($request->input('aktif') == 'on') {
                 $aktif = 'Y';
-            } else {
-                $aktif = '';
+            } else if ($request->input('kodeBJ') == 'G') {
+                $aktif = 'Y';
             }
-
-            if ($request->input('konsinyansi') == 'on') {
+            $konsinyansi = '';
+            if ($request->input('konsinyansi') == 'on' && $request->input('kodeBJ') != 'G') {
                 $konsinyansi = 'Y';
-            } else {
-                $konsinyansi = '';
             }
             $harga_jual = 0;
             if ($request->input('harga_jual') != null) {
                 $harga_jual = $request->input('harga_jual');
             }
-            if ($request->input('isMinusEdit') == 'on') {
+            $isMinus = '';
+            if ($request->input('isMinus') == 'on') {
                 $isMinus = 'Y';
-            } else {
-                $isMinus = '';
+            } else if ($request->input('kodeBJ') == 'G') {
+                $isMinus = 'Y';
             }
-            if ($request->input('PPhPs23Edit') == 'on') {
+            $PPhPs23 = '';
+            if ($request->input('PPhPs23') == 'on') {
                 $PPhPs23 = 'Y';
-            } else {
-                $PPhPs23 = '';
             }
-            if ($request->input('PPhPs21Edit') == 'on') {
+            $PPhPs21 = '';
+            if ($request->input('PPhPs21') == 'on') {
                 $PPhPs21 = 'Y';
-            } else {
-                $PPhPs21 = '';
             }
-            if ($request->input('PPhPs4Ayat2Edit') == 'on') {
+            $PPhPs4Ayat2 = '';
+            if ($request->input('PPhPs4Ayat2') == 'on') {
                 $PPhPs4Ayat2 = 'Y';
-            } else {
-                $PPhPs4Ayat2 = '';
             }
-            if ($request->input('PPhPs21OPEdit') == 'on') {
+            $PPhPs21OP = '';
+            if ($request->input('PPhPs21OP') == 'on') {
                 $PPhPs21OP = 'Y';
-            } else {
-                $PPhPs21OP = '';
             }
             $post_data = [
                 'api_token' => $user_token,
                 'creator' => session('user')->username,
+                'no_stock_old' => $request->input('kodeOld'),
                 'no_stock' => $request->input('kode'),
                 'nm_stock' => $request->input('nama_barang'),
                 'sat' => $request->input('satuan'),
@@ -287,19 +283,24 @@ class InventoryController extends Controller
                 'kategori' => $request->input('kategori'),
                 'kategori2' => $request->input('subkategori'),
                 'merk' => $request->input('merk'),
-                'hrg_jual' => $request->input('harga_jual'),
+                'hrg_beli' => 0,
+                'hrg_jual' => $harga_jual,
                 'keterangan' => $request->input('keterangan'),
                 'aktif' => $aktif,
                 'isKonsi' => $konsinyansi,
                 'isMinus' => $isMinus,
-                'NO_REK1' => $request->input('salesAccEdit'),
-                'NO_REK2' => $request->input('purchaseAccEdit'),
+                'NO_REK1' => $request->input('salesAcc'),
+                'NO_REK2' => $request->input('purchaseAcc'),
                 'PPhPs23' => $PPhPs23,
                 'PPhPs21' => $PPhPs21,
                 'PPhPs4Ayat2' => $PPhPs4Ayat2,
                 'PPhPs21OP' => $PPhPs21OP,
-                'kodeBJ' => 'I',
-                'VINTRASID' => $request->input('vintrasId')
+                'kodeBJ' => $request->input('kodeBJ'),
+                'VINTRASID' => $request->input('vintrasId'),
+                'no_stockGroup' => $request->input('no_stockGroup'),
+                'nm_stockGroup' => $request->input('nm_stockGroup'),
+                'qtyGroup' => $request->input('qtyGroup'),
+                'satGroup' => $request->input('satGroup')
             ];
             $client = new Client();
             $response = $client->request('POST', $url, [

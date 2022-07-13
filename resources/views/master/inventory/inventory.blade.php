@@ -176,6 +176,7 @@
             <form method="POST" id="formInventory" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" id="kodeBJ" name="kodeBJ" required>
+                <input type="hidden" id="kodeOld" name="kodeOld" required>
                 <div class="modal-header bg-info">
                     <h5 class="modal-title" id="titleInventory"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -336,20 +337,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="text" class="form-control form-control-sm" name="no_stockGroup[]" id="no_stock-0" onclick="addChild(0)" readonly>
-                                        </td>
-                                        <td>
-                                            <textarea class="form-control form-control-sm r1" name="nm_stockGroup[]" id="nm_stock-0"></textarea>
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" value="1" min="1" name="qtyGroup[]" autocomplete="off" id="qty-0">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control form-control-sm" name="satGroup[]" id="sat-0">
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                             <table width="100%">

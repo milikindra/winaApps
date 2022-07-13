@@ -1,12 +1,14 @@
 $(document).ready(function () {
     dtModalInventory("1", "all", "all");
     window.inventoryEdit = function (element) {
+        resetInventory();
         var inv = $(element).data("inventory");
         $.ajax({
             url: rute_edit + "/" + inv,
             type: "GET",
             dataType: "JSON",
             success: function (response) {
+                $("#kodeOld").val(inv);
                 $("#kode").val(inv);
                 if (response.data.aktif == "Y") {
                     $("#aktif").prop("checked", true);
@@ -73,6 +75,29 @@ $(document).ready(function () {
                     $("#PPhPs21OP").prop("checked", false);
                 }
                 $("#vintrasId").val(response.data.VINTRASID);
+                $("#kodeBJ").val(response.data.kodeBJ);
+
+                if (response.data.kodeBJ == 'I') {
+                    $('#titleInventory').html('Edit Inventory')
+                    $('#inventoryName').html('Item Name')
+                    $('.isBj').css('display', 'block');
+                    $('.nBj').css('display', 'none');
+                } else {
+                    $(".trx tbody tr").remove();
+                    jQuery.each(response.child, function (i, val) {
+                        addRow();
+                        $('#no_stock-' + i).val(val.NO_STOCK);
+                        $('#nm_stock-' + i).val(val.NM_STOCK);
+                        $('#qty-' + i).val(val.QTY);
+                        $('#sat-' + i).val(val.SAT);
+                    });
+
+                    $('#titleInventory').html('Edit Group Inventory')
+                    $('#inventoryName').html('Group Item Name')
+                    $('.isBj').css('display', 'none');
+                    $('.nBj').css('display', 'block');
+                }
+
             },
             error: function (xhr, textStatus, ThrownException) {
                 console.log(
@@ -215,8 +240,6 @@ $(document).ready(function () {
 
     var rowCount = 0;
     window.addRow = function (element) {
-        rowCount++;
-
         $(".trx").append(
             '<tr> <td> <input type="text" class="form-control form-control-sm" name="no_stockGroup[]" id="no_stock-' +
             rowCount +
@@ -230,14 +253,15 @@ $(document).ready(function () {
             rowCount +
             '"> </td></tr > '
         );
+        rowCount++;
     };
 
     window.removeRow = function (element) {
         $(".trx tr:last").remove();
     };
-
 });
 function inventoryAdd(kodeBJ) {
+    resetInventory();
     $('#kodeBJ').val(kodeBJ);
     if (kodeBJ == 'I') {
         $('#titleInventory').html('Add Inventory')
@@ -249,6 +273,8 @@ function inventoryAdd(kodeBJ) {
         $('#inventoryName').html('Group Item Name')
         $('.isBj').css('display', 'none');
         $('.nBj').css('display', 'block');
+        $(".trx tbody tr").remove();
+        addRow();
     }
     $('#formInventory').prop('action', save_inventory);
     $("#inventoryModal").modal("show");
@@ -269,4 +295,32 @@ function addChild(uid) {
         }
         $("#modalInventory").modal("hide");
     });
+}
+
+function resetInventory() {
+    $("#kode").val('');
+    $("#satuan").val('');
+    $("#harga_jual").val('');
+    $("#keterangan").val('');
+    $("#stok_minimal").val('');
+    $("#vintrasId").val('');
+    $("#kodeBJ").val('');
+    $("#kodeOld").val('');
+    $("#formInventory textarea").val('');
+    $("#kategoriInventory")
+        .select2()
+        .val('')
+        .trigger("change");
+    $("#subKategoriInventory")
+        .select2()
+        .val('')
+        .trigger("change");
+    $("#merkInventory")
+        .select2()
+        .val('')
+        .trigger("change");
+
+    $("#aktif").prop("checked", true);
+    $("#konsinyansi").prop("checked", true);
+    $("#isMinus").prop("checked", false);
 }
