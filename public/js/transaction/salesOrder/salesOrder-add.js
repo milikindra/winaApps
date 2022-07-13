@@ -4,30 +4,30 @@ $(document).ready(function () {
     var kategori = "all";
     var subkategori = "all";
 
-    dt(voids, kategori, subkategori);
+    dtModalInventory("1", "all", "all");
     if ($('#customer').val() != '') {
         getCustomer();
     }
 
     var t_dp = $('.down_payment tbody tr').length;
     if (t_dp > 0) {
-        for (var i = 0; i < t_dp; i++){
+        for (var i = 0; i < t_dp; i++) {
             addDp(i)
         }
     }
 
     var t_det = $('.trx tbody tr').length;
-    for (var i = 0; i < t_det; i++){
+    for (var i = 0; i < t_det; i++) {
         itemTotal(i);
     }
 
 
-    $(function() {
+    $(function () {
         $('#print').on('submit', function (e) {
             e.preventDefault();
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location.reload();
-            },0);
+            }, 0);
             this.submit();
         });
     });
@@ -37,62 +37,14 @@ function refreshWindow() {
     window.location.reload();
 }
 
-function dt(voids, kategori, subkategori) {
-    var table = $("#datatables").DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        stateSave: false,
-        deferRender: true,
-        lengthMenu: [
-            [10, 100, 250, 500, 1000, -1],
-            [10, 100, 250, 500, 1000, "all"],
-        ],
-        dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-        drawCallback: function (settings, json) {},
-        ajax: {
-            url: get_inventory +
-                "/" +
-                voids +
-                "/" +
-                kategori +
-                "/" +
-                subkategori,
-            type: "GET",
-            dataType: "JSON",
-        },
-        columns: [{
-                data: "no_stock",
-                name: "no_stock",
-                ordering: false,
-            },
-            {
-                data: "nama_barang",
-                name: "nama_barang",
-                ordering: false,
-            },
-            {
-                data: "sat",
-                name: "sat",
-                ordering: false,
-            },
-        ],
-        order: [
-            [0, "asc"]
-        ],
-    });
-}
-
-function getCustomer () {
+function getCustomer() {
     var id_cust = $("#customer").val();
     $.ajax({
         url: get_customer + "/" + id_cust,
         type: "GET",
         dataType: "JSON",
         success: function (response) {
-            if (response.length >0) {
+            if (response.length > 0) {
                 $("#curr").val(response[0].curr);
                 $("#rate_cur").val(response[0].rate);
                 $("#tempo").val(response[0].TEMPO);
@@ -290,7 +242,6 @@ function totalDownPayment() {
     $("#totalDp").val(totalDp);
 }
 
-
 var rowCount = 0;
 window.addRow = function (element) {
     rowCount++;
@@ -361,11 +312,10 @@ window.removeRow = function (element) {
 };
 
 var arr = [];
-
 function addData(uid) {
     arr.push(uid);
-    $("#modalBarang").modal("show");
-    $("#datatables").on("click", "tbody tr", function () {
+    $("#modalInventory").modal("show");
+    $("#dtModalInventory").on("click", "tbody tr", function () {
         if (uid == arr[arr.length - 1]) {
             no_stock = $(this).closest("tr").children("td:eq(0)").text();
             nm_stock = $(this).closest("tr").children("td:eq(1)").text();
@@ -374,17 +324,17 @@ function addData(uid) {
             document.getElementById("nm_stock-" + uid).innerHTML = nm_stock;
             document.getElementById("sat-" + uid).value = sat;
         }
-        $("#modalBarang").modal("hide");
+        $("#modalInventory").modal("hide");
     });
 }
 
 function itemTotal(uid) {
-    var qty = $("#qty-" + uid).val() != "" ? parseFloat(removePeriod($("#qty-" + uid).val(),',')) : 0;
-    var price = $("#price-" + uid).val() != "" ? parseFloat(removePeriod($("#price-" + uid).val(),',')) : 0;
-    var disc = $("#disc-" + uid).val() != "" ? parseFloat(removePeriod($("#disc-" + uid).val(),',')) : 0;
-    var disc2 = $("#disc2-" + uid).val() != "" ? parseFloat(removePeriod($("#disc2-" + uid).val(),',')) : 0;
-    var disc_val = $("#disc_val-" + uid).val() != "" ? parseFloat(removePeriod($("#disc_val-" + uid).val(),',')) : 0;
-    var item_disc = $("#itemDisc-" + uid).html() != "" ? parseFloat(removePeriod($("#itemDisc-" + uid).html(),',')) : 0;
+    var qty = $("#qty-" + uid).val() != "" ? parseFloat(removePeriod($("#qty-" + uid).val(), ',')) : 0;
+    var price = $("#price-" + uid).val() != "" ? parseFloat(removePeriod($("#price-" + uid).val(), ',')) : 0;
+    var disc = $("#disc-" + uid).val() != "" ? parseFloat(removePeriod($("#disc-" + uid).val(), ',')) : 0;
+    var disc2 = $("#disc2-" + uid).val() != "" ? parseFloat(removePeriod($("#disc2-" + uid).val(), ',')) : 0;
+    var disc_val = $("#disc_val-" + uid).val() != "" ? parseFloat(removePeriod($("#disc_val-" + uid).val(), ',')) : 0;
+    var item_disc = $("#itemDisc-" + uid).html() != "" ? parseFloat(removePeriod($("#itemDisc-" + uid).html(), ',')) : 0;
 
     var totalBruto = price * qty;
     var total = (price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val;
@@ -458,7 +408,7 @@ function totalPpn() {
     var discountValueHead = $('#discountValueHead').val();
     var totalPpn = 0;
 
-    if (myTab.rows.length > 0){
+    if (myTab.rows.length > 0) {
         for (i = 1; i < myTab.rows.length; i++) {
             var objCells = myTab.rows.item(i).cells;
             if (objCells.item(14).innerHTML > 0) {
@@ -470,8 +420,8 @@ function totalPpn() {
             }
             totalPpn += itemTaxTotal;
         }
-    } 
-    
+    }
+
     var grandTotal = totalDpp - discountValueHead + totalPpn;
     $("#totalPpn").val(totalPpn);
     $("#grandTotal").val(grandTotal);

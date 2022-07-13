@@ -10,7 +10,7 @@ $(document).ready(function () {
             (e.key >= "0" && e.key <= "9") || ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(
                 e.key
             )
-        ) {} else {
+        ) { } else {
             e.preventDefault();
         }
     });
@@ -33,6 +33,52 @@ $(document).ready(function () {
             dateFormat: "dd/mm/yy"
         }).val();
     });
-
-    
 });
+
+function dtModalInventory(voids, kategori, subkategori) {
+    var table = $("#dtModalInventory").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        stateSave: false,
+        deferRender: true,
+        lengthMenu: [
+            [10, 100, 250, 500, 1000, -1],
+            [10, 100, 250, 500, 1000, "all"],
+        ],
+        dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+        drawCallback: function (settings, json) { },
+        ajax: {
+            url: get_inventory +
+                "/" +
+                voids +
+                "/" +
+                kategori +
+                "/" +
+                subkategori,
+            type: "GET",
+            dataType: "JSON",
+        },
+        columns: [{
+            data: "no_stock",
+            name: "no_stock",
+            ordering: false,
+        },
+        {
+            data: "nama_barang",
+            name: "nama_barang",
+            ordering: false,
+        },
+        {
+            data: "sat",
+            name: "sat",
+            ordering: false,
+        },
+        ],
+        order: [
+            [0, "asc"]
+        ],
+    });
+}

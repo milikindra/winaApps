@@ -19,18 +19,10 @@
             <div class="col-lg-2">
                 <div class="card">
                     <div class="card-header">
-                        <div class="row margbot-5">
-                            <div class="col-12">
-                                <a href="javascript:void(0)" class="btn btn-info  btn-sm btn-block" onclick="inventoryAdd('I')">
-                                    Add Inventory
-                                </a>
-                            </div>
-                        </div>
                         <div class="row">
-                            <div class="col-12">
-                                <a href="javascript:void(0)" class="btn btn-info  btn-sm btn-block" onclick="inventoryAdd('G')">
-                                    Add Group Inventory
-                                </a>
+                            <div class="col-12"><button type="button" class="btn btn-info  btn-sm btn-block" data-toggle="modal" data-target="#addInventory">
+                                    Add Inventory
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -161,6 +153,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                             </tbody>
                         </table>
                     </div>
@@ -170,14 +163,13 @@
     </div>
 </section>
 <!-- Modal -->
-<div class="modal fade" id="inventoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addInventory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <form method="POST" id="formInventory" enctype="multipart/form-data">
+            <form action="{{ route('inventoryAddSave') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" id="kodeBJ" name="kodeBJ" required>
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title" id="titleInventory"></h5>
+                    <h5 class="modal-title">Add Inventory</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -185,61 +177,61 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2">Code</label>
+                            <label class="col-sm-2 col-form-label">Code</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control form-control-sm" name="kode" id="kode" placeholder="Insert Code" required>
+                                <input type="text" class="form-control form-control-sm" name="kode" placeholder="Insert Code" required>
                             </div>
-                            <div class="col-sm-3 isBj">
+                            <div class="col-sm-3">
                                 <a class="btn btn-info btn-sm btnVintras" href="javascript:void(0)">Import Data From VINTRAS</a>
                             </div>
-                            <div class="col-sm-1 isBj">
+                            <div class="col-sm-1">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="aktif" id="aktif" checked></input>
+                                    <input type="checkbox" class="form-check-input" name="aktif" checked></input>
                                     <label class="form-check-label">ACTIVE</label>
                                 </div>
                             </div>
-                            <div class="col-sm-1 isBj">
+                            <div class="col-sm-1">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="konsinyansi" id="konsinyansi" checked></input>
+                                    <input type="checkbox" class="form-check-input" name="konsinyansi" checked></input>
                                     <label class="form-check-label">CONSIGNMENT</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2" id="inventoryName"></label>
+                            <label class="col-sm-2 col-form-label">Item Name</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control form-control-sm" name="nama_barang" id="nama_barang" rows="2" placeholder="Insert Name"></textarea>
+                                <textarea class="form-control form-control-sm" name="nama_barang" rows="2" placeholder="Insert Item Name"></textarea>
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2">UoM</label>
+                            <label class="col-sm-2 col-form-label">UoM</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control form-control-sm" name="satuan" id="satuan" maxlength="5" placeholder="Insert Unit Of Measurment">
+                                <input type="text" class="form-control form-control-sm" name="satuan" maxlength="5" placeholder="Insert Unit Of Measurment">
                             </div>
-                            <label class="col-sm-2 isBj">Minimum Stock</label>
-                            <div class="col-sm-4 isBj">
-                                <input type="number" class="form-control form-control-sm" name="stok_minimal" id="stok_minimal" placeholder="Insert Minimum Stock" value="0" min="0">
+                            <label class="col-sm-2 col-form-label">Minimum Stock</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control form-control-sm" name="stok_minimal" placeholder="Insert Minimum Stock" value="0" min="0">
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2">Category</label>
+                            <label class="col-sm-2 col-form-label">Category</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="kategoriInventory" name="kategori">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="kategoriAdd" name="kategori">
                                     <option value="">Select Category</option>
                                     @foreach($kategori as $kat)
                                     <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <label class="col-sm-2 isBj">Vintras Id</label>
-                            <div class="col-sm-4 isBj">
+                            <label class="col-sm-2 col-form-label">Vintras Id</label>
+                            <div class="col-sm-4">
                                 <input type="text" class="form-control form-control-sm vintrasId" name="vintrasId" id="vintrasId" placeholder="Does Not Have Vintras Id" readonly>
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2">Subcategory</label>
+                            <label class="col-sm-2 col-form-label">Subcategory</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="subKategoriInventory" name="subkategori">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="subkategoriAdd" name="subkategori">
                                     <option value="">Select Subcategory</option>
                                     @foreach($subKategori as $kat)
                                     <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
@@ -248,31 +240,31 @@
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2">Brand</label>
+                            <label class="col-sm-2 col-form-label">Brand</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="merkInventory" name="merk">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="merkAdd" name="merk">
                                     <option value="">Select Brand</option>
                                     @foreach($merk as $merks)
-                                    <option value="{{ltrim($merks->Kode)}}">{{$merks->Kode}}</option>
+                                    <option value="{{$merks->Kode}}">{{$merks->Kode}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2 isBj">Selling Price</label>
-                            <div class="col-sm-4 isBj">
-                                <input type="text" class="form-control form-control-sm numajaDesimal" name="harga_jual" id="harga_jual" placeholder="Insert Selling Price">
+                            <label class="col-sm-2 col-form-label">Selling Price</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm numajaDesimal" name="harga_jual" placeholder="Insert Selling Price">
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2 isBj">Description</label>
-                            <div class="col-sm-10 isBj">
-                                <input type="text" class="form-control form-control-sm" name="keterangan" id="keterangan" placeholder="Description">
+                            <label class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-control-sm" name="keterangan" placeholder="Description">
                             </div>
                         </div>
-                        <hr class="isBj" />
+                        <hr />
                         <div class="form-group row margbot-5">
-                            <div class="col-sm-3 isBj">
+                            <div class="col-sm-3">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="isMinus" name="isMinus"></input>
                                     <label class="form-check-label">NON INVENTORY</label>
@@ -280,8 +272,8 @@
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2 isBj">Sales Account</label>
-                            <div class="col-sm-4 isBj">
+                            <label class="col-sm-2 col-form-label">Sales Account</label>
+                            <div class="col-sm-4">
                                 <select class="form-control form-control-sm selects2" style="width: 100%;" id="salesAcc" name="salesAcc">
                                     <option></option>
                                     @foreach($account as $acc)
@@ -289,22 +281,22 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-3 isBj">
+                            <div class="col-sm-3">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="PPhPs23" id="PPhPs23"></input>
+                                    <input type="checkbox" class="form-check-input" name="PPhPs23"></input>
                                     <label class="form-check-label">PPh Ps 23</label>
                                 </div>
                             </div>
-                            <div class="col-sm-3 isBj">
+                            <div class="col-sm-3">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="PPhPs21" id="PPhPs21"></input>
+                                    <input type="checkbox" class="form-check-input" name="PPhPs21"></input>
                                     <label class="form-check-label">PPh Ps 21</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
-                            <label class="col-sm-2 isBj">Purchase Account</label>
-                            <div class="col-sm-4 isBj">
+                            <label class="col-sm-2 col-form-label">Purchase Account</label>
+                            <div class="col-sm-4">
                                 <select class="form-control form-control-sm selects2" style="width: 100%;" id="purchaseAcc" name="purchaseAcc">
                                     <option></option>
                                     @foreach($account as $acc)
@@ -312,56 +304,19 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-3 isBj">
+                            <div class="col-sm-3">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="PPhPs4Ayat2" id="PPhPs4Ayat2"></input>
+                                    <input type="checkbox" class="form-check-input" name="PPhPs4Ayat2"></input>
                                     <label class="form-check-label">PPh Ps 4 ayat 2</label>
                                 </div>
                             </div>
-                            <div class="col-sm-3 isBj">
+                            <div class="col-sm-3">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="PPhPs21OP" id="PPhPs21OP"></input>
+                                    <input type="checkbox" class="form-check-input" name="PPhPs21OP"></input>
                                     <label class="form-check-label">PPh Ps 21 OP</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row margbot-5 nBj">
-                            <table class="table trx table-modal" id="trx" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 5%">Id</th>
-                                        <th style="width: 10%">Name</th>
-                                        <th style="width: 2%">Qty</th>
-                                        <th style="width: 2%">UoM</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="text" class="form-control form-control-sm" name="no_stockGroup[]" id="no_stock-0" onclick="addChild(0)" readonly>
-                                        </td>
-                                        <td>
-                                            <textarea class="form-control form-control-sm r1" name="nm_stockGroup[]" id="nm_stock-0"></textarea>
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" value="1" min="1" name="qtyGroup[]" autocomplete="off" id="qty-0">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control form-control-sm" name="satGroup[]" id="sat-0">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table width="100%">
-                                <tr>
-                                    <td style="width: 100%;">
-                                        <a href="javascript:void(0)" onclick="removeRow(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
-                                        <a href="javascript:void(0)" onclick="addRow(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
                     </div>
                 </div>
                 <div class=" modal-footer justify-content-between">
@@ -373,6 +328,170 @@
     </div>
 </div>
 
+<div class="modal fade" id="editInventory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <form action="{{ route('inventoryUpdate') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Edit Inventory</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Code</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm" id="kode" name="kode" placeholder="Insert Code" required>
+                            </div>
+                            <div class="col-sm-3">
+                                <a class="btn btn-info btn-sm btnVintras" href="javascript:void(0)">Import Data From VINTRAS</a>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="aktifEdit" name="aktif" checked></input>
+                                    <label class="form-check-label">ACTIVE</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="konsinyansiEdit" name="konsinyansi" checked></input>
+                                    <label class="form-check-label">CONSIGNMENT</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Item Name</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control form-control-sm" id="nama_barang" name="nama_barang" rows="2" placeholder="Insert Item Name"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">UoM</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm" id="satuan" name="satuan" maxlength="5" placeholder="Insert Unit of Measurment">
+                            </div>
+                            <label class="col-sm-2 col-form-label">Minimum Stock</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control form-control-sm" id="stok_minimal" name="stok_minimal" placeholder="Insert Minimum Stock" value="0" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="kategoriEdit" name="kategori">
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach($kategori as $kat)
+                                    <option value="{{$kat->kategori}}">{{$kat->kategori}} - {{$kat->keterangan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <label class="col-sm-2 col-form-label">Vintras Id</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm vintrasId" name="vintrasId" id="vintrasIdEdit" placeholder="Does Not Have Vintras Id" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Subcategory</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="subkategoriEdit" name="subkategori">
+                                    <option value="">Pilih Subkategori</option>
+                                    @foreach($subKategori as $kat)
+                                    <option value="{{$kat->kode}}">{{$kat->kode}} - {{$kat->keterangan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Brand</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="merkEdit" name="merk">
+                                    <option value="">Select Brand</option>
+                                    @foreach($merk as $merks)
+                                    <option value="{{$merks->Kode}}">{{$merks->Kode}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Selling Price</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm numajaDesimal" id="harga_jual" name="harga_jual" placeholder="Inset Selling Price">
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-control-sm" id="keterangan" name="keterangan" placeholder="Description">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row margbot-5">
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="isMinusEdit" name="isMinus"></input>
+                                    <label class="form-check-label">NON INVENTORY</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Sales Account</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="salesAccEdit" name="salesAcc">
+                                    <option></option>
+                                    @foreach($account as $acc)
+                                    <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PPhPs23Edit" name="PPhPs23"></input>
+                                    <label class="form-check-label">PPh Ps 23</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PPhPs21Edit" name="PPhPs21"></input>
+                                    <label class="form-check-label">PPh Ps 21</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 col-form-label">Purchase Account</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="purchaseAccEdit" name="purchaseAcc">
+                                    <option></option>
+                                    @foreach($account as $acc)
+                                    <option value="{{$acc->no_rek}}">{{$acc->no_rek." - ".$acc->nm_rek}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PPhPs4Ayat2Edit" name="PPhPs4Ayat2"></input>
+                                    <label class="form-check-label">PPh Ps 4 ayat 2</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PPhPs21OPEdit" name="PPhPs21OP"></input>
+                                    <label class="form-check-label">PPh Ps 21 OP</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                    <button type="submit" id="btnEditSave" class="btn btn-info">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="vintrasPeriod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -386,7 +505,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="form-group row margbot-5">
-                        <label class="col-sm-1">Period</label>
+                        <label class="col-sm-1 col-form-label">Period</label>
                         <div class="col-sm-2">
                             <select class="form-control form-control-sm selects2" style="width: 100%;" id="vintrasYear" name="vintrasYear">
                                 <option selected disabled>Select Period</option>
@@ -432,17 +551,12 @@
 
 <!-- end modal -->
 @endsection
-@push('other-modal')
-@include('modalBox.modalInventory')
-@endpush
 @push('other-script')
 <script>
     var rute = "{{ URL::to('inventory/data/populate') }}";
     var rute_vintras = "{{ URL::to('vintras/data/populate') }}";
     var rute_delete = "{{ URL::to('inventory/data/delete') }}";
     var rute_edit = "{{ URL::to('inventory/data/edit') }}";
-    var save_inventory = "{{ route('inventoryAddSave') }}";
-    var update_inventory = "{{ route('inventoryUpdate') }}";
     var base_url = "{{ route('inventory') }}";
     var url_default = "{{ URL('') }}";
 </script>
