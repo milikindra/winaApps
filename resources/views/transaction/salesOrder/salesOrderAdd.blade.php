@@ -48,11 +48,7 @@
                                             <div class="col-md-12">
                                                 <label>Customer</label>
                                                 <input type="hidden" name="customer_name" id="customer_name" autocomplete="off" required>
-                                                <select class="form-control form-control-sm selects2 form-control-border" id="customer" name="customer" style="width: 100%;" onchange="getCustomer()" required>
-                                                    <option selected disabled></option>
-                                                    @foreach($customer as $c)
-                                                    <option value="{{$c->ID_CUST}}">{{$c->ID_CUST." (".$c->NM_CUST.")"}}</option>
-                                                    @endforeach
+                                                <select class="form-control form-control-sm selects2 form-control-border" id="customer" name="customer" style="width: 100%;" required>
                                                 </select>
                                             </div>
                                         </div>
@@ -249,6 +245,14 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
+                                    <a href="javascript:void(0)" class="btn btn-info  btn-sm" onclick="inventoryAdd('I')">
+                                        Add Inventory
+                                    </a>
+                                    <a href="javascript:void(0)" class="btn btn-info  btn-sm" onclick="inventoryAdd('G')">
+                                        Add Group Inventory
+                                    </a>
+                                    <br />
+                                    <br />
                                     <table class="table trx table-modal" id="trx" style="width: 100%;">
                                         <thead>
                                             <tr>
@@ -272,7 +276,7 @@
                                                     <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-0" onclick="addData(0)" readonly>
                                                 </td>
                                                 <td>
-                                                    <textarea class="form-control form-control-sm" name="nm_stock[]" id="nm_stock-0" rows="3"></textarea>
+                                                    <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-0" rows="3"></textarea>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-0">
@@ -314,6 +318,7 @@
                                                 <td style="display: none;" id="itemTotalDiscHead-0"></td>
                                                 <td style="display: none;" id="itemBruto-0"></td>
                                                 <td style="display: none;" id="itemTaxValue-0"></td>
+                                                <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-0"> </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -376,7 +381,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <table class="table tbl_bu" style="width: 100%;">
+                    <table class="table tbl_bu scroly" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th style="width: 15%" style="text-align: center;">Id</th>
@@ -463,16 +468,13 @@
 @push('other-script')
 <script>
     var rute = "{{ URL::to('salesOrder/data/populate') }}";
+    var get_inventory = "{{ URL::to('inventory/data/populate') }}";
     var get_customer = "{{ URL::to('customerGetById') }}";
+    var get_SoItemChild = "{{ URL::to('inventoryChildGetByHead') }}";
     var base_url = "{{ route('salesOrder') }}";
     var url_default = "{{ URL('') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
-    var customer = <?= json_encode($customer); ?>;
 </script>
-<script src="{{ asset('js/transaction/salesOrder/salesOrder-add.js')}}"></script>
-<script>
-
-</script>
-
+<script src="{{ asset('js/transaction/salesOrder/salesOrder-add.js?')}}"></script>
 @endpush

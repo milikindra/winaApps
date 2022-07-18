@@ -3,10 +3,10 @@ $(document).ready(function () {
     var voids = "1";
     var kategori = "all";
     var subkategori = "all";
-
-    dtModalInventory("1", "all", "all");
-    if ($('#customer').val() != '') {
-        getCustomer();
+    if ($('#customer').val() != null) {
+        $("#customer")
+            .select2()
+            .trigger("change");
     }
 
     var t_dp = $('.down_payment tbody tr').length;
@@ -37,7 +37,29 @@ function refreshWindow() {
     window.location.reload();
 }
 
-function getCustomer() {
+$('#customer').on('select2:opening', function (e) {
+    if ($('#customer option').length <= 1) {
+        $.ajax({
+            delay: 0,
+            url: get_customer + "/all",
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                var html = "<option selected disabled></option>";
+                jQuery.each(response, function (i, val) {
+                    html += "<option value='" + val.ID_CUST + "'>" + val.ID_CUST + " (" + val.NM_CUST + ")</option>";
+                });
+                $('#customer').html(html);
+            },
+        });
+        $("#customer")
+            .select2()
+            .val('')
+            .trigger("change");
+    }
+});
+
+$("#customer").change(function () {
     var id_cust = $("#customer").val();
     $.ajax({
         url: get_customer + "/" + id_cust,
@@ -63,7 +85,7 @@ function getCustomer() {
             }
         },
     });
-}
+});
 
 $("#sales").change(function () {
     var id_sales = $("#sales").val();
@@ -188,11 +210,8 @@ $("#dept_save").on("click", function (e) {
     }
 });
 
-// var rowCountDp = 0;
 window.addRowDp = function (element) {
-    var rowCountDp = $('#down_payment tbody tr').length
-    // rowCountDp++;
-
+    var rowCountDp = $('#down_payment tbody tr').length;
     var vatOption = "";
     jQuery.each(vat, function (i, val) {
         vatOption += "<option>" + val.kode + "</option>";
@@ -242,9 +261,8 @@ function totalDownPayment() {
     $("#totalDp").val(totalDp);
 }
 
-var rowCount = 0;
 window.addRow = function (element) {
-    rowCount++;
+    var rowCount = $('#trx tbody tr').length;
     var vatOption = '';
     jQuery.each(vat, function (i, val) {
         vatOption += "<option>" + val.kode + "</option>";
@@ -255,7 +273,7 @@ window.addRow = function (element) {
         rowCount +
         '" onclick="addData(' +
         rowCount +
-        ')" readonly > </td><td> <textarea class="form-control form-control-sm" name="nm_stock[]" id="nm_stock-' +
+        ')" readonly > </td><td> <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-' +
         rowCount +
         '" rows="3"></textarea> </td><td> <input type="text" class="form-control form-control-sm" name="ket[]" id="ket--' +
         rowCount +
@@ -283,7 +301,7 @@ window.addRow = function (element) {
         rowCount +
         ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" autocomplete="off"  id="total-' +
         rowCount +
-        '" readonly"> <td><select class="form-control form-control-sm" name="tax[]" id="tax-' +
+        '" readonly> <td><select class="form-control form-control-sm" name="tax[]" id="tax-' +
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
@@ -291,19 +309,19 @@ window.addRow = function (element) {
         vatOption +
         '</select></td><td> <input type="text" class="form-control form-control-sm" name="state[]" id="state-' +
         rowCount +
-        '" readonly> </td><td style="display: none;" id="itemTotal-' +
+        '" readonly> </td><td style="display:none" id="itemTotal-' +
         rowCount +
-        '"></td> <td style="display: none;" id = "itemTax-' +
+        '"></td> <td style="display:none" id = "itemTax-' +
         rowCount +
-        '" > < /td> <td style="display: none;" id = "itemDisc-' +
+        '" > </td> <td style="display:none" id = "itemDisc-' +
         rowCount +
-        '" > < /td> <td style="display: none;" id = "itemTotalDiscHead-' +
+        '" > </td> <td style="display:none" id = "itemTotalDiscHead-' +
         rowCount +
-        '" > < /td> <td style="display: none;" id = "itemBruto-' +
+        '" > </td> <td style="display:none" id = "itemBruto-' +
         rowCount +
-        '" > < /td> <td style="display: none;" id = "itemTaxValue-' +
+        '" > </td> <td style="display:none" id = "itemTaxValue-' +
         rowCount +
-        '" > < /td></tr > '
+        '" > </td><td style="display:none"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-' + rowCount + '"> </td></tr > '
     );
 };
 
@@ -314,15 +332,45 @@ window.removeRow = function (element) {
 var arr = [];
 function addData(uid) {
     arr.push(uid);
+    if ($("#dtModalInventory tbody tr").length == 0) {
+        dtModalInventory("0", "all", "all");
+    }
     $("#modalInventory").modal("show");
-    $("#dtModalInventory").on("click", "tbody tr", function () {
+    $("#dtModalInventory").on("click", "tbody tr", function (e) {
+        // var table = $('#dtModalInventory').DataTable().row(this).data();
         if (uid == arr[arr.length - 1]) {
             no_stock = $(this).closest("tr").children("td:eq(0)").text();
-            nm_stock = $(this).closest("tr").children("td:eq(1)").text();
-            sat = $(this).closest("tr").children("td:eq(2)").text();
-            document.getElementById("no_stock-" + uid).value = no_stock;
-            document.getElementById("nm_stock-" + uid).innerHTML = nm_stock;
-            document.getElementById("sat-" + uid).value = sat;
+            kodeBJ = $(this).closest("tr").children("td:eq(3)").text();
+            if (kodeBJ == 'G') {
+                $.ajax({
+                    url: get_SoItemChild + "/" + no_stock,
+                    type: "GET",
+                    dataType: "JSON",
+                    success: function (response) {
+                        jQuery.each(response.child, function (i, val) {
+                            addRow();
+                            $("#no_stock-" + (uid + i + 1)).val(val.no_stock);
+                            $("#nm_stock-" + (uid + i + 1)).html("--" + val.nama_barang);
+                            $("#qty-" + (uid + i + 1)).val(val.saldo);
+                            $("#sat-" + (uid + i + 1)).val(val.sat);
+                            $("#price-" + (uid + i + 1)).attr('readonly', true);
+                            $("#disc-" + (uid + i + 1)).attr('readonly', true);
+                            $("#disc2-" + (uid + i + 1)).attr('readonly', true);
+                            $("#disc_val-" + (uid + i + 1)).attr('readonly', true);
+                            $("#tax-" + (uid + i + 1)).css('display', 'none');
+                            $("#tax-" + (uid + i + 1)).html('<option selected value="" ></option>');
+                            $("#itemKodeGroup-" + (uid + i + 1)).val(no_stock);
+                            $("#itemBruto-" + (uid + i + 1)).html('0');
+                        });
+                    },
+                });
+            }
+
+            $("#no_stock-" + uid).val(no_stock);
+            $("#nm_stock-" + uid).html($(this).closest("tr").children("td:eq(1)").text());
+            $("#qty-" + uid).val('1');
+            $("#sat-" + uid).val($(this).closest("tr").children("td:eq(2)").text());
+            e.stopImmediatePropagation();
         }
         $("#modalInventory").modal("hide");
     });
@@ -350,10 +398,15 @@ function itemTotal(uid) {
             }
         });
     }
-    document.getElementById("total-" + uid).value = total;
-    document.getElementById("itemTotal-" + uid).innerHTML = total;
-    document.getElementById("itemTaxValue-" + uid).innerHTML = itemTaxValue;
-    document.getElementById("itemBruto-" + uid).innerHTML = totalBruto;
+    if ($("#price-" + uid).val() != '') {
+        $("#total-" + uid).val(total);
+        $("#itemBruto-" + uid).html(totalBruto);
+    } else {
+        $("#itemBruto-" + uid).html('0');
+        $("#total-" + uid).val('')
+    }
+    $("#itemTotal-" + uid).html(total);
+    $("#itemTaxValue-" + uid).html(itemTaxValue);
     totalDpp();
 }
 
@@ -389,7 +442,7 @@ function discountHead(param) {
 
     for (i = 1; i < myTab.rows.length; i++) {
         var objCells = myTab.rows.item(i).cells;
-        var itemBruto = objCells.item(16).innerHTML != "" ? parseFloat(objCells.item(16).innerHTML) : 0;
+        var itemBruto = objCells.item(16).innerHTML > 0 ? parseFloat(objCells.item(16).innerHTML) : 0;
         var itemDiscount = 0;
         if (discountValueHead != 0) {
             itemDiscount = (itemBruto / $("#totalDpp").val()) * discountValueHead;
@@ -414,8 +467,10 @@ function totalPpn() {
             if (objCells.item(14).innerHTML > 0) {
                 var itemTaxTotal = (parseFloat(objCells.item(16).innerHTML) - parseFloat(objCells.item(14).innerHTML)) * parseFloat(objCells.item(17).innerHTML) / 100;
             } else {
-                if (objCells.item(12).innerHTML != '') {
+                if (objCells.item(12).innerHTML > 0) {
                     var itemTaxTotal = parseFloat(objCells.item(12).innerHTML) * parseFloat(objCells.item(17).innerHTML) / 100;
+                } else {
+                    var itemTaxTotal = 0;
                 }
             }
             totalPpn += itemTaxTotal;

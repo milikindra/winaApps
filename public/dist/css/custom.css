@@ -1,7 +1,8 @@
 label {
     margin-bottom: 0.1rem;
 }
-.margbot-5{
+
+.margbot-5 {
     margin-bottom: 5px;
 }
 
@@ -21,14 +22,15 @@ label {
     background-color: #17a2b8 !important;
 }
 
-select.form-control-sm ~ .select2-container--default{
-    font-size:100%;
+select.form-control-sm~.select2-container--default {
+    font-size: 100%;
 }
 
 
 textarea.r1 {
-  height: calc(1.8125rem + 2px) !important;
+    height: calc(1.8125rem + 2px) !important;
 }
+
 /* end select2 */
 
 /* input type date */
@@ -50,10 +52,11 @@ input[type="date"]::-webkit-datetime-edit-year-field::selection {
     background-color: #17a2b8;
 }
 
-.form-check-input{
-   accent-color: #17a2b8; 
-   margin-top: 0.15rem;
+.form-check-input {
+    accent-color: #17a2b8;
+    margin-top: 0.15rem;
 }
+
 /* 
 input[type="date"]:focus:not([readonly]),
 input[type="datetime-local"]:focus:not([readonly]),
@@ -110,18 +113,19 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
 }
 
 
-.tbl-sm thead th{
+.tbl-sm thead th {
     padding: 0.25rem;
 }
 
-.tbl-sm tbody td{
-    padding: 0.15rem;
-}
-.dt-com-sm{
+.tbl-sm tbody td {
     padding: 0.15rem;
 }
 
-.fc-wrap{
+.dt-com-sm {
+    padding: 0.15rem;
+}
+
+.fc-wrap {
     word-break: break-all;
 }
 
@@ -133,11 +137,11 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     padding: 0.1rem;
 }
 
-.scroly{
-overflow-y: scroll;
-display: block;
-max-height: 25rem;
--webkit-overflow-scrolling: touch;
+.scroly {
+    overflow-y: scroll;
+    display: block;
+    max-height: 25rem;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* SPINNER */
@@ -177,7 +181,7 @@ max-height: 25rem;
     display: none;
 }
 
-.half-break{
+.half-break {
     height: 0.5rem;
     visibility: hidden;
     padding: 0;
@@ -188,26 +192,30 @@ max-height: 25rem;
     padding: 0.5rem;
 }
 
-.card-title{
+.card-title {
     font-size: 1rem;
 }
 
-.card-header{
+.card-header {
     padding: 0.5rem;
 }
-.card-body{
+
+.card-body {
     padding: 1rem;
 }
 
-.text-xs{
+.text-xs {
     font-size: 11px !important;
 }
 
-.form-control-sm{
+.form-control-sm {
     font-size: 11px !important;
 }
 
-.input-group-sm .form-control{
+.input-group-sm .form-control {
     font-size: 11px !important;
 }
 
+.hidden {
+    display: none;
+}

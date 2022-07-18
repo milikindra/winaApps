@@ -10,6 +10,10 @@ use App\Http\Controllers\Master\CustomerController;
 use App\Http\Controllers\Master\SalesController;
 use App\Http\Controllers\Master\SupplierController;
 use App\Http\Controllers\Master\VintrasController;
+use App\Http\Controllers\Master\CategoryController;
+use App\Http\Controllers\Master\SubCategoryController;
+use App\Http\Controllers\Master\MerkController;
+use App\Http\Controllers\Master\AccountCoaController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Transaction\SalesInvoiceController;
 use App\Http\Controllers\Finance\GeneralLedgerController;
@@ -121,7 +125,21 @@ Route::group(
 
         // village
 
+        // coa
+        Route::get('coaShow', [AccountCoaController::class, 'coaShow'])->name('coaShow')->middleware('userMatrix:M10.01');
+        Route::get('coaGetById/{id}', [AccountCoaController::class, 'coaGetById'])->name('coaGetById');
+
         // merk
+        Route::get('merkInventory', [MerkController::class, 'merkInventoryShow'])->name('merkInventory')->middleware('userMatrix:M01.01');
+        Route::get('merkGetById/{id}', [MerkController::class, 'merkGetById'])->name('merkGetById');
+
+        // kategori
+        Route::get('categoryInventory', [CategoryController::class, 'categoryInventoryShow'])->name('categoryInventory')->middleware('userMatrix:M08.01');
+        Route::get('categoryGetById/{id}', [CategoryController::class, 'categoryGetById'])->name('categoryGetById');
+
+        // subkategori
+        Route::get('subCategoryInventory', [SubCategoryController::class, 'subCategoryInventoryShow'])->name('subCategoryInventory')->middleware('userMatrix:M09.01');
+        Route::get('subCategoryGetById/{id}', [SubCategoryController::class, 'subCategoryGetById'])->name('subCategoryGetById');
 
         // inventory
         Route::get('inventory', [InventoryController::class, 'inventoryShow'])->name('inventory')->middleware('userMatrix:M02.01');
@@ -132,6 +150,7 @@ Route::group(
         Route::get('inventory/data/delete/{inv}', [InventoryController::class, 'inventoryDelete'])->name('inventory/data/delete')->middleware('userMatrix:M02.04');
         Route::post('kartuStok', [InventoryController::class, 'kartuStok'])->name('kartuStok')->middleware('userMatrix:M02.01');;
         Route::get('kartuStok/data/populate/{kode}/{sdate}/{edate}/{lokasi}/{item_transfer}', [InventoryController::class, 'kartuStokPopulate'])->name('kartuStok/data/populate');
+        Route::get('inventoryChildGetByHead/{inv}', [InventoryController::class, 'inventoryChildGetByHead'])->name('inventoryChildGetByHead');
 
         // customer
         Route::get('customerGetById/{id}', [CustomerController::class, 'customerGetById'])->name('customerGetById');

@@ -1,3 +1,174 @@
+<!-- Modal -->
+<div class="modal fade" id="inventoryModal" style="overflow:hidden;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <form method="POST" id="formInventory" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" id="kodeBJ" name="kodeBJ" required>
+                <input type="hidden" id="kodeOld" name="kodeOld" required>
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" id="titleInventory"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2">Code</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm" name="kode" id="kode" placeholder="Insert Code" required>
+                            </div>
+                            <div class="col-sm-3 isBj">
+                                <a class="btn btn-info btn-sm btnVintras" href="javascript:void(0)">Import Data From VINTRAS</a>
+                            </div>
+                            <div class="col-sm-1 isBj">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="aktif" id="aktif" checked></input>
+                                    <label class="form-check-label">ACTIVE</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-1 isBj">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="konsinyansi" id="konsinyansi" checked></input>
+                                    <label class="form-check-label">CONSIGNMENT</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2" id="inventoryName"></label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control form-control-sm" name="nama_barang" id="nama_barang" rows="2" placeholder="Insert Name"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2">UoM</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm" name="satuan" id="satuan" maxlength="5" placeholder="Insert Unit Of Measurment">
+                            </div>
+                            <label class="col-sm-2 isBj">Minimum Stock</label>
+                            <div class="col-sm-4 isBj">
+                                <input type="number" class="form-control form-control-sm" name="stok_minimal" id="stok_minimal" placeholder="Insert Minimum Stock" value="0" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2">Category</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm" style="width: 100%;" id="kategoriInventory" name="kategori">
+                                </select>
+                            </div>
+                            <label class="col-sm-2 isBj">Vintras Id</label>
+                            <div class="col-sm-4 isBj">
+                                <input type="text" class="form-control form-control-sm vintrasId" name="vintrasId" id="vintrasId" placeholder="Does Not Have Vintras Id" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2">Subcategory</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="subKategoriInventory" name="subkategori">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2">Brand</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="merkInventory" name="merk">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 isBj">Selling Price</label>
+                            <div class="col-sm-4 isBj">
+                                <input type="text" class="form-control form-control-sm numajaDesimal" name="harga_jual" id="harga_jual" placeholder="Insert Selling Price">
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 isBj">Description</label>
+                            <div class="col-sm-10 isBj">
+                                <input type="text" class="form-control form-control-sm" name="keterangan" id="keterangan" placeholder="Description">
+                            </div>
+                        </div>
+                        <hr class="isBj" />
+                        <div class="form-group row margbot-5">
+                            <div class="col-sm-3 isBj">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="isMinus" name="isMinus"></input>
+                                    <label class="form-check-label">NON INVENTORY</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 isBj">Sales Account</label>
+                            <div class="col-sm-4 isBj">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="salesAcc" name="salesAcc">
+                                </select>
+                            </div>
+                            <div class="col-sm-3 isBj">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="PPhPs23" id="PPhPs23"></input>
+                                    <label class="form-check-label">PPh Ps 23</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 isBj">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="PPhPs21" id="PPhPs21"></input>
+                                    <label class="form-check-label">PPh Ps 21</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5">
+                            <label class="col-sm-2 isBj">Purchase Account</label>
+                            <div class="col-sm-4 isBj">
+                                <select class="form-control form-control-sm selects2" style="width: 100%;" id="purchaseAcc" name="purchaseAcc">
+                                </select>
+                            </div>
+                            <div class="col-sm-3 isBj">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="PPhPs4Ayat2" id="PPhPs4Ayat2"></input>
+                                    <label class="form-check-label">PPh Ps 4 ayat 2</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 isBj">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="PPhPs21OP" id="PPhPs21OP"></input>
+                                    <label class="form-check-label">PPh Ps 21 OP</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row margbot-5 nBj">
+                            <table class="table trxInventory table-modal" id="trxInventory" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%">Id</th>
+                                        <th style="width: 10%">Name</th>
+                                        <th style="width: 2%">Qty</th>
+                                        <th style="width: 2%">UoM</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <table width="100%">
+                                <tr>
+                                    <td style="width: 100%;">
+                                        <a href="javascript:void(0)" onclick="removeRowChild()" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
+                                        <a href="javascript:void(0)" onclick="addRowChild()" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class=" modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                    <button type="submit" id="btnAddSave" class="btn btn-info">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modalInventory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -9,12 +180,13 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <table class="table" id="dtModalInventory" style="width: 100%;">
+                    <table class="table tbl-sm " id="dtModalInventory" width="100%">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Id</th>
-                                <th style="width: 70%" style="text-align: center;">Name</th>
-                                <th style="width: 10%" style="text-align: center;">UoM</th>
+                                <th style="text-align: center; width:15%">Id</th>
+                                <th style="text-align: center; width:70%">Name</th>
+                                <th style="text-align: center; width:15%">UoM</th>
+                                <th style="display:none"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,6 +197,75 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="vintrasPeriod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Vintras Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="form-group row margbot-5">
+                        <label class="col-sm-1">Period</label>
+                        <div class="col-sm-2">
+                            <select class="form-control form-control-sm selects2" style="width: 100%;" id="vintrasYear" name="vintrasYear">
+                                <option selected disabled>Select Period</option>
+                                <?php
+                                $start = 2018;
+                                $end = date("Y");
+                                for ($end; $end >= $start; $end--) {
+                                    echo "<option>" . $end . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card-body table-responsive">
+                            <table id="vintrasTable" style="width: 100%;" class="table table-bordered table-hover tbl-sm scroly">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th style="width: 20%;">Ref. Code</th>
+                                        <th style="width: 25%;">Specification</th>
+                                        <th style="width: 10%;">Date</th>
+                                        <th style="width: 20%;">Cutomers</th>
+                                        <th>Brand</th>
+                                        <th>Ref. Description</th>
+                                        <th>Other Specification</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=" modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <script>
+    var rute_vintras = "{{ URL::to('vintras/data/populate') }}";
     var get_inventory = "{{ URL::to('inventory/data/populate') }}";
+    var get_categoryInventory = "{{ URL::to('categoryGetById') }}";
+    var get_subCategoryInventory = "{{ URL::to('subCategoryGetById') }}";
+    var get_coaInventory = "{{ URL::to('coaGetById') }}";
+    var get_merkInventory = "{{ URL::to('merkGetById') }}";
+    var save_inventory = "{{ route('inventoryAddSave') }}";
+    var update_inventory = "{{ route('inventoryUpdate') }}";
 </script>
+<script src="{{ asset('js/master/inventory/inventory-add.js?')}}"></script>

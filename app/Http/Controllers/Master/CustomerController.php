@@ -24,7 +24,11 @@ class CustomerController extends Controller
 
     public function customerGetById(request $request, $id)
     {
-        $data = customerGetById($id);
+        if ($id != 'all') {
+            $data = customerGetById($id);
+        } else {
+            $data =  customerGetRawData('NM_CUST', 'ASC');
+        }
         return json_encode($data);
     }
 

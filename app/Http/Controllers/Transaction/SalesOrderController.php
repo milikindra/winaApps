@@ -96,7 +96,6 @@ class SalesOrderController extends Controller
             $user_token = session('user')->api_token;
             $module = $this->module;
             $menu_name = session('user')->menu_name;
-            $customer = customerGetRawData('NM_CUST', 'ASC');
             $sales = salesGetRawData('ID_SALES', 'ASC');
             $bu = bussinessUnitGetRawData();
             $dept = deptGetRawData();
@@ -106,7 +105,6 @@ class SalesOrderController extends Controller
                 'title' => $menu_name->$module->module_name,
                 'parent_page' => $menu_name->$module->parent_name,
                 'page' => $menu_name->$module->module_name,
-                'customer' => $customer,
                 'sales' => $sales,
                 'bu' => $bu,
                 'dept' => $dept,
@@ -208,7 +206,8 @@ class SalesOrderController extends Controller
                         "kode_group" => '',
                         "qty_grup" => '0',
                         "VINTRASID" => '',
-                        "tahun" => ''
+                        "tahun" => '',
+                        "kode_group" => $request->input('itemKodeGroup')[$i]
                     ];
                 }
             }
@@ -219,7 +218,6 @@ class SalesOrderController extends Controller
                         "NO_BUKTI" => $request->input('nomor'),
                         "keterangan" => $request->input('dp')[$i],
                         "nilai" => $request->input('dp_value')[$i],
-                        // "idxurut" => '',
                         "nourut" => $i + 1,
                         "tax" => $request->input('dp_tax')[$i],
                     ];
@@ -334,7 +332,7 @@ class SalesOrderController extends Controller
                         "discrp2" => '0',
                         "state" => '',
                         "alasan" => '',
-                        "nourut" => $get_urut_detail->nourut + 1,
+                        "nourut" => $i + 1,
                         "tax" => $request->input('tax')[$i],
                         "kode_group" => '',
                         "qty_grup" => '0',
@@ -447,34 +445,33 @@ class SalesOrderController extends Controller
 
     public function salesOrderDelete(Request $request, $so_id)
     {
-        // try {
-        $user_token = session('user')->api_token;
-        $url = Config::get('constants.api_url') . '/salesOrderDelete';
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/salesOrderDelete';
 
-        $post_data = [
-            'api_token' => $user_token,
-            'user' => session('user')->username,
-            'NO_BUKTI' => $so_id
-        ];
-        $client = new Client();
-        $response = $client->request('POST', $url, [
-            'json' => $post_data,
-            'http_errors' => false
-        ]);
-        $body = json_decode($response->getBody());
-        if ($body->result == true) {
-            Alert::toast($body->message, 'success');
-            return redirect('salesOrder');
-        } else {
-            Alert::toast($body->message, 'danger');
+            $post_data = [
+                'api_token' => $user_token,
+                'user' => session('user')->username,
+                'NO_BUKTI' => $so_id
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            if ($body->result == true) {
+                Alert::toast($body->message, 'success');
+                return redirect('salesOrder');
+            } else {
+                Alert::toast($body->message, 'danger');
+                return redirect('salesOrderDetail/' . $so_id);
+            }
+        } catch (\Exception $e) {
+            Alert::toast('Error delete', 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
             return redirect('salesOrderDetail/' . $so_id);
         }
-
-
-        // } catch (\Exception $e) {
-        //     Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-        //     return abort(500);
-        // }
     }
 
     public function salesOrderDetail(request $request, $so_id)

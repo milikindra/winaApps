@@ -29,7 +29,7 @@ class InventoryController extends Controller
             $subKategori = subKategoriGetRawData();
             $merk = merkGetRawData();
             $lokasi = lokasiGetRawData();
-            $account = accountGetRawData();
+            $account = coaGetRawData();
             $data = [
                 'title' => $menu_name->$module->module_name,
                 'parent_page' => $menu_name->$module->parent_name,
@@ -450,5 +450,27 @@ class InventoryController extends Controller
 
             return abort(500);
         }
+    }
+
+    public function inventoryChildGetByHead(Request $request, $id)
+    {
+        $user_token = session('user')->api_token;
+        $url = Config::get('constants.api_url') . '/inventoryChildGetByHead';
+
+        $post_data = [
+            'api_token' => $user_token,
+            'user' => session('user')->username,
+            'NO_BUKTI' => $id
+        ];
+        $client = new Client();
+        $response = $client->request('POST', $url, [
+            'json' => $post_data,
+            'http_errors' => false
+        ]);
+        $body = json_decode($response->getBody());
+        return response()->json([
+            'result' => $body->result,
+            'child' => $body->child
+        ]);
     }
 }

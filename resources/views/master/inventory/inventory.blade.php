@@ -327,7 +327,7 @@
                             </div>
                         </div>
                         <div class="form-group row margbot-5 nBj">
-                            <table class="table trx table-modal" id="trx" style="width: 100%;">
+                            <table class="table trxInventory table-modal" id="trxInventory" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th style="width: 5%">Id</th>
@@ -342,8 +342,8 @@
                             <table width="100%">
                                 <tr>
                                     <td style="width: 100%;">
-                                        <a href="javascript:void(0)" onclick="removeRow(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
-                                        <a href="javascript:void(0)" onclick="addRow(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
+                                        <a href="javascript:void(0)" onclick="removeRowChild(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
+                                        <a href="javascript:void(0)" onclick="addRowChild(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
                                     </td>
                                 </tr>
                             </table>

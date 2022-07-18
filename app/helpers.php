@@ -210,7 +210,7 @@ function lokasiGetRawData()
     return $moduleBody;
 }
 
-function accountGetRawData()
+function coaGetRawData()
 {
     $user_token = session('user')->api_token;
     $matrixUrl = Config::get('constants.api_url') . '/accountGetRawData';

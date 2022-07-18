@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    dtModalInventory("1", "all", "all");
     window.inventoryEdit = function (element) {
         resetInventory();
         var inv = $(element).data("inventory");
@@ -83,9 +82,9 @@ $(document).ready(function () {
                     $('.isBj').css('display', 'block');
                     $('.nBj').css('display', 'none');
                 } else {
-                    $(".trx tbody tr").remove();
+                    $(".trxInventory tbody tr").remove();
                     jQuery.each(response.child, function (i, val) {
-                        addRow();
+                        addRowChild();
                         $('#no_stock-' + i).val(val.NO_STOCK);
                         $('#nm_stock-' + i).val(val.NM_STOCK);
                         $('#qty-' + i).val(val.QTY);
@@ -237,29 +236,27 @@ $(document).ready(function () {
             }
         }
     });
-
-    var rowCount = 0;
-    window.addRow = function (element) {
-        $(".trx").append(
-            '<tr> <td> <input type="text" class="form-control form-control-sm" name="no_stockGroup[]" id="no_stock-' +
-            rowCount +
-            '" onclick="addChild(' +
-            rowCount +
-            ')" readonly > </td><td> <textarea class="form-control form-control-sm r1" name="nm_stockGroup[]" id="nm_stock-' +
-            rowCount +
-            '" ></textarea> </td><td> <input type="number" class="form-control form-control-sm numajaDesimal" value="1" min="1" style="text-align: right;" name="qtyGroup[]" autocomplete="off"  id="qty-' +
-            rowCount +
-            '"> </td><td> <input type="text" class="form-control form-control-sm" name="satGroup[]" id="sat-' +
-            rowCount +
-            '"> </td></tr > '
-        );
-        rowCount++;
-    };
-
-    window.removeRow = function (element) {
-        $(".trx tr:last").remove();
-    };
 });
+function addRowChild() {
+    var rowCount = $(".trxInventory tr").length - 1;
+    $(".trxInventory").append(
+        '<tr> <td> <input type="text" class="form-control form-control-sm" name="no_stockGroup[]" id="no_stockGroup-' +
+        rowCount +
+        '" onclick="addChild(' +
+        rowCount +
+        ')" readonly > </td><td> <textarea class="form-control form-control-sm r1" name="nm_stockGroup[]" id="nm_stockGroup-' +
+        rowCount +
+        '" ></textarea> </td><td> <input type="number" class="form-control form-control-sm numajaDesimal" value="1" min="1" style="text-align: right;" name="qtyGroup[]" autocomplete="off"  id="qtyGroup-' +
+        rowCount +
+        '"> </td><td> <input type="text" class="form-control form-control-sm" name="satGroup[]" id="satGroup-' +
+        rowCount +
+        '"> </td></tr > '
+    );
+}
+
+function removeRowChild() {
+    $(".trxInventory tr:last").remove();
+}
 function inventoryAdd(kodeBJ) {
     resetInventory();
     $('#kodeBJ').val(kodeBJ);
@@ -273,25 +270,28 @@ function inventoryAdd(kodeBJ) {
         $('#inventoryName').html('Group Item Name')
         $('.isBj').css('display', 'none');
         $('.nBj').css('display', 'block');
-        $(".trx tbody tr").remove();
-        addRow();
+        $(".trxInventory tbody tr").remove();
+        addRowChild();
     }
     $('#formInventory').prop('action', save_inventory);
     $("#inventoryModal").modal("show");
 }
 
-var arr = [];
+var arrChild = [];
 function addChild(uid) {
-    arr.push(uid);
+    arrChild.push(uid);
+    if ($("#dtModalInventory tbody tr").length == 0) {
+        dtModalInventory("0", "all", "all");
+    }
     $("#modalInventory").modal("show");
     $("#dtModalInventory").on("click", "tbody tr", function () {
-        if (uid == arr[arr.length - 1]) {
+        if (uid == arrChild[arrChild.length - 1]) {
             no_stock = $(this).closest("tr").children("td:eq(0)").text();
             nm_stock = $(this).closest("tr").children("td:eq(1)").text();
             sat = $(this).closest("tr").children("td:eq(2)").text();
-            document.getElementById("no_stock-" + uid).value = no_stock;
-            document.getElementById("nm_stock-" + uid).innerHTML = nm_stock;
-            document.getElementById("sat-" + uid).value = sat;
+            document.getElementById("no_stockGroup-" + uid).value = no_stock;
+            document.getElementById("nm_stockGroup-" + uid).innerHTML = nm_stock;
+            document.getElementById("satGroup-" + uid).value = sat;
         }
         $("#modalInventory").modal("hide");
     });
@@ -319,8 +319,158 @@ function resetInventory() {
         .select2()
         .val('')
         .trigger("change");
+    $("#salesAcc")
+        .select2()
+        .val('')
+        .trigger("change");
+    $("#purchaseAcc")
+        .select2()
+        .val('')
+        .trigger("change");
 
     $("#aktif").prop("checked", true);
     $("#konsinyansi").prop("checked", true);
     $("#isMinus").prop("checked", false);
 }
+
+$('#kategoriInventory').on('select2:opening', function (e) {
+    if ($('#kategoriInventory option').length <= 1) {
+        $.ajax({
+            delay: 0,
+            url: get_customer + "/all",
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                var html = "<option value=''>Select Category</option>";
+                jQuery.each(response, function (i, val) {
+                    html += "<option value='" + val.ID_CUST + "'>" + val.ID_CUST + " (" + val.NM_CUST + ")</option>";
+                });
+                $('#customer').html(html);
+            },
+        });
+        $("#kategoriInventory")
+            .select2()
+            .val('')
+            .trigger("change");
+    }
+});
+
+$('#kategoriInventory').on('select2:opening', function (e) {
+    if ($('#kategoriInventory option').length <= 1) {
+        $.ajax({
+            delay: 0,
+            url: get_categoryInventory + "/all",
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                var html = "<option value=''>Select Category</option>";
+                jQuery.each(response, function (i, val) {
+                    html += "<option value='" + val.kategori + "'>" + val.kategori + " - " + val.keterangan + "</option>";
+                });
+                $('#kategoriInventory').html(html);
+            },
+        });
+        $("#kategoriInventory")
+            .select2()
+            .val('')
+            .trigger("change");
+    }
+});
+
+$('#subKategoriInventory').on('select2:opening', function (e) {
+    if ($('#subKategoriInventory option').length <= 1) {
+        $.ajax({
+            delay: 0,
+            url: get_subCategoryInventory + "/all",
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                var html = "<option value=''>Select Subcategory</option>";
+                jQuery.each(response, function (i, val) {
+                    html += "<option value='" + val.kode + "'>" + val.kode + " - " + val.keterangan + "</option>";
+                });
+                $('#subKategoriInventory').html(html);
+            },
+        });
+        $("#subKategoriInventory")
+            .select2()
+            .val('')
+            .trigger("change");
+    }
+});
+
+$('#merkInventory').on('select2:opening', function (e) {
+    if ($('#merkInventory option').length <= 1) {
+        $.ajax({
+            delay: 0,
+            url: get_merkInventory + "/all",
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                var html = "<option value=''>Select Brand</option>";
+                jQuery.each(response, function (i, val) {
+                    html += "<option value='" + val.Kode + "'>" + val.Kode + "</option>";
+                });
+                $('#merkInventory').html(html);
+            },
+        });
+        $("#merkInventory")
+            .select2()
+            .val('')
+            .trigger("change");
+    }
+});
+
+$('#salesAcc').on('select2:opening', function (e) {
+    if ($('#salesAcc option').length <= 1) {
+        $.ajax({
+            delay: 0,
+            url: get_coaInventory + "/all",
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                var html = "<option value=''>Select Account</option>";
+                jQuery.each(response, function (i, val) {
+                    html += "<option value='" + val.no_rek + "'>" + val.no_rek + " - " + val.nm_rek + "</option>";
+                });
+                $('#salesAcc').html(html);
+                $('#purchaseAcc').html(html);
+            },
+        });
+        $("#salesAcc")
+            .select2()
+            .val('')
+            .trigger("change");
+        $("#purchaseAcc")
+            .select2()
+            .val('')
+            .trigger("change");
+    }
+});
+
+$('#purchaseAcc').on('select2:opening', function (e) {
+    if ($('#purchaseAcc option').length <= 1) {
+        $.ajax({
+            delay: 0,
+            url: get_coaInventory + "/all",
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                var html = "<option value=''>Select Account</option>";
+                jQuery.each(response, function (i, val) {
+                    html += "<option value='" + val.no_rek + "'>" + val.no_rek + " - " + val.nm_rek + "</option>";
+                });
+                $('#salesAcc').html(html);
+                $('#purchaseAcc').html(html);
+            },
+        });
+        $("#salesAcc")
+            .select2()
+            .val('')
+            .trigger("change");
+        $("#purchaseAcc")
+            .select2()
+            .val('')
+            .trigger("change");
+    }
+});

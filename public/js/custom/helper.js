@@ -1,9 +1,12 @@
 $(document).ready(function () {
-    $(document).on("select2:open", () => {
-        document
-            .querySelector(".select2-container--open .select2-search__field")
-            .focus();
-    });
+    // window.onerror = function (message, url, lineNumber) {
+    // return true; 
+    // };
+    // $(document).on("select2:open", () => {
+    //     document
+    //         .querySelector(".select2-container--open .select2-search__field")
+    //         .focus();
+    // });
 
     $(document).on("keydown", ".input-numerical", function (e) {
         if (
@@ -37,6 +40,8 @@ $(document).ready(function () {
 
 function dtModalInventory(voids, kategori, subkategori) {
     var table = $("#dtModalInventory").DataTable({
+        scrollY: 400,
+        scrollCollapse: true,
         processing: true,
         serverSide: true,
         responsive: true,
@@ -75,6 +80,12 @@ function dtModalInventory(voids, kategori, subkategori) {
             data: "sat",
             name: "sat",
             ordering: false,
+            className: "dt-body-center",
+        },
+        {
+            data: "kodeBJ",
+            name: "kodeBJ",
+            className: "hidden",
         },
         ],
         order: [
