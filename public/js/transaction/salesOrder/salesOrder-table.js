@@ -24,25 +24,25 @@ $(document).ready(function () {
                     [100, 250, 500, 1000, "all"],
                 ],
                 buttons: [{
-                        extend: "print",
-                        className: "btn-info"
-                    },
-                    {
-                        extend: "excel",
-                        className: "btn-info"
-                    },
-                    {
-                        extend: "pdf",
-                        className: "btn-info"
-                    },
-                    {
-                        extend: "csv",
-                        className: "btn-info"
-                    },
-                    {
-                        extend: "colvis",
-                        className: "btn-info"
-                    },
+                    extend: "print",
+                    className: "btn-info"
+                },
+                {
+                    extend: "excel",
+                    className: "btn-info"
+                },
+                {
+                    extend: "pdf",
+                    className: "btn-info"
+                },
+                {
+                    extend: "csv",
+                    className: "btn-info"
+                },
+                {
+                    extend: "colvis",
+                    className: "btn-info"
+                },
                 ],
                 dom:
                     // "<'row'<'col-sm-12'B>>" +
@@ -67,86 +67,86 @@ $(document).ready(function () {
                     dataType: "JSON",
                 },
                 columns: [{
-                        data: "NO_BUKTI",
-                        name: "NO_BUKTI",
-                        width: "15%",
+                    data: "NO_BUKTI",
+                    name: "NO_BUKTI",
+                    width: "15%",
+                },
+                {
+                    data: "TGL_BUKTI",
+                    name: "TGL_BUKTI",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY");
                     },
-                    {
-                        data: "TGL_BUKTI",
-                        name: "TGL_BUKTI",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return moment(data).format("DD/MMM/YYYY");
-                        },
+                },
+                {
+                    data: "NM_CUST",
+                    name: "NM_CUST",
+                    width: "50%",
+                },
+                {
+                    data: "Dept",
+                    name: "Dept",
+                },
+                {
+                    data: "PO_CUST",
+                    name: "PO_CUST",
+                    width: "10%",
+                },
+                {
+                    data: "totdpp",
+                    name: "totdpp",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "NM_CUST",
-                        name: "NM_CUST",
-                        width: "50%",
+                },
+                {
+                    data: "totppn",
+                    name: "totppn",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "Dept",
-                        name: "Dept",
+                },
+                {
+                    data: "total",
+                    name: "total",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "PO_CUST",
-                        name: "PO_CUST",
-                        width: "10%",
+                },
+                {
+                    data: "QTY",
+                    name: "QTY",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "totdpp",
-                        name: "totdpp",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
+                },
+                {
+                    data: "SJ_QTY",
+                    name: "SJ_QTY",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "totppn",
-                        name: "totppn",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
+                },
+                {
+                    data: "RJ_QTY",
+                    name: "RJ_QTY",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "total",
-                        name: "total",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
-                    },
-                    {
-                        data: "QTY",
-                        name: "QTY",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
-                    },
-                    {
-                        data: "SJ_QTY",
-                        name: "SJ_QTY",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
-                    },
-                    {
-                        data: "RJ_QTY",
-                        name: "RJ_QTY",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
-                    },
+                },
                 ],
                 order: [
                     [0, "asc"]
@@ -188,105 +188,105 @@ $(document).ready(function () {
                     dataType: "JSON",
                 },
                 columns: [{
-                        data: "NO_BUKTI",
-                        name: "NO_BUKTI",
-                        width: "10%",
+                    data: "NO_BUKTI",
+                    name: "NO_BUKTI",
+                    width: "10%",
+                },
+                {
+                    data: "TGL_BUKTI",
+                    name: "TGL_BUKTI",
+                    width: "5%",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MMM/YYYY");
                     },
-                    {
-                        data: "TGL_BUKTI",
-                        name: "TGL_BUKTI",
-                        width: "5%",
-                        render: function (data, type, row) {
-                            return moment(data).format("DD/MMM/YYYY");
-                        },
+                },
+                {
+                    data: "NM_CUST",
+                    name: "NM_CUST",
+                    width: "20%",
+                },
+                {
+                    data: "Dept",
+                    name: "Dept",
+                },
+                {
+                    data: "PO_CUST",
+                    name: "PO_CUST",
+                },
+                {
+                    data: "totdpp",
+                    name: "totdpp",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "NM_CUST",
-                        name: "NM_CUST",
-                        width: "20%",
+                },
+                {
+                    data: "totppn",
+                    name: "totppn",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "Dept",
-                        name: "Dept",
+                },
+                {
+                    data: "total",
+                    name: "total",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "PO_CUST",
-                        name: "PO_CUST",
+                },
+                {
+                    data: "NO_STOCK",
+                    name: "NO_STOCK",
+                    width: "10%",
+                },
+                {
+                    data: "NM_STOCK",
+                    name: "NM_STOCK",
+                    width: "30%",
+                },
+                {
+                    data: "QTY",
+                    name: "QTY",
+                    className: "dt-body-right",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "totdpp",
-                        name: "totdpp",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
+                },
+                {
+                    data: "SAT",
+                    name: "SAT",
+                },
+                {
+                    data: "HARGA",
+                    name: "HARGA",
+                    className: "dt-body-right",
+                    width: "10%",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "totppn",
-                        name: "totppn",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
+                },
+                {
+                    data: "SJ_QTY",
+                    name: "SJ_QTY",
+                    className: "dt-body-right",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "total",
-                        name: "total",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
+                },
+                {
+                    data: "RJ_QTY",
+                    name: "RJ_QTY",
+                    className: "dt-body-right",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
-                    {
-                        data: "NO_STOCK",
-                        name: "NO_STOCK",
-                        width: "10%",
-                    },
-                    {
-                        data: "NM_STOCK",
-                        name: "NM_STOCK",
-                        width: "30%",
-                    },
-                    {
-                        data: "QTY",
-                        name: "QTY",
-                        className: "dt-body-right",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
-                    },
-                    {
-                        data: "SAT",
-                        name: "SAT",
-                    },
-                    {
-                        data: "HARGA",
-                        name: "HARGA",
-                        className: "dt-body-right",
-                        width: "10%",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
-                    },
-                    {
-                        data: "SJ_QTY",
-                        name: "SJ_QTY",
-                        className: "dt-body-right",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
-                    },
-                    {
-                        data: "RJ_QTY",
-                        name: "RJ_QTY",
-                        className: "dt-body-right",
-                        render: function (data, type, row) {
-                            return addPeriod(parseFloat(data).toFixed(2), ",");
-                        },
-                    },
+                },
                 ],
                 order: [
                     [0, "asc"]

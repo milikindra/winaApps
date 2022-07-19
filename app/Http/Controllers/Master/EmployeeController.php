@@ -205,7 +205,7 @@ class EmployeeController extends Controller
             $menu_name = session('user')->menu_name;
             $url = Config::get('constants.api_url') . '/getEmployeeById';
             $post_data = [
-                'user_id' => session('user')->user_id
+                'user_id' => $id
             ];
             $client = new Client();
             $response = $client->request('POST', $url, [

@@ -16,22 +16,31 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
+            <div class="col-lg-2">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6">
-                                <h3 class="card-title">Data Karyawan</h3>
+                            <div class="col-12"><a href="{{ route('employeeAdd')}}" class="btn btn-info btn-sm btn-block">
+                                    Add Employee
+                                </a>
                             </div>
-                            <div class="col-6 ">
-                                <h3 class="card-title float-right"><a class="btn btn-white btn-sm btn-flat" style="margin-left: 5px; padding:0" href="{{ route('employeeAdd')}}" title="Tambah Karyawan"><i class="fa fa-plus"></i></a></h3>
-                                <h3 class="card-title float-right"><a class="btn btn-white btn-sm btn-flat" style="margin-left: 5px; padding:0" title="filter"><i class="fa fa-filter"></i></a></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-10">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="card-title">Employee Data</h3>
                             </div>
                         </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="datatables" class="table table-bordered table-striped table-hover">
+                        <table id="datatables" class="table table-bordered table-striped tbl-sm" width="100%">
                             <thead>
                                 <tr style="text-align: center;">
                                     <th>Employee Id</th>
