@@ -34,7 +34,7 @@ class ReportStockController extends Controller
             $subKategori = subKategoriGetRawData();
             $merk = merkGetRawData();
             $lokasi = lokasiGetRawData();
-            $account = accountGetRawData();
+            $account = coaGetRawData();
             $inventory = inventoryGetRawData();
             $data = [
                 'title' => $menu_name->$module->module_name,
