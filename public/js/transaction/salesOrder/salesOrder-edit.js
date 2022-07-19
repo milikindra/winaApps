@@ -16,7 +16,6 @@ function btnEdit() {
     $("#frmSo .input-group-append-edit").css("display", 'block');
     $("#frmSo select").prop("disabled", false);
     $("#frmSo button").css("display", 'block');
-    
     $('#edit').css("display", 'none'); 
     $('#print').css("display", 'none'); 
 }

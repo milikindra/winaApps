@@ -349,6 +349,7 @@ function addData(uid) {
                     success: function (response) {
                         jQuery.each(response.child, function (i, val) {
                             addRow();
+                            $("#no_stock-" + (uid + i + 1)).attr('onclick', '');
                             $("#no_stock-" + (uid + i + 1)).val(val.no_stock);
                             $("#nm_stock-" + (uid + i + 1)).html("--" + val.nama_barang);
                             $("#qty-" + (uid + i + 1)).val(val.saldo);
@@ -433,10 +434,10 @@ function discountHead(param) {
     var discountValueHead = 0;
     if (param == "discountValueHead" && $('#discountValueHead').val() != '') {
         discountValueHead = $('#discountValueHead').val();
-        $('#discountProcentageHead').val(parseFloat(discountValueHead) * $("#totalBruto").val() / 100)
-    } else if (param == "discountProcentageHead") {
+        $('#discountProcentageHead').val(parseFloat(discountValueHead) / parseFloat($("#totalBruto").val()) * 100)
+    } else if (param == "discountProcentageHead" && $('#discountProcentageHead').val() != '') {
         discountProcentageHead = $('#discountProcentageHead').val();
-        discountValueHead = parseFloat(discountProcentageHead) * $("#totalBruto").val() / 100;
+        discountValueHead = parseFloat(discountProcentageHead) * parseFloat($("#totalBruto").val()) / 100;
         $('#discountValueHead').val(discountValueHead);
     }
 
@@ -450,8 +451,6 @@ function discountHead(param) {
         objCells.item(14).innerHTML = itemDiscount;
         objCells.item(15).innerHTML = itemBruto - itemDiscount;
     }
-
-
     totalPpn();
 }
 
@@ -459,6 +458,9 @@ function totalPpn() {
     var myTab = document.getElementById("trx");
     var totalDpp = parseFloat($('#totalDpp').val());
     var discountValueHead = $('#discountValueHead').val();
+    if (discountValueHead != '') {
+        discountValueHead = parseFloat($('#discountValueHead').val());
+    }
     var totalPpn = 0;
 
     if (myTab.rows.length > 0) {

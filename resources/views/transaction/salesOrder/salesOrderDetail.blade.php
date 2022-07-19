@@ -288,12 +288,13 @@
                                         <tbody>
                                             <?php $j = 0; ?>
                                             @foreach($so->detail as $det)
+                                            @if($det->kode_group == '')
                                             <tr>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-{{$j}}" onclick="addData({{$j}})" value="{{$det->NO_STOCK}}" readonly>
                                                 </td>
                                                 <td>
-                                                    <textarea class="form-control form-control-sm" name="nm_stock[]" id="nm_stock-{{$j}}" rows="3">{{$det->NM_STOCK}} </textarea>
+                                                    <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-{{$j}}" rows="3">{{$det->NM_STOCK}} </textarea>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-{{$j}}" value="{{$det->KET}}">
@@ -305,7 +306,7 @@
                                                     <input type=" text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{$det->HARGA}}">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onload="itemTotal({{$j}})" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{$det->HARGA}}">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal({{$j}})" id="disc-{{$j}}" value="{{$det->DISC1}}">
@@ -339,7 +340,57 @@
                                                 <td style="display: none;" id="itemTotalDiscHead-{{$j}}"></td>
                                                 <td style="display: none;" id="itemBruto-{{$j}}"></td>
                                                 <td style="display: none;" id="itemTaxValue-{{$j}}"></td>
+                                                <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-{{$j}}" value="{{$det->kode_group}}"> </td>
                                             </tr>
+                                            @else
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-{{$j}}" value="{{$det->NO_STOCK}}" readonly>
+                                                </td>
+                                                <td>
+                                                    <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-{{$j}}" rows="3">{{$det->NM_STOCK}} </textarea>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-{{$j}}" value="{{$det->KET}}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal({{$j}})" id="qty-{{$j}}" value="{{$det->QTY}}">
+                                                </td>
+                                                <td>
+                                                    <input type=" text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{$det->HARGA}}" readonly>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal({{$j}})" id="disc-{{$j}}" value="{{$det->DISC1}}" readonly>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal({{$j}})" id="disc2-{{$j}}" value="{{$det->DISC2}}" readonly>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal({{$j}})" id="disc_val-{{$j}}" value="{{$det->DISCRP}}" readonly>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-{{$j}}" value="{{$det->JUMLAH}}" readonly>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control form-control-sm" name="tax[]" id="tax-{{$j}}" style="display: none;">
+                                                        <option value="" selected></option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-{{$j}}" onclick="" readonly>
+                                                </td>
+                                                <td style="display: none;" id="itemTotal-{{$j}}"></td>
+                                                <td style="display: none;" id="itemTax-{{$j}}"></td>
+                                                <td style="display: none;" id="itemDisc-{{$j}}"></td>
+                                                <td style="display: none;" id="itemTotalDiscHead-{{$j}}"></td>
+                                                <td style="display: none;" id="itemBruto-{{$j}}"></td>
+                                                <td style="display: none;" id="itemTaxValue-{{$j}}"></td>
+                                                <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-{{$j}}" value="{{$det->kode_group}}"> </td>
+                                            </tr>
+                                            @endif
                                             <?php $j++; ?>
                                             @endforeach
                                         </tbody>
@@ -362,21 +413,21 @@
                                         <label class="col-sm-4">Total Dpp</label>
                                         <div class="col-sm-8">
                                             <input type="hidden" name="totalBruto" id="totalBruto">
-                                            <input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
+                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Discount</label>
-                                        <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border " style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" placeholder="%" value="{{$so->head[0]->discH}}"></div>
-                                        <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border " style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" value="{{$so->head[0]->rp_disch}}"></div>
+                                        <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" placeholder="%" value="{{$so->head[0]->discH}}"></div>
+                                        <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" value="{{$so->head[0]->rp_disch}}"></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total PPn</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
                                     </div>
                                 </div>
                             </div>
@@ -514,23 +565,22 @@
     </div>
 </div>
 @endsection
+@push('other-modal')
+@include('modalBox.modalInventory')
+@endpush
 @push('other-script')
 <script>
     var rute = "{{ URL::to('salesOrder/data/populate') }}";
     var get_customer = "{{ URL::to('customerGetById') }}";
     var get_inventory = "{{ URL::to('inventory/data/populate') }}";
+    var get_SoItemChild = "{{ URL::to('inventoryChildGetByHead') }}";
     var get_statusSo = "{{ URL::to('salesOrderStatus') }}";
     var void_url = "{{ URL::to('salesOrder/void') }}";
     var base_url = "{{ route('salesOrder') }}";
     var url_default = "{{ URL('') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
-    var customer = <?= json_encode($customer); ?>;
 </script>
 <script src="{{ asset('js/transaction/salesOrder/salesOrder-add.js')}}"></script>
 <script src="{{ asset('js/transaction/salesOrder/salesOrder-edit.js')}}"></script>
-<script>
-
-</script>
-
 @endpush

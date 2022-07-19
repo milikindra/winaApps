@@ -340,7 +340,7 @@
                                         <label class="col-sm-4">Total Dpp</label>
                                         <div class="col-sm-8">
                                             <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
-                                            <input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
+                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -350,11 +350,11 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total PPn</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
                                     </div>
                                 </div>
                             </div>

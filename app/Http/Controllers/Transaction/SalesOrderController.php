@@ -120,6 +120,7 @@ class SalesOrderController extends Controller
 
     public function salesOrderAddSave(Request $request)
     {
+        // dd($request);
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/salesOrderAddSave';
@@ -177,11 +178,11 @@ class SalesOrderController extends Controller
                 "no_ref" => $request->input('quotation_ref'),
                 "alamatkirim" => $request->input('ship_to'),
                 "jenis" => $request->input('jenis'),
-                "totdetail" => $request->input('totalBruto'),
+                "totdetail" => (float)str_replace(',', '', $request->input('totalBruto')),
                 "rp_disch" => $request->input('discountValueHead'),
-                "ppntotdetail" => (float)$request->input('totalBruto') - (float)$request->input('discountValueHead'),
-                "uangmuka" => $request->input('totalDp'),
-                "uangmuka_ppn" => $request->input('totalDpTax')
+                "ppntotdetail" => (float)str_replace(',', '', $request->input('totalBruto')) - (float)str_replace(',', '', $request->input('discountValueHead')),
+                "uangmuka" => (float)str_replace(',', '', $request->input('totalDp')),
+                "uangmuka_ppn" => (float)str_replace(',', '', $request->input('totalDpTax'))
             ];
 
             $post_detail = [];
@@ -193,11 +194,11 @@ class SalesOrderController extends Controller
                         "NM_STOCK" => $request->input('nm_stock')[$i],
                         "QTY" => $request->input('qty')[$i],
                         "SAT" => $request->input('sat')[$i],
-                        "HARGA" => $request->input('price')[$i],
-                        "DISC1" => $request->input('disc')[$i],
-                        "DISC2" => $request->input('disc2')[$i],
+                        "HARGA" => (float)str_replace(',', '', $request->input('price')[$i]),
+                        "DISC1" => (float)str_replace(',', '', $request->input('disc')[$i]),
+                        "DISC2" => (float)str_replace(',', '', $request->input('disc2')[$i]),
                         "DISC3" => 0,
-                        "DISCRP" => $request->input('disc_val')[$i],
+                        "DISCRP" => (float)str_replace(',', '', $request->input('disc_val')[$i]),
                         "discrp2" => '0',
                         "state" => '',
                         "alasan" => '',
@@ -217,7 +218,7 @@ class SalesOrderController extends Controller
                     $post_dp[] = [
                         "NO_BUKTI" => $request->input('nomor'),
                         "keterangan" => $request->input('dp')[$i],
-                        "nilai" => $request->input('dp_value')[$i],
+                        "nilai" => (float)str_replace(',', '', $request->input('dp_value')[$i]),
                         "nourut" => $i + 1,
                         "tax" => $request->input('dp_tax')[$i],
                     ];
