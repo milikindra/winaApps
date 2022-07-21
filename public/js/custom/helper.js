@@ -69,22 +69,49 @@ function dtModalInventory(voids, kategori, subkategori) {
         columns: [{
             data: "no_stock",
             name: "no_stock",
-            ordering: false,
         },
         {
             data: "nama_barang",
             name: "nama_barang",
-            ordering: false,
         },
         {
             data: "sat",
             name: "sat",
-            ordering: false,
             className: "dt-body-center",
         },
         {
             data: "kodeBJ",
             name: "kodeBJ",
+            className: "dt-body-center",
+            render: function (data, type, row) {
+                if (data == 'I') {
+                    return 'Item';
+                } else {
+                    return 'Group';
+                }
+            },
+        },
+        {
+            data: "kodeBJ",
+            name: "kodeBJ",
+            className: "hidden",
+        },
+        {
+            data: "VINTRASID",
+            name: "VINTRASID",
+            className: "hidden",
+            render: function (data, type, row) {
+                return data;
+            },
+        },
+        {
+            data: "TAHUN",
+            name: "TAHUN",
+            className: "hidden",
+        },
+        {
+            data: "merk",
+            name: "merk",
             className: "hidden",
         },
         ],

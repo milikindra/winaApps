@@ -208,7 +208,9 @@ $(document).ready(function () {
 
     $('#vintrasTable tbody').on('dblclick', 'tr', function (e) {
         no_ref = $(this).closest("tr").children("td:eq(0)").text();
+        spesification = $(this).closest("tr").children("td:eq(1)").text();
         $('.vintrasId').val(no_ref);
+        $('.specificationName').val(spesification);
         $("#vintrasPeriod").modal("hide");
     })
 
@@ -329,7 +331,7 @@ function resetInventory() {
         .trigger("change");
 
     $("#aktif").prop("checked", true);
-    $("#konsinyansi").prop("checked", true);
+    $("#konsinyansi").prop("checked", false);
     $("#isMinus").prop("checked", false);
 }
 

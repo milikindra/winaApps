@@ -341,6 +341,9 @@
                                                 <td style="display: none;" id="itemBruto-{{$j}}"></td>
                                                 <td style="display: none;" id="itemTaxValue-{{$j}}"></td>
                                                 <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-{{$j}}" value="{{$det->kode_group}}"> </td>
+                                                <td style="display: none;"><input type="hidden" name="itemVintrasId[]" id="itemVintrasId-{{$j}}" value="{{$det->VINTRASID}}"> </td>
+                                                <td style="display: none;"><input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-{{$j}}" value="{{$det->tahun}}"> </td>
+                                                <td style="display: none;"><input type="hidden" name="merkItem[]" id="merkItem-{{$j}}" value="{{$det->merk}}"> </td>
                                             </tr>
                                             @else
                                             <tr>
@@ -389,6 +392,10 @@
                                                 <td style="display: none;" id="itemBruto-{{$j}}"></td>
                                                 <td style="display: none;" id="itemTaxValue-{{$j}}"></td>
                                                 <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-{{$j}}" value="{{$det->kode_group}}"> </td>
+                                                <td style="display: none;"><input type="hidden" name="itemVintrasId[]" id="itemVintrasId-{{$j}}" value="{{$det->VINTRASID}}"> </td>
+                                                <td style="display: none;"><input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-{{$j}}" value="{{$det->tahun}}"> </td>
+                                                <td style="display: none;"><input type="hidden" name="merkItem[]" id="merkItem-{{$j}}" value="{{$det->merk}}"> </td>
+
                                             </tr>
                                             @endif
                                             <?php $j++; ?>

@@ -120,7 +120,6 @@ class SalesOrderController extends Controller
 
     public function salesOrderAddSave(Request $request)
     {
-        // dd($request);
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/salesOrderAddSave';
@@ -158,6 +157,7 @@ class SalesOrderController extends Controller
                 "api_token" => $user_token,
                 "NO_BUKTI" => $request->input('nomor'),
                 "TGL_BUKTI" => $request->input('date_order'),
+                "tgl_due" => $request->input('date_due'),
                 "DIVISI" => $request->input('bu'),
                 "ID_CUST" => $request->input('customer'),
                 "NM_CUST" => $request->input('customer_name'),
@@ -193,6 +193,7 @@ class SalesOrderController extends Controller
                         "NO_STOCK" => $request->input('no_stock')[$i],
                         "NM_STOCK" => $request->input('nm_stock')[$i],
                         "QTY" => $request->input('qty')[$i],
+                        "KET" => $request->input('ket')[$i],
                         "SAT" => $request->input('sat')[$i],
                         "HARGA" => (float)str_replace(',', '', $request->input('price')[$i]),
                         "DISC1" => (float)str_replace(',', '', $request->input('disc')[$i]),
@@ -206,9 +207,10 @@ class SalesOrderController extends Controller
                         "tax" => $request->input('tax')[$i],
                         "kode_group" => '',
                         "qty_grup" => '0',
-                        "VINTRASID" => '',
-                        "tahun" => '',
-                        "kode_group" => $request->input('itemKodeGroup')[$i]
+                        "VINTRASID" =>  $request->input('itemVintrasId')[$i],
+                        "tahun" =>  $request->input('itemTahunVintras')[$i],
+                        "kode_group" => $request->input('itemKodeGroup')[$i],
+                        "merk" => $request->input('merkItem')[$i]
                     ];
                 }
             }
@@ -289,6 +291,7 @@ class SalesOrderController extends Controller
                 "api_token" => $user_token,
                 "NO_BUKTI" => $request->input('nomor'),
                 "TGL_BUKTI" => $request->input('date_order'),
+                "tgl_due" => $request->input('date_due'),
                 "DIVISI" => $request->input('bu'),
                 "ID_CUST" => $request->input('customer'),
                 "NM_CUST" => $request->input('customer_name'),
@@ -324,21 +327,24 @@ class SalesOrderController extends Controller
                         "NO_STOCK" => $request->input('no_stock')[$i],
                         "NM_STOCK" => $request->input('nm_stock')[$i],
                         "QTY" => $request->input('qty')[$i],
+                        "KET" => $request->input('ket')[$i],
                         "SAT" => $request->input('sat')[$i],
                         "HARGA" => $request->input('price')[$i],
                         "DISC1" => $request->input('disc')[$i],
                         "DISC2" => $request->input('disc2')[$i],
-                        "DISC3" => 0,
+                        "DISC3" => '0.00',
                         "DISCRP" => $request->input('disc_val')[$i],
-                        "discrp2" => '0',
+                        "discrp2" => '0.00',
                         "state" => '',
                         "alasan" => '',
                         "nourut" => $i + 1,
                         "tax" => $request->input('tax')[$i],
                         "kode_group" => '',
-                        "qty_grup" => '0',
-                        "VINTRASID" => '',
-                        "tahun" => ''
+                        "qty_grup" => '0.00',
+                        "VINTRASID" =>  $request->input('itemVintrasId')[$i],
+                        "tahun" =>  $request->input('itemTahunVintras')[$i],
+                        "kode_group" => $request->input('itemKodeGroup')[$i],
+                        "merk" => $request->input('merkItem')[$i]
                     ];
                 }
             }

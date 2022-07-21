@@ -88,7 +88,6 @@ class InventoryController extends Controller
             return json_encode($table);
         } catch (\Exception $e) {
             Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
-
             return abort(500);
         }
     }

@@ -23,7 +23,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <h3 class="card-title">Tambah Sales Order</h3>
+                                    <h3 class="card-title">Add Sales Order</h3>
                                     <div class="card-tools float-right">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
@@ -40,7 +40,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Id</label>
+                                                <label>SO</label>
                                                 <input type="text" class="form-control form-control-sm form-control-border" name="nomor" id="nomor" autofocus required>
                                             </div>
                                         </div>
@@ -48,7 +48,7 @@
                                             <div class="col-md-12">
                                                 <label>Customer</label>
                                                 <input type="hidden" name="customer_name" id="customer_name" autocomplete="off" required>
-                                                <select class="form-control form-control-sm selects2 form-control-border" id="customer" name="customer" style="width: 100%;" required>
+                                                <select class="form-control form-control-sm selects2 form-control-border " id="customer" name="customer" style="width: 100%;" required>
                                                 </select>
                                             </div>
                                         </div>
@@ -256,7 +256,7 @@
                                     <table class="table trx table-modal" id="trx" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th style="width: 5%">Id</th>
+                                                <th style="width: 5%">Item</th>
                                                 <th style="width: 10%">Name</th>
                                                 <th style="width: 5%">Desc</th>
                                                 <th style="width: 2%">Qty</th>
@@ -319,6 +319,9 @@
                                                 <td style="display: none;" id="itemBruto-0"></td>
                                                 <td style="display: none;" id="itemTaxValue-0"></td>
                                                 <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-0"> </td>
+                                                <td style="display: none;"><input type="hidden" name="itemVintrasId[]" id="itemVintrasId-0"> </td>
+                                                <td style="display: none;"><input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-0"> </td>
+                                                <td style="display: none;"><input type="hidden" name="merkItem[]" id="merkItem-0"> </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -337,7 +340,7 @@
                             <div class="row justify-content-end">
                                 <div class="col-3">
                                     <div class="form-group row">
-                                        <label class="col-sm-4">Total Dpp</label>
+                                        <label class="col-sm-4">Total DPP</label>
                                         <div class="col-sm-8">
                                             <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
                                             <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
@@ -384,7 +387,7 @@
                     <table class="table tbl_bu scroly" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 15%" style="text-align: center;">Bussiness Unit</th>
                                 <th style="width: 70%" style="text-align: center;">Description</th>
                                 <th style="width: 10%" style="text-align: center;">%</th>
                             </tr>
@@ -430,7 +433,7 @@
                     <table class="table tbl_dept" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 15%" style="text-align: center;">Department</th>
                                 <th style="width: 70%" style="text-align: center;">Description</th>
                                 <th style="width: 10%" style="text-align: center;">%</th>
                             </tr>

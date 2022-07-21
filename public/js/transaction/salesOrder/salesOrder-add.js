@@ -321,7 +321,15 @@ window.addRow = function (element) {
         rowCount +
         '" > </td> <td style="display:none" id = "itemTaxValue-' +
         rowCount +
-        '" > </td><td style="display:none"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-' + rowCount + '"> </td></tr > '
+        '" > </td><td style = "display:none" > <input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-' +
+        rowCount +
+        '"> </td><td style = "display:none" > <input type="hidden" name="itemVintrasId[]" id="itemVintrasId-' +
+        rowCount +
+        '"> </td><td style = "display:none" > <input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-' +
+        rowCount +
+        '"> </td><td style = "display:none" > <input type="hidden" name="merkItem[]" id="merkItem-' +
+        rowCount +
+        '"> </td></tr > '
     );
 };
 
@@ -340,7 +348,7 @@ function addData(uid) {
         // var table = $('#dtModalInventory').DataTable().row(this).data();
         if (uid == arr[arr.length - 1]) {
             no_stock = $(this).closest("tr").children("td:eq(0)").text();
-            kodeBJ = $(this).closest("tr").children("td:eq(3)").text();
+            kodeBJ = $(this).closest("tr").children("td:eq(4)").text();
             if (kodeBJ == 'G') {
                 $.ajax({
                     url: get_SoItemChild + "/" + no_stock,
@@ -361,6 +369,9 @@ function addData(uid) {
                             $("#tax-" + (uid + i + 1)).css('display', 'none');
                             $("#tax-" + (uid + i + 1)).html('<option selected value="" ></option>');
                             $("#itemKodeGroup-" + (uid + i + 1)).val(no_stock);
+                            $("#itemVintrasId-" + (uid + i + 1)).val(val.VINTRASID);
+                            $("#itemTahunVintras-" + (uid + i + 1)).val(val.tahun);
+                            $("#merkItem-" + (uid + i + 1)).val(val.merk);
                             $("#itemBruto-" + (uid + i + 1)).html('0');
                         });
                     },
@@ -371,6 +382,9 @@ function addData(uid) {
             $("#nm_stock-" + uid).html($(this).closest("tr").children("td:eq(1)").text());
             $("#qty-" + uid).val('1');
             $("#sat-" + uid).val($(this).closest("tr").children("td:eq(2)").text());
+            $("#itemVintrasId-" + (uid)).val($(this).closest("tr").children("td:eq(5)").text());
+            $("#itemTahunVintras-" + (uid)).val($(this).closest("tr").children("td:eq(6)").text());
+            $("#merkItem-" + (uid)).val($(this).closest("tr").children("td:eq(7)").text());
             e.stopImmediatePropagation();
         }
         $("#modalInventory").modal("hide");

@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-sm-1 isBj">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="konsinyansi" id="konsinyansi" checked></input>
+                                    <input type="checkbox" class="form-check-input" name="konsinyansi" id="konsinyansi"></input>
                                     <label class="form-check-label">CONSIGNMENT</label>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                         <div class="form-group row margbot-5">
                             <label class="col-sm-2" id="inventoryName"></label>
                             <div class="col-sm-10">
-                                <textarea class="form-control form-control-sm" name="nama_barang" id="nama_barang" rows="2" placeholder="Insert Name"></textarea>
+                                <textarea class="form-control form-control-sm specificationName" name="nama_barang" id="nama_barang" rows="2" placeholder="Insert Name"></textarea>
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
@@ -139,7 +139,7 @@
                             <table class="table trxInventory table-modal" id="trxInventory" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th style="width: 5%">Id</th>
+                                        <th style="width: 5%">Item</th>
                                         <th style="width: 10%">Name</th>
                                         <th style="width: 2%">Qty</th>
                                         <th style="width: 2%">UoM</th>
@@ -183,9 +183,13 @@
                     <table class="table tbl-sm " id="dtModalInventory" width="100%">
                         <thead>
                             <tr style="text-align: center;">
-                                <th style="text-align: center; width:15%">Id</th>
+                                <th style="text-align: center; width:15%">Item</th>
                                 <th style="text-align: center; width:70%">Name</th>
                                 <th style="text-align: center; width:15%">UoM</th>
+                                <th style="text-align: center; width:15%">Type</th>
+                                <th style="display:none"></th>
+                                <th style="display:none"></th>
+                                <th style="display:none"></th>
                                 <th style="display:none"></th>
                             </tr>
                         </thead>
