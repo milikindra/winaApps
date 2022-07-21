@@ -300,6 +300,7 @@
                                                     <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-{{$j}}" value="{{$det->KET}}">
                                                 </td>
                                                 <td>
+                                                    <input type="hidden" name="base_qty[]" id="base_qty-{{$j}}" value="{{$det->QTY}}">
                                                     <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal({{$j}})" id="qty-{{$j}}" value="{{$det->QTY}}">
                                                 </td>
                                                 <td>
@@ -357,25 +358,26 @@
                                                     <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-{{$j}}" value="{{$det->KET}}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal({{$j}})" id="qty-{{$j}}" value="{{$det->QTY}}">
+                                                    <input type="hidden" name="base_qty[]" id="base_qty-{{$j}}" value="{{$det->QTY}}">
+                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal({{$j}})" id="qty-{{$j}}" value="{{$det->QTY}}" readonly>
                                                 </td>
                                                 <td>
-                                                    <input type=" text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}">
+                                                    <input type=" text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}" readonly>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{$det->HARGA}}" readonly>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="display: none;" name="price[]" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{$det->HARGA}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal({{$j}})" id="disc-{{$j}}" value="{{$det->DISC1}}" readonly>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="display: none;" name="disc[]" onchange="itemTotal({{$j}})" id="disc-{{$j}}" value="{{$det->DISC1}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal({{$j}})" id="disc2-{{$j}}" value="{{$det->DISC2}}" readonly>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="display: none;" name="disc2[]" onchange="itemTotal({{$j}})" id="disc2-{{$j}}" value="{{$det->DISC2}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal({{$j}})" id="disc_val-{{$j}}" value="{{$det->DISCRP}}" readonly>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="display: none;" name="disc_val[]" onchange="itemTotal({{$j}})" id="disc_val-{{$j}}" value="{{$det->DISCRP}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-{{$j}}" value="{{$det->JUMLAH}}" readonly>
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="display: none;" name="total[]" id="total-{{$j}}" value="{{$det->JUMLAH}}">
                                                 </td>
                                                 <td>
                                                     <select class="form-control form-control-sm" name="tax[]" id="tax-{{$j}}" style="display: none;">
@@ -383,7 +385,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-{{$j}}" onclick="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-{{$j}}" onclick="" style="display: none;">
                                                 </td>
                                                 <td style="display: none;" id="itemTotal-{{$j}}"></td>
                                                 <td style="display: none;" id="itemTax-{{$j}}"></td>

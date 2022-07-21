@@ -282,6 +282,7 @@
                                                     <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-0">
                                                 </td>
                                                 <td>
+                                                    <input type="hidden" name="base_qty[]" id="base_qty-0">
                                                     <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0)" autocomplete="off" id="qty-0">
                                                 </td>
                                                 <td>

@@ -277,7 +277,9 @@ window.addRow = function (element) {
         rowCount +
         '" rows="3"></textarea> </td><td> <input type="text" class="form-control form-control-sm" name="ket[]" id="ket--' +
         rowCount +
-        '"> </td><td> <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" autocomplete="off"  id="qty-' +
+        '"> </td><td><input type="hidden" name="base_qty[]" id="base_qty-' +
+        rowCount +
+        '"> <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" autocomplete="off"  id="qty-' +
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
@@ -358,16 +360,22 @@ function addData(uid) {
                         jQuery.each(response.child, function (i, val) {
                             addRow();
                             $("#no_stock-" + (uid + i + 1)).attr('onclick', '');
-                            $("#no_stock-" + (uid + i + 1)).val(val.no_stock);
                             $("#nm_stock-" + (uid + i + 1)).html("--" + val.nama_barang);
-                            $("#qty-" + (uid + i + 1)).val(val.saldo);
-                            $("#sat-" + (uid + i + 1)).val(val.sat);
-                            $("#price-" + (uid + i + 1)).attr('readonly', true);
-                            $("#disc-" + (uid + i + 1)).attr('readonly', true);
-                            $("#disc2-" + (uid + i + 1)).attr('readonly', true);
-                            $("#disc_val-" + (uid + i + 1)).attr('readonly', true);
+                            $("#qty-" + (uid + i + 1)).attr('readonly', true);
+                            $("#sat-" + (uid + i + 1)).attr('readonly', true);
+                            $("#price-" + (uid + i + 1)).css('display', 'none');
+                            $("#disc-" + (uid + i + 1)).css('display', 'none');
+                            $("#disc2-" + (uid + i + 1)).css('display', 'none');
+                            $("#disc_val-" + (uid + i + 1)).css('display', 'none');
+                            $("#total-" + (uid + i + 1)).css('display', 'none');
                             $("#tax-" + (uid + i + 1)).css('display', 'none');
                             $("#tax-" + (uid + i + 1)).html('<option selected value="" ></option>');
+                            $("#state-" + (uid + i + 1)).css('display', 'none');
+
+                            $("#no_stock-" + (uid + i + 1)).val(val.no_stock);
+                            $("#base_qty-" + (uid + i + 1)).val(val.saldo);
+                            $("#qty-" + (uid + i + 1)).val(val.saldo);
+                            $("#sat-" + (uid + i + 1)).val(val.sat);
                             $("#itemKodeGroup-" + (uid + i + 1)).val(no_stock);
                             $("#itemVintrasId-" + (uid + i + 1)).val(val.VINTRASID);
                             $("#itemTahunVintras-" + (uid + i + 1)).val(val.tahun);
@@ -423,6 +431,17 @@ function itemTotal(uid) {
     $("#itemTotal-" + uid).html(total);
     $("#itemTaxValue-" + uid).html(itemTaxValue);
     totalDpp();
+
+    var no_stock = $('#no_stock-' + uid).val();
+    var myTab = document.getElementById("trx");
+    for (i = 1; i < myTab.rows.length; i++) {
+        var objCells = myTab.rows.item(i).cells;
+        if (objCells.item(18).children[0].value == no_stock) {
+            var saldo = $("#base_qty-" + (i - 1)).val();
+            $("#qty-" + (i - 1)).val(saldo * qty);
+        }
+    }
+
 }
 
 function totalDpp() {
@@ -435,7 +454,6 @@ function totalDpp() {
         var itemBruto = objCells.item(16).innerHTML != "" ? parseFloat(objCells.item(16).innerHTML) : 0;
         totalDpp += itemTotal;
         totalBruto += itemBruto;
-
     }
     $("#totalBruto").val(totalBruto);
     $("#totalDpp").val(totalDpp);
