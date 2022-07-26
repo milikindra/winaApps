@@ -34,7 +34,7 @@
 <!-- Toastr -->
 <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 <!-- editable select -->
-<!-- <script src="{{asset('plugins/jquery-editable-select/dist/jquery-editable-select.min.js')}}"></script> -->
+<script src="{{asset('plugins/jquery-editable-select/dist/jquery-editable-select.min.js')}}"></script>
 <!-- jquery contextmenu -->
 <script src="{{asset('plugins/jquery-contextmenu/dist/jquery.contextMenu.js')}}"></script>
 <script src="{{asset('plugins/jquery-contextmenu/dist/jquery.ui.position.min.js')}}"></script>
