@@ -730,7 +730,6 @@ $("#so_modal").on("click", function (e) {
     if (!nilai.includes('||')) {
         nilai += '||';
     }
-    console.log(nilai);
     var arr_nilai = nilai.split("||");
     var table = $(".tbl_so tbody");
     table.find("tr").each(function (i, el) {

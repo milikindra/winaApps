@@ -1,5 +1,11 @@
 $(".selects2").select2();
 $(document).ready(function () {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+    });
     var voids = "1";
     var kategori = "all";
     var subkategori = "all";
@@ -29,6 +35,173 @@ $(document).ready(function () {
                 window.location.reload();
             }, 0);
             this.submit();
+        });
+    });
+
+    $(function () {
+        $.contextMenu({
+            selector: '.trx tbody tr',
+            callback: function (key, options) {
+                var indexs_row = $(this).closest("tr").children("td:first").children().attr('id').substring(9);
+                var so = $('#nomor').val();
+                var id = $(this).closest("tr").children("td:first").children().val();
+                var state = $('#state-' + indexs_row).val();
+                var qty = $('#qty-' + indexs_row).val();
+                if (key == 'cancel') {
+                    if (state == 'Cancel') {
+                        // batal cancel
+                        Swal.fire({
+                            title: "Cancel Item!",
+                            text: "Are you sure not to cancel this item: " + id + "?",
+                            icon: "warning",
+                            confirmButtonColor: "#17a2b8",
+                            reverseButtons: true,
+                            showCancelButton: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let _token = $('meta[name="csrf-token"]').attr('content');
+                                $.ajax({
+                                    type: 'POST',
+                                    url: rute_saveState,
+                                    data: {
+                                        so: so,
+                                        item: id,
+                                        qty: qty,
+                                        state: '',
+                                        noteState: '',
+                                        _token: _token
+                                    },
+                                    dataType: "text",
+                                    success: function (resultData) {
+                                        refreshWindow();
+                                    },
+                                    error: function () {
+                                        Toast.fire({
+                                            icon: "danger",
+                                            title: "Something went wrong",
+                                        });
+                                    }
+                                });
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            title: "Cancel Item!",
+                            text: "Are you sure to cancel this item : " + id + "?",
+                            icon: "warning",
+                            confirmButtonColor: "#17a2b8",
+                            confirmButtonText: "Yes, Of Course",
+                            reverseButtons: true,
+                            showCancelButton: true,
+                            input: 'text',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let _token = $('meta[name="csrf-token"]').attr('content');
+                                $.ajax({
+                                    type: 'POST',
+                                    url: rute_saveState,
+                                    data: {
+                                        so: so,
+                                        item: id,
+                                        qty: qty,
+                                        state: 'B',
+                                        noteState: result.value,
+                                        _token: _token
+                                    },
+                                    dataType: "text",
+                                    success: function (resultData) {
+                                        refreshWindow();
+                                    },
+                                    error: function () {
+                                        Toast.fire({
+                                            icon: "danger",
+                                            title: "Something went wrong",
+                                        });
+                                    }
+                                });
+                            }
+                        })
+                    }
+                } else if (key == 'finish') {
+                    if (state == 'Finish') {
+                        Swal.fire({
+                            title: "Finish Item!",
+                            text: "Are you sure not to finish this item: " + id + "?",
+                            icon: "warning",
+                            confirmButtonColor: "#17a2b8",
+                            reverseButtons: true,
+                            showCancelButton: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let _token = $('meta[name="csrf-token"]').attr('content');
+                                $.ajax({
+                                    type: 'POST',
+                                    url: rute_saveState,
+                                    data: {
+                                        so: so,
+                                        item: id,
+                                        qty: qty,
+                                        state: '',
+                                        noteState: '',
+                                        _token: _token
+                                    },
+                                    dataType: "text",
+                                    success: function (resultData) {
+                                        refreshWindow();
+                                    },
+                                    error: function () {
+                                        Toast.fire({
+                                            icon: "danger",
+                                            title: "Something went wrong",
+                                        });
+                                    }
+                                });
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            title: "Finish Item!",
+                            text: "Are you sure to finish this item : " + id + "?",
+                            icon: "warning",
+                            confirmButtonColor: "#17a2b8",
+                            confirmButtonText: "Yes, Of Course",
+                            reverseButtons: true,
+                            showCancelButton: true,
+                            input: 'text',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let _token = $('meta[name="csrf-token"]').attr('content');
+                                $.ajax({
+                                    type: 'POST',
+                                    url: rute_saveState,
+                                    data: {
+                                        so: so,
+                                        item: id,
+                                        qty: qty,
+                                        state: 'F',
+                                        noteState: result.value,
+                                        _token: _token
+                                    },
+                                    dataType: "text",
+                                    success: function (resultData) {
+                                        refreshWindow();
+                                    },
+                                    error: function () {
+                                        Toast.fire({
+                                            icon: "danger",
+                                            title: "Something went wrong",
+                                        });
+                                    }
+                                });
+                            }
+                        })
+                    }
+                }
+            },
+            items: {
+                "cancel": { name: "Cancel" },
+                "finish": { name: "Finish" },
+            }
         });
     });
 });
@@ -66,6 +239,9 @@ $("#customer").change(function () {
         type: "GET",
         dataType: "JSON",
         success: function (response) {
+            // console.log(response);
+            $("#cmbShipping").html('');
+            $("#cmbShippingKey").val('');
             if (response.length > 0) {
                 $("#curr").val(response[0].curr);
                 $("#rate_cur").val(response[0].rate);
@@ -82,10 +258,31 @@ $("#customer").change(function () {
                     "\r\n" +
                     response[0].TELP;
                 $("#customer_address").html(customer_address);
+                $("#ship_to").html(customer_address);
+                var opt = '<option value="' + customer_address + '">Main Address</option>';
+                if (response[0].address_alias != '' && response[0].address_alias != 'null' && response[0].address_alias != null) {
+                    opt += '<option value="' + response[0].other_address + '">' + response[0].address_alias + '</option>';
+                }
+
+                if (response.length > 1) {
+                    for (var i = 1; i < response.length; i++) {
+                        opt += '<option value="' + response[i].other_address + '">' + response[i].address_alias + '</option>';
+                    }
+                }
+
+                $("#cmbShipping").html(opt);
+                $("#cmbShippingKey").val('Main Address');
             }
         },
     });
 });
+
+$("#cmbShipping").change(function () {
+    $("#ship_to").val('');
+    $("#ship_to").val($("#cmbShipping").val());
+    $("#cmbShippingKey").val($("#cmbShipping option:selected").text());
+});
+
 
 $("#sales").change(function () {
     var id_sales = $("#sales").val();
@@ -370,7 +567,6 @@ function addData(uid) {
                             $("#total-" + (uid + i + 1)).css('display', 'none');
                             $("#tax-" + (uid + i + 1)).css('display', 'none');
                             $("#tax-" + (uid + i + 1)).html('<option selected value="" ></option>');
-                            $("#state-" + (uid + i + 1)).css('display', 'none');
 
                             $("#no_stock-" + (uid + i + 1)).val(val.no_stock);
                             $("#base_qty-" + (uid + i + 1)).val(val.saldo);
@@ -441,7 +637,6 @@ function itemTotal(uid) {
             $("#qty-" + (i - 1)).val(saldo * qty);
         }
     }
-
 }
 
 function totalDpp() {

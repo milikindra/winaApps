@@ -40,7 +40,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Id</label>
+                                                <label>SO</label>
                                                 <input type="text" class="form-control form-control-sm form-control-border" name="nomor" id="nomor" autofocus required value="{{$so->head[0]->NO_BUKTI}}">
                                                 <input type="hidden" name="nomor_old" id="nomor_old" required value="{{$so->head[0]->NO_BUKTI}}" readonly>
                                             </div>
@@ -271,7 +271,7 @@
                                     <table class="table trx table-modal" id="trx" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th style="width: 5%">Id</th>
+                                                <th style="width: 5%">Item</th>
                                                 <th style="width: 10%">Name</th>
                                                 <th style="width: 5%">Desc</th>
                                                 <th style="width: 2%">Qty</th>
@@ -288,6 +288,13 @@
                                         <tbody>
                                             <?php $j = 0; ?>
                                             @foreach($so->detail as $det)
+                                            <?php
+                                            $state = '';
+                                            if ($det->state == 'F') {
+                                                $state = 'Finish';
+                                            } else if ($det->state == 'B') {
+                                                $state = 'Cancel';
+                                            } ?>
                                             @if($det->kode_group == '')
                                             <tr>
                                                 <td>
@@ -333,7 +340,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-{{$j}}" onclick="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-{{$j}}" value="{{$state}}" readonly>
                                                 </td>
                                                 <td style="display: none;" id="itemTotal-{{$j}}"></td>
                                                 <td style="display: none;" id="itemTax-{{$j}}"></td>
@@ -385,7 +392,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-{{$j}}" onclick="" style="display: none;">
+                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-{{$j}}" value="{{$state}}" readonly>
                                                 </td>
                                                 <td style="display: none;" id="itemTotal-{{$j}}"></td>
                                                 <td style="display: none;" id="itemTax-{{$j}}"></td>
@@ -419,7 +426,7 @@
                             <div class="row justify-content-end">
                                 <div class="col-3">
                                     <div class="form-group row">
-                                        <label class="col-sm-4">Total Dpp</label>
+                                        <label class="col-sm-4">Total DPP</label>
                                         <div class="col-sm-8">
                                             <input type="hidden" name="totalBruto" id="totalBruto">
                                             <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
@@ -546,7 +553,34 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="modalBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Inventory</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <table class="table" id="datatables" style="width: 100%;">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th style="width: 15%" style="text-align: center;">Id</th>
+                                <th style="width: 70%" style="text-align: center;">Name</th>
+                                <th style="width: 10%" style="text-align: center;">UoM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="modal fade" id="modalStateCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
@@ -573,6 +607,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 @push('other-modal')
 @include('modalBox.modalInventory')
@@ -584,6 +619,8 @@
     var get_inventory = "{{ URL::to('inventory/data/populate') }}";
     var get_SoItemChild = "{{ URL::to('inventoryChildGetByHead') }}";
     var get_statusSo = "{{ URL::to('salesOrderStatus') }}";
+    var get_customer = "{{ URL::to('customerGetById') }}";
+    var rute_saveState = "{{ URL::to('salesOrder/state') }}";
     var void_url = "{{ URL::to('salesOrder/void') }}";
     var base_url = "{{ route('salesOrder') }}";
     var url_default = "{{ URL('') }}";

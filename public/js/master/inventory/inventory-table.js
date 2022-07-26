@@ -106,7 +106,6 @@ $(document).ready(function () {
                     data: "kategori2",
                     name: "kategori2",
                 },
-
                 {
                     data: "no_stock",
                     render: function (data, type, row) {

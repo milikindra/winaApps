@@ -3,6 +3,8 @@
 <!-- jQuery Ui -->
 <link rel="stylesheet" href="{{ asset('plugins\jquery-ui\jquery-ui.min.css')}}">
 <link rel="stylesheet" href="{{ asset('plugins\jquery-ui\jquery-ui.theme.min.css')}}">
+<link rel="stylesheet" href="{{ asset('plugins\jquery-contextmenu/dist/jquery.contextMenu.css')}}">
+
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
 <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.css')}}">

@@ -360,7 +360,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="vintrasPeriod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">

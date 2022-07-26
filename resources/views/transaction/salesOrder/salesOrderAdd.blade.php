@@ -135,6 +135,9 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Ship To</label>
+                                                <select class="form-control form-control-sm" id="cmbShipping">
+                                                </select>
+                                                <input type="hidden" name="cmbShipping" id="cmbShippingKey" required>
                                                 <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="4" required></textarea>
                                             </div>
                                         </div>

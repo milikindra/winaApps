@@ -153,6 +153,10 @@ class SalesOrderController extends Controller
 
             $get_urut_detail = soGetLastDetail();
 
+            $post_customer = [
+                'address_alias' => $request->input('cmbShipping'),
+                'other_address' => $request->input('ship_to'),
+            ];
             $post_head = [
                 "api_token" => $user_token,
                 "NO_BUKTI" => $request->input('nomor'),
@@ -227,7 +231,12 @@ class SalesOrderController extends Controller
                 }
             }
 
-            $postData = ['head' => $post_head, 'detail' => $post_detail, 'um' => $post_dp];
+            $postData = [
+                'head' => $post_head,
+                'detail' => $post_detail,
+                'um' => $post_dp,
+                'customer' => $post_customer
+            ];
             $request->request->add(['api_token' => $user_token]);
             $client = new Client();
             $response = $client->request('POST', $url, [
@@ -568,6 +577,36 @@ class SalesOrderController extends Controller
             Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
 
             return abort(500);
+        }
+    }
+
+    public function salesOrderUpdateState(request $request)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/salesOrderUpdateState';
+
+            $post = [
+                "state" => $request->input('state'),
+                "alasan" => $request->input('noteState'),
+                "qty" => $request->input('qty')
+            ];
+            $where = ['NO_BUKTI' => $request->input('so'), 'NO_STOCK' => $request->input('item')];
+
+            $postData = ['post' => $post, 'where' => $where];
+            $request->request->add(['api_token' => $user_token]);
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $postData,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            Alert::toast($body->message, $body->result);
+            return $body;
+        } catch (\Exception $e) {
+            Alert::toast("500 - Failed to Update Data", 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return false;
         }
     }
 }

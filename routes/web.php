@@ -68,6 +68,7 @@ Route::group(
         Route::get('salesOrderPrint/{id}', [SalesOrderController::class, 'salesOrderPrint'])->name('salesOrderPrint')->middleware('userMatrix:T01.01');
         Route::get('salesOrderStatus/{id}', [SalesOrderController::class, 'salesOrderStatus'])->name('salesOrderStatus');
         Route::get('salesOrder/void/{id}', [SalesOrderController::class, 'salesOrderDelete'])->name('salesOrder/void');
+        Route::post('salesOrder/state', [SalesOrderController::class, 'salesOrderUpdateState'])->name('salesOrder/state')->middleware('userMatrix:T01.03');
 
         // salesInvoice
         Route::get('siGetEfaktur/{id}', [SalesInvoiceController::class, 'siGetEfaktur'])->name('siGetEfaktur');
@@ -153,9 +154,14 @@ Route::group(
         Route::get('inventoryChildGetByHead/{inv}', [InventoryController::class, 'inventoryChildGetByHead'])->name('inventoryChildGetByHead');
 
         // customer
+        Route::get('customer', [CustomerController::class, 'customerShow'])->name('customer')->middleware('userMatrix:M04.01');
         Route::get('customerGetById/{id}', [CustomerController::class, 'customerGetById'])->name('customerGetById');
         Route::get('customerGetForSi/{id}', [CustomerController::class, 'customerGetForSi'])->name('customerGetForSi');
         Route::get('customer/data/populate/{void}', [CustomerController::class, 'populate'])->name('customer/data/populate');
+        Route::post('customerAddSave', [CustomerController::class, 'customerAddSave'])->name('customerAddSave')->middleware('userMatrix:M04.02');
+        Route::get('customer/data/edit/{kode}', [CustomerController::class, 'customerEdit'])->name('customer/data/edit');
+        Route::post('customerUpdate', [CustomerController::class, 'customerUpdate'])->name('customerUpdate')->middleware('userMatrix:M04.03');
+
 
         // sales
         Route::get('sales/data/populate/{void}', [SalesController::class, 'populate'])->name('sales/data/populate');

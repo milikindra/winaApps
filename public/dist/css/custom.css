@@ -26,10 +26,14 @@ select.form-control-sm~.select2-container--default {
     font-size: 100%;
 }
 
+option:hover {
+    background-color: #17a2b8;
+}
 
 textarea.r1 {
     height: calc(1.8125rem + 2px) !important;
 }
+
 
 /* end select2 */
 
@@ -212,10 +216,34 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     font-size: 11px !important;
 }
 
+textarea.form-control {
+    min-height: calc(1.8125rem + 2px);
+}
+
 .input-group-sm .form-control {
     font-size: 11px !important;
 }
 
 .hidden {
     display: none;
+}
+
+#menu {
+    display: none;
+}
+
+.context-menu-hover {
+    background-color: #17a2b8 !important;
+}
+
+a {
+    color: #17a2b8;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: #117888;
+    text-decoration: none;
+    background-color: transparent;
 }
