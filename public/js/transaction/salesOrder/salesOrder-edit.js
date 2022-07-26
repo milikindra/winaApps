@@ -5,6 +5,7 @@ $(document).ready(function () {
     $("#frmSo .btn-xs").css("display", 'none');
     $("#frmSo .input-group-append-edit").css("display", 'none');
     $("#frmSo select").prop("disabled", true);
+    $("#cmbShippingKey").val($("#cmbShipping option:selected").text());
 });
 
 

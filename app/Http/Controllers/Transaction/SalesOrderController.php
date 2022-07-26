@@ -507,7 +507,7 @@ class SalesOrderController extends Controller
                 'http_errors' => false
             ]);
             $body = json_decode($response->getBody());
-
+            $id_cust = $body->so->head[0]->ID_CUST;
             $module = $this->module;
             $menu_name = session('user')->menu_name;
             $customer = customerGetRawData('NM_CUST', 'ASC');
@@ -516,6 +516,7 @@ class SalesOrderController extends Controller
             $dept = deptGetRawData();
             $inventory = inventoryGetRawData();
             $vat = vatGetRawData();
+            $branch = customerBranchGetById($id_cust);
 
             $data = [
                 'title' => $menu_name->$module->module_name,
@@ -528,6 +529,7 @@ class SalesOrderController extends Controller
                 'inventory' => $inventory,
                 'vat' => $vat,
                 'so' => $body->so,
+                'branch' => $branch
             ];
             return View('transaction.salesOrder.salesOrderDetail', $data);
         } catch (\Exception $e) {

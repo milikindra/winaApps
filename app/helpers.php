@@ -476,3 +476,19 @@ function vintrasGetData()
 
     return $moduleBody;
 }
+
+function customerBranchGetById($id)
+{
+    $user_token = session('user')->api_token;
+    $matrixUrl = Config::get('constants.api_url') . '/customerBranchGetById';
+    $jsone = array(
+        'api_token' => $user_token,
+        'user_id' => session('user')->user_id,
+        'id_cust' => $id,
+    );
+    $numberClient = new Client();
+    $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);
+    $moduleBody = json_decode($responseNumber->getBody());
+
+    return $moduleBody;
+}

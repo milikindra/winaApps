@@ -147,6 +147,25 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Ship To</label>
+                                                <input type="hidden" name="cmbShipping" id="cmbShippingKey" required>
+                                                <select class="form-control form-control-sm" id="cmbShipping">
+                                                    <?php
+                                                    if ($so->head[0]->alamatkirim == $so->head[0]->al_npwp) {
+                                                        echo "<option value='" . $so->head[0]->alamatkirim . "' selected>Main Address</option>";
+                                                    } else {
+                                                        echo "<option value='" . $so->head[0]->alamatkirim . "'>Main Address</option>";
+
+                                                        foreach ($branch as $b) {
+                                                            if ($b->address_alias == $so->head[0]->alamatkirim) {
+                                                                echo "<option value='" . $b->other_address . "' selected>" . $b->address_alias . "</option>";
+                                                            } else {
+                                                                echo "<option value='" . $b->other_address . "'>" . $b->address_alias . "</option>";
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <input type="hidden" name="cmbShipping" id="cmbShippingKey" required>
                                                 <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="4" required>{{$so->head[0]->alamatkirim}}</textarea>
                                             </div>
                                         </div>

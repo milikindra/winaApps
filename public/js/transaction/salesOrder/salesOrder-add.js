@@ -259,7 +259,7 @@ $("#customer").change(function () {
                     response[0].TELP;
                 $("#customer_address").html(customer_address);
                 $("#ship_to").html(customer_address);
-                var opt = '<option value="' + customer_address + '">Main Address</option>';
+                var opt = '<option value="' + response[0].al_npwp + '">Main Address</option>';
                 if (response[0].address_alias != '' && response[0].address_alias != 'null' && response[0].address_alias != null) {
                     opt += '<option value="' + response[0].other_address + '">' + response[0].address_alias + '</option>';
                 }
