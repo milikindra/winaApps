@@ -472,12 +472,13 @@ window.addRowDp = function (element) {
         rowCountDp +
         '"  autocomplete="off"  onchange="addDp(' + rowCountDp + ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-' +
         rowCountDp +
-        '" onchange="addDp(' + rowCountDp + ')"> </td> <td><select class="form-control form-control-sm" name="dp_tax[]" id="dp_tax-' +
+        '" onchange="addDp(' + rowCountDp + ')"> </td> <td><select class="form-control form-control-sm tax" name="dp_tax[]" id="dp_tax-' +
         rowCountDp +
         '" onchange="addDp(' + rowCountDp + ')">' +
         vatOption +
         '</select></td><td id="dp_tax_value-' + rowCountDp + '" style="display:none" ></td></tr>'
     );
+    getTax();
 };
 
 window.removeRowDp = function (element) {
@@ -553,7 +554,7 @@ window.addRow = function (element) {
         rowCount +
         ')">  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" autocomplete="off"  id="total-' +
         rowCount +
-        '" readonly> <td><select class="form-control form-control-sm" name="tax[]" id="tax-' +
+        '" readonly> <td><select class="form-control form-control-sm tax" name="tax[]" id="tax-' +
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
@@ -583,6 +584,7 @@ window.addRow = function (element) {
         rowCount +
         '"> </td></tr > '
     );
+    getTax();
 };
 
 window.removeRow = function (element) {
@@ -762,4 +764,23 @@ function totalPpn() {
     var grandTotal = totalDpp - discountValueHead + totalPpn;
     $("#totalPpn").val(totalPpn);
     $("#grandTotal").val(grandTotal);
+}
+
+function getTax() {
+    var sdate = $('#date_order').val();
+    $.ajax({
+        delay: 0,
+        url: get_vat + "/" + sdate,
+        type: "GET",
+        dataType: "JSON",
+        success: function (response) {
+            $('.tax').html('');
+            var html = '';
+            jQuery.each(response, function (i, val) {
+                html += "<option value='" + val.kode + "'>" + val.kode + "</option>";
+            });
+            $('.tax').html(html);
+            console.log(response);
+        },
+    });
 }

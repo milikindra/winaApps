@@ -98,13 +98,13 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Date</label>
-                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_order" id="date_order" value="{{date('Y-m-d')}}" required value="{{$so->head[0]->TGL_BUKTI}}">
+                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_order" id="date_order" required value="{{$so->head[0]->TGL_BUKTI}}" onchange="getTax()">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Due Date</label>
-                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_due" id="date_due" value="{{date('Y-m-d')}}" required value="{{$so->head[0]->tgl_due}}">
+                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_due" id="date_due" required value="{{$so->head[0]->tgl_due}}">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -236,9 +236,9 @@
                                                 <table class="table down_payment table-modal" id="down_payment" style="width: 100%;">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width:50%">Down Payment</th>
-                                                            <th style="width:30%">Value</th>
-                                                            <th style="width:20%">Tax</th>
+                                                            <th style="width:40%">Down Payment</th>
+                                                            <th style="width:20%">Value</th>
+                                                            <th style="width:30%">Tax</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -252,7 +252,7 @@
                                                                 <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-{{$i}}" onchange="addDp({{$i}})" value="{{$um->nilai}}">
                                                             </td>
                                                             <td>
-                                                                <select class="form-control form-control-sm" name="dp_tax[]" id="dp_tax-{{$i}}" onchange="addDp({{$i}})">
+                                                                <select class="form-control form-control-sm tax" name="dp_tax[]" id="dp_tax-{{$i}}" onchange="addDp({{$i}})">
                                                                     @foreach($vat as $v)
                                                                     @if($v->kode == $um->tax)
                                                                     <option value="{{$v->kode}}" selected>{{$v->kode}}</option>
@@ -352,7 +352,7 @@
                                                     <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-{{$j}}" value="{{$det->JUMLAH}}" readonly>
                                                 </td>
                                                 <td>
-                                                    <select class="form-control form-control-sm" name="tax[]" id="tax-{{$j}}" onchange="itemTotal({{$j}})">
+                                                    <select class="form-control form-control-sm tax" name="tax[]" id="tax-{{$j}}" onchange="itemTotal({{$j}})">
                                                         @foreach($vat as $v)
                                                         @if($v->kode == $det->tax)
                                                         <option value="{{$v->kode}}" selected>{{$v->kode}}</option>
@@ -575,34 +575,6 @@
         </div>
     </div>
 </div>
-
-<!-- <div class="modal fade" id="modalBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-info">
-                <h5 class="modal-title">Inventory</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <table class="table" id="datatables" style="width: 100%;">
-                        <thead>
-                            <tr style="text-align: center;">
-                                <th style="width: 15%" style="text-align: center;">Id</th>
-                                <th style="width: 70%" style="text-align: center;">Name</th>
-                                <th style="width: 10%" style="text-align: center;">UoM</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div class="modal fade" id="modalStateCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -643,6 +615,8 @@
     var get_SoItemChild = "{{ URL::to('inventoryChildGetByHead') }}";
     var get_statusSo = "{{ URL::to('salesOrderStatus') }}";
     var get_customer = "{{ URL::to('customerGetById') }}";
+    var get_vat = "{{ URL::to('vat/data/byDate') }}";
+    var rute_addBranch = "{{ URL::to('customer/addBranch') }}";
     var rute_saveState = "{{ URL::to('salesOrder/state') }}";
     var void_url = "{{ URL::to('salesOrder/void') }}";
     var base_url = "{{ route('salesOrder') }}";

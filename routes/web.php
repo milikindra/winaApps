@@ -177,6 +177,7 @@ Route::group(
         // vat
         Route::get('vat', [VatController::class, 'vatShow'])->name('vat')->middleware('userMatrix:M11.01');
         Route::get('vat/data/populate/{sdate}', [VatController::class, 'populate'])->name('vat/data/populate');
+        Route::get('vat/data/byDate/{sdate}', [VatController::class, 'byDate'])->name('vat/data/byDate');
     }
 );
 

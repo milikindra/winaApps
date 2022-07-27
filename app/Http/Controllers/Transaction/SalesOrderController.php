@@ -100,7 +100,7 @@ class SalesOrderController extends Controller
             $bu = bussinessUnitGetRawData();
             $dept = deptGetRawData();
             $inventory = inventoryGetRawData();
-            $vat = vatGetRawData();
+            $vat = vatGetData(date('Y-m-d'));
             $data = [
                 'title' => $menu_name->$module->module_name,
                 'parent_page' => $menu_name->$module->parent_name,
@@ -523,7 +523,7 @@ class SalesOrderController extends Controller
             $bu = bussinessUnitGetRawData();
             $dept = deptGetRawData();
             $inventory = inventoryGetRawData();
-            $vat = vatGetRawData();
+            $vat = vatGetData($body->so->head[0]->TGL_BUKTI);
             $branch = customerBranchGetById($id_cust);
 
             $data = [

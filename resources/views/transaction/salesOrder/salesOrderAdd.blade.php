@@ -90,7 +90,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Date</label>
-                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_order" id="date_order" value="{{date('Y-m-d')}}" required>
+                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_order" id="date_order" value="{{date('Y-m-d')}}" required onchange="getTax()">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -519,6 +519,7 @@
     var base_url = "{{ route('salesOrder') }}";
     var url_default = "{{ URL('') }}";
     var rute_addBranch = "{{ URL::to('customer/addBranch') }}";
+    var get_vat = "{{ URL::to('vat/data/byDate') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
 </script>
