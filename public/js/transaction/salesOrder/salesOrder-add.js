@@ -288,8 +288,14 @@ function useBranch() {
 
 $("#cmbShipping").change(function () {
     $("#ship_to").val('');
-    $("#ship_to").val($("#cmbShipping").val());
-    $("#cmbShippingKey").val($("#cmbShipping option:selected").text());
+    $("#cmbShippingKey").val('');
+    if ($("#cmbShipping").val() != '' && $("#cmbShipping").val() != null) {
+        $("#ship_to").val($("#cmbShipping").val());
+        $("#ship_to").attr($("readonly", false));
+        $("#cmbShippingKey").val($("#cmbShipping option:selected").text());
+    } else {
+        $("#ship_to").attr("readonly", true);
+    }
 });
 
 $("#addBranch").on("click", function (e) {
