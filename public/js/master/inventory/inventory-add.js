@@ -155,6 +155,10 @@ $(document).ready(function () {
                 dataType: "JSON",
             },
             columns: [{
+                data: "No_Nota",
+                name: "No_Nota",
+                className: "hidden",
+            }, {
                 data: "Kode_Ref",
                 name: "Kode_Ref",
             },
@@ -207,9 +211,13 @@ $(document).ready(function () {
     }
 
     $('#vintrasTable tbody').on('dblclick', 'tr', function (e) {
-        no_ref = $(this).closest("tr").children("td:eq(0)").text();
-        spesification = $(this).closest("tr").children("td:eq(1)").text();
-        $('.vintrasId').val(no_ref);
+        no_nota = $(this).closest("tr").children("td:eq(0)").text();
+        no_ref = $(this).closest("tr").children("td:eq(1)").text();
+        vintrasYear = $('#vintrasYear').val();
+        spesification = $(this).closest("tr").children("td:eq(2)").text();
+        $('.vintrasId').val(no_nota);
+        $('.vintrasRef').val(no_ref + "/" + no_nota);
+        $('.vintrasIdYear').val(vintrasYear);
         $('.specificationName').val(spesification);
         $("#vintrasPeriod").modal("hide");
     })

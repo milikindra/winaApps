@@ -27,17 +27,6 @@ $(document).ready(function () {
         itemTotal(i);
     }
 
-
-    $(function () {
-        $('#print').on('submit', function (e) {
-            e.preventDefault();
-            setTimeout(function () {
-                window.location.reload();
-            }, 0);
-            this.submit();
-        });
-    });
-
     $(function () {
         $.contextMenu({
             selector: '.trx tbody tr',
@@ -49,7 +38,6 @@ $(document).ready(function () {
                 var qty = $('#qty-' + indexs_row).val();
                 if (key == 'cancel') {
                     if (state == 'Cancel') {
-                        // batal cancel
                         Swal.fire({
                             title: "Cancel Item!",
                             text: "Are you sure not to cancel this item: " + id + "?",
@@ -289,10 +277,10 @@ $("#cmbShipping").change(function () {
     $("#cmbShippingKey").val('');
     if ($("#cmbShipping").val() != '' && $("#cmbShipping").val() != null) {
         $("#ship_to").val($("#cmbShipping").val());
-        $("#ship_to").attr($("readonly", false));
+        $("#ship_to").prop("readonly", false);
         $("#cmbShippingKey").val($("#cmbShipping option:selected").text());
     } else {
-        $("#ship_to").attr("readonly", true);
+        $("#ship_to").prop("readonly", true);
     }
 });
 
@@ -599,7 +587,6 @@ function addData(uid) {
     }
     $("#modalInventory").modal("show");
     $("#dtModalInventory").on("click", "tbody tr", function (e) {
-        // var table = $('#dtModalInventory').DataTable().row(this).data();
         if (uid == arr[arr.length - 1]) {
             no_stock = $(this).closest("tr").children("td:eq(0)").text();
             kodeBJ = $(this).closest("tr").children("td:eq(4)").text();
@@ -780,7 +767,6 @@ function getTax() {
                 html += "<option value='" + val.kode + "'>" + val.kode + "</option>";
             });
             $('.tax').html(html);
-            console.log(response);
         },
     });
 }
