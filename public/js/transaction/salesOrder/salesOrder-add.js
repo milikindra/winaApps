@@ -232,14 +232,16 @@ $('#customer').on('select2:opening', function (e) {
     }
 });
 
-$("#customer").change(function () {
+function getCustomer() {
     var id_cust = $("#customer").val();
+    $("#ship_to").val('');
+    $("#use_branch").prop('checked', false);
+    useBranch();
     $.ajax({
         url: get_customer + "/" + id_cust,
         type: "GET",
         dataType: "JSON",
         success: function (response) {
-            // console.log(response);
             $("#cmbShipping").html('');
             $("#cmbShippingKey").val('');
             if (response.length > 0) {
@@ -258,12 +260,10 @@ $("#customer").change(function () {
                     "\r\n" +
                     response[0].TELP;
                 $("#customer_address").html(customer_address);
-                $("#ship_to").html(customer_address);
-                var opt = '<option value="' + response[0].al_npwp + '">Main Address</option>';
+                var opt = '';
                 if (response[0].address_alias != '' && response[0].address_alias != 'null' && response[0].address_alias != null) {
                     opt += '<option value="' + response[0].other_address + '">' + response[0].address_alias + '</option>';
                 }
-
                 if (response.length > 1) {
                     for (var i = 1; i < response.length; i++) {
                         opt += '<option value="' + response[i].other_address + '">' + response[i].address_alias + '</option>';
@@ -271,11 +271,20 @@ $("#customer").change(function () {
                 }
 
                 $("#cmbShipping").html(opt);
-                $("#cmbShippingKey").val('Main Address');
             }
         },
     });
-});
+};
+
+function useBranch() {
+    if ($('#use_branch').is(":checked")) {
+        $("#cmbShipping").css("display", "block");
+        $("#cmbShipping").prop("selectedIndex", 0).trigger("change");
+    } else {
+        $('#ship_to').val('');
+        $("#cmbShipping").css("display", "none");
+    }
+};
 
 $("#cmbShipping").change(function () {
     $("#ship_to").val('');
@@ -283,6 +292,46 @@ $("#cmbShipping").change(function () {
     $("#cmbShippingKey").val($("#cmbShipping option:selected").text());
 });
 
+$("#addBranch").on("click", function (e) {
+    e.preventDefault();
+    if ($('#customer').val() != '' && $('#customer').val() != null) {
+        $('#modalAddBranch').modal('show');
+    }
+});
+
+$("#branch_save").on("click", function (e) {
+    e.preventDefault();
+    $('#modalAddBranch').modal('hide');
+    var id_cust = $('#customer').val();
+    var branch_name = $('#branch_name').val();
+    var branch_address = $('#branch_address').val();
+    var branch_tax = $('#branch_tax').val();
+    let _token = $("input[name=_token]").val();
+
+    $.ajax({
+        type: 'POST',
+        url: rute_addBranch,
+        data: {
+            id_cust: id_cust,
+            branch_name: branch_name,
+            branch_address: branch_address,
+            branch_tax: branch_tax,
+            _token: _token
+        },
+        dataType: 'json',
+        success: function (data) {
+            Toast.fire({
+                icon: "success",
+                title: "Successfully save data",
+            });
+        }
+    });
+
+    getCustomer();
+    $('#branch_name').val('');
+    $('#branch_address').val('');
+    $('#branch_tax').val('');
+});
 
 $("#sales").change(function () {
     var id_sales = $("#sales").val();

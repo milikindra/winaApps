@@ -1,13 +1,13 @@
 $(document).ready(function () {
     window.customerEdit = function (element) {
         resetCustomer();
+        $('#titleCustomer').html('Edit Customer')
         var kode = $(element).data("customer");
         $.ajax({
             url: rute_edit + "/" + kode,
             type: "GET",
             dataType: "JSON",
             success: function (response) {
-                console.log(response);
                 $("#kodeOld").val(kode);
                 $("#kode").val(kode);
                 $("#full_name").val(response.data.NM_CUST);
@@ -124,7 +124,7 @@ function removeRowChild() {
 }
 function customerAdd() {
     resetCustomer();
-    $('#titleInventory').html('Add Customer')
+    $('#titleCustomer').html('Add Customer')
     $('#formCustomer').prop('action', save_customer);
     $("#customerModal").modal("show");
 }

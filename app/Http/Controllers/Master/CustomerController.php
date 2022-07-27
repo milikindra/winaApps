@@ -304,4 +304,34 @@ class CustomerController extends Controller
             return redirect()->back();
         }
     }
+
+    public function addBranch(Request $request)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/customerAddBranch';
+            $post_branch = [
+                "customer_id" => $request['id_cust'],
+                "address_alias" => $request['branch_name'],
+                "other_address" => $request['branch_address'],
+                "tax_number" => $request['branch_tax'],
+                'user_modified' => session('user')->username,
+            ];
+            $postData = [
+                'branch' => $post_branch
+            ];
+            $request->request->add(['api_token' => $user_token]);
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $postData,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            $data = [
+                'result' => true
+            ];
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+        }
+    }
 }

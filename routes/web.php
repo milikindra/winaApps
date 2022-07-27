@@ -14,6 +14,7 @@ use App\Http\Controllers\Master\CategoryController;
 use App\Http\Controllers\Master\SubCategoryController;
 use App\Http\Controllers\Master\MerkController;
 use App\Http\Controllers\Master\AccountCoaController;
+use App\Http\Controllers\Master\VatController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Transaction\SalesInvoiceController;
 use App\Http\Controllers\Finance\GeneralLedgerController;
@@ -161,6 +162,7 @@ Route::group(
         Route::post('customerAddSave', [CustomerController::class, 'customerAddSave'])->name('customerAddSave')->middleware('userMatrix:M04.02');
         Route::get('customer/data/edit/{kode}', [CustomerController::class, 'customerEdit'])->name('customer/data/edit');
         Route::post('customerUpdate', [CustomerController::class, 'customerUpdate'])->name('customerUpdate')->middleware('userMatrix:M04.03');
+        Route::post('customer/addBranch', [CustomerController::class, 'addBRanch'])->name('customer/addBranch')->middleware('userMatrix:M04.01');
 
 
         // sales
@@ -171,6 +173,10 @@ Route::group(
 
         // vintras
         Route::get('vintras/data/populate/{period}', [VintrasController::class, 'populate'])->name('vintras/data/populate');
+
+        // vat
+        Route::get('vat', [VatController::class, 'vatShow'])->name('vat')->middleware('userMatrix:M11.01');
+        Route::get('vat/data/populate/{sdate}', [VatController::class, 'populate'])->name('vat/data/populate');
     }
 );
 

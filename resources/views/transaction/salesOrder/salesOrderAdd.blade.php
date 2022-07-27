@@ -48,7 +48,7 @@
                                             <div class="col-md-12">
                                                 <label>Customer</label>
                                                 <input type="hidden" name="customer_name" id="customer_name" autocomplete="off" required>
-                                                <select class="form-control form-control-sm selects2 form-control-border " id="customer" name="customer" style="width: 100%;" required>
+                                                <select class="form-control form-control-sm selects2 form-control-border " id="customer" name="customer" style="width: 100%;" onchange="getCustomer()" required>
                                                 </select>
                                             </div>
                                         </div>
@@ -134,10 +134,14 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Ship To</label>
-                                                <select class="form-control form-control-sm" id="cmbShipping">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" name="use_branch" id="use_branch" onchange="useBranch()"></input>
+                                                    <label class="form-check-label">Use Branch</label>
+                                                </div>
+                                                <label>Ship To | <a href="javascript:void(0)" id="addBranch">Add Branch</a></label>
+                                                <select class="form-control form-control-sm" id="cmbShipping" style="display: none;">
                                                 </select>
-                                                <input type="hidden" name="cmbShipping" id="cmbShippingKey" required>
+                                                <input type="hidden" name="cmbShipping" id="cmbShippingKey">
                                                 <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="4" required></textarea>
                                             </div>
                                         </div>
@@ -425,7 +429,6 @@
 <div class="modal fade" id="modalDept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-
             <div class="modal-header bg-info">
                 <h5 class="modal-title">Department</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -468,6 +471,41 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalAddBranch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Add Branch</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="form-group row margbot-5 col-sm-12">
+                        <label class="col-sm-1">Branch Name</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control form-control-sm" name="branch_name" id="branch_name">
+                        </div>
+                        <label class="col-sm-1">Branch Address</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control form-control-sm" name="branch_address" id="branch_address">
+                        </div>
+                        <label class="col-sm-1">Tax Number (NPWP)</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control form-control-sm" name="branch_tax" id="branch_tax">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                <button type="button" id="branch_save" class="btn btn-info">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @push('other-modal')
 @include('modalBox.modalInventory')
@@ -480,6 +518,7 @@
     var get_SoItemChild = "{{ URL::to('inventoryChildGetByHead') }}";
     var base_url = "{{ route('salesOrder') }}";
     var url_default = "{{ URL('') }}";
+    var rute_addBranch = "{{ URL::to('customer/addBranch') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
 </script>

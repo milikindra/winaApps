@@ -20,8 +20,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-12"><a href="{{ route('employeeAdd')}}" class="btn btn-info btn-sm btn-block">
-                                    Add Employee
+                            <div class="col-12"><a href="" class="btn btn-info btn-sm btn-block">
+                                    Add Vat
                                 </a>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="card-title">Employee Data</h3>
+                                <h3 class="card-title">Vat Data</h3>
                             </div>
                         </div>
                     </div>
@@ -43,20 +43,14 @@
                         <table id="datatables" class="table table-bordered table-striped tbl-sm" width="100%">
                             <thead>
                                 <tr style="text-align: center;">
-                                    <th>Employee Id</th>
-                                    <th>Full Name</th>
-                                    <th>Nationalty Id</th>
-                                    <th>Date Birth</th>
-                                    <th>Blood Type</th>
-                                    <th>Religion</th>
-                                    <th>Address</th>
-                                    <th>Telp.</th>
-                                    <th>Department</th>
+                                    <th>Code</th>
+                                    <th>Vat</th>
+                                    <th>%</th>
+                                    <th>Effective Date</th>
                                     <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                             </tbody>
                         </table>
                     </div>
@@ -68,14 +62,9 @@
 @endsection
 @push('other-script')
 <script>
-    var rute = "{{ URL::to('employee/data/populate') }}";
-    var base_url = "{{ route('employee') }}";
+    var rute = "{{ URL::to('vat/data/populate') }}";
+    var base_url = "{{ route('vat') }}";
     var url_default = "{{ URL('') }}";
-    var fullDate = new Date();
-    var twoDigitMonth = ("0" + (fullDate.getMonth() + 1)).slice(-2);
-    var lastDay = new Date(fullDate.getFullYear(), fullDate.getMonth() + 1, 0);
-    var sdate = "01" + "-" + twoDigitMonth + "-" + fullDate.getFullYear();
-    var edate = lastDay.getDate() + "-" + twoDigitMonth + "-" + fullDate.getFullYear();
 </script>
-<script src="{{ asset('js/master/employee/employee-table.js')}}"></script>
+<script src="{{ asset('js/master/vat/vat-table.js')}}"></script>
 @endpush

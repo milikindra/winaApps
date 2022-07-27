@@ -153,10 +153,17 @@ class SalesOrderController extends Controller
 
             $get_urut_detail = soGetLastDetail();
 
-            $post_customer = [
-                'address_alias' => $request->input('cmbShipping'),
-                'other_address' => $request->input('ship_to'),
-            ];
+            $use_branch = '0';
+            $post_customer = [];
+            if ($request->input('use_branch') == 'on') {
+                $use_branch = '1';
+                $post_customer = [
+                    'address_alias' => $request->input('cmbShipping'),
+                    'other_address' => $request->input('ship_to'),
+                ];
+            }
+
+
             $post_head = [
                 "api_token" => $user_token,
                 "NO_BUKTI" => $request->input('nomor'),
@@ -186,7 +193,8 @@ class SalesOrderController extends Controller
                 "rp_disch" => $request->input('discountValueHead'),
                 "ppntotdetail" => (float)str_replace(',', '', $request->input('totalBruto')) - (float)str_replace(',', '', $request->input('discountValueHead')),
                 "uangmuka" => (float)str_replace(',', '', $request->input('totalDp')),
-                "uangmuka_ppn" => (float)str_replace(',', '', $request->input('totalDpTax'))
+                "uangmuka_ppn" => (float)str_replace(',', '', $request->input('totalDpTax')),
+                "use_branch" => $use_branch,
             ];
 
             $post_detail = [];
