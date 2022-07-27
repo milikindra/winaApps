@@ -216,7 +216,6 @@ $(document).ready(function () {
         vintrasYear = $('#vintrasYear').val();
         spesification = $(this).closest("tr").children("td:eq(2)").text();
         $('.vintrasId').val(no_nota);
-        $('.vintrasRef').val(no_ref + "/" + no_nota);
         $('.vintrasIdYear').val(vintrasYear);
         $('.specificationName').val(spesification);
         $("#vintrasPeriod").modal("hide");

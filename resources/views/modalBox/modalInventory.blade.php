@@ -60,8 +60,7 @@
                             <label class="col-sm-2 isBj">Vintras Id</label>
                             <div class="col-sm-4 isBj">
                                 <input type="hidden" class="vintrasIdYear" name="vintrasIdYear" id="vintrasIdYear">
-                                <input type="hidden" class="vintrasId" name="vintrasId" id="vintrasId">
-                                <input type="text" class="form-control form-control-sm vintrasRef" name="vintrasRef" id="vintrasRef" placeholder="Does Not Have Vintras Id" readonly>
+                                <input type="text" class="form-control form-control-sm vintrasId" name="vintrasId" id="vintrasId" placeholder="Does Not Have Vintras Id" readonly>
                             </div>
                         </div>
                         <div class="form-group row margbot-5">
