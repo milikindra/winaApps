@@ -133,7 +133,6 @@
                                                 </select>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-2">
@@ -141,29 +140,34 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Customer Address</label>
-                                                <textarea class="form-control form-control-sm" name="customer_address" id="customer_address" rows="4"></textarea>
+                                                <textarea class="form-control form-control-sm" name="customer_address" id="customer_address" rows="4">{{$so->head[0]->ALAMAT1."\r\n".$so->head[0]->ALAMAT2."\r\n".$so->head[0]->KOTA."\r\n".$so->head[0]->PROPINSI}}
+                                                </textarea>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <div class="form-check">
+                                                    @if($so->head[0]->use_branch=='1')
+                                                    <input type="checkbox" class="form-check-input" name="use_branch" id="use_branch" onchange="useBranch()" checked></input>
+                                                    @else
+                                                    <input type="checkbox" class="form-check-input" name="use_branch" id="use_branch" onchange="useBranch()"></input>
+                                                    @endif
+                                                    <label class="form-check-label">Use Branch</label>
+                                                </div>
                                                 <label>Ship To</label>
-                                                <input type="hidden" name="cmbShipping" id="cmbShippingKey" required>
-                                                <select class="form-control form-control-sm" id="cmbShipping">
-                                                    <?php
-                                                    if ($so->head[0]->alamatkirim == $so->head[0]->al_npwp) {
-                                                        echo "<option value='" . $so->head[0]->alamatkirim . "' selected>Main Address</option>";
+                                                <?php if ($so->head[0]->use_branch == '1') {
+                                                    echo '<select class="form-control form-control-sm" id="cmbShipping" style="display: block;">';
+                                                } else {
+                                                    echo '<select class="form-control form-control-sm" id="cmbShipping" style="display: none;">';
+                                                }
+                                                foreach ($branch as $b) {
+                                                    if ($b->address_alias == $so->head[0]->alamatkirim) {
+                                                        echo "<option value='" . $b->other_address . "' selected>" . $b->address_alias . "</option>";
                                                     } else {
-                                                        echo "<option value='" . $so->head[0]->alamatkirim . "'>Main Address</option>";
-
-                                                        foreach ($branch as $b) {
-                                                            if ($b->address_alias == $so->head[0]->alamatkirim) {
-                                                                echo "<option value='" . $b->other_address . "' selected>" . $b->address_alias . "</option>";
-                                                            } else {
-                                                                echo "<option value='" . $b->other_address . "'>" . $b->address_alias . "</option>";
-                                                            }
-                                                        }
+                                                        echo "<option value='" . $b->other_address . "'>" . $b->address_alias . "</option>";
                                                     }
-                                                    ?>
+                                                }
+                                                ?>
                                                 </select>
                                                 <input type="hidden" name="cmbShipping" id="cmbShippingKey" required>
                                                 <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="4" required>{{$so->head[0]->alamatkirim}}</textarea>

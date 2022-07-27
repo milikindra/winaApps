@@ -205,9 +205,9 @@
                                                 <table class="table down_payment table-modal" id="down_payment" style="width: 100%;">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width:50%">Down Payment</th>
-                                                            <th style="width:30%">Value</th>
-                                                            <th style="width:20%">Tax</th>
+                                                            <th style="width:40%">Down Payment</th>
+                                                            <th style="width:20%">Value</th>
+                                                            <th style="width:30%">Tax</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -219,7 +219,7 @@
                                                                 <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-0" autocomplete="off" onchange="addDp(0)">
                                                             </td>
                                                             <td>
-                                                                <select class="form-control form-control-sm" name="dp_tax[]" id="dp_tax-0" onchange="addDp(0)">
+                                                                <select class="form-control form-control-sm tax" name="dp_tax[]" id="dp_tax-0" onchange="addDp(0)">
                                                                     @foreach($vat as $v)
                                                                     <option value="{{$v->kode}}">{{$v->kode}}</option>
                                                                     @endforeach
@@ -311,7 +311,7 @@
                                                     <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-0" readonly>
                                                 </td>
                                                 <td>
-                                                    <select class="form-control form-control-sm" name="tax[]" id="tax-0" onchange="itemTotal(0)">
+                                                    <select class="form-control form-control-sm tax" name="tax[]" id="tax-0" onchange="itemTotal(0)">
                                                         @foreach($vat as $v)
                                                         <option value="{{$v->kode}}">{{$v->kode}}</option>
                                                         @endforeach

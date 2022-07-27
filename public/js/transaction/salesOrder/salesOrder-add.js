@@ -256,9 +256,7 @@ function getCustomer() {
                     "\r\n" +
                     response[0].KOTA +
                     "\r\n" +
-                    response[0].PROPINSI +
-                    "\r\n" +
-                    response[0].TELP;
+                    response[0].PROPINSI;
                 $("#customer_address").html(customer_address);
                 var opt = '';
                 if (response[0].address_alias != '' && response[0].address_alias != 'null' && response[0].address_alias != null) {
