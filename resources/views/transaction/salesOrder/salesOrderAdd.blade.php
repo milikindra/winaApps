@@ -392,7 +392,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <table class="table tbl_bu scroly" style="width: 100%;">
+                    <table class="table tbl_bu tbl-sm scroly" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th style="width: 15%" style="text-align: center;">Bussiness Unit</th>
@@ -419,8 +419,8 @@
                 </div>
             </div>
             <div class=" modal-footer justify-content-between">
-                <button type="submit" id="bu_save" class="btn btn-info">Save</button>
                 <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                <button type="submit" id="bu_save" class="btn btn-info">Save</button>
             </div>
         </div>
     </div>
@@ -437,7 +437,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <table class="table tbl_dept" style="width: 100%;">
+                    <table class="table tbl_dept tbl-sm scroly" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
                                 <th style="width: 15%" style="text-align: center;">Department</th>
@@ -464,8 +464,8 @@
                 </div>
             </div>
             <div class=" modal-footer justify-content-between">
-                <button type="submit" id="dept_save" class="btn btn-info">Save</button>
                 <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
+                <button type="submit" id="dept_save" class="btn btn-info">Save</button>
             </div>
         </div>
     </div>
