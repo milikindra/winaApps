@@ -72,7 +72,7 @@
                                     <label class="col-sm-2 col-form-label">Customer</label>
                                     <div class="col-sm-4">
                                         <input type="hidden" name="trNmCustomer" id="trNmCustomer" required>
-                                        <select class="form-control selects2 form-control-border" style="width: 100%;" name="trCustomer" id="trCustomer" required>
+                                        <select class="form-control form-control-sm selects2 form-control-border" style="width: 100%;" name="trCustomer" id="trCustomer" required>
                                             <option selected disabled></option>
                                             @foreach($customer as $c)
                                             <option value="{{$c->ID_CUST}}">{{$c->NM_CUST}}</option>
@@ -83,13 +83,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label"></label>
                                     <div class="col-sm-4">
-                                        <textarea class="form-control form-control-border" name="trAddress" id="trAddress"></textarea>
+                                        <textarea class="form-control form-control-sm form-control-border" name="trAddress" id="trAddress"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">To</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trTo" id="trTo" value="Accounting/Finnance Dept" required>
+                                        <input type="text" class="form-control form-control-sm form-control-border" name="trTo" id="trTo" value="Accounting/Finnance Dept" required>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                     <div class="col-sm-8 form-inline">
                                         <input class="custom-control-input custom-control-input-dark custom-control-input-outline" type="checkbox" id="trEmailCb">
                                         <label for="trEmailCb" class="custom-control-label">Email to : </label>
-                                        <input type="email" class="form-control form-control-border" name="trEmailCb" style="width: 40%;" id="trEmailCb" value="finance-ar@viktori-automation.com">
+                                        <input type="email" class="form-control form-control-sm form-control-border" name="trEmailCb" style="width: 40%;" id="trEmailCb" value="finance-ar@viktori-automation.com">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -135,31 +135,31 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trReceivedName" id="trReceivedName">
+                                        <input type="text" class="form-control form-control-sm form-control-border" name="trReceivedName" id="trReceivedName">
                                     </div>
                                     <label class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trSenderdName" id="trSenderdName" value="{{session('user')->full_name}}" required>
+                                        <input type="text" class="form-control form-control-sm form-control-border" name="trSenderdName" id="trSenderdName" value="{{session('user')->full_name}}" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Date</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trReceiveDate" id="trReceiveDate">
+                                        <input type="text" class="form-control form-control-sm form-control-border" name="trReceiveDate" id="trReceiveDate">
                                     </div>
                                     <label class="col-sm-2 col-form-label">Date</label>
                                     <div class="col-sm-4">
-                                        <input type="date" class="form-control form-control-border" name="trSenderDate" id="trSenderDate" value="{{date('Y-m-d')}}" required>
+                                        <input type="date" class="form-control form-control-sm form-control-border" name="trSenderDate" id="trSenderDate" value="{{date('Y-m-d')}}" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Signature</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trSignature" id="trSignature">
+                                        <input type="text" class="form-control form-control-sm form-control-border" name="trSignature" id="trSignature">
                                     </div>
                                     <label class="col-sm-2 col-form-label">Signature</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-border" name="trSignature" id="trSignature">
+                                        <input type="text" class="form-control form-control-sm form-control-border" name="trSignature" id="trSignature">
                                     </div>
                                 </div>
                             </div>
