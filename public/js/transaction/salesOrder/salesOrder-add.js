@@ -241,6 +241,7 @@ $('#customerSearch').focus(function () {
 $('#customerSearch').focusout(function () {
     $('#customer_name').val($("#customerList option[value='" + $('#customerSearch').val() + "']").attr('data-name'));
     $('#customer').val($("#customerList option[value='" + $('#customerSearch').val() + "']").attr('data-id'));
+    getCustomer();
 });
 
 function getCustomer() {
