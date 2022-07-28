@@ -34,7 +34,7 @@
       @yield('main-content')
     </div>
 
-    @include('template.footer')
+    <!-- @include('template.footer') -->
     @include('sweetalert::alert')
   </div>
 
@@ -45,6 +45,7 @@
   {{-- Modal --}}
   @stack('other-modal')
   {{-- End Modal --}}
+  @include('template.footer')
 </body>
 
 </html>

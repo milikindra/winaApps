@@ -115,7 +115,7 @@ function dataReport() {
         for (i = 0; i < tbodyRowCount; i++) {
             datas[i] = new Object();
             datas[i].ket = $('#commision_desc-' + i).val();
-            datas[i].value = parseFloat(removePeriod($('#commision_value-' + i).val(),','));
+            datas[i].value = parseFloat(removePeriod($('#commision_value-' + i).val(), ','));
             datas[i].type = $('#commision_type-' + i).val();
         }
         let _token = $('meta[name="csrf-token"]').attr('content');
@@ -479,7 +479,7 @@ function tablePnlProjectList() {
                 html += '<td>' + item.no_po + '</td>';
                 html += '<td>' + item.Tag + '</td>';
                 html += '<td style="text-align:center">' + moment(item.tgl_Last_DO).format("DD/MM/YYYY") + '</td>';
-                html += '<td style="text-align:center">' + tgl_clear  +
+                html += '<td style="text-align:center">' + tgl_clear +
                     '</td>';
                 html += '<td>' + umur + '</td>';
                 html += '<td>' + moment(item.tgl_create_cr).format("DD/MM/YYYY") + '</td>';

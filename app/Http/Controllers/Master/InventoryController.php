@@ -170,36 +170,36 @@ class InventoryController extends Controller
                 'http_errors' => false
             ]);
             $body = json_decode($response->getBody());
-            if (isset($body->result) && $body->result) {
-                $data = [
-                    'result' => true
-                ];
-                Alert::toast($body->message, 'success');
+            // if (isset($body->result) && $body->result) {
+            //     // $data = [
+            //     //     'result' => true
+            //     // ];
+            //     // Alert::toast($body->message, 'success');
 
-                return redirect()->back();
-            } else {
-                if (!isset($body->result)) {
-                    $errors = [];
-                    foreach ($body as $field => $msg) {
-                        array_push($errors, $msg[0]);
-                    }
-                    return response()->json([
-                        'result' => FALSE,
-                        'errors' => $errors
-                    ]);
-                } else {
-                    return response()->json([
-                        'result' => FALSE,
-                        'message' => $body->message
-                    ]);
-                }
-                Alert::toast($body->message, 'danger');
-                return redirect()->back();
-            }
+            //     // return redirect()->back();
+            // } else {
+            //     if (!isset($body->result)) {
+            //         $errors = [];
+            //         foreach ($body as $field => $msg) {
+            //             array_push($errors, $msg[0]);
+            //         }
+            //     } else {
+            //         // return response()->json([
+            //         //     'result' => FALSE,
+            //         //     'message' => $body->message
+            //         // ]);
+            //     }
+            //     // Alert::toast($body->message, 'danger');
+            //     // return redirect()->back();
+            // }
+            return json_encode($body);
         } catch (\Exception $e) {
-            Alert::toast("500", 'danger');
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-            return abort(500);
+            $data = [
+                "result" => false,
+                'message' => "Something went wrong."
+            ];
+            return json_encode($data);
         }
     }
 

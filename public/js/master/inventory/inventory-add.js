@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+    });
     window.inventoryEdit = function (element) {
         resetInventory();
         var inv = $(element).data("inventory");
@@ -221,12 +227,11 @@ $(document).ready(function () {
         $("#vintrasPeriod").modal("hide");
     })
 
-    $('#btnAddSave').on('click', function (e) {
+    $('#addSaveInventory').on('click', function (e) {
         if ($('#kode').val() != '') {
-            if ($('#kodeBJ') == "I") {
+            if ($('#kodeBJ').val() == "I") {
                 if ($('#vintrasId').val() == "") {
                     e.preventDefault();
-                    var form = $(this).parents('form');
                     Swal.fire({
                         title: "Are you sure?",
                         text: "This Item Does Not Have Vintras Id",
@@ -238,10 +243,119 @@ $(document).ready(function () {
                         reverseButtons: true,
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            form.submit();
+                            $("#overlay").fadeIn(300);
+                            var datastring = $("#formInventory").serialize();
+                            let _token = $('meta[name="csrf-token"]').attr('content');
+                            $.ajax({
+                                type: 'POST',
+                                url: save_inventory,
+                                data: datastring,
+                                dataType: "text",
+                                success: function (resultData) {
+                                    var msg = JSON.parse(resultData);
+                                    setTimeout(function () {
+                                        $("#overlay").fadeOut(300);
+                                    }, 500);
+                                    $("#inventoryModal").modal("hide");
+                                    if (msg.result == false) {
+                                        Toast.fire({
+                                            icon: "error",
+                                            title: "Something went wrong",
+                                        });
+                                    } else {
+                                        Toast.fire({
+                                            icon: "success",
+                                            title: "Success insert data",
+                                        });
+                                    }
+                                },
+                                error: function () {
+                                    setTimeout(function () {
+                                        $("#overlay").fadeOut(300);
+                                    }, 500);
+                                    Toast.fire({
+                                        icon: "error",
+                                        title: "Something went wrong",
+                                    });
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $("#overlay").fadeIn(300);
+                    var datastring = $("#formInventory").serialize();
+                    let _token = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        type: 'POST',
+                        url: save_inventory,
+                        data: datastring,
+                        dataType: "text",
+                        success: function (resultData) {
+                            var msg = JSON.parse(resultData);
+                            setTimeout(function () {
+                                $("#overlay").fadeOut(300);
+                            }, 500);
+                            $("#inventoryModal").modal("hide");
+                            if (msg.result == false) {
+                                Toast.fire({
+                                    icon: "error",
+                                    title: "Something went wrong",
+                                });
+                            } else {
+                                Toast.fire({
+                                    icon: "success",
+                                    title: "Success insert data",
+                                });
+                            }
+                        },
+                        error: function () {
+                            setTimeout(function () {
+                                $("#overlay").fadeOut(300);
+                            }, 500);
+                            Toast.fire({
+                                icon: "error",
+                                title: "Something went wrong",
+                            });
                         }
                     });
                 }
+            } else {
+                $("#overlay").fadeIn(300);
+                var datastring = $("#formInventory").serialize();
+                let _token = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type: 'POST',
+                    url: save_inventory,
+                    data: datastring,
+                    dataType: "text",
+                    success: function (resultData) {
+                        var msg = JSON.parse(resultData);
+                        setTimeout(function () {
+                            $("#overlay").fadeOut(300);
+                        }, 500);
+                        $("#inventoryModal").modal("hide");
+                        if (msg.result == false) {
+                            Toast.fire({
+                                icon: "error",
+                                title: "Something went wrong",
+                            });
+                        } else {
+                            Toast.fire({
+                                icon: "success",
+                                title: "Success insert data",
+                            });
+                        }
+                    },
+                    error: function () {
+                        setTimeout(function () {
+                            $("#overlay").fadeOut(300);
+                        }, 500);
+                        Toast.fire({
+                            icon: "error",
+                            title: "Something went wrong",
+                        });
+                    }
+                });
             }
         }
     });
@@ -311,7 +425,7 @@ function resetInventory() {
     $("#satuan").val('');
     $("#harga_jual").val('');
     $("#keterangan").val('');
-    $("#stok_minimal").val('');
+    $("#stok_minimal").val('0');
     $("#vintrasId").val('');
     $("#kodeBJ").val('');
     $("#kodeOld").val('');
