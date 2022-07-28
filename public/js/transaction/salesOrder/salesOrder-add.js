@@ -515,8 +515,8 @@ function totalDownPayment() {
     var totalDp = 0;
     var totalDpTax = 0;
     for (i = 1; i < myTab.rows.length; i++) {
-        var dpValue = $("#dp_value-" + (i - 1)).val() != "" ? parseFloat($("#dp_value-" + (i - 1)).val()) : 0;
-        var dpTax = $("#dp_value-" + (i - 1)).val() != "" ? parseFloat($("#dp_value-" + (i - 1)).val()) * parseFloat($("#dp_tax_value-" + (i - 1)).html()) / 100 : 0;
+        var dpValue = $("#dp_value-" + (i - 1)).val() != "" ? parseFloat(removePeriod($("#dp_value-" + (i - 1)).val(), ',')) : 0;
+        var dpTax = $("#dp_value-" + (i - 1)).val() != "" ? parseFloat(removePeriod($("#dp_value-" + (i - 1)).val(), ',')) * parseFloat(removePeriod($("#dp_tax_value-" + (i - 1)).html(), ',')) / 100 : 0;
         totalDp += dpValue;
         totalDpTax += dpTax;
     }
@@ -711,8 +711,9 @@ function totalDpp() {
     var totalDpp = 0;
     for (i = 1; i < myTab.rows.length; i++) {
         var objCells = myTab.rows.item(i).cells;
-        var itemTotal = objCells.item(12).innerHTML != "" ? parseFloat(objCells.item(12).innerHTML) : 0;
-        var itemBruto = objCells.item(16).innerHTML != "" ? parseFloat(objCells.item(16).innerHTML) : 0;
+        
+        var itemTotal = objCells.item(12).innerHTML != "" ? parseFloat(removePeriod(objCells.item(12).innerHTML, ',')) : 0;
+        var itemBruto = objCells.item(16).innerHTML != "" ? parseFloat(removePeriod(objCells.item(16).innerHTML, ',')) : 0;
         totalDpp += itemTotal;
         totalBruto += itemBruto;
     }

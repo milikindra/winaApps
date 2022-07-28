@@ -209,11 +209,11 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
 }
 
 .text-xs {
-    font-size: 9px !important;
+    font-size: 11px !important;
 }
 
 .form-control-sm {
-    font-size: 9px !important;
+    font-size: 11px !important;
 }
 
 textarea.form-control {
@@ -221,7 +221,7 @@ textarea.form-control {
 }
 
 .input-group-sm .form-control {
-    font-size: 9px !important;
+    font-size: 11px !important;
 }
 
 .hidden {
