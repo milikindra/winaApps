@@ -9,11 +9,11 @@ $(document).ready(function () {
     var voids = "1";
     var kategori = "all";
     var subkategori = "all";
-    if ($('#customer').val() != null) {
-        $("#customer")
-            .select2()
-            .trigger("change");
-    }
+    // if ($('#customer').val() != null) {
+    //     $("#customer")
+    //         .select2()
+    //         .trigger("change");
+    // }
 
     var t_dp = $('.down_payment tbody tr').length;
     if (t_dp > 0) {
@@ -198,8 +198,29 @@ function refreshWindow() {
     window.location.reload();
 }
 
-$('#customer').on('select2:opening', function (e) {
-    if ($('#customer option').length <= 1) {
+// $('#customer').on('select2:opening', function (e) {
+//     if ($('#customer option').length <= 1) {
+//         $.ajax({
+//             delay: 0,
+//             url: get_customer + "/all",
+//             type: "GET",
+//             dataType: "JSON",
+//             success: function (response) {
+//                 var html = "<option selected disabled></option>";
+//                 jQuery.each(response, function (i, val) {
+//                     html += "<option value='" + val.ID_CUST + "'>" + val.ID_CUST + " (" + val.NM_CUST + ")</option>";
+//                 });
+//                 $('#customer').html(html);
+//             },
+//         });
+//         $("#customer")
+//             .select2()
+//             .val('')
+//             .trigger("change");
+//     }
+// });
+$('#customerSearch').focus(function () {
+    if ($('#customerList option').length <= 1) {
         $.ajax({
             delay: 0,
             url: get_customer + "/all",
@@ -208,16 +229,18 @@ $('#customer').on('select2:opening', function (e) {
             success: function (response) {
                 var html = "<option selected disabled></option>";
                 jQuery.each(response, function (i, val) {
-                    html += "<option value='" + val.ID_CUST + "'>" + val.ID_CUST + " (" + val.NM_CUST + ")</option>";
+                    html += "<option data-id='" + val.ID_CUST + "' data-name='" + val.NM_CUST + "' value='" + val.ID_CUST + " (" + val.NM_CUST + ")'>" + val.ID_CUST + " (" + val.NM_CUST + ")</option>";
                 });
-                $('#customer').html(html);
+                $('#customerList').html(html);
             },
         });
-        $("#customer")
-            .select2()
-            .val('')
-            .trigger("change");
+
     }
+});
+
+$('#customerSearch').focusout(function () {
+    $('#customer_name').val($("#customerList option[value='" + $('#customerSearch').val() + "']").attr('data-name'));
+    $('#customer').val($("#customerList option[value='" + $('#customerSearch').val() + "']").attr('data-id'));
 });
 
 function getCustomer() {

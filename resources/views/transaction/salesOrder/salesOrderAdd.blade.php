@@ -46,10 +46,12 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <datalist id="customerList">
+                                                </datalist>
                                                 <label>Customer</label>
                                                 <input type="hidden" name="customer_name" id="customer_name" autocomplete="off" required>
-                                                <select class="form-control form-control-sm selects2 form-control-border " id="customer" name="customer" style="width: 100%;" onchange="getCustomer()" required>
-                                                </select>
+                                                <input type="hidden" name="customer" id="customer" autocomplete="off" required>
+                                                <input class="form-control form-control-sm form-control-border" list="customerList" id="customerSearch">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -192,22 +194,34 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-2">
-                                    <div class="form-group">
-                                        <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-4">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <!-- <div class="row"> -->
                                             <div class="col-md-12">
                                                 <label>Internal Notes</label>
                                                 <textarea class="form-control form-control-sm" name="notes" id="notes" rows="4"></textarea>
                                             </div>
+                                            <!-- </div> -->
                                         </div>
+                                        <div class="col-md-6" style="display: none;">
+                                            <label>Attachment</label>
+                                            <a href="javascript:void(0)" onclick="" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
+                                            <a href="javascript:void(0)" onclick="" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
                                         <div class="row">
-                                            <div class="col-md-12" style="border: 1px #000;">
+                                            <br />
+                                            <br />
+                                            <div class="col-md-12" style="border: 0.5px #E9ECEF solid;">
                                                 <table class="table down_payment table-modal" id="down_payment" style="width: 100%;">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width:40%">Down Payment</th>
-                                                            <th style="width:20%">Value</th>
-                                                            <th style="width:30%">Tax</th>
+                                                            <th style="width:35%">Down Payment</th>
+                                                            <th style="width:35%">Value</th>
+                                                            <th style="width:20%">Tax</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -244,140 +258,141 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-12">
-                                    <a href="javascript:void(0)" class="btn btn-info  btn-sm" onclick="inventoryAdd('I')">
-                                        Add Inventory
-                                    </a>
-                                    <a href="javascript:void(0)" class="btn btn-info  btn-sm" onclick="inventoryAdd('G')">
-                                        Add Group Inventory
-                                    </a>
-                                    <br />
-                                    <br />
-                                    <table class="table trx table-modal" id="trx" style="width: 100%;">
-                                        <thead>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a href="javascript:void(0)" class="btn btn-info  btn-sm" onclick="inventoryAdd('I')">
+                                            Add Inventory
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-info  btn-sm" onclick="inventoryAdd('G')">
+                                            Add Group Inventory
+                                        </a>
+                                        <br />
+                                        <br />
+                                        <table class="table trx table-modal" id="trx" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 5%">Item</th>
+                                                    <th style="width: 10%">Name</th>
+                                                    <th style="width: 5%">Desc</th>
+                                                    <th style="width: 2%">Qty</th>
+                                                    <th style="width: 2%">UoM</th>
+                                                    <th style="width: 2%">Price</th>
+                                                    <th style="width: 2%">Disc % 1</th>
+                                                    <th style="width: 2%">Disc % 2</th>
+                                                    <th style="width: 2%">Disc</th>
+                                                    <th style="width: 2%">Total</th>
+                                                    <th style="width: 2%">Tax</th>
+                                                    <th style="width: 2%">State</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-0" onclick="addData(0)" readonly>
+                                                    </td>
+                                                    <td>
+                                                        <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-0" rows="3"></textarea>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-0">
+                                                    </td>
+                                                    <td>
+                                                        <input type="hidden" name="base_qty[]" id="base_qty-0">
+                                                        <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0)" autocomplete="off" id="qty-0">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-0">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal(0)" autocomplete="off" id="price-0">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal(0)" autocomplete="off" id="disc-0">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal(0)" autocomplete="off" id="disc2-0">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal(0)" autocomplete="off" id="disc_val-0">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-0" readonly>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control form-control-sm tax" name="tax[]" id="tax-0" onchange="itemTotal(0)">
+                                                            @foreach($vat as $v)
+                                                            <option value="{{$v->kode}}">{{$v->kode}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm" name="state[]" id="state-0" onclick="" readonly>
+                                                    </td>
+                                                    <td style="display: none;" id="itemTotal-0"></td>
+                                                    <td style="display: none;" id="itemTax-0"></td>
+                                                    <td style="display: none;" id="itemDisc-0"></td>
+                                                    <td style="display: none;" id="itemTotalDiscHead-0"></td>
+                                                    <td style="display: none;" id="itemBruto-0"></td>
+                                                    <td style="display: none;" id="itemTaxValue-0"></td>
+                                                    <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-0"> </td>
+                                                    <td style="display: none;"><input type="hidden" name="itemVintrasId[]" id="itemVintrasId-0"> </td>
+                                                    <td style="display: none;"><input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-0"> </td>
+                                                    <td style="display: none;"><input type="hidden" name="merkItem[]" id="merkItem-0"> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table width="100%">
                                             <tr>
-                                                <th style="width: 5%">Item</th>
-                                                <th style="width: 10%">Name</th>
-                                                <th style="width: 5%">Desc</th>
-                                                <th style="width: 2%">Qty</th>
-                                                <th style="width: 2%">UoM</th>
-                                                <th style="width: 2%">Price</th>
-                                                <th style="width: 2%">Disc % 1</th>
-                                                <th style="width: 2%">Disc % 2</th>
-                                                <th style="width: 2%">Disc</th>
-                                                <th style="width: 2%">Total</th>
-                                                <th style="width: 2%">Tax</th>
-                                                <th style="width: 2%">State</th>
+                                                <td style="width: 100%;">
+                                                    <a href="javascript:void(0)" onclick="removeRow(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
+                                                    <a href="javascript:void(0)" onclick="addRow(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-0" onclick="addData(0)" readonly>
-                                                </td>
-                                                <td>
-                                                    <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-0" rows="3"></textarea>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-0">
-                                                </td>
-                                                <td>
-                                                    <input type="hidden" name="base_qty[]" id="base_qty-0">
-                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0)" autocomplete="off" id="qty-0">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-0">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal(0)" autocomplete="off" id="price-0">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal(0)" autocomplete="off" id="disc-0">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal(0)" autocomplete="off" id="disc2-0">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal(0)" autocomplete="off" id="disc_val-0">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-0" readonly>
-                                                </td>
-                                                <td>
-                                                    <select class="form-control form-control-sm tax" name="tax[]" id="tax-0" onchange="itemTotal(0)">
-                                                        @foreach($vat as $v)
-                                                        <option value="{{$v->kode}}">{{$v->kode}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm" name="state[]" id="state-0" onclick="" readonly>
-                                                </td>
-                                                <td style="display: none;" id="itemTotal-0"></td>
-                                                <td style="display: none;" id="itemTax-0"></td>
-                                                <td style="display: none;" id="itemDisc-0"></td>
-                                                <td style="display: none;" id="itemTotalDiscHead-0"></td>
-                                                <td style="display: none;" id="itemBruto-0"></td>
-                                                <td style="display: none;" id="itemTaxValue-0"></td>
-                                                <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-0"> </td>
-                                                <td style="display: none;"><input type="hidden" name="itemVintrasId[]" id="itemVintrasId-0"> </td>
-                                                <td style="display: none;"><input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-0"> </td>
-                                                <td style="display: none;"><input type="hidden" name="merkItem[]" id="merkItem-0"> </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table width="100%">
-                                        <tr>
-                                            <td style="width: 100%;">
-                                                <a href="javascript:void(0)" onclick="removeRow(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
-                                                <a href="javascript:void(0)" onclick="addRow(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row justify-content-end">
-                                <div class="col-3">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4">Total DPP</label>
-                                        <div class="col-sm-8">
-                                            <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
-                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
+                            <div class="card-body">
+                                <div class="row justify-content-end">
+                                    <div class="col-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4">Total DPP</label>
+                                            <div class="col-sm-8">
+                                                <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
+                                                <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4">Discount</label>
+                                            <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" autocomplete="off" placeholder="%"></div>
+                                            <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" autocomplete="off"></div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4">Total PPn</label>
+                                            <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4">Total</label>
+                                            <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-4">Discount</label>
-                                        <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" autocomplete="off" placeholder="%"></div>
-                                        <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" autocomplete="off"></div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-4">Total PPn</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-4">Total</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-warning float-right" value="print" id="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()"><i class="fa fa-print"></i></button>
-                            <button type="submit" class="btn btn-info float-right" value="save" name="process" title="save"><i class="fa fa-save"></i></button>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-warning float-right" value="print" id="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()"><i class="fa fa-print"></i></button>
+                                <button type="submit" class="btn btn-info float-right" value="save" name="process" title="save"><i class="fa fa-save"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 </form>
 <!-- Modal -->
