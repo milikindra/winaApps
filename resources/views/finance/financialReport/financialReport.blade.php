@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">{{ $title }}</h1>
+                <h5 class="m-0">{{ $title }}</h5>
             </div>
             <!-- /.col -->
         </div>
@@ -59,11 +59,11 @@
                             <div class="row">
                                 <div class="col-12" id="filterSdate" style="display: none;">
                                     <label>Start Date</label>
-                                    <input type="date" class="form-control" id="sdate" name="sdate" min="2000-01-01" value="{{date('Y-m-01')}}">
+                                    <input type="date" class="form-control form-control-sm" id="sdate" name="sdate" min="2000-01-01" value="{{date('Y-m-01')}}">
                                 </div>
                                 <div class="col-12" id="filterEdate" style="display: none;">
                                     <label>End Date</label>
-                                    <input type="date" class="form-control" id="edate" name="edate" value="{{date('Y-m-d')}}">
+                                    <input type="date" class="form-control form-control-sm" id="edate" name="edate" value="{{date('Y-m-d')}}">
                                     <br />
                                 </div>
                                 <div class="col-12" id="filterTotal" style="display: none;">
@@ -117,7 +117,7 @@
                                 <div class="col-12" id="filterSo" style="display: none;">
                                     <label>SO</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="so_id" name="so_id" onchange="getPnlProject()" readonly>
+                                        <input type="text" class="form-control form-control-sm" id="so_id" name="so_id" onchange="getPnlProject()" readonly>
                                         <span class="input-group-append">
                                             <button type="button" class="btn btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
                                         </span>
@@ -177,7 +177,7 @@
 
                                 <div class="col-12" id="filterPh" style="display: none;">
                                     <label>Note PH</label>
-                                    <textarea class="form-control" id="notePh" name="notePh"></textarea>
+                                    <textarea class="form-control form-control-sm" id="notePh" name="notePh"></textarea>
                                 </div>
 
                                 <div class="col-12" id="filterProjectBy" style="display: none;">
@@ -201,7 +201,7 @@
 
                                 <div class="col-12">
                                     <br />
-                                    <a href="javascript:void(0)" class="btn btn-info float-right" id="processFilter" onclick="dataReport()">Process</a>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-info float-right" id="processFilter" onclick="dataReport()">Process</a>
                                 </div>
                             </div>
                         </div>
