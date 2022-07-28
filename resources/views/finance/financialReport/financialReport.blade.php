@@ -225,9 +225,9 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Pdf">Pdf</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Pdf">Pdf</button>
                             </div>
                             <br />
                             <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="titleIncomeStatement"></h4>
@@ -274,9 +274,9 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Pdf">Pdf</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Pdf">Pdf</button>
                             </div>
                             <br />
                             <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="titleBalanceSheet"></h4>
@@ -323,9 +323,9 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Pdf">Pdf</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Pdf">Pdf</button>
                             </div>
                             <br />
                             <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="titleProjectPnl"></h4>
@@ -369,8 +369,8 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Excel">Excel</button>
                             </div>
                             <br />
                             <h4 style="font-family: helvetica,sans-serif;text-align: center;margin-top: 0px;margin-bottom: 5px;" id="titleProjectPnlList"></h4>

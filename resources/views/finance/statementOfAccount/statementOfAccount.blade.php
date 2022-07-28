@@ -22,7 +22,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <select class="form-control selects2" style="width: 100%;" name="dataType" id="dataType">
+                                    <select class="form-control form-control-sm selects2" style="width: 100%;" name="dataType" id="dataType">
                                         <option value="" selected disabled></option>
                                         @if (hasAccess('FZ01.01'))
                                         <option value="appCustomerSOA">Customer SOA</option>

@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">{{ $title }}</h1>
+                <h5 class="m-0">{{ $title }}</h5>
             </div>
             <!-- /.col -->
         </div>
@@ -23,7 +23,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <select class="form-control selects2" style="width: 100%;" name="dataType" id="dataType">
+                                    <select class="form-control form-control-sm selects2" style="width: 100%;" name="dataType" id="dataType">
                                         <option value="" selected disabled></option>
                                         @if (hasAccess('FX01.01'))
                                         <option value="appAccountHistory">Account History</option>
@@ -46,7 +46,7 @@
                                 <div class="col-12">
                                     <h3 class="card-title">Filter</h3>
                                     <div class="card-tools float-right">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" class="btn btn-sm btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -57,11 +57,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label>Start Date</label>
-                                    <input type="date" class="form-control" id="sdate" name="sdate" min="2000-01-01" value="{{date('Y-m-01')}}">
+                                    <input type="date" class="form-control form-control-sm" id="sdate" name="sdate" min="2000-01-01" value="{{date('Y-m-01')}}">
                                 </div>
                                 <div class="col-12">
                                     <label>End Date</label>
-                                    <input type="date" class="form-control" id="edate" name="edate" value="{{date('Y-m-d')}}">
+                                    <input type="date" class="form-control form-control-sm" id="edate" name="edate" value="{{date('Y-m-d')}}">
                                     <br />
                                 </div>
                                 <div class="col-12 filterGlHead" id="filterAccount" style="display: none;">
@@ -69,15 +69,15 @@
                                 <div class="col-12" id="filterSo" style="display: none;">
                                     <label>SO</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="so_id" name="so_id">
+                                        <input type="text" class="form-control form-control-sm" id="so_id" name="so_id">
                                         <span class="input-group-append">
-                                            <button type="button" class="btn btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
+                                            <button type="button" class="btn btn-sm btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="col-12" id="filterEmployee" style="display:none;">
                                     <label>Employee</label>
-                                    <select class="form-control selects2" id="id_employee" name="id_employee">
+                                    <select class="form-control form-control-sm selects2" id="id_employee" name="id_employee">
                                         <option value="all" selected>All</option>
                                         @foreach($employee as $e)
                                         <option value="{{$e->username}}">{{$e->full_name}}</option>
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="col-12" id="filterDepartment" style="display: none;">
                                     <label>Department</label>
-                                    <select class="form-control selects2" id="dept_id" name="dept_id">
+                                    <select class="form-control form-control-sm selects2" id="dept_id" name="dept_id">
                                         <option value="all" selected>All</option>
                                         @foreach($dept as $e)
                                         <option value="{{$e->kode}}">{{$e->keterangan}}</option>
@@ -96,12 +96,12 @@
                                 <div class="col-12" id="filterTrxId" style="display: none;">
                                     <label>Transaction Number</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="trx_id" name="trx_id">
+                                        <input type="text" class="form-control form-control-sm" id="trx_id" name="trx_id">
                                     </div>
                                 </div>
                                 <div class="col-12" id="filterTrxType" style="display: none;">
                                     <label>Transaction Type</label>
-                                    <select class="form-control selects2" name="trx_type" id="trx_type">
+                                    <select class="form-control form-control-sm selects2" name="trx_type" id="trx_type">
                                         <option value="all" selected>All</option>
                                         @foreach($trxType as $type)
                                         <option value="{{$type->trx}}">{{$type->trx}}</option>
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="col-12">
                                     <br />
-                                    <a href="javascript:void(0)" class="btn btn-info float-right" id="processFilter" onclick="dataReport()">Process</a>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-info float-right" id="processFilter" onclick="dataReport()">Process</a>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                 <div class="col-12">
                                     <h3 class="card-title">Account History</h3>
                                     <div class="card-tools float-right">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" class="btn btn-sm btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -134,8 +134,8 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Excel">Excel</button>
                             </div>
                             <br />
                             <br />
@@ -174,7 +174,7 @@
                                 <div class="col-12">
                                     <h3 class="card-title">General Ledger</h3>
                                     <div class="card-tools float-right">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" class="btn btn-sm btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -184,8 +184,8 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Excel">Excel</button>
                             </div>
                             <br />
                             <br />
@@ -221,7 +221,7 @@
                                 <div class="col-12">
                                     <h3 class="card-title">Cash/Bank Detail</h3>
                                     <div class="card-tools float-right">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" class="btn btn-sm btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -231,8 +231,8 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-info" name="exportType" value="Print">Print</button>
-                                <button type="submit" class="btn btn-info" name="exportType" value="Excel">Excel</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Print">Print</button>
+                                <button type="submit" class="btn btn-sm btn-info" name="exportType" value="Excel">Excel</button>
                             </div>
                             <br />
                             <br />
