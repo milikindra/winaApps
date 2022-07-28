@@ -22,7 +22,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <select class="form-control selects2" style="width: 100%;" name="dataType" id="dataType">
+                                    <select class="form-control form-control-sm selects2" style="width: 100%;" name="dataType" id="dataType">
                                         <option value="" selected disabled></option>
                                         @if (hasAccess('FY01.01'))
                                         <option value="appIncomeStatement">Income Statement</option>
@@ -119,7 +119,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm" id="so_id" name="so_id" onchange="getPnlProject()" readonly>
                                         <span class="input-group-append">
-                                            <button type="button" class="btn btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
+                                            <button type="button" class="btn btn-sm btn-info" onclick="modalSo()"><i class="fas fa-search"></i></button>
                                         </span>
                                     </div>
                                     <p></p>
