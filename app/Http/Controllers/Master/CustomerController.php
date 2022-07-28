@@ -218,6 +218,7 @@ class CustomerController extends Controller
 
     public function customerUpdate(Request $request)
     {
+        // dd($request);
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/customerUpdate';
@@ -270,14 +271,16 @@ class CustomerController extends Controller
             ];
 
             $post_branch = [];
-            for ($i = 0; $i < count($request->input('branch_name')); $i++) {
-                $post_branch[] = [
-                    "customer_id" => $request->input('kode'),
-                    "address_alias" => $request->input('branch_name')[$i],
-                    "other_address" => $request->input('branch_address')[$i],
-                    "tax_number" => $request->input('branch_tax_number')[$i],
-                    'user_modified' => session('user')->username,
-                ];
+            if ($request->input('branch_name') != null) {
+                for ($i = 0; $i < count($request->input('branch_name')); $i++) {
+                    $post_branch[] = [
+                        "customer_id" => $request->input('kode'),
+                        "address_alias" => $request->input('branch_name')[$i],
+                        "other_address" => $request->input('branch_address')[$i],
+                        "tax_number" => $request->input('branch_tax_number')[$i],
+                        'user_modified' => session('user')->username,
+                    ];
+                }
             }
 
             $where = ['ID_CUST' => $request->input('kodeOld')];
