@@ -18,7 +18,7 @@ function btnEdit() {
     $("#frmSo select").prop("disabled", false);
     $("#frmSo button").css("display", 'block');
     $('#edit').css("display", 'none');
-    $('#print').css("display", 'none');
+    $('#printPage').css("display", 'none');
 }
 
 function btnDelete() {
@@ -55,7 +55,15 @@ function btnDelete() {
             });
         }
     });
-
-
-
 }
+
+$("#printEdit").click(function (e) {
+    e.preventDefault();
+    $('#process').val('print');
+    $('#frmSo').submit();
+});
+$("#saveEdit").click(function (e) {
+    e.preventDefault();
+    $('#process').val('save');
+    $('#frmSo').submit();
+});

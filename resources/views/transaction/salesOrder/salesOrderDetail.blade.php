@@ -473,10 +473,15 @@
                         </div>
                         <div class="card-footer">
                             <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="{{ url('salesOrderPrint/'.$so->head[0]->NO_BUKTI) }}" target="_blank" class="btn btn-sm btn-warning  float-right" id="print" title="print"><i class="fas fa-print"></i></a>
+                            <a href="{{ url('salesOrderPrint/'.$so->head[0]->NO_BUKTI) }}" target="_blank" class="btn btn-sm btn-warning  float-right" id="printPage" title="print"><i class="fas fa-print"></i></a>
                             <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
-                            <button type="submit" class="btn btn-sm btn-warning float-right" value="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()" style="display: none;"><i class="fa fa-print"></i></button>
-                            <button type="submit" class="btn btn-sm btn-info float-right" value="save" name="process" title="save" style="display: none;"><i class="fa fa-save"></i></button>
+                            <!-- <button type="submit" class="btn btn-sm btn-warning float-right" value="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()" style="display: none;"><i class="fa fa-print"></i></button>
+                            <button type="submit" class="btn btn-sm btn-info float-right" value="save" name="process" title="save" style="display: none;"><i class="fa fa-save"></i></button> -->
+
+                            <input type="hidden" name="process" value="save" id="process" required>
+                            <button type="button" class="btn btn-sm btn-warning float-right" id="printEdit" title="print" style="display: none;"><i class="fa fa-print"></i></button>
+                            <button type="button" class="btn btn-sm btn-info float-right" id="saveEdit" title="save" style="display: none;"><i class="fa fa-save"></i></button>
+
                         </div>
                     </div>
                 </div>
@@ -618,6 +623,7 @@
     var get_vat = "{{ URL::to('vat/data/byDate') }}";
     var rute_addBranch = "{{ URL::to('customer/addBranch') }}";
     var rute_saveState = "{{ URL::to('salesOrder/state') }}";
+    var rute_cekSo = "{{ URL::to('salesOrder/cekSo') }}";
     var void_url = "{{ URL::to('salesOrder/void') }}";
     var base_url = "{{ route('salesOrder') }}";
     var url_default = "{{ URL('') }}";
