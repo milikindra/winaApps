@@ -653,7 +653,13 @@ function itemTotal(uid) {
     var item_disc = $("#itemDisc-" + uid).html() != "" ? parseFloat(removePeriod($("#itemDisc-" + uid).html(), ',')) : 0;
 
     var totalBruto = price * qty;
-    var total = (price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val;
+    // var total = (price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - ((price-disc_val)*qty);
+    // var totalDiscHead = ((price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val) - item_disc;
+    var d1 = (price * qty) - (price * qty * disc);
+    var d2 = d1 - (d1 * disc2);
+    var d3 = d2 - (qty * disc_val);
+    var total = d3;
+    console.log(total);
     var totalDiscHead = ((price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val) - item_disc;
     var tax = $("#tax-" + uid).val();
     var itemTax = 0;
