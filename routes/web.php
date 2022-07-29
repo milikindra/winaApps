@@ -64,12 +64,13 @@ Route::group(
         Route::get('salesOrder/data/populateHead', [SalesOrderController::class, 'populateHead'])->name('salesOrder/data/populateHead');
         Route::get('salesOrderAdd', [SalesOrderController::class, 'salesOrderAdd'])->name('salesOrderAdd')->middleware('userMatrix:T01.02');
         Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
-        Route::get('salesOrderDetail/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
+        Route::get('salesOrderDetail/{void}/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
         Route::post('salesOrderUpdate', [SalesOrderController::class, 'salesOrderUpdate'])->name('salesOrderUpdate')->middleware('userMatrix:T01.03');
         Route::get('salesOrderPrint/{id}', [SalesOrderController::class, 'salesOrderPrint'])->name('salesOrderPrint')->middleware('userMatrix:T01.01');
         Route::get('salesOrderStatus/{id}', [SalesOrderController::class, 'salesOrderStatus'])->name('salesOrderStatus');
         Route::get('salesOrder/void/{id}', [SalesOrderController::class, 'salesOrderDelete'])->name('salesOrder/void');
         Route::post('salesOrder/state', [SalesOrderController::class, 'salesOrderUpdateState'])->name('salesOrder/state')->middleware('userMatrix:T01.03');
+        Route::post('salesOrder/cekSo', [SalesOrderController::class, 'salesOrderCek'])->name('salesOrder/cekSo');
 
         // salesInvoice
         Route::get('siGetEfaktur/{id}', [SalesInvoiceController::class, 'siGetEfaktur'])->name('siGetEfaktur');

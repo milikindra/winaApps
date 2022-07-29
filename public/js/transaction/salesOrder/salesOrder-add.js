@@ -1,5 +1,14 @@
 $(".selects2").select2();
 $(document).ready(function () {
+    $("#overlay").fadeOut(300);
+    window.onbeforeunload = function () {
+        $("#overlay").fadeIn(300);
+        $(window).bind("pageshow", function (event) {
+            if (event.originalEvent.persisted) {
+                window.location.reload();
+            }
+        });
+    }
     var Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -9,11 +18,6 @@ $(document).ready(function () {
     var voids = "1";
     var kategori = "all";
     var subkategori = "all";
-    // if ($('#customer').val() != null) {
-    //     $("#customer")
-    //         .select2()
-    //         .trigger("change");
-    // }
 
     var t_dp = $('.down_payment tbody tr').length;
     if (t_dp > 0) {
@@ -198,27 +202,6 @@ function refreshWindow() {
     window.location.reload();
 }
 
-// $('#customer').on('select2:opening', function (e) {
-//     if ($('#customer option').length <= 1) {
-//         $.ajax({
-//             delay: 0,
-//             url: get_customer + "/all",
-//             type: "GET",
-//             dataType: "JSON",
-//             success: function (response) {
-//                 var html = "<option selected disabled></option>";
-//                 jQuery.each(response, function (i, val) {
-//                     html += "<option value='" + val.ID_CUST + "'>" + val.ID_CUST + " (" + val.NM_CUST + ")</option>";
-//                 });
-//                 $('#customer').html(html);
-//             },
-//         });
-//         $("#customer")
-//             .select2()
-//             .val('')
-//             .trigger("change");
-//     }
-// });
 $('#customerSearch').focus(function () {
     if ($('#customerList option').length <= 1) {
         $.ajax({
@@ -279,7 +262,6 @@ function getCustomer() {
                         opt += '<option value="' + response[i].other_address + '">' + response[i].address_alias + '</option>';
                     }
                 }
-
                 $("#cmbShipping").html(opt);
             }
         },
@@ -287,6 +269,7 @@ function getCustomer() {
 };
 
 function useBranch() {
+    $("#ship_to").prop("readonly", false);
     if ($('#use_branch').is(":checked")) {
         $("#cmbShipping").css("display", "block");
         $("#cmbShipping").prop("selectedIndex", 0).trigger("change");
@@ -711,7 +694,7 @@ function totalDpp() {
     var totalDpp = 0;
     for (i = 1; i < myTab.rows.length; i++) {
         var objCells = myTab.rows.item(i).cells;
-        
+
         var itemTotal = objCells.item(12).innerHTML != "" ? parseFloat(removePeriod(objCells.item(12).innerHTML, ',')) : 0;
         var itemBruto = objCells.item(16).innerHTML != "" ? parseFloat(removePeriod(objCells.item(16).innerHTML, ',')) : 0;
         totalDpp += itemTotal;
@@ -795,3 +778,69 @@ function getTax() {
         },
     });
 }
+
+function cekSo() {
+    var po = $('#po_customer').val();
+    var customer = $('#customer').val();
+    var so_id = $('#nomor').val();
+    let _token = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        type: 'POST',
+        url: rute_cekSo,
+        data: {
+            po: po,
+            customer: customer,
+            so_id: so_id,
+            _token: _token
+        },
+        dataType: "text",
+        success: function (resultData) {
+            var msg = JSON.parse(resultData);
+            if (msg.so > 0) {
+                Swal.fire({
+                    title: "Cannot Add Sales Order!",
+                    text: "Sales order number has been used",
+                    icon: "error",
+                    confirmButtonColor: "#17a2b8",
+                })
+            } else if (msg.customer.length > 0) {
+                Swal.fire({
+                    title: "Cannot Add Sales Order!",
+                    text: "Customer and PO Customer has been used",
+                    icon: "error",
+                    confirmButtonColor: "#17a2b8",
+                })
+            } else if (msg.po.length > 0) {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This PO Customer that has been registered on SO: " + msg.po[0].NO_BUKTI,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#17a2b8",
+                    cancelButtonColor: "#FFC107",
+                    confirmButtonText: "Yes, Process it!",
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#salesOrderAddSave').submit();
+                    }
+                });
+            } else {
+                $('#salesOrderAddSave').submit();
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            console.log("Something went wrong");
+        }
+    });
+};
+
+$("#print").click(function (e) {
+    e.preventDefault();
+    cekSo();
+});
+$("#save").click(function (e) {
+    e.preventDefault();
+    cekSo();
+});

@@ -120,6 +120,7 @@ class SalesOrderController extends Controller
 
     public function salesOrderAddSave(Request $request)
     {
+        LOg::debug($request);
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/salesOrderAddSave';
@@ -396,12 +397,13 @@ class SalesOrderController extends Controller
             ];
             Alert::toast($body->message, 'success');
             if ($request->input('process') == 'print') {
-                return redirect('salesOrderPrint/' . $request->input('nomor'));
+                return redirect('salesOrderDetail/p/' . $request->input('nomor'));
+                // return redirect('salesOrderPrint/' . $request->input('nomor'));
             } else {
-                return redirect('salesOrderDetail/' . $request->input('nomor'));
+                return redirect('salesOrderDetail/d/' . $request->input('nomor'));
             }
         } catch (\Exception $e) {
-            Alert::toast("500 - Failed to Update Data", 'danger');
+            Alert::toast("500 - Failed to insert Data", 'danger');
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
             return redirect()->back();
         }
@@ -489,17 +491,20 @@ class SalesOrderController extends Controller
                 return redirect('salesOrder');
             } else {
                 Alert::toast($body->message, 'danger');
-                return redirect('salesOrderDetail/' . $so_id);
+                return redirect('salesOrderDetail/d/' . $so_id);
             }
         } catch (\Exception $e) {
             Alert::toast('Error delete', 'danger');
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-            return redirect('salesOrderDetail/' . $so_id);
+            return redirect('salesOrderDetail/d/' . $so_id);
         }
     }
 
-    public function salesOrderDetail(request $request, $so_id)
+    public function salesOrderDetail(request $request, $void, $so_id)
     {
+        if ($void == 'p') {
+            return redirect('salesOrderPrint/' . $so_id);
+        }
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/salesOrderDetail';
@@ -612,6 +617,28 @@ class SalesOrderController extends Controller
             ]);
             $body = json_decode($response->getBody());
             Alert::toast($body->message, $body->result);
+            return $body;
+        } catch (\Exception $e) {
+            Alert::toast("500 - Failed to Update Data", 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return false;
+        }
+    }
+
+    public function salesOrderCek(request $request)
+    {
+
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/salesOrderCek';
+
+            $postData = ['post' => $request->input()];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $postData,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
             return $body;
         } catch (\Exception $e) {
             Alert::toast("500 - Failed to Update Data", 'danger');

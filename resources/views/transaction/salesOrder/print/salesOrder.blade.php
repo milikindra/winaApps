@@ -292,9 +292,9 @@
                                         <br />
                                         <br />
                                         <br />
-                                        @foreach($topManagement as $tm3)
-                                        @if($tm3->code=='TM3')
-                                        {{ucwords(strtolower($tm3->full_name))}}
+                                        @foreach($topManagement as $tm6)
+                                        @if($tm6->code=='TM6')
+                                        {{ucwords(strtolower($tm6->full_name))}}
                                         @endif
                                         @endforeach<br />
                                         Date :

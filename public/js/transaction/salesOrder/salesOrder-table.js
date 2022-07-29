@@ -344,9 +344,7 @@ $(document).ready(function () {
     });
 
     $('#datatables tbody').on('dblclick', 'tr', function (e) {
-        // var view_url = "{{ route('salesOrderDetail') }}";
         no_stock = $(this).closest("tr").children("td:eq(0)").text();
-        // console.log(view_url + '/' + no_stock);
         window.location.href = view_url + '/' + no_stock;
     })
 

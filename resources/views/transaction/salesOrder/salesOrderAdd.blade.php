@@ -13,7 +13,7 @@
     </div>
     <!-- /.container-fluid -->
 </div>
-<form action="{{ route('salesOrderAddSave') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('salesOrderAddSave') }}" id="salesOrderAddSave" method="POST" enctype="multipart/form-data">
     @csrf
     <section class="content">
         <div class="container-fluid">
@@ -117,7 +117,6 @@
                                             <div class="col-md-12">
                                                 <label>Type</label>
                                                 <select class="form-control form-control-sm form-control-border selects2" id="jenis" name="jenis" style="width: 100%;" required>
-                                                    <option selected disabled></option>
                                                     <option value="CO">Component</option>
                                                     <option value="PR">Project</option>
                                                 </select>
@@ -351,8 +350,8 @@
                                         <table width="100%">
                                             <tr>
                                                 <td style="width: 100%;">
-                                                    <a href="javascript:void(0)" onclick="removeRow(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
-                                                    <a href="javascript:void(0)" onclick="addRow(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
+                                                    <a href="javascript:void(0)" onclick="removeRow(this)" accesskey="r" class="btn btn-xs btn-warning float-right" title="remove row (alt+r)"><i class="fa fa-minus"></i></a>
+                                                    <a href="javascript:void(0)" onclick="addRow(this)" accesskey="a" class="btn btn-xs btn-info float-right" title="add row (alt+a)"><i class="fa fa-plus"></i></a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -386,8 +385,9 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-warning float-right" value="print" id="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()"><i class="fa fa-print"></i></button>
-                                <button type="submit" class="btn btn-info float-right" value="save" name="process" title="save"><i class="fa fa-save"></i></button>
+                                <!-- <button type="submit" class="btn btn-warning float-right" value="print" id="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()"><i class="fa fa-print"></i></button> -->
+                                <button type="button" class="btn btn-warning float-right" value="print" id="print" name="process" title="print"><i class="fa fa-print"></i></button>
+                                <button type="button" class="btn btn-info float-right" value="save" name="process" title="save"><i class="fa fa-save"></i></button>
                             </div>
                         </div>
                     </div>
@@ -534,6 +534,7 @@
     var base_url = "{{ route('salesOrder') }}";
     var url_default = "{{ URL('') }}";
     var rute_addBranch = "{{ URL::to('customer/addBranch') }}";
+    var rute_cekSo = "{{ URL::to('salesOrder/cekSo') }}";
     var get_vat = "{{ URL::to('vat/data/byDate') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
