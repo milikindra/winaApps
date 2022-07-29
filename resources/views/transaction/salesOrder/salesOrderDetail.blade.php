@@ -47,17 +47,12 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <datalist id="customerList">
+                                                </datalist>
                                                 <label>Customer</label>
-                                                <input type="hidden" name="customer_name" id="customer_name" required>
-                                                <select class="form-control form-control-sm selects2 form-control-border" id="customer" name="customer" style="width: 100%;" required>
-                                                    @foreach($customer as $c)
-                                                    @if($c->ID_CUST == $so->head[0]->ID_CUST)
-                                                    <option value="{{$c->ID_CUST}}" selected>{{$c->ID_CUST." (".$c->NM_CUST.")"}}</option>
-                                                    @else
-                                                    <option value="{{$c->ID_CUST}}">{{$c->ID_CUST." (".$c->NM_CUST.")"}}</option>
-                                                    @endif
-                                                    @endforeach
-                                                </select>
+                                                <input type="hidden" name="customer_name" id="customer_name" autocomplete="off" value="{{$so->head[0]->NM_CUST}}" required>
+                                                <input type="hidden" name="customer" id="customer" autocomplete="off" value="{{$so->head[0]->ID_CUST}}" required>
+                                                <input class="form-control form-control-sm form-control-border" list="customerList" id="customerSearch" value="{{$so->head[0]->ID_CUST.' ('.$so->head[0]->NM_CUST.')'}}">
                                             </div>
                                         </div>
                                         <div class="row">

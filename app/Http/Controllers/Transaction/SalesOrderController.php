@@ -163,7 +163,6 @@ class SalesOrderController extends Controller
                 ];
             }
 
-
             $post_head = [
                 "api_token" => $user_token,
                 "NO_BUKTI" => $request->input('nomor'),
@@ -302,7 +301,18 @@ class SalesOrderController extends Controller
                 return redirect()->back();
             }
 
-            $get_urut_detail = soGetLastDetail();
+            // $get_urut_detail = soGetLastDetail();
+
+            $use_branch = '0';
+            $post_customer = [];
+            if ($request->input('use_branch') == 'on') {
+                $use_branch = '1';
+                $post_customer = [
+                    'address_alias' => $request->input('cmbShipping'),
+                    'other_address' => $request->input('ship_to'),
+                ];
+            }
+
 
             $post_head = [
                 "api_token" => $user_token,
@@ -333,7 +343,8 @@ class SalesOrderController extends Controller
                 "rp_disch" => $request->input('discountValueHead'),
                 "ppntotdetail" => (float)$request->input('totalBruto') - (float)$request->input('discountValueHead'),
                 "uangmuka" => $request->input('totalDp'),
-                "uangmuka_ppn" => $request->input('totalDpTax')
+                "uangmuka_ppn" => $request->input('totalDpTax'),
+                "use_branch" => $use_branch
             ];
 
             $post_detail = [];
@@ -382,8 +393,14 @@ class SalesOrderController extends Controller
             }
 
             $where = ['id' => $request->input('nomor_old')];
+            $postData = [
+                'head' => $post_head,
+                'detail' => $post_detail,
+                'um' => $post_dp,
+                'customer' => $post_customer,
+                'where' => $where
+            ];
 
-            $postData = ['head' => $post_head, 'detail' => $post_detail, 'um' => $post_dp, 'where' => $where];
             $request->request->add(['api_token' => $user_token]);
             $client = new Client();
             $response = $client->request('POST', $url, [
