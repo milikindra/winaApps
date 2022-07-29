@@ -838,9 +838,11 @@ function cekSo() {
 
 $("#print").click(function (e) {
     e.preventDefault();
+    $('#process').val('print');
     cekSo();
 });
 $("#save").click(function (e) {
     e.preventDefault();
+    $('#process').val('save');
     cekSo();
 });

@@ -203,10 +203,15 @@
                                             </div>
                                             <!-- </div> -->
                                         </div>
-                                        <div class="col-md-6" style="display: none;">
-                                            <label>Attachment</label>
-                                            <a href="javascript:void(0)" onclick="" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
-                                            <a href="javascript:void(0)" onclick="" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
+                                        <div class="col-md-6">
+                                            <div class="row col-md-12" style="display: none;">
+                                                <label>Attachment</label>
+                                                <a href="javascript:void(0)" onclick="" class="btn btn-xs btn-warning float-right" onclick="addAttach()" title="remove row"><i class="fa fa-minus"></i></a>
+                                                <a href="javascript:void(0)" onclick="" class="btn btn-xs btn-info float-right" onclick="removeAttach()" title="add row"><i class="fa fa-plus"></i></a>
+                                            </div>
+                                            <div class="row col-md-12" style="display: none;">
+                                                <input type="file" class="">
+                                            </div>
                                         </div>
                                     </div>
 
@@ -385,9 +390,10 @@
                                 </div>
                             </div>
                             <div class="card-footer">
+                                <input type="hidden" name="process" value="save" id="process" required>
                                 <!-- <button type="submit" class="btn btn-warning float-right" value="print" id="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()"><i class="fa fa-print"></i></button> -->
-                                <button type="button" class="btn btn-warning float-right" value="print" id="print" name="process" title="print"><i class="fa fa-print"></i></button>
-                                <button type="button" class="btn btn-info float-right" value="save" name="process" title="save"><i class="fa fa-save"></i></button>
+                                <button type="button" class="btn btn-warning float-right" id="print" title="print"><i class="fa fa-print"></i></button>
+                                <button type="button" class="btn btn-info float-right" id="save" title="save"><i class="fa fa-save"></i></button>
                             </div>
                         </div>
                     </div>

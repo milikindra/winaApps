@@ -120,7 +120,6 @@ class SalesOrderController extends Controller
 
     public function salesOrderAddSave(Request $request)
     {
-        LOg::debug($request);
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/salesOrderAddSave';
