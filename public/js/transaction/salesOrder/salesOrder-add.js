@@ -1,18 +1,10 @@
 $(".selects2").select2();
 $(document).ready(function () {
+    console.log(performance.getEntriesByType("navigation")[0].type)
     $("#overlay").fadeOut(300);
-    // window.history.pushState('', null, './salesOrderAdd');
-    // $(window).on('popstate', function () {
-    //     location.reload(true);
-    // });
-
-    window.onbeforeunload = function () {
+    if (performance.getEntriesByType("navigation")[0].type == "back_forward") {
         $("#overlay").fadeIn(300);
-        $(window).bind("pageshow", function (event) {
-            if (event.originalEvent.persisted) {
-                window.location.reload();
-            }
-        });
+        location.reload(true);
     }
     var Toast = Swal.mixin({
         toast: true,
