@@ -218,22 +218,45 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-2">
-                                    <div class="form-group">
-                                        <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-4">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <!-- <div class="row"> -->
                                             <div class="col-md-12">
                                                 <label>Internal Notes</label>
                                                 <textarea class="form-control form-control-sm" name="notes" id="notes" rows="4">{{$so->head[0]->KETERANGAN}}</textarea>
                                             </div>
+                                            <!-- </div> -->
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="row col-md-12">
+                                                <div class="col-md-7">
+                                                    <label>Attachment</label>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <a href="javascript:void(0)" class="btn btn-xs btn-warning float-right" onclick="removeAttach(this)" title="remove row"><i class="fa fa-minus"></i></a>
+                                                    <a href="javascript:void(0)" class="btn btn-xs btn-info float-right" onclick="addAttach(this)" title="add row"><i class="fa fa-plus"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="row col-md-12 attachGroup" id="attachGroup">
+                                                @foreach($so->attach as $attach)
+                                                <!-- <a target="_blank" href="{{asset('storage/app/'.$attach->path) }}">{{$attach->value}}</a> -->
+                                                <a target="_blank" href="{{URL::to('getFile/'.base64_encode($attach->path)) }}">{{$attach->value}}</a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
                                         <div class="row">
-                                            <div class="col-md-12" style="border: 1px #000;">
+                                            <br />
+                                            <br />
+                                            <div class="col-md-12" style="border: 0.5px #E9ECEF solid;">
                                                 <table class="table down_payment table-modal" id="down_payment" style="width: 100%;">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width:40%">Down Payment</th>
-                                                            <th style="width:20%">Value</th>
-                                                            <th style="width:30%">Tax</th>
+                                                            <th style="width:35%">Down Payment</th>
+                                                            <th style="width:35%">Value</th>
+                                                            <th style="width:20%">Tax</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -266,7 +289,7 @@
                                                 <table width="100%">
                                                     <tr>
                                                         <td style="width: 50%;">
-                                                            <input type="hidden" value="0" id="totalDpTax" name="totalDpTax" readonly>
+                                                            <input type="hidden" value="0" id="totalDpTax" name="totalDpTax" readonly autocomplete="off">
                                                             <input type="text" class="form-control form-control-sm numajaDesimal" value="0" id="totalDp" name="totalDp" readonly>
                                                         </td>
                                                         <td style="width: 50%;">

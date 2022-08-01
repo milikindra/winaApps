@@ -169,7 +169,7 @@ class SalesOrderController extends Controller
                 for ($i = 0; $i < count($request->file('attach')); $i++) {
                     $attach = $request->file('attach')[$i];
                     $post_attach[] = [
-                        'module' => 'so',
+                        'module' => 'SO',
                         'name' => $request->input('nomor'),
                         'value' => $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension(),
                         'path' => 'document/SO/' . date_format(date_create($request->input('date_order')), 'Y') . '/' . $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension()
@@ -581,7 +581,7 @@ class SalesOrderController extends Controller
                 'inventory' => $inventory,
                 'vat' => $vat,
                 'so' => $body->so,
-                'branch' => $branch
+                'branch' => $branch,
             ];
             return View('transaction.salesOrder.salesOrderDetail', $data);
         } catch (\Exception $e) {

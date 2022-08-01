@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Master\EmployeeController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Finance\FinancialReportController;
 use App\Http\Controllers\Finance\StatementOfAccountController;
 use App\Http\Controllers\Report\ReportStockController;
 use App\Http\Controllers\Report\ReportHelperController;
+use App\Http\Controllers\FileController;
 // use Illuminate\Support\Facades\URL;
 // Route::get('/', function () {
 //     return view('home');
@@ -194,3 +196,5 @@ Route::group(
         Route::post('reportTransmitalReceipt', [ReportHelperController::class, 'reportTransmitalReceipt'])->name('reportTransmitalReceipt')->middleware('userMatrix:RY01.01');
     }
 );
+
+Route::get('getFile/{path}', [FileController::class, 'getFile'])->name('getFile');

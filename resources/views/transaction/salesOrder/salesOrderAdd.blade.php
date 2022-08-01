@@ -214,11 +214,9 @@
                                                 </div>
                                             </div>
                                             <div class="row col-md-12 attachGroup" id="attachGroup">
-
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group col-md-12">
                                         <div class="row">
                                             <br />
@@ -266,9 +264,7 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="card">
