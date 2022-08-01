@@ -1,6 +1,11 @@
 $(".selects2").select2();
 $(document).ready(function () {
     $("#overlay").fadeOut(300);
+    // window.history.pushState('', null, './salesOrderAdd');
+    // $(window).on('popstate', function () {
+    //     location.reload(true);
+    // });
+
     window.onbeforeunload = function () {
         $("#overlay").fadeIn(300);
         $(window).bind("pageshow", function (event) {
@@ -18,6 +23,13 @@ $(document).ready(function () {
     var voids = "1";
     var kategori = "all";
     var subkategori = "all";
+
+    var t_dp = $('.attachGroup input').length;
+    if (t_dp > 0) {
+        for (var i = 0; i < t_dp; i++) {
+            addAttach()
+        }
+    }
 
     var t_dp = $('.down_payment tbody tr').length;
     if (t_dp > 0) {
@@ -454,6 +466,17 @@ $("#dept_save").on("click", function (e) {
         $("#modalDept").modal("hide");
     }
 });
+
+window.addAttach = function (element) {
+    var rc = $('#attachGroup input').length;
+    $(".attachGroup").append(
+        '<input type="file" style="margin-bottom: 2px;" id="attach-' + rc + '" name="attach[]">'
+    );
+};
+
+window.removeAttach = function (element) {
+    $(".attachGroup input:last").remove();
+};
 
 window.addRowDp = function (element) {
     var rowCountDp = $('#down_payment tbody tr').length;

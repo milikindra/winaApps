@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controller as BaseController;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -163,6 +164,19 @@ class SalesOrderController extends Controller
                 ];
             }
 
+            $post_attach = [];
+            if ($request->file() != null) {
+                for ($i = 0; $i < count($request->file('attach')); $i++) {
+                    $attach = $request->file('attach')[$i];
+                    $post_attach[] = [
+                        'module' => 'so',
+                        'name' => $request->input('nomor'),
+                        'value' => $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension(),
+                        'path' => 'document/module/' . $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension()
+                    ];
+                }
+            }
+
             $post_head = [
                 "api_token" => $user_token,
                 "NO_BUKTI" => $request->input('nomor'),
@@ -242,7 +256,8 @@ class SalesOrderController extends Controller
                 'head' => $post_head,
                 'detail' => $post_detail,
                 'um' => $post_dp,
-                'customer' => $post_customer
+                'customer' => $post_customer,
+                'attach' => $post_attach
             ];
             $request->request->add(['api_token' => $user_token]);
             $client = new Client();
@@ -251,9 +266,14 @@ class SalesOrderController extends Controller
                 'http_errors' => false
             ]);
             $body = json_decode($response->getBody());
-            $data = [
-                'result' => true
-            ];
+            if ($request->file() != null) {
+                for ($i = 0; $i < count($request->file('attach')); $i++) {
+                    $attach = $request->file('attach')[$i];
+                    $filename = $request->input('nomor') . "-" . $i + 1 . "." .  $attach->getClientOriginalExtension();
+                    Storage::disk('local')->putFileAs('document/module/', $attach, $filename);
+                    // Storage::disk('doc')->putFileAs('module', $attach, $filename);
+                }
+            }
             Alert::toast($body->message, 'success');
             if ($request->input('process') == 'print') {
                 return redirect('salesOrderPrint/' . $request->input('nomor'));
@@ -261,10 +281,9 @@ class SalesOrderController extends Controller
                 return redirect()->back();
             }
         } catch (\Exception $e) {
-            Alert::toast("500 - Failed to Save Data", 'danger');
+            Alert::toast("500 - Failed to Save Data", 'error');
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
             return redirect()->back();
-            // return abort(500);
         }
     }
 

@@ -20,15 +20,14 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <!-- jquery-validation -->
-<!-- <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
-<script src="{{ asset('plugins/jquery-validation/additional-methods.min.js')}}"></script> -->
+<script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+<!-- <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js')}}"></script> -->
 <!-- Select2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- number formating -->
 <script src="{{asset('plugins/number-formatting/formatUang.js')}}"></script>
 <script src="{{asset('plugins/number-formatting/keyPressuang.js')}}"></script>
 <script src="{{asset('plugins/number-formatting/numbro.min.js')}}"></script>
-
 <!-- SweetAlert2 -->
 <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- Toastr -->

@@ -204,13 +204,17 @@
                                             <!-- </div> -->
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="row col-md-12" style="display: none;">
-                                                <label>Attachment</label>
-                                                <a href="javascript:void(0)" onclick="" class="btn btn-xs btn-warning float-right" onclick="addAttach()" title="remove row"><i class="fa fa-minus"></i></a>
-                                                <a href="javascript:void(0)" onclick="" class="btn btn-xs btn-info float-right" onclick="removeAttach()" title="add row"><i class="fa fa-plus"></i></a>
+                                            <div class="row col-md-12">
+                                                <div class="col-md-7">
+                                                    <label>Attachment</label>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <a href="javascript:void(0)" class="btn btn-xs btn-warning float-right" onclick="removeAttach(this)" title="remove row"><i class="fa fa-minus"></i></a>
+                                                    <a href="javascript:void(0)" class="btn btn-xs btn-info float-right" onclick="addAttach(this)" title="add row"><i class="fa fa-plus"></i></a>
+                                                </div>
                                             </div>
-                                            <div class="row col-md-12" style="display: none;">
-                                                <input type="file" class="">
+                                            <div class="row col-md-12 attachGroup" id="attachGroup">
+
                                             </div>
                                         </div>
                                     </div>

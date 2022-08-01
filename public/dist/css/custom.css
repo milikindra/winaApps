@@ -224,6 +224,18 @@ textarea.form-control {
     font-size: 11px !important;
 }
 
+.custom-file-label-sm {
+    height: calc(1.8125rem + 2px);
+}
+
+.custom-file-sm {
+    height: calc(1.8125rem + 2px);
+}
+
+input #file-upload-button {
+    display: none;
+}
+
 .hidden {
     display: none;
 }
