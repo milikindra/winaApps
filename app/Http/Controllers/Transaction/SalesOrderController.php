@@ -521,6 +521,10 @@ class SalesOrderController extends Controller
                 'http_errors' => false
             ]);
             $body = json_decode($response->getBody());
+
+            foreach ($body->fileLocal as $local) {
+                Storage::disk('local')->delete($local->path);
+            }
             if ($body->result == true) {
                 Alert::toast($body->message, 'success');
                 return redirect('salesOrder');
