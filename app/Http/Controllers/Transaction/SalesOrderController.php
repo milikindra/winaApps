@@ -172,7 +172,7 @@ class SalesOrderController extends Controller
                         'module' => 'so',
                         'name' => $request->input('nomor'),
                         'value' => $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension(),
-                        'path' => 'document/module/' . $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension()
+                        'path' => 'document/SO/' . date_format(date_create($request->input('date_order')), 'Y') . '/' . $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension()
                     ];
                 }
             }
@@ -270,7 +270,7 @@ class SalesOrderController extends Controller
                 for ($i = 0; $i < count($request->file('attach')); $i++) {
                     $attach = $request->file('attach')[$i];
                     $filename = $request->input('nomor') . "-" . $i + 1 . "." .  $attach->getClientOriginalExtension();
-                    Storage::disk('local')->putFileAs('document/module/', $attach, $filename);
+                    Storage::disk('local')->putFileAs('document/SO/' . date_format(date_create($request->input('date_order')), 'Y'), $attach, $filename);
                     // Storage::disk('doc')->putFileAs('module', $attach, $filename);
                 }
             }
