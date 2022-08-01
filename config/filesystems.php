@@ -44,14 +44,6 @@ return [
             'throw' => false,
         ],
 
-        // 'doc' => [
-        //     'driver' => 'local',
-        //     'root' => env('ROOTS') . '/document',
-        //     'url' => env('ROOTS'),
-        //     'visibility' => 'public',
-        //     'throw' => true,
-        // ],
-
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -79,8 +71,6 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('document') => storage_path('app'),
-        // public_path('doc') => env('ROOTS') . '/document',
     ],
 
 ];

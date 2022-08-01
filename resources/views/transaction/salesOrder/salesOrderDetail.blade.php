@@ -240,8 +240,7 @@
                                             </div>
                                             <div class="row col-md-12 attachGroup" id="attachGroup">
                                                 @foreach($so->attach as $attach)
-                                                <!-- <a target="_blank" href="{{asset('storage/app/'.$attach->path) }}">{{$attach->value}}</a> -->
-                                                <a target="_blank" href="{{URL::to('getFile/'.base64_encode($attach->path)) }}">{{$attach->value}}</a>
+                                                <a target="_blank" href="{{URL::to('getFile/'.base64_encode($attach->path)) }}"><i class="fa fa-download"></i> {{$attach->value}}</a>
                                                 @endforeach
                                             </div>
                                         </div>
