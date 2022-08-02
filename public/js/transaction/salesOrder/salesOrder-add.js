@@ -1,6 +1,5 @@
 $(".selects2").select2();
 $(document).ready(function () {
-    console.log(performance.getEntriesByType("navigation")[0].type)
     $("#overlay").fadeOut(300);
     if (performance.getEntriesByType("navigation")[0].type == "back_forward") {
         $("#overlay").fadeIn(300);
@@ -460,14 +459,14 @@ $("#dept_save").on("click", function (e) {
 });
 
 window.addAttach = function (element) {
-    var rc = $('#attachGroup input').length;
-    $(".attachGroup").append(
+    var rc = $('#attachUpload input').length;
+    $(".attachUpload").append(
         '<input type="file" style="margin-bottom: 2px;" id="attach-' + rc + '" name="attach[]">'
     );
 };
 
 window.removeAttach = function (element) {
-    $(".attachGroup input:last").remove();
+    $(".attachUpload input:last").remove();
 };
 
 window.addRowDp = function (element) {

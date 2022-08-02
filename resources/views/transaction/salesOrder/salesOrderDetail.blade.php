@@ -238,10 +238,13 @@
                                                     <a href="javascript:void(0)" class="btn btn-xs btn-info float-right" onclick="addAttach(this)" title="add row"><i class="fa fa-plus"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="row col-md-12 attachGroup" id="attachGroup">
+                                            <div class="row col-md-12 attachDownload" id="attachDownload">
                                                 @foreach($so->attach as $attach)
                                                 <a target="_blank" href="{{URL::to('getFile/'.base64_encode($attach->path)) }}"><i class="fa fa-download"></i> {{$attach->value}}</a>
                                                 @endforeach
+                                            </div>
+                                            <div class="row col-md-12 attachUpload" id="attachUpload" style="display:none;">
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -646,7 +649,9 @@
     var url_default = "{{ URL('') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
+    var attach = <?= json_encode($so->attach); ?>;
 </script>
 <script src="{{ asset('js/transaction/salesOrder/salesOrder-add.js')}}"></script>
 <script src="{{ asset('js/transaction/salesOrder/salesOrder-edit.js')}}"></script>
+
 @endpush

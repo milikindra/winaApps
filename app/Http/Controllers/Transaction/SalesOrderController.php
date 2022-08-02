@@ -271,7 +271,6 @@ class SalesOrderController extends Controller
                     $attach = $request->file('attach')[$i];
                     $filename = $request->input('nomor') . "-" . $i + 1 . "." .  $attach->getClientOriginalExtension();
                     Storage::disk('local')->putFileAs('document/SO/' . date_format(date_create($request->input('date_order')), 'Y'), $attach, $filename);
-                    // Storage::disk('doc')->putFileAs('module', $attach, $filename);
                 }
             }
             Alert::toast($body->message, 'success');
@@ -332,6 +331,18 @@ class SalesOrderController extends Controller
                 ];
             }
 
+            $post_attach = [];
+            if ($request->file() != null) {
+                for ($i = 0; $i < count($request->file('attach')); $i++) {
+                    $attach = $request->file('attach')[$i];
+                    $post_attach[] = [
+                        'module' => 'SO',
+                        'name' => $request->input('nomor'),
+                        'value' => $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension(),
+                        'path' => 'document/SO/' . date_format(date_create($request->input('date_order')), 'Y') . '/' . $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension()
+                    ];
+                }
+            }
 
             $post_head = [
                 "api_token" => $user_token,
@@ -417,6 +428,7 @@ class SalesOrderController extends Controller
                 'detail' => $post_detail,
                 'um' => $post_dp,
                 'customer' => $post_customer,
+                'attach' => $post_attach,
                 'where' => $where
             ];
 
@@ -427,13 +439,20 @@ class SalesOrderController extends Controller
                 'http_errors' => false
             ]);
             $body = json_decode($response->getBody());
-            $data = [
-                'result' => true
-            ];
+            foreach ($body->fileLocal as $local) {
+                Storage::disk('local')->delete($local->path);
+            }
+            if ($request->file() != null) {
+                for ($i = 0; $i < count($request->file('attach')); $i++) {
+                    $attach = $request->file('attach')[$i];
+                    $filename = $request->input('nomor') . "-" . $i + 1 . "." .  $attach->getClientOriginalExtension();
+                    Storage::disk('local')->putFileAs('document/SO/' . date_format(date_create($request->input('date_order')), 'Y'), $attach, $filename);
+                    // Storage::disk('doc')->putFileAs('module', $attach, $filename);
+                }
+            }
             Alert::toast($body->message, 'success');
             if ($request->input('process') == 'print') {
                 return redirect('salesOrderDetail/p/' . $request->input('nomor'));
-                // return redirect('salesOrderPrint/' . $request->input('nomor'));
             } else {
                 return redirect('salesOrderDetail/d/' . $request->input('nomor'));
             }

@@ -213,7 +213,7 @@
                                                     <a href="javascript:void(0)" class="btn btn-xs btn-info float-right" onclick="addAttach(this)" title="add row"><i class="fa fa-plus"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="row col-md-12 attachGroup" id="attachGroup">
+                                            <div class="row col-md-12 attachUpload" id="attachUpload">
                                             </div>
                                         </div>
                                     </div>
