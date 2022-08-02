@@ -78,7 +78,6 @@ $(document).ready(function () {
         $("#customerModal").modal("show");
     }
 
-
     $('#btnAddSave').on('click', function (e) {
         if ($('#kode').val() != '') {
             if ($('#kodeOld').val() != '') {

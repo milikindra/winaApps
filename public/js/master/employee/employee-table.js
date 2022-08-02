@@ -92,12 +92,7 @@ $(document).ready(function () {
     });
 
     window.getActions = function (data, tyoe, row) {
-        var action_view =
-            '<a href="' +
-            url_default +
-            "/employeeDetail/" +
-            data +
-            '" title="View Detail" class="btn btn-xs btn-info" style="margin-right: 5px;color:white"><i class="fa fa-search"></i></a>';
+        var action_view ='<a href="' +url_default +"/employeeDetail/" +data +'" title="View Detail" class="btn btn-xs btn-info" style="margin-right: 5px;color:white"><i class="fa fa-search"></i></a>';
         action_view +=
             '<a href="' +
             url_default +

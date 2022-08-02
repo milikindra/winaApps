@@ -338,4 +338,34 @@ class CustomerController extends Controller
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
         }
     }
+
+    public function customerDelete(Request $request, $id)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/customerDelete';
+
+            $post_data = [
+                'api_token' => $user_token,
+                'user' => session('user')->username,
+                'ID_CUST' => $id
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+            if ($body->result == true) {
+                Alert::toast($body->message, 'success');
+            } else {
+                Alert::toast($body->message, 'danger');
+            }
+            return redirect('customer');
+        } catch (\Exception $e) {
+            Alert::toast('Error delete', 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return redirect('customer');
+        }
+    }
 }

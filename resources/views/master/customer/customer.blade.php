@@ -56,7 +56,7 @@
                                     <th>Sales</th>
                                     <th>NPWP</th>
                                     <th>Nationality Id</th>
-                                    <th>Option</th>
+                                    <th width="10%">Option</th>
                                 </tr>
                             </thead>
                             <tbody>

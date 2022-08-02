@@ -70,12 +70,14 @@ Route::group(
         Route::post('salesOrderUpdate', [SalesOrderController::class, 'salesOrderUpdate'])->name('salesOrderUpdate')->middleware('userMatrix:T01.03');
         Route::get('salesOrderPrint/{id}', [SalesOrderController::class, 'salesOrderPrint'])->name('salesOrderPrint')->middleware('userMatrix:T01.01');
         Route::get('salesOrderStatus/{id}', [SalesOrderController::class, 'salesOrderStatus'])->name('salesOrderStatus');
-        Route::get('salesOrder/void/{id}', [SalesOrderController::class, 'salesOrderDelete'])->name('salesOrder/void');
+        Route::get('salesOrder/void/{id}', [SalesOrderController::class, 'salesOrderDelete'])->name('salesOrder/void')->middleware('userMatrix:T01.04');
         Route::post('salesOrder/state', [SalesOrderController::class, 'salesOrderUpdateState'])->name('salesOrder/state')->middleware('userMatrix:T01.03');
         Route::post('salesOrder/cekSo', [SalesOrderController::class, 'salesOrderCek'])->name('salesOrder/cekSo');
 
         // salesInvoice
         Route::get('siGetEfaktur/{id}', [SalesInvoiceController::class, 'siGetEfaktur'])->name('siGetEfaktur');
+        Route::get('salesInvoice', [SalesInvoiceController::class, 'salesInvoiceShow'])->name('salesInvoice')->middleware('userMatrix:T02.01');
+        Route::get('salesInvoice/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesInvoiceController::class, 'populate'])->name('salesInvoice/data/populate');
     }
 );
 
@@ -166,6 +168,7 @@ Route::group(
         Route::get('customer/data/edit/{kode}', [CustomerController::class, 'customerEdit'])->name('customer/data/edit');
         Route::post('customerUpdate', [CustomerController::class, 'customerUpdate'])->name('customerUpdate')->middleware('userMatrix:M04.03');
         Route::post('customer/addBranch', [CustomerController::class, 'addBRanch'])->name('customer/addBranch')->middleware('userMatrix:M04.01');
+        Route::get('customer/void/{id}', [CustomerController::class, 'customerDelete'])->name('customer/void')->middleware('userMatrix:M02.04');
 
 
         // sales

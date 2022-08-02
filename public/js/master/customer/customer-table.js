@@ -96,7 +96,8 @@ $(document).ready(function () {
         var action_view =
             '<button onclick="customerEdit(this)" data-customer="' +
             data +
-            '" title="Edit" class="btn btn-sm btn-icon btn-warning" style="margin-right: 5px;"><i class="fa fa-edit"></i></button>';
+            '" title="Edit" class="btn btn-xs btn-icon btn-warning" style="margin-right: 5px;"><i class="fa fa-edit"></i></button>';
+        action_view += '<a href="' + url_default + "/customer/void/" + data + '" data-customer="' + data + '" title="Delete" class="btn btn-xs btn-icon btn-danger" style="margin-right: 5px;"><i class="fa fa-trash"></i></a>';
         return action_view;
     };
 });
