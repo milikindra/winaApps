@@ -157,7 +157,7 @@
                             </div>
                             <div class="row">
                                 <div class="column" style="width: 25%;">Date</div>
-                                <div class="column" style="width: 75%;">: <span style="font-weight: normal;">{{$so->head[0]->TGL_BUKTI}}</span></div>
+                                <div class="column" style="width: 75%;">: <span style="font-weight: normal;">{{date_format(date_create($so->head[0]->TGL_BUKTI),'d-m-Y')}}</span></div>
                             </div>
                             <div class="row">
                                 <div class="column" style="width: 25%;">PO</div>
@@ -165,7 +165,7 @@
                             </div>
                             <div class="row">
                                 <div class="column" style="width: 25%;">Due Date</div>
-                                <div class="column" style="width: 75%;">: <span style="font-weight: normal;">{{$so->head[0]->tgl_due}}</span></div>
+                                <div class="column" style="width: 75%;">: <span style="font-weight: normal;">{{date_format(date_create($so->head[0]->tgl_due),'d-m-Y')}}</span></div>
                             </div>
                             <div class="row">
                                 <div class="column" style="width: 25%;">Term</div>
