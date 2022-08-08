@@ -166,7 +166,7 @@
                     </tr>
                     @if(!empty($b->internal_notes))
                     <tr>
-                        <td colspan="100%">Notes : <i>{{$b->internal_notes}}</i></td>
+                        <td colspan="100%">Internal Notes : <br />{{$b->internal_notes}} </i></td>
                     </tr>
                     @endif
                     @endforeach

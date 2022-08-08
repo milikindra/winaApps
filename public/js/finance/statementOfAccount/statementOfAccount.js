@@ -236,18 +236,22 @@ function tableCustomerSOA() {
 }
 
 $('#tableCustomerSOA').on('dblclick tbody', 'tr', function (e) {
-    $("#cnmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
-    if ($(this).closest("tr").children("td:eq(13)").text() != 'null') {
-        $("#cnmInNotes").html($(this).closest("tr").children("td:eq(13)").text());
-    } else {
-        $("#cnmInNotes").html('');
-    }
-    if ($(this).closest("tr").children("td:eq(14)").text() != 'null') {
-        $("#cnmEstDate").val($(this).closest("tr").children("td:eq(14)").text());
-    } else {
+    if ($(this).closest("tr").children("td:eq(2)").text() != 'null' && $(this).closest("tr").children("td:eq(2)").text() != '' && $(this).closest("tr").children("td:eq(2)").text() != null) {
+        $("#cnmInNotes").val('');
         $("#cnmEstDate").val('');
+        $("#cnmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
+        if ($(this).closest("tr").children("td:eq(13)").text() != 'null') {
+            $("#cnmInNotes").val($(this).closest("tr").children("td:eq(13)").text());
+        } else {
+            $("#cnmInNotes").val('');
+        }
+        if ($(this).closest("tr").children("td:eq(14)").text() != 'null') {
+            $("#cnmEstDate").val($(this).closest("tr").children("td:eq(14)").text());
+        } else {
+            $("#cnmEstDate").val('');
+        }
+        $("#customerNotesModal").modal("show");
     }
-    $("#customerNotesModal").modal("show");
 
 })
 
@@ -469,7 +473,7 @@ function tableSupplierSOA() {
                 html += '</tr>';
                 if (item.internal_notes != null) {
                     html += '<tr>';
-                    html += '<td colspan="100%"><small>Notes : <i>' + item.internal_notes + '<i></small></td>';
+                    html += '<td colspan="100%">Internal Notes : <br/><p>' + item.internal_notes + '<p></td>';
                     html += '</tr>';
                 }
 
@@ -484,16 +488,16 @@ function tableSupplierSOA() {
 }
 
 $('#tableSupplierSOA').on('dblclick tbody', 'tr', function (e) {
-
-    $("#snmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
-    if ($(this).closest("tr").children("td:eq(17)").text() != 'null') {
-        $("#snmInNotes").html($(this).closest("tr").children("td:eq(17)").text());
-    } else {
-        $("#snmInNotes").html('');
+    if ($(this).closest("tr").children("td:eq(2)").text() != 'null' && $(this).closest("tr").children("td:eq(2)").text() != '' && $(this).closest("tr").children("td:eq(2)").text() != null) {
+        console.log($(this).closest("tr").children("td:eq(1)").text());
+        $("#snmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
+        if ($(this).closest("tr").children("td:eq(17)").text() != 'null') {
+            $("#snmInNotes").val($(this).closest("tr").children("td:eq(17)").text());
+        } else {
+            $("#snmInNotes").val('');
+        }
+        $("#supplierNotesModal").modal("show");
     }
-
-    $("#supplierNotesModal").modal("show");
-
 })
 
 $("#supplierNote_save").on("click", function (e) {
