@@ -24,6 +24,7 @@ $("#dataType").change(function () {
     $("#appProjectPnl").css("display", "none");
     $("#appProjectPnlList").css("display", "none");
 
+    $("#filterCache").css("display", "none");
     $("#filterSdate").css("display", "none");
     $("#filterEdate").css("display", "none");
     $("#filterTotal").css("display", "none");
@@ -45,7 +46,6 @@ $("#dataType").change(function () {
     var dataType = $("#dataType").val();
     if (dataType == "appIncomeStatement") {
         $("#tableIncomeStatement table").empty();
-
         $("#appIncomeStatement").css("display", "block");
         $("#filterSdate").css("display", "block");
         $("#filterEdate").css("display", "block");
@@ -85,17 +85,43 @@ $("#dataType").change(function () {
 
     if (dataType == "appProjectPnlList") {
         $("#tablePnlProjectList table").empty();
+
         $("#appProjectPnlList").css("display", "block");
+        $("#filterCache").css("display", "block");
         $("#filterSdate").css("display", "block");
         $("#filterEdate").css("display", "block");
         $("#filterAssumptionCost").css("display", "block");
         $("#filterOverhead").css("display", "block");
         $("#filterProjectBy").css("display", "block");
         $("#filterProject").css("display", "block");
-
+        $("#isCache").prop("checked", true);
+        caching();
     }
-
 });
+
+function caching() {
+    if ($('#isCache').is(":checked")) {
+        $("#sdate").attr("readonly", true);
+        $("#edate").attr("readonly", true);
+        $("#isAssumptionCost").attr("onclick", "return false");
+        $("#isOverhead").attr("onclick", "return false");
+        $('#showProjectBy').select2({ disabled: true });
+        $('#showProject').select2({ disabled: true });
+        $("#sdate").val(moment().subtract(3, 'month').format('YYYY-MM-01'));
+        $("#edate").val(moment().subtract(1, 'days').format('YYYY-MM-DD'));
+        $("#isAssumptionCost").prop("checked", true);
+        $("#isOverhead").prop("checked", false);
+        $('#showProjectBy').val('cr').trigger("change");
+        $('#showProject').val('finish').trigger("change");
+    } else {
+        $("#sdate").attr("readonly", false);
+        $("#edate").attr("readonly", false);
+        $("#isAssumptionCost").attr("onclick", "");
+        $("#isOverhead").attr("onclick", "");
+        $('#showProjectBy').select2({ disabled: false });
+        $('#showProject').select2({ disabled: false });
+    }
+}
 
 function dataReport() {
     var dataType = $("#dataType").val();
@@ -189,8 +215,8 @@ function tableIncomeStatement() {
         url: rute_incomeStatement + '/' + sdate + '/' + edate + '/' + isTotal + '/' + isParent + '/' + isChild + '/' + isZero + '/' + isTotalParent + '/' + isPercent + '/' + isValas + '/' + isShowCoa,
         dataType: 'json',
         success: function (data) {
-            $('#titleIncomeStatement').html('PT. VIKTORI PROFINDO AUTOMATION');;
-            $('#subtitleIncomeStatement').html('FINANCIAL REPORT - INCOME STATEMENT');;
+            $('#titleIncomeStatement').html('PT. VIKTORI PROFINDO AUTOMATION');
+            $('#subtitleIncomeStatement').html('FINANCIAL REPORT - INCOME STATEMENT');
             $('#filterIncomeStatement').html('Periode : ' + moment(sdate).format("DD/MM/YYYY") + ' to : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
@@ -432,6 +458,7 @@ function tablePnlProject() {
 function tablePnlProjectList() {
     $("#overlay").fadeIn(300);
     $("#tablePnlProjectList").empty();
+    var isCache = "N";
     var sdate = $('#sdate').val();
     var edate = $('#edate').val();
     var isAssumptionCost = "N";
@@ -439,6 +466,9 @@ function tablePnlProjectList() {
     var showProjectBy = $('#showProjectBy').val();
     var showProject = $('#showProject').val();
 
+    if ($('#isCache').is(":checked")) {
+        isCache = $('#isCache').val();
+    }
     if ($('#isAssumptionCost').is(":checked")) {
         isAssumptionCost = $('#isAssumptionCost').val();
     }
@@ -448,7 +478,7 @@ function tablePnlProjectList() {
 
     $.ajax({
         type: 'GET',
-        url: rute_pnlProjectListTable + '/' + sdate + '/' + edate + '/' + isAssumptionCost + '/' + isOverhead + '/' + showProjectBy + '/' + showProject,
+        url: rute_pnlProjectListTable + '/' + sdate + '/' + edate + '/' + isAssumptionCost + '/' + isOverhead + '/' + showProjectBy + '/' + showProject + '/' + isCache,
         dataType: 'json',
         success: function (data) {
             $('#titleProjectPnlList').html('PT. VIKTORI PROFINDO AUTOMATION');;

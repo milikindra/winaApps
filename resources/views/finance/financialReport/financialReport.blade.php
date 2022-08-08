@@ -57,6 +57,12 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-12" id="filterCache" style="display: none;">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="isCache" value="Y" name="isCache" onchange="caching()">
+                                        <label>Use Cache Data</label>
+                                    </div>
+                                </div>
                                 <div class="col-12" id="filterSdate" style="display: none;">
                                     <label>Start Date</label>
                                     <input type="date" class="form-control form-control-sm" id="sdate" name="sdate" min="2000-01-01" value="{{date('Y-m-01')}}">
@@ -182,7 +188,7 @@
 
                                 <div class="col-12" id="filterProjectBy" style="display: none;">
                                     <label>Show Project By</label>
-                                    <select class="form-control selects2" name="showProjectBy" id="showProjectBy">
+                                    <select class="form-control selects2 form-control-sm" name="showProjectBy" id="showProjectBy">
                                         <option value="so" selected>SO Date</option>
                                         <option value="clear">Clear Date</option>
                                         <option value="cr">CR Date</option>
@@ -192,7 +198,7 @@
 
                                 <div class="col-12" id="filterProject" style="display: none;">
                                     <label>Show List</label>
-                                    <select class="form-control selects2" name="showProject" id="showProject">
+                                    <select class="form-control selects2 form-control-sm" name="showProject" id="showProject">
                                         <option value="all" selected>All</option>
                                         <option value="finish">Finish</option>
                                         <option value="progress">On Progress</option>

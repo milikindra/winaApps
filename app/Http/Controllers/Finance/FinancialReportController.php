@@ -117,7 +117,7 @@ class FinancialReportController extends Controller
         return json_encode($table);
     }
 
-    public function populatePnlProjectList(request $request, $sdate, $edate, $isAssumptionCost, $isOverhead, $showProjectBy, $showProject)
+    public function populatePnlProjectList(request $request, $sdate, $edate, $isAssumptionCost, $isOverhead, $showProjectBy, $showProject, $isCache)
     {
         $post_data = [
             'user' => session('user')->username,
@@ -127,8 +127,9 @@ class FinancialReportController extends Controller
             'isOverhead' => $isOverhead,
             'showProjectBy' => $showProjectBy,
             'showProject' => $showProject,
+            'isCache' => $isCache,
         ];
- 
+
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/financialReport/getListPnlProjectList';
