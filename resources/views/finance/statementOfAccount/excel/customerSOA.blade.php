@@ -175,7 +175,15 @@ echo "Some Text"; //no ending ; here
                     </tr>
                     @if(!empty($b->internal_notes))
                     <tr>
-                        <td colspan="100%" style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;">Notes : <i>{{$b->internal_notes}}</i></td>
+                        <td colspan="6" style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;">Internal Notes :<br style="mso-data-placement:same-cell;"> <?= str_replace("<br />", "<br style='mso-data-placement:same-cell;'>", $b->internal_notes) ?></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
                     </tr>
                     @endif
                     @endforeach
