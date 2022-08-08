@@ -91,4 +91,24 @@ class SalesInvoiceController extends Controller
             return abort(500);
         }
     }
+
+    public function salesInvoiceAdd()
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $module = $this->module;
+            $menu_name = session('user')->menu_name;
+            $sales = salesGetRawData('ID_SALES', 'ASC');
+            $data = [
+                'title' => $menu_name->$module->module_name,
+                'parent_page' => $menu_name->$module->parent_name,
+                'page' => $menu_name->$module->module_name,
+                'sales' => $sales,
+            ];
+            return View('transaction.salesInvoice.salesInvoiceAdd', $data);
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return abort(500);
+        }
+    }
 }

@@ -132,12 +132,12 @@ echo "Some Text"; //no ending ; here
                         <th style="text-align: center;  border: 1px solid #000000;">Total</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Payment Paid</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Age</th>
+                        <th style="text-align: center;  border: 1px solid #000000;">Due In 1 Week</th>
+                        <th style="text-align: center;  border: 1px solid #000000;">Due In 2 Weeks</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Overdue < 15 days</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Overdue 15 - 30 days</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Overdue 31 - 60 days</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Overdue > 60 days</th>
-                        <th style="text-align: center;  border: 1px solid #000000;">Due In 1 Week</th>
-                        <th style="text-align: center;  border: 1px solid #000000;">Due In 2 Weeks</th>
                         <th style="text-align: center;  border: 1px solid #000000;">On Scheduled</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Total (IDR)</th>
                     </tr>
@@ -172,12 +172,12 @@ echo "Some Text"; //no ending ; here
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$total}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$paid}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right;" width=" 7%">{{$b->age}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$in_1_weeks}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$in_2_weeks}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_1_14}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_15_30}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_31_60}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_60}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$in_1_weeks}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$in_2_weeks}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$on_schedule}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$total_idr}}</td>
                     </tr>

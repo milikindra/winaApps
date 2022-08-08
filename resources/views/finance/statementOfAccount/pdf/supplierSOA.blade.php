@@ -126,12 +126,12 @@
                         <th style="text-align: center;">Total</th>
                         <th style="text-align: center;">Payment Paid</th>
                         <th style="text-align: center;">Age</th>
+                        <th style="text-align: center;">Due In 1 Week</th>
+                        <th style="text-align: center;">Due In 2 Weeks</th>
                         <th style="text-align: center;">Overdue < 15 days</th>
                         <th style="text-align: center;">Overdue 15 - 30 days</th>
                         <th style="text-align: center;">Overdue 31 - 60 days</th>
                         <th style="text-align: center;">Overdue > 60 days</th>
-                        <th style="text-align: center;">Due In 1 Week</th>
-                        <th style="text-align: center;">Due In 2 Weeks</th>
                         <th style="text-align: center;">On Scheduled</th>
                         <th style="text-align: center;">Total (IDR)</th>
                     </tr>
@@ -148,12 +148,12 @@
                         <td style="width: 5%; border-right:none;text-align:right;">{{accDollars($b->total)}}</td>
                         <td style="width: 5%; border-right:none;text-align:right;">{{accDollars($b->paid)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{$b->age}}</td>
+                        <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->in_1_weeks)}}</td>
+                        <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->in_2_weeks)}}</td>
                         <td style=" width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_1_14)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_15_30)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_31_60)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_60)}}</td>
-                        <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->in_1_weeks)}}</td>
-                        <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->in_2_weeks)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->on_schedule)}}</td>
                         <td style="width: 5%; text-align:right;">{{accDollars($b->total_idr)}}</td>
                     </tr>

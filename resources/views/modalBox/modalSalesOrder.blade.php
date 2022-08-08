@@ -9,22 +9,27 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid table-responsive">
-                    <table class="table tabelModalSo" id="tabelModalSo" style="width: 100%;">
+                    <table class="table tabelModalSo tbl-sm sroly " id="tabelModalSo" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th>Nomor</th>
-                                <th>Tanggal</th>
-                                <th>Kode Sales</th>
-                                <th>Nama Sales</th>
-                                <th>ID Customer</th>
-                                <th>Customer</th>
-                                <th>Tempo</th>
+                                <th>SO</th>
+                                <th>Date</th>
+                                <th>Sales Id</th>
+                                <th>Sales Name</th>
+                                <th>Customer Id</th>
+                                <th>Customer Name</th>
+                                <th>Due</th>
                                 <th>Currency</th>
                                 <th>Rate</th>
                                 <th>PO Customer</th>
-                                <th>Jenis</th>
-                                <th>No Ref.</th>
+                                <th>Type</th>
+                                <th>Ref.</th>
                                 <th>Bussiness Unit</th>
+                                <th>Pay. Term</th>
+                                <th>Ship To</th>
+                                <th>User Branch</th>
+                                <th>Account Receivable</th>
+                                <th>WAPU</th>
                                 <th>Total</th>
                             </tr>
                         </thead>

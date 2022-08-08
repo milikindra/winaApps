@@ -92,7 +92,6 @@ class SalesOrderController extends Controller
 
     public function salesOrderAdd()
     {
-
         try {
             $user_token = session('user')->api_token;
             $module = $this->module;
@@ -101,7 +100,7 @@ class SalesOrderController extends Controller
             $bu = bussinessUnitGetRawData();
             $dept = deptGetRawData();
             $inventory = inventoryGetRawData();
-            $vat = vatGetData(date('Y-m-d'));
+            $vat = vatGetData(date('Y-m-d'), 'all');
             $data = [
                 'title' => $menu_name->$module->module_name,
                 'parent_page' => $menu_name->$module->parent_name,
@@ -586,7 +585,7 @@ class SalesOrderController extends Controller
             $bu = bussinessUnitGetRawData();
             $dept = deptGetRawData();
             $inventory = inventoryGetRawData();
-            $vat = vatGetData($body->so->head[0]->TGL_BUKTI);
+            $vat = vatGetData($body->so->head[0]->TGL_BUKTI, 'all');
             $branch = customerBranchGetById($id_cust);
 
             $data = [
@@ -609,7 +608,7 @@ class SalesOrderController extends Controller
         }
     }
 
-    public function populateHead(Request $request)
+    public function populateHead(Request $request, $field, $value)
     {
         try {
             $user_token = session('user')->api_token;
@@ -635,6 +634,8 @@ class SalesOrderController extends Controller
                 'current_page' => $offset / $limit + 1,
                 'per_page' => $limit,
                 'user' => session('user')->username,
+                'field' => $field,
+                'value' => $value
             ];
             $url = Config::get('constants.api_url') . '/salesOrder/getlistHead';
             $client = new Client();

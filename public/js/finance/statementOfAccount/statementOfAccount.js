@@ -58,7 +58,7 @@ function dataReport() {
     if (dataType == "appCustomerSOA") {
         tableCustomerSOA();
     }
-    
+
     if (dataType == "appSupplierSOA") {
         tableSupplierSOA();
     }
@@ -111,7 +111,7 @@ function tableCustomerSOA() {
             $.each(a.data, function (i, item) {
                 var no_inv = '';
                 if (item.no_inv != null) {
-                    no_inv =item.no_inv 
+                    no_inv = item.no_inv
                 }
                 var tgl_bukti = '';
                 if (item.tgl_bukti != null) {
@@ -127,13 +127,13 @@ function tableCustomerSOA() {
                 }
                 var no_po = '';
                 if (item.no_po != null) {
-                    no_po =item.no_po 
+                    no_po = item.no_po
                 }
                 var sales = '';
                 if (item.sales != null) {
-                    sales =item.sales 
+                    sales = item.sales
                 }
-                if ( item.total != null) {
+                if (item.total != null) {
                     var total = numbro(item.total).format({
                         thousandSeparated: true,
                         negative: "parenthesis",
@@ -204,14 +204,14 @@ function tableCustomerSOA() {
                     html += '<tr>';
                 }
 
-                html += '<td>'+item.nm_cust+'</td>';
-                html += '<td>'+no_inv+'</td>';
-                html += '<td style="text-align:center">'+ tgl_bukti +'</td>';
-                html += '<td style="text-align:center">'+ due_date +'</td>';
-                html += '<td style="text-align:center">'+ est_date +'</td>';
-                html += '<td style="word-wrap: break-word">'+no_po+'</td>';
+                html += '<td>' + item.nm_cust + '</td>';
+                html += '<td>' + no_inv + '</td>';
+                html += '<td style="text-align:center">' + tgl_bukti + '</td>';
+                html += '<td style="text-align:center">' + due_date + '</td>';
+                html += '<td style="text-align:center">' + est_date + '</td>';
+                html += '<td style="word-wrap: break-word">' + no_po + '</td>';
                 html += '<td style="text-align:right">' + total + '</td>';
-                html += '<td>'+sales+'</td>';
+                html += '<td>' + sales + '</td>';
                 html += '<td style="text-align:right">' + overdue_100 + '</td>';
                 html += '<td style="text-align:right">' + overdue_1_30 + '</td>';
                 html += '<td style="text-align:right">' + overdue_31_60 + '</td>';
@@ -222,7 +222,7 @@ function tableCustomerSOA() {
                 html += '</tr>';
                 if (item.internal_notes != null) {
                     html += '<tr>';
-                    html += '<td colspan="100%"><small>Notes : <i>'+item.internal_notes+'<i></small></td>';
+                    html += '<td colspan="100%">Internal Notes : <br/><p>' + item.internal_notes + '<p></td>';
                     html += '</tr>';
                 }
             });
@@ -261,12 +261,12 @@ $("#customerNote_save").on("click", function (e) {
         type: 'POST',
         url: rute_internal_notes,
         data: {
-                soaType: soaType,
-                cnmInvoice: cnmInvoice,
-                cnmEstDate: cnmEstDate,
-                cnmInNotes: cnmInNotes,
-                _token: _token
-            },
+            soaType: soaType,
+            cnmInvoice: cnmInvoice,
+            cnmEstDate: cnmEstDate,
+            cnmInNotes: cnmInNotes,
+            _token: _token
+        },
         dataType: 'json',
         success: function (data) {
             Toast.fire({
@@ -277,9 +277,9 @@ $("#customerNote_save").on("click", function (e) {
     });
     $("#customerNotesModal").modal("hide");
     $("#processFilter").trigger("click");
-    
+
 });
-    
+
 function tableSupplierSOA() {
     $("#overlay").fadeIn(300);
     $("#tableSupplierSOA").empty();
@@ -311,7 +311,7 @@ function tableSupplierSOA() {
     }
     $.ajax({
         type: 'GET',
-        url: rute_supplier_soa +  '/' + edate + '/' + supplier + '/' + inventory + '/' + tag + '/' + overdue + '/' + isTotalSupplier,
+        url: rute_supplier_soa + '/' + edate + '/' + supplier + '/' + inventory + '/' + tag + '/' + overdue + '/' + isTotalSupplier,
         dataType: 'json',
         success: function (data) {
             $('#titleSupplierSOA').html('PT. VIKTORI PROFINDO AUTOMATION');;
@@ -319,7 +319,7 @@ function tableSupplierSOA() {
             $('#filterSupplierSOA').html('Per : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
-            html = '<thead> <tr style="text-align: center;"> <th>Supplier</th> <th>PI</th> <th>PI Date</th> <th>Due Date</th> <th>Invoice</th> <th>Currency</th> <th>Total</th> <th>Payment Paid</th> <th>Age</th> <th>Overdue < 15 days</th> <th>Overdue 15 - 30 days</th> <th>Overdue 31 - 60 days</th> <th>Overdue > 60 days</th> <th>Due In 1 Week</th> <th>Due In 2 Weeks</th> <th>On Scheduled</th> <th>Total (IDR)</th> </tr></thead>';
+            html = '<thead> <tr style="text-align: center;"> <th>Supplier</th> <th>PI</th> <th>PI Date</th> <th>Due Date</th> <th>Invoice</th> <th>Currency</th> <th>Total</th> <th>Payment Paid</th> <th>Age</th> <th>Due In 1 Week</th> <th>Due In 2 Weeks</th> <th>Overdue < 15 days</th> <th>Overdue 15 - 30 days</th> <th>Overdue 31 - 60 days</th> <th>Overdue > 60 days</th> <th>On Scheduled</th> <th>Total (IDR)</th> </tr></thead>';
             html += '<tbody>';
 
             var a = JSON.parse(JSON.stringify(data));
@@ -348,7 +348,7 @@ function tableSupplierSOA() {
                 if (item.currency != null) {
                     currency = item.currency;
                 }
-                if ( item.total != null) {
+                if (item.total != null) {
                     var total = numbro(item.total).format({
                         thousandSeparated: true,
                         negative: "parenthesis",
@@ -363,7 +363,7 @@ function tableSupplierSOA() {
                         thousandSeparated: true,
                         negative: "parenthesis",
                         mantissa: 2
-                    }) 
+                    })
                 }
                 var age = '';
                 if (item.age != null) {
@@ -448,28 +448,28 @@ function tableSupplierSOA() {
                 } else {
                     html += '<tr>';
                 }
-                html += '<td>'+nm_supplier+'</td>';
-                html += '<td>'+no_pi+'</td>';
-                html += '<td style="text-align:center">'+ tgl_bukti +'</td>';
-                html += '<td style="text-align:center">'+due_date+'</td>';
-                html += '<td>'+no_inv+'</td>';
-                html += '<td style="text-align:center">'+currency+'</td>';
-                html += '<td style="text-align:right">' +total+ '</td>';
+                html += '<td>' + nm_supplier + '</td>';
+                html += '<td>' + no_pi + '</td>';
+                html += '<td style="text-align:center">' + tgl_bukti + '</td>';
+                html += '<td style="text-align:center">' + due_date + '</td>';
+                html += '<td>' + no_inv + '</td>';
+                html += '<td style="text-align:center">' + currency + '</td>';
+                html += '<td style="text-align:right">' + total + '</td>';
                 html += '<td style="text-align:right">' + paid + '</td>';
-                html += '<td style="text-align:center">'+age+'</td>';
-                html += '<td style="text-align:right">' + overdue_1_14+'</td>';
-                html += '<td style="text-align:right">' +overdue_15_30 + '</td>';
+                html += '<td style="text-align:center">' + age + '</td>';
+                html += '<td style="text-align:right">' + in_1_weeks + '</td>';
+                html += '<td style="text-align:right">' + in_2_weeks + '</td>';
+                html += '<td style="text-align:right">' + overdue_1_14 + '</td>';
+                html += '<td style="text-align:right">' + overdue_15_30 + '</td>';
                 html += '<td style="text-align:right">' + overdue_31_60 + '</td>';
                 html += '<td style="text-align:right">' + overdue_60 + '</td>';
-                html += '<td style="text-align:right">' + in_1_weeks+ '</td>';
-                html += '<td style="text-align:right">' + in_2_weeks + '</td>';
                 html += '<td style="text-align:right">' + on_schedule + '</td>';
                 html += '<td style="text-align:right">' + total_idr + '</td>';
                 html += '<td style="display:none">' + item.internal_notes + '</td>';
                 html += '</tr>';
                 if (item.internal_notes != null) {
                     html += '<tr>';
-                    html += '<td colspan="100%"><small>Notes : <i>'+item.internal_notes+'<i></small></td>';
+                    html += '<td colspan="100%"><small>Notes : <i>' + item.internal_notes + '<i></small></td>';
                     html += '</tr>';
                 }
 
@@ -484,14 +484,14 @@ function tableSupplierSOA() {
 }
 
 $('#tableSupplierSOA').on('dblclick tbody', 'tr', function (e) {
-    
-     $("#snmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
+
+    $("#snmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
     if ($(this).closest("tr").children("td:eq(17)").text() != 'null') {
         $("#snmInNotes").html($(this).closest("tr").children("td:eq(17)").text());
     } else {
         $("#snmInNotes").html('');
     }
-    
+
     $("#supplierNotesModal").modal("show");
 
 })
@@ -505,11 +505,11 @@ $("#supplierNote_save").on("click", function (e) {
         type: 'POST',
         url: rute_internal_notes,
         data: {
-                soaType: soaType,
-                snmInvoice: snmInvoice,
-                snmInNotes: snmInNotes,
-                _token: _token
-            },
+            soaType: soaType,
+            snmInvoice: snmInvoice,
+            snmInNotes: snmInNotes,
+            _token: _token
+        },
         dataType: 'json',
         success: function (data) {
             Toast.fire({
@@ -520,7 +520,7 @@ $("#supplierNote_save").on("click", function (e) {
     });
     $("#supplierNotesModal").modal("hide");
     $("#processFilter").trigger("click");
-    
+
 });
 
 function dt_customer() {
@@ -537,32 +537,32 @@ function dt_customer() {
         dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-        drawCallback: function (settings, json) {},
+        drawCallback: function (settings, json) { },
         ajax: {
-            url: get_customer +"/0",
+            url: get_customer + "/0",
             type: "GET",
             dataType: "JSON",
         },
         columns: [{
-                data: "ID_CUST",
-                render: function (data, type, row) {
-                    return cbCustomer(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
-            },{
-                data: "ID_CUST",
-                name: "ID_CUST",
+            data: "ID_CUST",
+            render: function (data, type, row) {
+                return cbCustomer(data, type, row);
             },
-            {
-                data: "NM_CUST",
-                name: "NM_CUST",
-            },
-            {
-                data: "ALAMAT1",
-                name: "ALAMAT1",
-            },
-            
+            orderable: false,
+            className: "text-center",
+        }, {
+            data: "ID_CUST",
+            name: "ID_CUST",
+        },
+        {
+            data: "NM_CUST",
+            name: "NM_CUST",
+        },
+        {
+            data: "ALAMAT1",
+            name: "ALAMAT1",
+        },
+
         ],
         order: [
             [1, "asc"]
@@ -588,10 +588,10 @@ $("#customer_modal").on("click", function (e) {
         var tds = $(this).find("td");
         var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
-        inp.prop( "checked", false );
+        inp.prop("checked", false);
         for (var j = 0; j < arr_nilai.length - 1; j++) {
             if (kode == arr_nilai[j]) {
-                inp.prop( "checked", true );
+                inp.prop("checked", true);
             }
         }
     });
@@ -629,89 +629,89 @@ function dt_so() {
         dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-        drawCallback: function (settings, json) {},
+        drawCallback: function (settings, json) { },
         ajax: {
-            url: get_salesOrder ,
+            url: get_salesOrder,
             type: "GET",
             dataType: "JSON",
         },
         columns: [{
-                data: "NO_BUKTI",
-                render: function (data, type, row) {
-                    return cbSo(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
-            },{
-                data: "NO_BUKTI",
-                name: "NO_BUKTI",
-                width: "10%",
+            data: "NO_BUKTI",
+            render: function (data, type, row) {
+                return cbSo(data, type, row);
             },
-            {
-                data: "TGL_BUKTI",
-                name: "TGL_BUKTI",
-                width: "5%",
-                render: function (data, type, row) {
-                    return moment(data).format("DD MMM YYYY");
-                },
+            orderable: false,
+            className: "text-center",
+        }, {
+            data: "NO_BUKTI",
+            name: "NO_BUKTI",
+            width: "10%",
+        },
+        {
+            data: "TGL_BUKTI",
+            name: "TGL_BUKTI",
+            width: "5%",
+            render: function (data, type, row) {
+                return moment(data).format("DD MMM YYYY");
             },
-            {
-                data: "ID_SALES",
-                name: "ID_SALES",
-                width: "10%",
+        },
+        {
+            data: "ID_SALES",
+            name: "ID_SALES",
+            width: "10%",
+        },
+        {
+            data: "NM_SALES",
+            name: "NM_SALES",
+            width: "10%",
+        },
+        {
+            data: "ID_CUST",
+            name: "ID_CUST",
+            width: "10%",
+        },
+        {
+            data: "NM_CUST",
+            name: "NM_CUST",
+            width: "20%",
+        },
+        {
+            data: "TEMPO",
+            name: "TEMPO",
+        },
+        {
+            data: "curr",
+            name: "curr",
+        },
+        {
+            data: "rate",
+            name: "rate",
+        },
+        {
+            data: "PO_CUST",
+            name: "PO_CUST",
+        },
+        {
+            data: "jenis",
+            name: "jenis",
+        },
+        {
+            data: "no_ref",
+            name: "no_ref",
+        },
+        {
+            data: "DIVISI",
+            name: "DIVISI",
+        },
+        {
+            data: "total_rp",
+            name: "total_rp",
+            className: "dt-body-right",
+            width: "10%",
+            render: function (data, type, row) {
+                return addPeriod(parseFloat(data).toFixed(2), ",");
             },
-            {
-                data: "NM_SALES",
-                name: "NM_SALES",
-                width: "10%",
-            },
-            {
-                data: "ID_CUST",
-                name: "ID_CUST",
-                width: "10%",
-            },
-            {
-                data: "NM_CUST",
-                name: "NM_CUST",
-                width: "20%",
-            },
-            {
-                data: "TEMPO",
-                name: "TEMPO",
-            },
-            {
-                data: "curr",
-                name: "curr",
-            },
-            {
-                data: "rate",
-                name: "rate",
-            },
-            {
-                data: "PO_CUST",
-                name: "PO_CUST",
-            },
-            {
-                data: "jenis",
-                name: "jenis",
-            },
-            {
-                data: "no_ref",
-                name: "no_ref",
-            },
-            {
-                data: "DIVISI",
-                name: "DIVISI",
-            },
-            {
-                data: "total_rp",
-                name: "total_rp",
-                className: "dt-body-right",
-                width: "10%",
-                render: function (data, type, row) {
-                    return addPeriod(parseFloat(data).toFixed(2), ",");
-                },
-            },
+        },
         ],
         order: [
             [1, "asc"]
@@ -736,10 +736,10 @@ $("#so_modal").on("click", function (e) {
         var tds = $(this).find("td");
         var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
-        inp.prop( "checked", false );
+        inp.prop("checked", false);
         for (var j = 0; j < arr_nilai.length - 1; j++) {
             if (kode == arr_nilai[j]) {
-                inp.prop( "checked", true );
+                inp.prop("checked", true);
             }
         }
     });
@@ -777,30 +777,30 @@ function dt_sales() {
         dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-        drawCallback: function (settings, json) {},
+        drawCallback: function (settings, json) { },
         ajax: {
-            url: get_sales+'/0' ,
+            url: get_sales + '/0',
             type: "GET",
             dataType: "JSON",
         },
         columns: [{
-                data: "ID_SALES",
-                render: function (data, type, row) {
-                    return cbSales(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
-            },{
-                data: "ID_SALES",
-                name: "ID_SALES",
-                width: "10%",
+            data: "ID_SALES",
+            render: function (data, type, row) {
+                return cbSales(data, type, row);
             },
-            {
-                data: "NM_SALES",
-                name: "NM_SALES",
-                width: "5%",
-            },
-            
+            orderable: false,
+            className: "text-center",
+        }, {
+            data: "ID_SALES",
+            name: "ID_SALES",
+            width: "10%",
+        },
+        {
+            data: "NM_SALES",
+            name: "NM_SALES",
+            width: "5%",
+        },
+
         ],
         order: [
             [1, "asc"]
@@ -825,10 +825,10 @@ $("#sales_modal").on("click", function (e) {
         var tds = $(this).find("td");
         var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
-        inp.prop( "checked", false );
+        inp.prop("checked", false);
         for (var j = 0; j < arr_nilai.length - 1; j++) {
             if (kode == arr_nilai[j]) {
-                inp.prop( "checked", true );
+                inp.prop("checked", true);
             }
         }
     });
@@ -850,7 +850,7 @@ $("#sales_save").on("click", function (e) {
     });
     $("#sales").val(sales);
     $("#salesModal").modal("hide");
-    
+
 });
 
 $("#overdueCustomer_modal").on("click", function (e) {
@@ -865,10 +865,10 @@ $("#overdueCustomer_modal").on("click", function (e) {
         var tds = $(this).find("td");
         var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
-        inp.prop( "checked", false );
+        inp.prop("checked", false);
         for (var j = 0; j < arr_nilai.length - 1; j++) {
             if (kode == arr_nilai[j]) {
-                inp.prop( "checked", true );
+                inp.prop("checked", true);
             }
         }
     });
@@ -890,7 +890,7 @@ $("#overdueCustomer_save").on("click", function (e) {
     });
     $("#overdueCustomer").val(overdue);
     $("#modalOverdueCustomer").modal("hide");
-    
+
 });
 
 function dt_supplier() {
@@ -907,39 +907,39 @@ function dt_supplier() {
         dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-        drawCallback: function (settings, json) {},
+        drawCallback: function (settings, json) { },
         ajax: {
-            url: get_supplier+'/0' ,
+            url: get_supplier + '/0',
             type: "GET",
             dataType: "JSON",
         },
         columns: [{
-                data: "id_supplier",
-                render: function (data, type, row) {
-                    return cbSupplier(data, type, row);
-                },
-                orderable: false,
-                className: "text-center",
-            },{
-                data: "id_supplier",
-                name: "id_supplier",
-                width: "10%",
+            data: "id_supplier",
+            render: function (data, type, row) {
+                return cbSupplier(data, type, row);
             },
-            {
-                data: "nm_supplier",
-                name: "nm_supplier",
-                width: "5%",
-            },
-            {
-                data: "TELP",
-                name: "TELP",
-                width: "5%",
-            },
-            {
-                data: "ALAMAT1",
-                name: "ALAMAT1",
-                width: "5%",
-            },
+            orderable: false,
+            className: "text-center",
+        }, {
+            data: "id_supplier",
+            name: "id_supplier",
+            width: "10%",
+        },
+        {
+            data: "nm_supplier",
+            name: "nm_supplier",
+            width: "5%",
+        },
+        {
+            data: "TELP",
+            name: "TELP",
+            width: "5%",
+        },
+        {
+            data: "ALAMAT1",
+            name: "ALAMAT1",
+            width: "5%",
+        },
         ],
         order: [
             [1, "asc"]
@@ -947,7 +947,7 @@ function dt_supplier() {
     });
 }
 
-window.cbSupplier= function (data, tyoe, row) {
+window.cbSupplier = function (data, tyoe, row) {
     var action_view = '<input type="checkbox" value="Y">';
     return action_view;
 };
@@ -964,10 +964,10 @@ $("#supplier_modal").on("click", function (e) {
         var tds = $(this).find("td");
         var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
-        inp.prop( "checked", false );
+        inp.prop("checked", false);
         for (var j = 0; j < arr_nilai.length - 1; j++) {
             if (kode == arr_nilai[j]) {
-                inp.prop( "checked", true );
+                inp.prop("checked", true);
             }
         }
     });
@@ -989,7 +989,7 @@ $("#supplier_save").on("click", function (e) {
     });
     $("#supplier").val(supplier);
     $("#supplierModal").modal("hide");
-    
+
 });
 
 function dt_inventory() {
@@ -1006,59 +1006,59 @@ function dt_inventory() {
         dom: "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-        drawCallback: function (settings, json) {},
+        drawCallback: function (settings, json) { },
         ajax: {
-            url: get_inventory+'/1/all/all' ,
+            url: get_inventory + '/1/all/all',
             type: "GET",
             dataType: "JSON",
         },
         columns: [{
-                    data: "no_stock",
-                    render: function (data, type, row) {
-                        return cbInventory(data, type, row);
-                    },
-                    orderable: false,
-                    className: "text-center",
-                },{
-                    data: "no_stock",
-                    name: "no_stock",
-                },
-                {
-                    data: "nama_barang",
-                    name: "nama_barang",
-                },
-                {
-                    data: "sat",
-                    name: "sat",
-                },
-                {
-                    data: "saldo",
-                    name: "saldo",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "booked",
-                    name: "booked",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "orders",
-                    name: "orders",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "transit",
-                    name: "transit",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "kategori",
-                    name: "kategori",
-                },
-                {
-                    data: "kategori2",
-                    name: "kategori2",
-                },
+            data: "no_stock",
+            render: function (data, type, row) {
+                return cbInventory(data, type, row);
+            },
+            orderable: false,
+            className: "text-center",
+        }, {
+            data: "no_stock",
+            name: "no_stock",
+        },
+        {
+            data: "nama_barang",
+            name: "nama_barang",
+        },
+        {
+            data: "sat",
+            name: "sat",
+        },
+        {
+            data: "saldo",
+            name: "saldo",
+            className: "dt-body-right",
+        },
+        {
+            data: "booked",
+            name: "booked",
+            className: "dt-body-right",
+        },
+        {
+            data: "orders",
+            name: "orders",
+            className: "dt-body-right",
+        },
+        {
+            data: "transit",
+            name: "transit",
+            className: "dt-body-right",
+        },
+        {
+            data: "kategori",
+            name: "kategori",
+        },
+        {
+            data: "kategori2",
+            name: "kategori2",
+        },
         ],
         order: [
             [1, "asc"]
@@ -1066,7 +1066,7 @@ function dt_inventory() {
     });
 }
 
-window.cbInventory= function (data, tyoe, row) {
+window.cbInventory = function (data, tyoe, row) {
     var action_view = '<input type="checkbox" value="Y">';
     return action_view;
 };
@@ -1083,10 +1083,10 @@ $("#inventory_modal").on("click", function (e) {
         var tds = $(this).find("td");
         var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
-        inp.prop( "checked", false );
+        inp.prop("checked", false);
         for (var j = 0; j < arr_nilai.length - 1; j++) {
             if (kode == arr_nilai[j]) {
-                inp.prop( "checked", true );
+                inp.prop("checked", true);
             }
         }
     });
@@ -1108,7 +1108,7 @@ $("#inventory_save").on("click", function (e) {
     });
     $("#inventory").val(inventory);
     $("#inventoryModal").modal("hide");
-    
+
 });
 
 $("#overdueSupplier_modal").on("click", function (e) {
@@ -1123,10 +1123,10 @@ $("#overdueSupplier_modal").on("click", function (e) {
         var tds = $(this).find("td");
         var kode = tds.eq(1).text().trim();
         var inp = $(this).find("input");
-        inp.prop( "checked", false );
+        inp.prop("checked", false);
         for (var j = 0; j < arr_nilai.length - 1; j++) {
             if (kode == arr_nilai[j]) {
-                inp.prop( "checked", true );
+                inp.prop("checked", true);
             }
         }
     });
@@ -1148,5 +1148,5 @@ $("#overdueSupplier_save").on("click", function (e) {
     });
     $("#overdueSupplier").val(overdue);
     $("#modalOverdueSupplier").modal("hide");
-    
+
 });

@@ -245,12 +245,12 @@
                                         <th>Total</th>
                                         <th>Payment Paid</th>
                                         <th>Age</th>
+                                        <th>Due In 1 Week</th>
+                                        <th>Due In 2 Weeks</th>
                                         <th>Overdue < 15 days</th>
                                         <th>Overdue 15 - 30 days</th>
                                         <th>Overdue 31 - 60 days</th>
                                         <th>Overdue > 60 days</th>
-                                        <th>Due In 1 Week</th>
-                                        <th>Due In 2 Weeks</th>
                                         <th>On Scheduled</th>
                                         <th>Total (IDR)</th>
                                     </tr>
@@ -473,7 +473,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Internal Notes</label>
-                                        <textarea class="form-control form-control-sm r1" row="1" name="cnmInNotes" id="cnmInNotes"></textarea>
+                                        <textarea class="form-control form-control-sm" row="5" name="cnmInNotes" id="cnmInNotes"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -580,6 +580,16 @@
                         <tbody>
                             <tr>
                                 <td style="text-align: center;"><input type="checkbox" value="Y"></td>
+                                <td style="display: none;">in_1_weeks</td>
+                                <td>Due In 1 Week</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
+                                <td style="display: none;">in_2_weeks</td>
+                                <td>Due In 1 Week</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_1_14</td>
                                 <td>Overdue < 15 days</td>
                             </tr>
@@ -597,16 +607,6 @@
                                 <td style="text-align: center;"><input type="checkbox" value="Y"></td>
                                 <td style="display: none;">overdue_60</td>
                                 <td>Overdue > 60 days</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
-                                <td style="display: none;">in_1_weeks</td>
-                                <td>Due In 1 Week</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: center;"><input type="checkbox" value="Y"></td>
-                                <td style="display: none;">in_2_weeks</td>
-                                <td>Due In 1 Week</td>
                             </tr>
                             <tr>
                                 <td style="text-align: center;"><input type="checkbox" value="Y"></td>
@@ -651,7 +651,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Internal Notes</label>
-                                        <textarea class="form-control form-control-sm r1" row="1" name="snmInNotes" id="snmInNotes"></textarea>
+                                        <textarea class="form-control form-control-sm" rows="5" name="snmInNotes" id="snmInNotes"></textarea>
                                     </div>
                                 </div>
                             </div>

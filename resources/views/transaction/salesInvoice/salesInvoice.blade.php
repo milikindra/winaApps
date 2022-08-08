@@ -20,7 +20,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-12"><a href="#" class="btn btn-info btn-sm btn-block">
+                            <div class="col-12"><a href="{{ route('salesInvoiceAdd')}}" class="btn btn-info btn-sm btn-block">
                                     New Sales Invoice
                                 </a>
                             </div>

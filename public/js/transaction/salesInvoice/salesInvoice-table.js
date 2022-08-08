@@ -169,11 +169,15 @@ $(document).ready(function () {
                     },
                 },
                 {
-                    data: "TOTAL_Pendapatan",
-                    name: "TOTAL_Pendapatan",
+                    data: "income",
+                    name: "income",
                     className: "dt-body-right",
                     render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                        if (data == null) {
+                            return "0.00";
+                        } else {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        }
                     },
                 },
                 ],
@@ -190,10 +194,30 @@ $(document).ready(function () {
                 deferRender: true,
                 bAutoWidth: false,
                 lengthMenu: [
-                    [5, 100, 250, 500, 1000, -1],
-                    [5, 100, 250, 500, 1000, "all"],
+                    [100, 250, 500, 1000, -1],
+                    [100, 250, 500, 1000, "all"],
                 ],
-                buttons: ["excel", "pdf", "print", "csv", "colvis"],
+                buttons: [{
+                    extend: "print",
+                    className: "btn-info"
+                },
+                {
+                    extend: "excel",
+                    className: "btn-info"
+                },
+                {
+                    extend: "pdf",
+                    className: "btn-info"
+                },
+                {
+                    extend: "csv",
+                    className: "btn-info"
+                },
+                {
+                    extend: "colvis",
+                    className: "btn-info"
+                },
+                ],
                 dom:
                     // "<'row'<'col-sm-12'B>>" +
                     "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
@@ -219,70 +243,120 @@ $(document).ready(function () {
                 columns: [{
                     data: "no_bukti2",
                     name: "no_bukti2",
-                    width: "10%",
+                },
+                {
+                    data: "tag",
+                    name: "tag",
+
                 },
                 {
                     data: "TGL_BUKTI",
                     name: "TGL_BUKTI",
-                    width: "5%",
                     render: function (data, type, row) {
-                        return moment(data).format("DD/MMM/YYYY");
+                        return moment(data).format("DD/MM/YYYY");
                     },
                 },
                 {
                     data: "NM_CUST",
                     name: "NM_CUST",
-                    width: "20%",
                 },
                 {
-                    data: "Dept",
-                    name: "Dept",
+                    data: "NM_SALES",
+                    name: "NM_SALES",
                 },
                 {
-                    data: "PO_CUST",
-                    name: "PO_CUST",
+                    data: "TEMPO",
+                    name: "TEMPO",
                 },
                 {
-                    data: "totdpp",
-                    name: "totdpp",
+                    data: "no_so",
+                    name: "no_so",
+                },
+                {
+                    data: "curr",
+                    name: "curr",
+                },
+                {
+                    data: "rate",
+                    name: "rate",
+                },
+                {
+                    data: "isWapu",
+                    name: "isWapu",
+                },
+                {
+                    data: "no_pajak",
+                    name: "no_pajak",
+                },
+                {
+                    data: "totdpp_rp",
+                    name: "totdpp_rp",
                     className: "dt-body-right",
-                    width: "10%",
                     render: function (data, type, row) {
                         return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
                 },
                 {
-                    data: "totppn",
-                    name: "totppn",
+                    data: "totppn_rp",
+                    name: "totppn_rp",
                     className: "dt-body-right",
-                    width: "10%",
                     render: function (data, type, row) {
                         return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
                 },
                 {
-                    data: "total",
-                    name: "total",
+                    data: "total_rp",
+                    name: "total_rp",
                     className: "dt-body-right",
-                    width: "10%",
                     render: function (data, type, row) {
                         return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
+                },
+                {
+                    data: "no_tt",
+                    name: "no_tt",
+                },
+                {
+                    data: "tgl_tt",
+                    name: "tgl_tt",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY");
+                    },
+                },
+                {
+                    data: "penerima_tt",
+                    name: "penerima_tt",
+                },
+                {
+                    data: "due_date",
+                    name: "due_date",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY");
+                    },
+                },
+                {
+                    data: "age",
+                    name: "age",
+                    className: "dt-body-right",
+                    render: function (data, type, row) {
+                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    },
+                },
+                {
+                    data: "no_sj",
+                    name: "no_sj",
                 },
                 {
                     data: "NO_STOCK",
                     name: "NO_STOCK",
-                    width: "10%",
                 },
                 {
                     data: "NM_STOCK",
                     name: "NM_STOCK",
-                    width: "30%",
                 },
                 {
                     data: "QTY",
                     name: "QTY",
-                    className: "dt-body-right",
                     render: function (data, type, row) {
                         return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
@@ -294,26 +368,27 @@ $(document).ready(function () {
                 {
                     data: "HARGA",
                     name: "HARGA",
-                    className: "dt-body-right",
-                    width: "10%",
                     render: function (data, type, row) {
                         return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
                 },
                 {
-                    data: "SJ_QTY",
-                    name: "SJ_QTY",
-                    className: "dt-body-right",
+                    data: "JUMLAH",
+                    name: "JUMLAH",
                     render: function (data, type, row) {
                         return addPeriod(parseFloat(data).toFixed(2), ",");
                     },
                 },
                 {
-                    data: "RJ_QTY",
-                    name: "RJ_QTY",
+                    data: "income",
+                    name: "income",
                     className: "dt-body-right",
                     render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                        if (data == null) {
+                            return "0.00";
+                        } else {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        }
                     },
                 },
                 ],

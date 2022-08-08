@@ -353,14 +353,15 @@ function deptGetRawData()
     return $moduleBody;
 }
 
-function vatGetData($sdate)
+function vatGetData($sdate, $flag)
 {
     $user_token = session('user')->api_token;
     $matrixUrl = Config::get('constants.api_url') . '/vatGetData';
     $jsone = array(
         'api_token' => $user_token,
         'user_id' => session('user')->user_id,
-        'sdate' => $sdate
+        'sdate' => $sdate,
+        'flag' => $flag
     );
     $numberClient = new Client();
     $responseNumber = $numberClient->request('POST', $matrixUrl, ['json' => $jsone]);

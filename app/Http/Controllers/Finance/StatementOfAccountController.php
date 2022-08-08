@@ -91,14 +91,14 @@ class StatementOfAccountController extends Controller
                 'soaType' => $request->input('soaType'),
                 'cnmInvoice' => $request->input('cnmInvoice'),
                 'cnmEstDate' => $request->input('cnmEstDate'),
-                'cnmInNotes' => $request->input('cnmInNotes')
+                'cnmInNotes' => nl2br($request->input('cnmInNotes'))
             ];
         } else {
             $post_data = [
                 'user' => session('user')->username,
                 'soaType' => $request->input('soaType'),
                 'snmInvoice' => $request->input('snmInvoice'),
-                'snmInNotes' => $request->input('snmInNotes')
+                'snmInNotes' => nl2br($request->input('snmInNotes'))
             ];
         }
 

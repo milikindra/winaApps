@@ -63,7 +63,7 @@ Route::group(
         // salesOrder
         Route::get('salesOrder', [SalesOrderController::class, 'salesOrderShow'])->name('salesOrder')->middleware('userMatrix:T01.01');
         Route::get('salesOrder/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesOrderController::class, 'populate'])->name('salesOrder/data/populate');
-        Route::get('salesOrder/data/populateHead', [SalesOrderController::class, 'populateHead'])->name('salesOrder/data/populateHead');
+        Route::get('salesOrder/data/populateHead/{field}/{value}', [SalesOrderController::class, 'populateHead'])->name('salesOrder/data/populateHead');
         Route::get('salesOrderAdd', [SalesOrderController::class, 'salesOrderAdd'])->name('salesOrderAdd')->middleware('userMatrix:T01.02');
         Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
         Route::get('salesOrderDetail/{void}/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
@@ -78,6 +78,7 @@ Route::group(
         Route::get('siGetEfaktur/{id}', [SalesInvoiceController::class, 'siGetEfaktur'])->name('siGetEfaktur');
         Route::get('salesInvoice', [SalesInvoiceController::class, 'salesInvoiceShow'])->name('salesInvoice')->middleware('userMatrix:T02.01');
         Route::get('salesInvoice/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesInvoiceController::class, 'populate'])->name('salesInvoice/data/populate');
+        Route::get('salesInvoiceAdd', [SalesInvoiceController::class, 'salesInvoiceAdd'])->name('salesInvoiceAdd')->middleware('userMatrix:T02.02');
     }
 );
 
