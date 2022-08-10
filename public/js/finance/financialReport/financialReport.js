@@ -101,13 +101,13 @@ $("#dataType").change(function () {
 
 function caching() {
     if ($('#isCache').is(":checked")) {
-        $("#sdate").attr("readonly", true);
-        $("#edate").attr("readonly", true);
         $("#isAssumptionCost").attr("onclick", "return false");
         $("#isOverhead").attr("onclick", "return false");
+        $("#sdate").attr("min", moment().subtract(365, 'days').format('YYYY-MM-DD'));
+        $("#sdate").attr("max", moment().subtract(1, 'days').format('YYYY-MM-DD'));
         $('#showProjectBy').select2({ disabled: true });
         $('#showProject').select2({ disabled: true });
-        $("#sdate").val(moment().subtract(3, 'month').format('YYYY-MM-01'));
+        $("#sdate").val(moment().subtract(365, 'days').format('YYYY-MM-DD'));
         $("#edate").val(moment().subtract(1, 'days').format('YYYY-MM-DD'));
         $("#isAssumptionCost").prop("checked", true);
         $("#isOverhead").prop("checked", false);
@@ -120,6 +120,25 @@ function caching() {
         $("#isOverhead").attr("onclick", "");
         $('#showProjectBy').select2({ disabled: false });
         $('#showProject').select2({ disabled: false });
+    }
+}
+
+function cachingDate() {
+    if ($('#isCache').is(":checked")) {
+        var date1 = new Date($("#sdate").val());
+        var date2 = new Date(moment().subtract(365, 'days').format('YYYY-MM-DD'));
+        var date3 = new Date(moment().subtract(1, 'days').format('YYYY-MM-DD'));
+        if (date1.getTime() < date2.getTime()) {
+            $("#sdate").val(moment().subtract(365, 'days').format('YYYY-MM-DD'));
+        } else if (date1.getTime() > date3.getTime()) {
+            $("#sdate").val(moment().subtract(1, 'days').format('YYYY-MM-DD'));
+            return false;
+        } else {
+            return true;
+        }
+
+    } else {
+        return true;
     }
 }
 

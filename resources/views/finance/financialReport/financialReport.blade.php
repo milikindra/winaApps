@@ -57,20 +57,20 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-12" id="filterSdate" style="display: none;">
+                                    <label>Start Date</label>
+                                    <input type="date" class="form-control form-control-sm" id="sdate" name="sdate" min="2000-01-01" value="{{date('Y-m-d', strtotime('-1 days'))}}" onfocusout="cachingDate()">
+                                </div>
+                                <div class="col-12" id="filterEdate" style="display: none;">
+                                    <label>End Date</label>
+                                    <input type="date" class="form-control form-control-sm" id="edate" name="edate" value="{{date('Y-m-d')}}" onfocusout="cachingDate()">
+                                    <br />
+                                </div>
                                 <div class="col-12" id="filterCache" style="display: none;">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="isCache" value="Y" name="isCache" onchange="caching()">
                                         <label>Use Cache Data</label>
                                     </div>
-                                </div>
-                                <div class="col-12" id="filterSdate" style="display: none;">
-                                    <label>Start Date</label>
-                                    <input type="date" class="form-control form-control-sm" id="sdate" name="sdate" min="2000-01-01" value="{{date('Y-m-01')}}">
-                                </div>
-                                <div class="col-12" id="filterEdate" style="display: none;">
-                                    <label>End Date</label>
-                                    <input type="date" class="form-control form-control-sm" id="edate" name="edate" value="{{date('Y-m-d')}}">
-                                    <br />
                                 </div>
                                 <div class="col-12" id="filterTotal" style="display: none;">
                                     <div class="form-check">
