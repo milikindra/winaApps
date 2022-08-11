@@ -279,7 +279,7 @@
                                         </a>
                                         <br />
                                         <br />
-                                        <table class="table trx table-modal" id="trx" style="width: 100%;">
+                                        <table class="table trx table-modal scroly" id="trx" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 5%">Item</th>

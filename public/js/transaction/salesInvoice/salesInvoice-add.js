@@ -145,27 +145,6 @@ $("#modalByDp").click(function (e) {
     }
 })
 
-function tabelSoDp() {
-    var so_id = $('#so_id').val();
-    $("#tabelOutstandingOrderDp tbody tr").remove();
-    $.ajax({
-        url: rute_sodp + "/" + so_id,
-        type: "GET",
-        dataType: "JSON",
-        success: function (response) {
-            if (response.result == true) {
-                str = "";
-                jQuery.each(response.soDp, function (i, val) {
-                    str += "<tr> <td>" + val.keterangan + "</td><td style='text-align:right;'>" + addPeriod(parseFloat(val.nilai).toFixed(2), ",") + "</td></tr>";
-                });
-            } else {
-                str = "<tr> <td colspan='100%' style='text-align:center;'>" + response.soDp + "</td></tr>";
-            }
-            $("#tabelOutstandingOrderDp tbody").html(str);
-        },
-    });
-}
-
 function tabelDo() {
     var so_id = $('#so_id').val();
     $("#tabelOutstandingOrder").DataTable().destroy();
@@ -261,6 +240,52 @@ $('#tabelOutstandingOrder tbody').on('dblclick', 'tr', function (e) {
     $("#modalDo").modal("hide");
 })
 
+function tabelSoDp() {
+    var so_id = $('#so_id').val();
+    $("#tabelOutstandingOrderDp tbody tr").remove();
+    $.ajax({
+        url: rute_sodp + "/" + so_id,
+        type: "GET",
+        dataType: "JSON",
+        success: function (response) {
+            if (response.result == true) {
+                str = "";
+                jQuery.each(response.soDp, function (i, val) {
+                    str += "<tr> <td>" + val.keterangan + "</td><td style='text-align:right;'>" + addPeriod(parseFloat(val.nilai).toFixed(2), ",") + "</td><td style='display:none;'>" + val.idxurut + "</td></tr>";
+                });
+            } else {
+                str = "<tr> <td colspan='100%' style='text-align:center;'>" + response.soDp + "</td></tr>";
+            }
+            $("#tabelOutstandingOrderDp tbody").html(str);
+        },
+    });
+}
+
+$('#tabelOutstandingOrderDp tbody').on('dblclick', 'tr', function (e) {
+    var do_id = $(this).closest("tr").children("td:eq(0)").text();
+    if ($('#do_soum').val() != do_id) {
+        $("#trx tbody tr").remove();
+        $('#do_soum').val(do_id);
+        $.ajax({
+            url: get_sodp + "/" + $('#so_id').val() + "/" + $(this).closest("tr").children("td:eq(2)").text(),
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                jQuery.each(response.dp, function (i, val) {
+                    addRow();
+                    $('#no_stock-' + i).val(val.NO_STOCK)
+                    $('#nm_stock-' + i).val(val.keterangan)
+                    $('#qty-' + i).val('1')
+                    $('#sat-' + i).val('-')
+                    $('#price-' + i).val(addPeriod(parseFloat(val.nilai).toFixed(2), ","))
+                    $('#warehouse-' + i).val('').change();
+                    itemTotal(i);
+                });
+            },
+        });
+    }
+    $("#modalSoDp").modal("hide");
+})
 
 $("#cmbShipping").change(function () {
     $("#ship_to").val('');
@@ -284,30 +309,6 @@ window.removeAttach = function (element) {
     $(".attachUpload input:last").remove();
 };
 
-window.addRowDp = function (element) {
-    var rowCountDp = $('#other_income tbody tr').length;
-    $(".other_income").append(
-        '<tr> <td> <input type="text" class="form-control form-control-sm" name="code[]" id="code-' +
-        rowCountDp +
-        '"  autocomplete="off" >  </td><td> <input type="text" class="form-control form-control-sm" name="account[]" id="account-' +
-        rowCountDp +
-        '"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align:right;" name="val[]" id="val-' +
-        rowCountDp +
-        '"> </td><td> <input type="text" class="form-control form-control-sm" name="description[]" id="description-' +
-        rowCountDp +
-        '"> </td><td> <input type="text" class="form-control form-control-sm" name="so[]" id="so-' +
-        rowCountDp +
-        '"> </td><td> <input type="text" class="form-control form-control-sm" name="dept[]" id="dept-' +
-        rowCountDp +
-        '"> </td><td> <input type="text" class="form-control form-control-sm" name="employee[]" id="employee-' +
-        rowCountDp +
-        '"> </td></tr>'
-    );
-};
-
-window.removeRowDp = function (element) {
-    $(".other_income tr:last").remove();
-};
 
 window.addRow = function (element) {
     var rowCount = $('#trx tbody tr').length;

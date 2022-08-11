@@ -207,4 +207,26 @@ class SalesInvoiceController extends Controller
             return abort(500);
         }
     }
+
+    public function getSoDp(Request $request, $so_id, $um_id)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $post_data = [
+                'user' => session('user')->username,
+                'so_id' => $so_id,
+                'um_id' => $um_id,
+            ];
+
+            $url = Config::get('constants.api_url') . '/salesInvoice/getSoDp';
+            $client = new Client();
+            $response = $client->request('POST', $url, ['json' => $post_data]);
+            $body = json_decode($response->getBody());
+            return json_encode($body);
+        } catch (\Exception $e) {
+            Log::debug($request->path());
+            Log::debug($e);
+            return abort(500);
+        }
+    }
 }

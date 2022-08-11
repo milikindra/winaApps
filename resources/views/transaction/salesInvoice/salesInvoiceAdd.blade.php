@@ -53,7 +53,7 @@
                                                 <label>SO</label>
                                                 <div class="input-group">
                                                     <input type="hidden" class="" id="cust_so" name="cust_so">
-                                                    <input type="text" class="form-control form-control-sm" id="so_id" name="so_id" readonly>
+                                                    <input type="text" class="form-control form-control-sm form-control-border" id="so_id" name="so_id" readonly>
                                                     <span class="input-group-append">
                                                         <button type="button" class="btn btn-sm btn-info" onclick="getSo()"><i class="fas fa-search"></i></button>
                                                     </span>
@@ -135,17 +135,26 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Ship To | <a href="javascript:void(0)" id="addBranch">Add Branch</a></label>
-                                                <select class="form-control form-control-sm" id="cmbShipping" style="display: block;">
-                                                </select>
-                                                <input type="hidden" name="cmbShipping" id="cmbShippingKey">
-                                                <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="4" readonly></textarea>
+                                                <label>Tax Serial Number </label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="tax_snF">XXX.</span>
+                                                    </div>
+                                                    <input type="text" class="form-control form-control-sm form-control-border" id="tax_snE" name="tax_snE" readonly>
+                                                    <span class="input-group-append">
+                                                        <button type="button" class="btn btn-sm btn-info" onclick=""><i class="fas fa-search"></i></button>
+                                                    </span>
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <br />
-                                                <button class="btn btn-info btn-sm btn-block">Receipt Information</button>
+                                                <label>Ship To | <a href="javascript:void(0)" id="addBranch">Add Branch</a></label>
+                                                <select class="form-control form-control-sm" id="cmbShipping" style="display: block;">
+                                                </select>
+                                                <input type="hidden" name="cmbShipping" id="cmbShippingKey">
+                                                <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="5" readonly></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -154,12 +163,22 @@
                                 <div class="col-sm-12 col-md-12 col-lg-6">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <!-- <div class="row"> -->
-                                            <div class="col-md-12">
-                                                <label>Internal Notes</label>
-                                                <textarea class="form-control form-control-sm" name="notes" id="notes" rows="4"></textarea>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Received By</label>
+                                                    <input type="text" class="form-control form-control-sm form-control-border" name="received_by" id="received_by">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Received Date</label>
+                                                    <input type="date" class="form-control form-control-sm form-control-border" name="received_by" id="received_by">
+                                                </div>
                                             </div>
-                                            <!-- </div> -->
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label>Internal Notes</label>
+                                                    <textarea class="form-control form-control-sm" name="notes" id="notes" rows="4"></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="row col-md-12">
@@ -175,67 +194,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <div class="row">
-                                            <div class="col-md-12" style="border: 0.5px #E9ECEF solid;">
-                                                <table class="table other_income table-modal" id="other_income" style="width: 100%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Code</th>
-                                                            <th>Account</th>
-                                                            <th>Value</th>
-                                                            <th>Description</th>
-                                                            <th>SO</th>
-                                                            <th>Dept</th>
-                                                            <th>Employee</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm" name="oiCode[]" id="oiCode-0">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm" name="oiAccount[]" id="oiAccount-0" autocomplete="off">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="oiVal[]" id="oiVal-0" autocomplete="off">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm" name="oiDescription[]" id="oiDescription-0">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm" name="oiSo[]" id="oiSo-0">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm" name="oiDept[]" id="oiDept-0">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm" name="oiEmployee[]" id="oiEmployee-0">
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table width="100%">
-                                                    <tr>
-                                                        <td>
-                                                            <a href="javascript:void(0)" onclick="removeRowDp(this)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a>
-                                                            <a href="javascript:void(0)" onclick="addRowDp(this)" class="btn btn-xs btn-info float-right" title="add row"><i class="fa fa-plus"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-12">
-                                        <table class="table table-modal" id="trx" style="width: 100%;">
+                                        <table class="table table-modal scroly" id="trx" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 5%">Item</th>
@@ -378,6 +344,7 @@
     var rute_do = "{{ URL::to('salesInvoice/data/do') }}";
     var get_do = "{{ URL::to('salesInvoice/get/do') }}";
     var rute_sodp = "{{ URL::to('salesInvoice/data/sodp') }}";
+    var get_sodp = "{{ URL::to('salesInvoice/get/sodp') }}";
     var get_vat = "{{ URL::to('vat/data/byDate') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
