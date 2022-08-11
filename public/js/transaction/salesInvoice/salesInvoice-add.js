@@ -22,183 +22,10 @@ $(document).ready(function () {
         }
     }
 
-    var t_dp = $('.down_payment tbody tr').length;
-    if (t_dp > 0) {
-        for (var i = 0; i < t_dp; i++) {
-
-        }
-    }
-
-    var t_det = $('.trx tbody tr').length;
+    var t_det = $('#trx tbody tr').length;
     for (var i = 0; i < t_det; i++) {
         itemTotal(i);
     }
-
-    $(function () {
-        $.contextMenu({
-            selector: '.trx tbody tr',
-            callback: function (key, options) {
-                var indexs_row = $(this).closest("tr").children("td:first").children().attr('id').substring(9);
-                var so = $('#nomor').val();
-                var id = $(this).closest("tr").children("td:first").children().val();
-                var state = $('#state-' + indexs_row).val();
-                var qty = $('#qty-' + indexs_row).val();
-                if (key == 'cancel') {
-                    if (state == 'Cancel') {
-                        Swal.fire({
-                            title: "Cancel Item!",
-                            text: "Are you sure not to cancel this item: " + id + "?",
-                            icon: "warning",
-                            confirmButtonColor: "#17a2b8",
-                            reverseButtons: true,
-                            showCancelButton: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                let _token = $('meta[name="csrf-token"]').attr('content');
-                                $.ajax({
-                                    type: 'POST',
-                                    url: rute_saveState,
-                                    data: {
-                                        so: so,
-                                        item: id,
-                                        qty: qty,
-                                        state: '',
-                                        noteState: '',
-                                        _token: _token
-                                    },
-                                    dataType: "text",
-                                    success: function (resultData) {
-                                        refreshWindow();
-                                    },
-                                    error: function () {
-                                        Toast.fire({
-                                            icon: "danger",
-                                            title: "Something went wrong",
-                                        });
-                                    }
-                                });
-                            }
-                        })
-                    } else {
-                        Swal.fire({
-                            title: "Cancel Item!",
-                            text: "Are you sure to cancel this item : " + id + "?",
-                            icon: "warning",
-                            confirmButtonColor: "#17a2b8",
-                            confirmButtonText: "Yes, Of Course",
-                            reverseButtons: true,
-                            showCancelButton: true,
-                            input: 'text',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                let _token = $('meta[name="csrf-token"]').attr('content');
-                                $.ajax({
-                                    type: 'POST',
-                                    url: rute_saveState,
-                                    data: {
-                                        so: so,
-                                        item: id,
-                                        qty: qty,
-                                        state: 'B',
-                                        noteState: result.value,
-                                        _token: _token
-                                    },
-                                    dataType: "text",
-                                    success: function (resultData) {
-                                        refreshWindow();
-                                    },
-                                    error: function () {
-                                        Toast.fire({
-                                            icon: "danger",
-                                            title: "Something went wrong",
-                                        });
-                                    }
-                                });
-                            }
-                        })
-                    }
-                } else if (key == 'finish') {
-                    if (state == 'Finish') {
-                        Swal.fire({
-                            title: "Finish Item!",
-                            text: "Are you sure not to finish this item: " + id + "?",
-                            icon: "warning",
-                            confirmButtonColor: "#17a2b8",
-                            reverseButtons: true,
-                            showCancelButton: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                let _token = $('meta[name="csrf-token"]').attr('content');
-                                $.ajax({
-                                    type: 'POST',
-                                    url: rute_saveState,
-                                    data: {
-                                        so: so,
-                                        item: id,
-                                        qty: qty,
-                                        state: '',
-                                        noteState: '',
-                                        _token: _token
-                                    },
-                                    dataType: "text",
-                                    success: function (resultData) {
-                                        refreshWindow();
-                                    },
-                                    error: function () {
-                                        Toast.fire({
-                                            icon: "danger",
-                                            title: "Something went wrong",
-                                        });
-                                    }
-                                });
-                            }
-                        })
-                    } else {
-                        Swal.fire({
-                            title: "Finish Item!",
-                            text: "Are you sure to finish this item : " + id + "?",
-                            icon: "warning",
-                            confirmButtonColor: "#17a2b8",
-                            confirmButtonText: "Yes, Of Course",
-                            reverseButtons: true,
-                            showCancelButton: true,
-                            input: 'text',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                let _token = $('meta[name="csrf-token"]').attr('content');
-                                $.ajax({
-                                    type: 'POST',
-                                    url: rute_saveState,
-                                    data: {
-                                        so: so,
-                                        item: id,
-                                        qty: qty,
-                                        state: 'F',
-                                        noteState: result.value,
-                                        _token: _token
-                                    },
-                                    dataType: "text",
-                                    success: function (resultData) {
-                                        refreshWindow();
-                                    },
-                                    error: function () {
-                                        Toast.fire({
-                                            icon: "danger",
-                                            title: "Something went wrong",
-                                        });
-                                    }
-                                });
-                            }
-                        })
-                    }
-                }
-            },
-            items: {
-                "cancel": { name: "Cancel" },
-                "finish": { name: "Finish" },
-            }
-        });
-    });
 });
 
 function refreshWindow() {
@@ -235,6 +62,7 @@ $('#customerSearch').focusout(function () {
 
 function getCustomer() {
     var id_cust = $("#customer").val();
+    $("#do_soum").val('');
     $("#ship_to").val('');
     $("#use_branch").prop('checked', false);
     $.ajax({
@@ -304,19 +132,134 @@ function getSo() {
 }
 
 function useDpSo() {
-    // if ($('#use_dp').is(":checked")) {
-    //     alert("A");
-    // } else {
-    // }
+    $('#do_soum').val('');
 };
 
-$("#modalByDp").on("click", function (e) {
+$("#modalByDp").click(function (e) {
     if ($('#use_dp').is(":checked")) {
-        alert("A");
+        tabelSoDp();
+        $("#modalSoDp").modal("show");
     } else {
+        tabelDo();
         $("#modalDo").modal("show");
     }
-});
+})
+
+function tabelSoDp() {
+    var so_id = $('#so_id').val();
+    $("#tabelOutstandingOrderDp tbody tr").remove();
+    $.ajax({
+        url: rute_sodp + "/" + so_id,
+        type: "GET",
+        dataType: "JSON",
+        success: function (response) {
+            if (response.result == true) {
+                str = "";
+                jQuery.each(response.soDp, function (i, val) {
+                    str += "<tr> <td>" + val.keterangan + "</td><td style='text-align:right;'>" + addPeriod(parseFloat(val.nilai).toFixed(2), ",") + "</td></tr>";
+                });
+            } else {
+                str = "<tr> <td colspan='100%' style='text-align:center;'>" + response.soDp + "</td></tr>";
+            }
+            $("#tabelOutstandingOrderDp tbody").html(str);
+        },
+    });
+}
+
+function tabelDo() {
+    var so_id = $('#so_id').val();
+    $("#tabelOutstandingOrder").DataTable().destroy();
+    var table = $("#tabelOutstandingOrder").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: false,
+        stateSave: false,
+        deferRender: true,
+        bAutoWidth: false,
+        lengthMenu: [
+            [100, 250, 500, 1000, -1],
+            [100, 250, 500, 1000, "all"],
+        ],
+        dom:
+            // "<'row'<'col-sm-12'B>>" +
+            "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+        // drawCallback: function (settings, json) {},
+
+        ajax: {
+            url: rute_do + "/" + so_id,
+            type: "GET",
+            dataType: "JSON",
+        },
+        columns: [{
+            data: "NO_BUKTI",
+            name: "sj_head.NO_BUKTI",
+        },
+
+        {
+            data: "TGL_BUKTI",
+            name: "sj_head.TGL_BUKTI",
+            render: function (data, type, row) {
+                return moment(data).format("DD/MM/YYYY");
+            },
+        },
+        {
+            data: "ID_CUST",
+            name: "sj_head.ID_CUST",
+        },
+        {
+            data: "NM_CUST",
+            name: "sj_head.NM_CUST",
+        },
+        {
+            data: "alamatkirim",
+            name: "sj_head.alamatkirim",
+        },
+        {
+            data: "id_lokasi",
+            name: "sj_head.id_lokasi",
+        },
+        ],
+        order: [
+            [0, "asc"]
+        ],
+    });
+}
+
+$('#tabelOutstandingOrder tbody').on('dblclick', 'tr', function (e) {
+    var do_id = $(this).closest("tr").children("td:eq(0)").text();
+    if ($('#do_soum').val() != do_id) {
+        $("#trx tbody tr").remove();
+        $('#do_soum').val(do_id);
+        $.ajax({
+            url: get_do + "/" + btoa(do_id),
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                jQuery.each(response.do, function (i, val) {
+                    addRow();
+                    $('#no_stock-' + i).val(val.NO_STOCK)
+                    $('#nm_stock-' + i).val(val.NM_STOCK)
+                    $('#ket-' + i).val(val.KET)
+                    $('#qty-' + i).val(val.QTY)
+                    $('#sat-' + i).val(val.SAT)
+                    $('#price-' + i).val(addPeriod(parseFloat(val.HARGA).toFixed(2), ","))
+                    $('#disc-' + i).val(val.DISC1 >= 0 && val.DISC1 != '' && val.DISC1 != null ? addPeriod(parseFloat(val.DISC1).toFixed(2), ",") : 0)
+                    $('#disc2-' + i).val(val.DISC2 >= 0 && val.DISC2 != '' && val.DISC2 != null ? addPeriod(parseFloat(val.DISC2).toFixed(2), ",") : 0)
+                    $('#disc_val-' + i).val(val.DISCRP >= 0 && val.DISCRP != '' && val.DISCRP != null ? addPeriod(parseFloat(val.DISCRP).toFixed(2), ",") : 0)
+                    $('#sj-' + i).val(do_id)
+                    $('#warehouse-' + i).val(val.id_lokasi).change();
+                    $('#itemKodeGroup-' + i).val(val.kode_group);
+                    $('#itemVintrasId-' + i).val(val.VINTRASID);
+                    $('#itemTahunVintras-' + i).val(val.tahun);
+                    itemTotal(i);
+                });
+            },
+        });
+    }
+    $("#modalDo").modal("hide");
+})
 
 
 $("#cmbShipping").change(function () {
@@ -342,28 +285,28 @@ window.removeAttach = function (element) {
 };
 
 window.addRowDp = function (element) {
-    var rowCountDp = $('#down_payment tbody tr').length;
-    var vatOption = "";
-    jQuery.each(vat, function (i, val) {
-        vatOption += "<option>" + val.kode + "</option>";
-    });
-
-    $(".down_payment").append(
-        '<tr> <td> <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-' +
+    var rowCountDp = $('#other_income tbody tr').length;
+    $(".other_income").append(
+        '<tr> <td> <input type="text" class="form-control form-control-sm" name="code[]" id="code-' +
         rowCountDp +
-        '"  autocomplete="off" >  </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-' +
+        '"  autocomplete="off" >  </td><td> <input type="text" class="form-control form-control-sm" name="account[]" id="account-' +
         rowCountDp +
-        '"> </td> <td><select class="form-control form-control-sm tax" name="dp_tax[]" id="dp_tax-' +
+        '"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align:right;" name="val[]" id="val-' +
         rowCountDp +
-        '">' +
-        vatOption +
-        '</select></td><td id="dp_tax_value-' + rowCountDp + '" style="display:none" ></td></tr>'
+        '"> </td><td> <input type="text" class="form-control form-control-sm" name="description[]" id="description-' +
+        rowCountDp +
+        '"> </td><td> <input type="text" class="form-control form-control-sm" name="so[]" id="so-' +
+        rowCountDp +
+        '"> </td><td> <input type="text" class="form-control form-control-sm" name="dept[]" id="dept-' +
+        rowCountDp +
+        '"> </td><td> <input type="text" class="form-control form-control-sm" name="employee[]" id="employee-' +
+        rowCountDp +
+        '"> </td></tr>'
     );
-    getTax();
 };
 
 window.removeRowDp = function (element) {
-    $(".down_payment tr:last").remove();
+    $(".other_income tr:last").remove();
 };
 
 window.addRow = function (element) {
@@ -372,8 +315,12 @@ window.addRow = function (element) {
     jQuery.each(vat, function (i, val) {
         vatOption += "<option>" + val.kode + "</option>";
     });
+    var warehouseOption = '';
+    jQuery.each(lokasi, function (i, val) {
+        warehouseOption += "<option value='" + val.id_lokasi + "'>" + val.id_lokasi + "</option>";
+    });
 
-    $(".trx").append(
+    $("#trx").append(
         '<tr> <td> <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-' +
         rowCount +
         '" onclick="addData(' +
@@ -414,9 +361,13 @@ window.addRow = function (element) {
         rowCount +
         ')">' +
         vatOption +
-        '</select></td><td> <input type="text" class="form-control form-control-sm" name="state[]" id="state-' +
+        '</select></td><td> <input type="text" class="form-control form-control-sm" name="sj[]" id="sj-' +
         rowCount +
-        '" readonly> </td><td style="display:none" id="itemTotal-' +
+        '" readonly> </td><td> <select class="form form-control form-control-sm" name="warehouse[]" id="warehouse-' +
+        rowCount +
+        '">' +
+        warehouseOption +
+        '</select></td><td style="display:none" id="itemTotal-' +
         rowCount +
         '"></td> <td style="display:none" id = "itemTax-' +
         rowCount +
@@ -441,14 +392,14 @@ window.addRow = function (element) {
 };
 
 window.removeRow = function (element) {
-    $(".trx tr:last").remove();
+    $("#trx tr:last").remove();
 };
 
 var arr = [];
 function addData(uid) {
     arr.push(uid);
     if ($("#dtModalInventory tbody tr").length == 0) {
-        dtModalInventory("0", "all", "all");
+        dtModalInventory("0", "all", "all", 'Y');
     }
     $("#modalInventory").modal("show");
     $("#dtModalInventory").on("click", "tbody tr", function (e) {
@@ -488,7 +439,6 @@ function addData(uid) {
                     },
                 });
             }
-
             $("#no_stock-" + uid).val(no_stock);
             $("#nm_stock-" + uid).html($(this).closest("tr").children("td:eq(1)").text());
             $("#qty-" + uid).val('1');
@@ -511,26 +461,24 @@ function itemTotal(uid) {
     var item_disc = $("#itemDisc-" + uid).html() != "" ? parseFloat(removePeriod($("#itemDisc-" + uid).html(), ',')) : 0;
 
     var totalBruto = price * qty;
-    // var total = (price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - ((price-disc_val)*qty);
-    // var totalDiscHead = ((price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val) - item_disc;
-    var d1 = (price * qty) - (price * qty * disc);
-    var d2 = d1 - (d1 * disc2);
+    var d1 = (price * qty) - (price * qty * disc / 100);
+    var d2 = d1 - (d1 * disc2 / 100);
     var d3 = d2 - (qty * disc_val);
     var total = d3;
-    var totalDiscHead = ((price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val) - item_disc;
+    // var totalDiscHead = ((price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val) - item_disc;
     var tax = $("#tax-" + uid).val();
     var itemTax = 0;
     var itemTaxValue = 0;
 
-    // if (tax != "") {
-    //     jQuery.each(vat, function (i, val) {
-    //         if (val.kode == tax) {
-    //             itemTaxValue += val.prosen;
-    //         }
-    //     });
-    // }
+    if (tax != "") {
+        jQuery.each(vat, function (i, val) {
+            if (val.kode == tax) {
+                itemTaxValue += val.prosen;
+            }
+        });
+    }
     if ($("#price-" + uid).val() != '') {
-        $("#total-" + uid).val(total);
+        $("#total-" + uid).val(addPeriod(parseFloat(total).toFixed(2), ","));
         $("#itemBruto-" + uid).html(totalBruto);
     } else {
         $("#itemBruto-" + uid).html('0');
@@ -544,10 +492,10 @@ function itemTotal(uid) {
     var myTab = document.getElementById("trx");
     for (i = 1; i < myTab.rows.length; i++) {
         var objCells = myTab.rows.item(i).cells;
-        // if (objCells.item(18).children[0].value == no_stock) {
-        //     var saldo = $("#base_qty-" + (i - 1)).val();
-        //     $("#qty-" + (i - 1)).val(saldo * qty);
-        // }
+        if (objCells.item(19).children[0].value == no_stock) {
+            var saldo = $("#base_qty-" + (i - 1)).val();
+            $("#qty-" + (i - 1)).val(saldo * qty);
+        }
     }
 }
 
@@ -557,14 +505,13 @@ function totalDpp() {
     var totalDpp = 0;
     for (i = 1; i < myTab.rows.length; i++) {
         var objCells = myTab.rows.item(i).cells;
-
-        var itemTotal = objCells.item(12).innerHTML != "" ? parseFloat(removePeriod(objCells.item(12).innerHTML, ',')) : 0;
-        var itemBruto = objCells.item(16).innerHTML != "" ? parseFloat(removePeriod(objCells.item(16).innerHTML, ',')) : 0;
+        var itemTotal = objCells.item(13).innerHTML != "" ? parseFloat(removePeriod(objCells.item(13).innerHTML, ',')) : 0;
+        var itemBruto = objCells.item(17).innerHTML != "" ? parseFloat(removePeriod(objCells.item(17).innerHTML, ',')) : 0;
         totalDpp += itemTotal;
         totalBruto += itemBruto;
     }
     $("#totalBruto").val(totalBruto);
-    $("#totalDpp").val(totalDpp);
+    $("#totalDpp").val(addPeriod(parseFloat(totalDpp).toFixed(2), ","));
     discountHead('discountValueHead');
 }
 
@@ -583,34 +530,33 @@ function discountHead(param) {
 
     for (i = 1; i < myTab.rows.length; i++) {
         var objCells = myTab.rows.item(i).cells;
-        var itemBruto = objCells.item(16).innerHTML > 0 ? parseFloat(objCells.item(16).innerHTML) : 0;
+        var itemBruto = objCells.item(17).innerHTML > 0 ? parseFloat(objCells.item(17).innerHTML) : 0;
         var itemDiscount = 0;
         if (discountValueHead != 0) {
             itemDiscount = (itemBruto / $("#totalDpp").val()) * discountValueHead;
         }
-        objCells.item(14).innerHTML = itemDiscount;
-        objCells.item(15).innerHTML = itemBruto - itemDiscount;
+        objCells.item(15).innerHTML = itemDiscount;
+        objCells.item(16).innerHTML = itemBruto - itemDiscount;
     }
     totalPpn();
 }
 
 function totalPpn() {
     var myTab = document.getElementById("trx");
-    var totalDpp = parseFloat($('#totalDpp').val());
+    var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
     var discountValueHead = $('#discountValueHead').val();
     if (discountValueHead != '') {
-        discountValueHead = parseFloat($('#discountValueHead').val());
+        discountValueHead = parseFloat(removePeriod($("#discountValueHead").val(), ','));
     }
     var totalPpn = 0;
-
     if (myTab.rows.length > 0) {
         for (i = 1; i < myTab.rows.length; i++) {
             var objCells = myTab.rows.item(i).cells;
-            if (objCells.item(14).innerHTML > 0) {
-                var itemTaxTotal = (parseFloat(objCells.item(16).innerHTML) - parseFloat(objCells.item(14).innerHTML)) * parseFloat(objCells.item(17).innerHTML) / 100;
+            if (objCells.item(15).innerHTML > 0) {
+                var itemTaxTotal = (parseFloat(objCells.item(17).innerHTML) - parseFloat(objCells.item(15).innerHTML)) * parseFloat(objCells.item(18).innerHTML) / 100;
             } else {
-                if (objCells.item(12).innerHTML > 0) {
-                    var itemTaxTotal = parseFloat(objCells.item(12).innerHTML) * parseFloat(objCells.item(17).innerHTML) / 100;
+                if (objCells.item(13).innerHTML > 0) {
+                    var itemTaxTotal = parseFloat(objCells.item(13).innerHTML) * parseFloat(objCells.item(18).innerHTML) / 100;
                 } else {
                     var itemTaxTotal = 0;
                 }
@@ -620,8 +566,8 @@ function totalPpn() {
     }
 
     var grandTotal = totalDpp - discountValueHead + totalPpn;
-    $("#totalPpn").val(totalPpn);
-    $("#grandTotal").val(grandTotal);
+    $("#totalPpn").val(addPeriod(parseFloat(totalPpn).toFixed(2), ","));
+    $("#grandTotal").val(addPeriod(parseFloat(grandTotal).toFixed(2), ","));
 }
 
 function getTax() {
@@ -642,72 +588,14 @@ function getTax() {
     });
 }
 
-function cekSo() {
-    var po = $('#po_customer').val();
-    var customer = $('#customer').val();
-    var so_id = $('#nomor').val();
-    let _token = $('meta[name="csrf-token"]').attr('content');
-    $.ajax({
-        type: 'POST',
-        url: rute_cekSo,
-        data: {
-            po: po,
-            customer: customer,
-            so_id: so_id,
-            _token: _token
-        },
-        dataType: "text",
-        success: function (resultData) {
-            var msg = JSON.parse(resultData);
-            if (msg.so > 0) {
-                Swal.fire({
-                    title: "Cannot Add Sales Invoice!",
-                    text: "Sales invoice number has been used",
-                    icon: "error",
-                    confirmButtonColor: "#17a2b8",
-                })
-            } else if (msg.customer.length > 0) {
-                Swal.fire({
-                    title: "Cannot Add Sales Invoice!",
-                    text: "Customer and PO Customer has been used",
-                    icon: "error",
-                    confirmButtonColor: "#17a2b8",
-                })
-            } else if (msg.po.length > 0) {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "This PO Customer that has been registered on SI: " + msg.po[0].NO_BUKTI,
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#17a2b8",
-                    cancelButtonColor: "#FFC107",
-                    confirmButtonText: "Yes, Process it!",
-                    reverseButtons: true,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#salesOrderAddSave').submit();
-                    }
-                });
-            } else {
-                $('#salesOrderAddSave').submit();
-            }
-        },
-        error: function (e) {
-            console.log(e);
-            console.log("Something went wrong");
-        }
-    });
-};
-
 $("#print").click(function (e) {
     e.preventDefault();
     $('#process').val('print');
-    cekSo();
+    // cekSo();
 });
 $("#save").click(function (e) {
     e.preventDefault();
     $('#process').val('save');
-    cekSo();
+    // cekSo();
+    $('#salesInvoiceAddSave').submit();
 });
-
-

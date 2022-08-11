@@ -79,6 +79,10 @@ Route::group(
         Route::get('salesInvoice', [SalesInvoiceController::class, 'salesInvoiceShow'])->name('salesInvoice')->middleware('userMatrix:T02.01');
         Route::get('salesInvoice/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesInvoiceController::class, 'populate'])->name('salesInvoice/data/populate');
         Route::get('salesInvoiceAdd', [SalesInvoiceController::class, 'salesInvoiceAdd'])->name('salesInvoiceAdd')->middleware('userMatrix:T02.02');
+        Route::get('salesInvoice/data/do/{so_id}', [SalesInvoiceController::class, 'dataDo'])->name('salesInvoice/data/do');
+        Route::get('salesInvoice/get/do/{do_id}', [SalesInvoiceController::class, 'getDo'])->name('salesInvoice/get/do');
+        Route::get('salesInvoice/data/sodp/{so_id}', [SalesInvoiceController::class, 'dataSoDp'])->name('salesInvoice/data/sodp');
+        Route::post('salesInvoiceAddSave', [SalesInvoiceController::class, 'salesInvoiceAddSave'])->name('salesInvoiceAddSave')->middleware('userMatrix:T02.02');
     }
 );
 
@@ -151,7 +155,7 @@ Route::group(
 
         // inventory
         Route::get('inventory', [InventoryController::class, 'inventoryShow'])->name('inventory')->middleware('userMatrix:M02.01');
-        Route::get('inventory/data/populate/{void}/{kategori}/{subkategori}', [InventoryController::class, 'populate'])->name('inventory/data/populate');
+        Route::get('inventory/data/populate/{void}/{kategori}/{subkategori}/{um}', [InventoryController::class, 'populate'])->name('inventory/data/populate');
         Route::post('inventoryAddSave', [InventoryController::class, 'inventoryAddSave'])->name('inventoryAddSave')->middleware('userMatrix:M02.02');
         Route::get('inventory/data/edit/{inv}', [InventoryController::class, 'inventoryEdit'])->name('inventory/data/edit');
         Route::post('inventoryUpdate', [InventoryController::class, 'inventoryUpdate'])->name('inventoryUpdate')->middleware('userMatrix:M02.03');

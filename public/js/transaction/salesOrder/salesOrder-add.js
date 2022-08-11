@@ -604,7 +604,7 @@ var arr = [];
 function addData(uid) {
     arr.push(uid);
     if ($("#dtModalInventory tbody tr").length == 0) {
-        dtModalInventory("0", "all", "all");
+        dtModalInventory("0", "all", "all", "N");
     }
     $("#modalInventory").modal("show");
     $("#dtModalInventory").on("click", "tbody tr", function (e) {
@@ -669,8 +669,8 @@ function itemTotal(uid) {
     var totalBruto = price * qty;
     // var total = (price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - ((price-disc_val)*qty);
     // var totalDiscHead = ((price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val) - item_disc;
-    var d1 = (price * qty) - (price * qty * disc);
-    var d2 = d1 - (d1 * disc2);
+    var d1 = (price * qty) - (price * qty * disc / 100);
+    var d2 = d1 - (d1 * disc2 / 100);
     var d3 = d2 - (qty * disc_val);
     var total = d3;
     var totalDiscHead = ((price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val) - item_disc;

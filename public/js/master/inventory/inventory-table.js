@@ -23,97 +23,97 @@ $(document).ready(function () {
                 [100, 250, 500, 1000, "all"],
             ],
             buttons: [{
-                    extend: "print",
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                    },
-                    className: "btn-info",
+                extend: "print",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 },
-                {
-                    extend: "excel",
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                    },
-                    className: "btn-info",
+                className: "btn-info",
+            },
+            {
+                extend: "excel",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 },
-                {
-                    extend: "pdf",
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                    },
-                    className: "btn-info",
+                className: "btn-info",
+            },
+            {
+                extend: "pdf",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 },
-                {
-                    extend: "csv",
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                    },
-                    className: "btn-info",
+                className: "btn-info",
+            },
+            {
+                extend: "csv",
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 },
-                {
-                    extend: "colvis",
-                    className: "btn-info"
-                },
+                className: "btn-info",
+            },
+            {
+                extend: "colvis",
+                className: "btn-info"
+            },
             ],
 
             dom: "<'row'<'col-sm-12'B>>" +
                 "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-            drawCallback: function (settings, json) {},
+            drawCallback: function (settings, json) { },
             ajax: {
-                url: rute + "/" + voids + "/" + kategori + "/" + subkategori,
+                url: rute + "/" + voids + "/" + kategori + "/" + subkategori + "/N",
                 type: "GET",
                 dataType: "JSON",
             },
             columns: [{
-                    data: "no_stock",
-                    name: "no_stock",
+                data: "no_stock",
+                name: "no_stock",
+            },
+            {
+                data: "nama_barang",
+                name: "nama_barang",
+            },
+            {
+                data: "sat",
+                name: "sat",
+            },
+            {
+                data: "saldo",
+                name: "saldo",
+                className: "dt-body-right",
+            },
+            {
+                data: "booked",
+                name: "booked",
+                className: "dt-body-right",
+            },
+            {
+                data: "orders",
+                name: "orders",
+                className: "dt-body-right",
+            },
+            {
+                data: "transit",
+                name: "transit",
+                className: "dt-body-right",
+            },
+            {
+                data: "kategori",
+                name: "kategori",
+            },
+            {
+                data: "kategori2",
+                name: "kategori2",
+            },
+            {
+                data: "no_stock",
+                render: function (data, type, row) {
+                    return getActions(data, type, row);
                 },
-                {
-                    data: "nama_barang",
-                    name: "nama_barang",
-                },
-                {
-                    data: "sat",
-                    name: "sat",
-                },
-                {
-                    data: "saldo",
-                    name: "saldo",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "booked",
-                    name: "booked",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "orders",
-                    name: "orders",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "transit",
-                    name: "transit",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "kategori",
-                    name: "kategori",
-                },
-                {
-                    data: "kategori2",
-                    name: "kategori2",
-                },
-                {
-                    data: "no_stock",
-                    render: function (data, type, row) {
-                        return getActions(data, type, row);
-                    },
-                    orderable: false,
-                    className: "text-center",
-                },
+                orderable: false,
+                className: "text-center",
+            },
             ],
             order: [
                 [0, "asc"]

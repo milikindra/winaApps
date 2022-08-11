@@ -47,7 +47,7 @@ class InventoryController extends Controller
         }
     }
 
-    public function populate(Request $request, $void, $kategori, $subkategori)
+    public function populate(Request $request, $void, $kategori, $subkategori, $um)
     {
         try {
             $user_token = session('user')->api_token;
@@ -75,7 +75,8 @@ class InventoryController extends Controller
                 'user' => session('user')->username,
                 'void' => $void,
                 'kategori' => $kategori,
-                'subkategori' => $subkategori
+                'subkategori' => $subkategori,
+                'um' => $um,
             ];
             $url = Config::get('constants.api_url') . '/inventory/getList';
             $client = new Client();

@@ -13,7 +13,7 @@
     </div>
     <!-- /.container-fluid -->
 </div>
-<form action="#" id="salesInovoiceAddSave" method="POST" enctype="multipart/form-data">
+<form action="{{ route('salesInvoiceAddSave') }}" id="salesInvoiceAddSave" method="POST" enctype="multipart/form-data">
     @csrf
     <section class="content">
         <div class="container-fluid">
@@ -178,7 +178,7 @@
                                     <div class="form-group col-md-12">
                                         <div class="row">
                                             <div class="col-md-12" style="border: 0.5px #E9ECEF solid;">
-                                                <table class="table down_payment table-modal" id="down_payment" style="width: 100%;">
+                                                <table class="table other_income table-modal" id="other_income" style="width: 100%;">
                                                     <thead>
                                                         <tr>
                                                             <th>Code</th>
@@ -193,26 +193,25 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-0">
+                                                                <input type="text" class="form-control form-control-sm" name="oiCode[]" id="oiCode-0">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="dp_value[]" id="dp_value-0" autocomplete="off">
+                                                                <input type="text" class="form-control form-control-sm" name="oiAccount[]" id="oiAccount-0" autocomplete="off">
                                                             </td>
                                                             <td>
-                                                                <select class="form-control form-control-sm tax" name="dp_tax[]" id="dp_tax-0">
-                                                                </select>
+                                                                <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="oiVal[]" id="oiVal-0" autocomplete="off">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-0">
+                                                                <input type="text" class="form-control form-control-sm" name="oiDescription[]" id="oiDescription-0">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-0">
+                                                                <input type="text" class="form-control form-control-sm" name="oiSo[]" id="oiSo-0">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-0">
+                                                                <input type="text" class="form-control form-control-sm" name="oiDept[]" id="oiDept-0">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control form-control-sm" name="dp[]" id="dp-0">
+                                                                <input type="text" class="form-control form-control-sm" name="oiEmployee[]" id="oiEmployee-0">
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -236,7 +235,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-12">
-                                        <table class="table trx table-modal" id="trx" style="width: 100%;">
+                                        <table class="table table-modal" id="trx" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 5%">Item</th>
@@ -255,60 +254,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-0" readonly>
-                                                    </td>
-                                                    <td>
-                                                        <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-0" rows="3"></textarea>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-0">
-                                                    </td>
-                                                    <td>
-                                                        <input type="hidden" name="base_qty[]" id="base_qty-0">
-                                                        <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0)" autocomplete="off" id="qty-0">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-0">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onchange="itemTotal(0)" autocomplete="off" id="price-0">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal(0)" autocomplete="off" id="disc-0">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" onchange="itemTotal(0)" autocomplete="off" id="disc2-0">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" onchange="itemTotal(0)" autocomplete="off" id="disc_val-0">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" id="total-0" readonly>
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-control form-control-sm tax" name="tax[]" id="tax-0" onchange="itemTotal(0)">
-
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm" name="sj[]" id="sj-0">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control form-control-sm" name="warehouse[]" id="warehouse-0">
-                                                    </td>
-                                                    <td style="display: none;" id="itemTotal-0"></td>
-                                                    <td style="display: none;" id="itemTax-0"></td>
-                                                    <td style="display: none;" id="itemDisc-0"></td>
-                                                    <td style="display: none;" id="itemTotalDiscHead-0"></td>
-                                                    <td style="display: none;" id="itemBruto-0"></td>
-                                                    <td style="display: none;" id="itemTaxValue-0"></td>
-                                                    <td style="display: none;"><input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-0"> </td>
-                                                    <td style="display: none;"><input type="hidden" name="itemVintrasId[]" id="itemVintrasId-0"> </td>
-                                                    <td style="display: none;"><input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-0"> </td>
-                                                    <td style="display: none;"><input type="hidden" name="merkItem[]" id="merkItem-0"> </td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                         <table width="100%">
@@ -350,7 +295,6 @@
                             </div>
                             <div class="card-footer">
                                 <input type="hidden" name="process" value="save" id="process" required>
-                                <!-- <button type="submit" class="btn btn-warning float-right" value="print" id="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()"><i class="fa fa-print"></i></button> -->
                                 <button type="button" class="btn btn-warning float-right" id="print" title="print"><i class="fa fa-print"></i></button>
                                 <button type="button" class="btn btn-info float-right" id="save" title="save"><i class="fa fa-save"></i></button>
                             </div>
@@ -375,25 +319,12 @@
                     <table class="table tabelOutstandingOrder tbl-sm sroly " id="tabelOutstandingOrder" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;">
-                                <th>Nomor</th>
-                                <th>Tanggal</th>
-                                <th>Nama Sales</th>
+                                <th>DO</th>
+                                <th>Date</th>
                                 <th>ID Customer</th>
                                 <th>Customer</th>
-                                <th>Tempo</th>
-                                <th>Currency</th>
-                                <th>Rate</th>
-                                <th>PO Customer</th>
-                                <th>Jenis</th>
-                                <th>No Ref.</th>
-                                <th>Bussiness Unit</th>
-                                <th>Due</th>
-                                <th>Pay. Term</th>
                                 <th>Ship To</th>
-                                <th>User Branch</th>
-                                <th>Account Receivable</th>
-                                <th>WAPU</th>
-                                <th>Total</th>
+                                <th>Location</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -404,6 +335,34 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalSoDp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Outstanding Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid table-responsive">
+                    <table class="table tabelOutstandingOrderDp tbl-sm sroly " id="tabelOutstandingOrderDp" style="width: 100%;">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th>Description</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end Modal -->
 @endsection
 @push('other-modal')
@@ -412,16 +371,17 @@
 @endpush
 @push('other-script')
 <script>
-    // var rute = "{{ URL::to('salesOrder/data/populate') }}";
-    // var get_inventory = "{{ URL::to('inventory/data/populate') }}";
     var get_customer = "{{ URL::to('customerGetById') }}";
-    // var get_SoItemChild = "{{ URL::to('inventoryChildGetByHead') }}";
-    // var base_url = "{{ route('salesOrder') }}";
+    var base_url = "{{ route('salesInvoice') }}";
     var url_default = "{{ URL('') }}";
-    // var rute_addBranch = "{{ URL::to('customer/addBranch') }}";
-    // var rute_cekSo = "{{ URL::to('salesOrder/cekSo') }}";
+    var rute_addBranch = "{{ URL::to('customer/addBranch') }}";
+    var rute_do = "{{ URL::to('salesInvoice/data/do') }}";
+    var get_do = "{{ URL::to('salesInvoice/get/do') }}";
+    var rute_sodp = "{{ URL::to('salesInvoice/data/sodp') }}";
     var get_vat = "{{ URL::to('vat/data/byDate') }}";
+    var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
+    var lokasi = <?= json_encode($lokasi); ?>;
 </script>
 <script src="{{ asset('js/custom/salesOrder.js')}}"></script>
 <script src="{{ asset('js/transaction/salesInvoice/salesInvoice-add.js?')}}"></script>

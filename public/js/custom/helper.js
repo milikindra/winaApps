@@ -38,7 +38,7 @@ $(document).ready(function () {
     });
 });
 
-function dtModalInventory(voids, kategori, subkategori) {
+function dtModalInventory(voids, kategori, subkategori, um) {
     var table = $("#dtModalInventory").DataTable({
         scrollY: 400,
         scrollCollapse: true,
@@ -62,7 +62,7 @@ function dtModalInventory(voids, kategori, subkategori) {
                 "/" +
                 kategori +
                 "/" +
-                subkategori,
+                subkategori + "/" + um,
             type: "GET",
             dataType: "JSON",
         },
