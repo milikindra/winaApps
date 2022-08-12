@@ -667,8 +667,6 @@ function itemTotal(uid) {
     var item_disc = $("#itemDisc-" + uid).html() != "" ? parseFloat(removePeriod($("#itemDisc-" + uid).html(), ',')) : 0;
 
     var totalBruto = price * qty;
-    // var total = (price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - ((price-disc_val)*qty);
-    // var totalDiscHead = ((price * qty * (1 - disc / 100) * (1 - disc2 / 100)) - disc_val) - item_disc;
     var d1 = (price * qty) - (price * qty * disc / 100);
     var d2 = d1 - (d1 * disc2 / 100);
     var d3 = d2 - (qty * disc_val);
@@ -722,42 +720,11 @@ function totalDpp() {
     $("#totalBruto").val(addPeriod(parseFloat(totalBruto).toFixed(2), ","));
     $("#totalDpp").val(addPeriod(parseFloat(totalDpp).toFixed(2), ","));
     totalPpn();
-    // discountHead('discountValueHead');
 }
-
-// function discountHead(param) {
-//     var myTab = document.getElementById("trx");
-//     var discountProcentageHead = 0;
-//     var discountValueHead = 0;
-//     // if (param == "discountValueHead" && $('#discountValueHead').val() != '') {
-//     //     discountValueHead = $('#discountValueHead').val();
-//     //     $('#discountProcentageHead').val(parseFloat(discountValueHead) / parseFloat($("#totalBruto").val()) * 100)
-//     // } else if (param == "discountProcentageHead" && $('#discountProcentageHead').val() != '') {
-//     //     discountProcentageHead = $('#discountProcentageHead').val();
-//     //     discountValueHead = parseFloat(discountProcentageHead) * parseFloat($("#totalBruto").val()) / 100;
-//     //     $('#discountValueHead').val(discountValueHead);
-//     // }
-
-//     for (i = 1; i < myTab.rows.length; i++) {
-//         var objCells = myTab.rows.item(i).cells;
-//         var itemBruto = objCells.item(16).innerHTML > 0 ? parseFloat(objCells.item(16).innerHTML) : 0;
-//         var itemDiscount = 0;
-//         if (discountValueHead != 0) {
-//             itemDiscount = (itemBruto / $("#totalDpp").val()) * discountValueHead;
-//         }
-//         objCells.item(14).innerHTML = itemDiscount;
-//         objCells.item(15).innerHTML = itemBruto - itemDiscount;
-//     }
-//     totalPpn();
-// }
 
 function totalPpn() {
     var myTab = document.getElementById("trx");
     var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
-    // var discountValueHead = $('#discountValueHead').val();
-    // if (discountValueHead != '') {
-    //     discountValueHead = parseFloat($('#discountValueHead').val());
-    // }
     var totalPpn = 0;
 
     if (myTab.rows.length > 0) {
@@ -776,7 +743,6 @@ function totalPpn() {
         }
     }
 
-    // var grandTotal = totalDpp - discountValueHead + totalPpn;
     var grandTotal = totalDpp + totalPpn;
     $("#totalPpn").val(addPeriod(parseFloat(totalPpn).toFixed(2), ","));
     $("#grandTotal").val(addPeriod(parseFloat(grandTotal).toFixed(2), ","));
