@@ -517,8 +517,8 @@ function totalDownPayment() {
         totalDp += dpValue;
         totalDpTax += dpTax;
     }
-    $("#totalDpTax").val(totalDpTax);
-    $("#totalDp").val(totalDp);
+    $("#totalDpTax").val(addPeriod(parseFloat(totalDpTax).toFixed(2), ","));
+    $("#totalDp").val(addPeriod(parseFloat(totalDp).toFixed(2), ","));
 }
 
 window.addRow = function (element) {
@@ -686,7 +686,7 @@ function itemTotal(uid) {
         });
     }
     if ($("#price-" + uid).val() != '') {
-        $("#total-" + uid).val(total);
+        $("#total-" + uid).val(addPeriod(parseFloat(total).toFixed(2), ","));
         $("#itemBruto-" + uid).html(totalBruto);
     } else {
         $("#itemBruto-" + uid).html('0');
@@ -719,44 +719,45 @@ function totalDpp() {
         totalDpp += itemTotal;
         totalBruto += itemBruto;
     }
-    $("#totalBruto").val(totalBruto);
-    $("#totalDpp").val(totalDpp);
-    discountHead('discountValueHead');
-}
-
-function discountHead(param) {
-    var myTab = document.getElementById("trx");
-    var discountProcentageHead = 0;
-    var discountValueHead = 0;
-    if (param == "discountValueHead" && $('#discountValueHead').val() != '') {
-        discountValueHead = $('#discountValueHead').val();
-        $('#discountProcentageHead').val(parseFloat(discountValueHead) / parseFloat($("#totalBruto").val()) * 100)
-    } else if (param == "discountProcentageHead" && $('#discountProcentageHead').val() != '') {
-        discountProcentageHead = $('#discountProcentageHead').val();
-        discountValueHead = parseFloat(discountProcentageHead) * parseFloat($("#totalBruto").val()) / 100;
-        $('#discountValueHead').val(discountValueHead);
-    }
-
-    for (i = 1; i < myTab.rows.length; i++) {
-        var objCells = myTab.rows.item(i).cells;
-        var itemBruto = objCells.item(16).innerHTML > 0 ? parseFloat(objCells.item(16).innerHTML) : 0;
-        var itemDiscount = 0;
-        if (discountValueHead != 0) {
-            itemDiscount = (itemBruto / $("#totalDpp").val()) * discountValueHead;
-        }
-        objCells.item(14).innerHTML = itemDiscount;
-        objCells.item(15).innerHTML = itemBruto - itemDiscount;
-    }
+    $("#totalBruto").val(addPeriod(parseFloat(totalBruto).toFixed(2), ","));
+    $("#totalDpp").val(addPeriod(parseFloat(totalDpp).toFixed(2), ","));
     totalPpn();
+    // discountHead('discountValueHead');
 }
+
+// function discountHead(param) {
+//     var myTab = document.getElementById("trx");
+//     var discountProcentageHead = 0;
+//     var discountValueHead = 0;
+//     // if (param == "discountValueHead" && $('#discountValueHead').val() != '') {
+//     //     discountValueHead = $('#discountValueHead').val();
+//     //     $('#discountProcentageHead').val(parseFloat(discountValueHead) / parseFloat($("#totalBruto").val()) * 100)
+//     // } else if (param == "discountProcentageHead" && $('#discountProcentageHead').val() != '') {
+//     //     discountProcentageHead = $('#discountProcentageHead').val();
+//     //     discountValueHead = parseFloat(discountProcentageHead) * parseFloat($("#totalBruto").val()) / 100;
+//     //     $('#discountValueHead').val(discountValueHead);
+//     // }
+
+//     for (i = 1; i < myTab.rows.length; i++) {
+//         var objCells = myTab.rows.item(i).cells;
+//         var itemBruto = objCells.item(16).innerHTML > 0 ? parseFloat(objCells.item(16).innerHTML) : 0;
+//         var itemDiscount = 0;
+//         if (discountValueHead != 0) {
+//             itemDiscount = (itemBruto / $("#totalDpp").val()) * discountValueHead;
+//         }
+//         objCells.item(14).innerHTML = itemDiscount;
+//         objCells.item(15).innerHTML = itemBruto - itemDiscount;
+//     }
+//     totalPpn();
+// }
 
 function totalPpn() {
     var myTab = document.getElementById("trx");
-    var totalDpp = parseFloat($('#totalDpp').val());
-    var discountValueHead = $('#discountValueHead').val();
-    if (discountValueHead != '') {
-        discountValueHead = parseFloat($('#discountValueHead').val());
-    }
+    var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
+    // var discountValueHead = $('#discountValueHead').val();
+    // if (discountValueHead != '') {
+    //     discountValueHead = parseFloat($('#discountValueHead').val());
+    // }
     var totalPpn = 0;
 
     if (myTab.rows.length > 0) {
@@ -775,9 +776,10 @@ function totalPpn() {
         }
     }
 
-    var grandTotal = totalDpp - discountValueHead + totalPpn;
-    $("#totalPpn").val(totalPpn);
-    $("#grandTotal").val(grandTotal);
+    // var grandTotal = totalDpp - discountValueHead + totalPpn;
+    var grandTotal = totalDpp + totalPpn;
+    $("#totalPpn").val(addPeriod(parseFloat(totalPpn).toFixed(2), ","));
+    $("#grandTotal").val(addPeriod(parseFloat(grandTotal).toFixed(2), ","));
 }
 
 function getTax() {
