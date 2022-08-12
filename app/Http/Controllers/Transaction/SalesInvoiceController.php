@@ -108,6 +108,7 @@ class SalesInvoiceController extends Controller
                 'sales' => $sales,
                 'lokasi' => $lokasi,
                 'vat' => $vat,
+                'sales' => $sales,
             ];
             return View('transaction.salesInvoice.salesInvoiceAdd', $data);
         } catch (\Exception $e) {
@@ -118,7 +119,170 @@ class SalesInvoiceController extends Controller
 
     public function salesInvoiceAddSave(Request $request)
     {
-        dd($request);
+        Log::debug($request);
+        // dd($request);
+
+        // try {
+        $user_token = session('user')->api_token;
+        $url = Config::get('constants.api_url') . '/salesInvoiceAddSave';
+
+        $no_sjx = '';
+        $no_so_um = '';
+        $isUm = '';
+        if ($request->input('use_dp') == "on") {
+            $no_so_um = $request->input('do_soum');
+            $isUm = "Y";
+        } else {
+            $no_sjx = $request->input('do_soum');
+        }
+
+        $wapu = '';
+        if ($request->input('cek_wapu') == "on") {
+            $wapu = "Y";
+        }
+        // $use_branch = '0';
+        // $post_customer = [];
+        // if ($request->input('use_branch') == 'on') {
+        //     $use_branch = '1';
+        //     $post_customer = [
+        //         'address_alias' => $request->input('cmbShipping'),
+        //         'other_address' => $request->input('ship_to'),
+        //     ];
+        // }
+
+        // $post_attach = [];
+        // if ($request->file() != null) {
+        //     for ($i = 0; $i < count($request->file('attach')); $i++) {
+        //         $attach = $request->file('attach')[$i];
+        //         $post_attach[] = [
+        //             'module' => 'SO',
+        //             'name' => $request->input('nomor'),
+        //             'value' => $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension(),
+        //             'path' => 'document/SO/' . date_format(date_create($request->input('date_order')), 'Y') . '/' . $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension()
+        //         ];
+        //     }
+        // }
+
+        $post_head = [
+            "api_token" => $user_token,
+            "TGL_BUKTI" => $request->input('date_order'),
+            "ID_CUST" => $request->input('customer'),
+            "NM_CUST" => $request->input('customer_name'),
+            "TEMPO" => $request->input('tempo'),
+            "tgl_due" => date('Y-m-d', strtotime('+' . $request->input('tempo') . ' days', strtotime($request->input('date_order')))),
+            "ID_SALES" => $request->input('sales_id'),
+            "NM_SALES" => $request->input('sales_name'),
+            "KETERANGAN" => $request->input('notes'),
+            "CREATOR" => session('user')->username,
+            "EDITOR" => session('user')->username,
+            "rate" => $request->input('rate_cur'),
+            "curr" => $request->input('curr'),
+            "no_sjx" => $no_sjx,
+            "no_so" => $request->input('so_id'),
+            "alamatkirim" => $request->input('ship_to'),
+            "pay_term" => $request->input('payterm'),
+            "isUM" => $isUm,
+            "no_so_um" => $no_so_um,
+            "uangmuka" =>  $request->input('totalDp') != null && $request->input('totalDp') != '' ? (float)str_replace(',', '', $request->input('totalBruto')) : 0,
+            "totdetail" => (float)str_replace(',', '', $request->input('totalDpp')),
+            "uangmuka_ppn" => (float)str_replace(',', '', $request->input('taxDp')),
+            "ppntotdetail" => (float)str_replace(',', '', $request->input('taxDp')),
+
+
+            "no_pajak" => $request->input('tax_snF') . "" . $request->input('tax_snE'),
+            "no_rek" => $request->input('acc_receivable'),
+            "isWapu" => $wapu,
+            "no_tt" => $request->input('receiced_id'),
+            "tgl_tt" => $request->input('received_date'),
+            "penerima_tt" => $request->input('received_by'),
+            "isSI_UM_FINAL" => $request->input('finalDp'),
+
+
+            // "jenis" => $request->input('jenis'),
+            // "rp_disch" => $request->input('discountValueHead'),
+            // "ppntotdetail" => (float)str_replace(',', '', $request->input('totalBruto')) - (float)str_replace(',', '', $request->input('discountValueHead')),
+            // "uangmuka" => (float)str_replace(',', '', $request->input('totalDp')),
+            // "uangmuka_ppn" => (float)str_replace(',', '', $request->input('totalDpTax')),
+            // "use_branch" => $use_branch,
+        ];
+
+        dd($post_head);
+
+        // $post_detail = [];
+        // for ($i = 0; $i < count($request->input('no_stock')); $i++) {
+        //     if (!empty($request->input('no_stock'))) {
+        //         $post_detail[] = [
+        //             "NO_BUKTI" => $request->input('nomor'),
+        //             "NO_STOCK" => $request->input('no_stock')[$i],
+        //             "NM_STOCK" => $request->input('nm_stock')[$i],
+        //             "QTY" => $request->input('qty')[$i],
+        //             "KET" => $request->input('ket')[$i],
+        //             "SAT" => $request->input('sat')[$i],
+        //             "HARGA" => (float)str_replace(',', '', $request->input('price')[$i]),
+        //             "DISC1" => (float)str_replace(',', '', $request->input('disc')[$i]),
+        //             "DISC2" => (float)str_replace(',', '', $request->input('disc2')[$i]),
+        //             "DISC3" => 0,
+        //             "DISCRP" => (float)str_replace(',', '', $request->input('disc_val')[$i]),
+        //             "discrp2" => '0',
+        //             "state" => '',
+        //             "alasan" => '',
+        //             "nourut" => $get_urut_detail->nourut + 1,
+        //             "tax" => $request->input('tax')[$i],
+        //             "kode_group" => '',
+        //             "qty_grup" => '0',
+        //             "VINTRASID" =>  $request->input('itemVintrasId')[$i],
+        //             "tahun" =>  $request->input('itemTahunVintras')[$i],
+        //             "kode_group" => $request->input('itemKodeGroup')[$i],
+        //             "merk" => $request->input('merkItem')[$i]
+        //         ];
+        //     }
+        // }
+        // $post_dp = [];
+        // for ($i = 0; $i < count($request->input('dp')); $i++) {
+        //     if (!empty($request->input('dp')[$i]) || !empty($request->input('dp_val')[$i])) {
+        //         $post_dp[] = [
+        //             "NO_BUKTI" => $request->input('nomor'),
+        //             "keterangan" => $request->input('dp')[$i],
+        //             "nilai" => (float)str_replace(',', '', $request->input('dp_value')[$i]),
+        //             "nourut" => $i + 1,
+        //             "tax" => $request->input('dp_tax')[$i],
+        //         ];
+        //     }
+        // }
+
+        // $postData = [
+        //     'head' => $post_head,
+        //     'detail' => $post_detail,
+        //     'um' => $post_dp,
+        //     'customer' => $post_customer,
+        //     'attach' => $post_attach
+        // ];
+        // $request->request->add(['api_token' => $user_token]);
+        // $client = new Client();
+        // $response = $client->request('POST', $url, [
+        //     'json' => $postData,
+        //     'http_errors' => false
+        // ]);
+        // $body = json_decode($response->getBody());
+        // if ($request->file() != null) {
+        //     for ($i = 0; $i < count($request->file('attach')); $i++) {
+        //         $attach = $request->file('attach')[$i];
+        //         $filename = $request->input('nomor') . "-" . $i + 1 . "." .  $attach->getClientOriginalExtension();
+        //         Storage::disk('local')->putFileAs('document/SO/' . date_format(date_create($request->input('date_order')), 'Y'), $attach, $filename);
+        //     }
+        // }
+        // Alert::toast($body->message, 'success');
+        // if ($request->input('process') == 'print') {
+        //     return redirect('salesOrderPrint/' . $request->input('nomor'));
+        // } else {
+        //     return redirect()->back();
+        // }
+
+        // } catch (\Exception $e) {
+        //     Alert::toast("500 - Failed to Save Data", 'error');
+        //     Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+        //     return redirect()->back();
+        // }
     }
 
     public function dataDo(Request $request, $so_id)

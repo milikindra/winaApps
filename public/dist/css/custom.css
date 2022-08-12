@@ -26,6 +26,10 @@ select.form-control-sm~.select2-container--default {
     font-size: 100%;
 }
 
+.select2 .select2-container .select2-container--default {
+    width: auto;
+}
+
 option:hover {
     background-color: #17a2b8;
 }

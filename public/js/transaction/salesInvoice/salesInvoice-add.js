@@ -47,7 +47,6 @@ $('#customerSearch').focus(function () {
                 $('#customerList').html(html);
             },
         });
-
     }
 });
 
@@ -62,8 +61,11 @@ $('#customerSearch').focusout(function () {
 
 function getCustomer() {
     var id_cust = $("#customer").val();
+    $("#sales_id").val('');
     $("#do_soum").val('');
     $("#ship_to").val('');
+    $("#tax_snFlabel").html('');
+    $("#tax_snF").val('');
     $("#use_branch").prop('checked', false);
     $.ajax({
         url: get_customer + "/" + id_cust,
@@ -92,10 +94,18 @@ function getCustomer() {
                 }
                 $("#cmbShipping").html(opt);
                 $("#cmbShipping").prop("selectedIndex", 0).trigger("change");
+                $("#tax_snFlabel").html(response[0].KodePajak + ".");
+                $("#tax_snF").val(response[0].KodePajak + ".");
+                $("#sales_id").val(response[0].ID_SALES).trigger("change");
             }
+            getEfaktur();
         },
     });
 };
+
+function getSales() {
+    $("#sales_name").val($("#sales_id").find(':selected').data('name'));
+}
 
 function getSo() {
     $("#modalSO").modal("show");
@@ -110,6 +120,7 @@ function getSo() {
         $("#so_id").val($(this).closest("tr").children("td:eq(0)").text());
         $("#cust_so").val($(this).closest("tr").children("td:eq(4)").text());
         $("#customer").val($(this).closest("tr").children("td:eq(4)").text());
+        $("#customer_name").val($(this).closest("tr").children("td:eq(5)").text());
         $("#customerSearch").val($(this).closest("tr").children("td:eq(4)").text() + " (" + $(this).closest("tr").children("td:eq(5)").text() + ")");
         $("#tempo").val($(this).closest("tr").children("td:eq(6)").text());
         $("#curr").val($(this).closest("tr").children("td:eq(7)").text());
@@ -297,6 +308,27 @@ $("#cmbShipping").change(function () {
         $("#ship_to").prop("readonly", true);
     }
 });
+
+function getEfaktur() {
+    var dates = $("#date_order").val();
+    html = "";
+
+    $.ajax({
+        delay: 0,
+        url: get_efaktur + "/" + dates,
+        type: "GET",
+        dataType: "JSON",
+        success: function (response) {
+            jQuery.each(response, function (i, val) {
+                replaced = val.nomor.substring(0, 3) + "-" + val.nomor.substring(4);
+                html += "<option value='" + replaced + "'>" + replaced + "</option>";
+            });
+            sel = response[0].nomor.substring(0, 3) + "-" + response[0].nomor.substring(4)
+            $('#taxSnList').html(html);
+            $('#tax_snE').val(sel);
+        }
+    });
+}
 
 window.addAttach = function (element) {
     var rc = $('#attachUpload input').length;
@@ -513,7 +545,8 @@ function totalDpp() {
     }
     $("#totalBruto").val(totalBruto);
     $("#totalDpp").val(addPeriod(parseFloat(totalDpp).toFixed(2), ","));
-    discountHead('discountValueHead');
+    totalPpn();
+    // discountHead('discountValueHead');
 }
 
 function discountHead(param) {
@@ -545,9 +578,10 @@ function discountHead(param) {
 function totalPpn() {
     var myTab = document.getElementById("trx");
     var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
-    var discountValueHead = $('#discountValueHead').val();
-    if (discountValueHead != '') {
-        discountValueHead = parseFloat(removePeriod($("#discountValueHead").val(), ','));
+    if ($("#totalDp").val() != '' && $("#totalDp").val() != null && $("#totalDp").val() != NaN) {
+        totalDp = parseFloat(removePeriod($("#totalDp").val(), ','));
+    } else {
+        totalDp = 0;
     }
     var totalPpn = 0;
     if (myTab.rows.length > 0) {
@@ -566,7 +600,8 @@ function totalPpn() {
         }
     }
 
-    var grandTotal = totalDpp - discountValueHead + totalPpn;
+    var grandTotal = totalDpp - totalDp + totalPpn;
+    // var grandTotal = totalDpp - discountValueHead + totalPpn;
     $("#totalPpn").val(addPeriod(parseFloat(totalPpn).toFixed(2), ","));
     $("#grandTotal").val(addPeriod(parseFloat(grandTotal).toFixed(2), ","));
 }

@@ -85,7 +85,7 @@ class VatController extends Controller
 
     public function byDate($sdate)
     {
-        $vat = vatGetData($sdate);
+        $vat = vatGetData($sdate, 'all');
         return $vat;
     }
 }

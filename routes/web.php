@@ -16,6 +16,7 @@ use App\Http\Controllers\Master\SubCategoryController;
 use App\Http\Controllers\Master\MerkController;
 use App\Http\Controllers\Master\AccountCoaController;
 use App\Http\Controllers\Master\VatController;
+use App\Http\Controllers\Master\EfakturController;
 use App\Http\Controllers\Transaction\SalesOrderController;
 use App\Http\Controllers\Transaction\SalesInvoiceController;
 use App\Http\Controllers\Finance\GeneralLedgerController;
@@ -190,6 +191,9 @@ Route::group(
         Route::get('vat', [VatController::class, 'vatShow'])->name('vat')->middleware('userMatrix:M11.01');
         Route::get('vat/data/populate/{sdate}', [VatController::class, 'populate'])->name('vat/data/populate');
         Route::get('vat/data/byDate/{sdate}', [VatController::class, 'byDate'])->name('vat/data/byDate');
+
+        //efaktur
+        Route::get('efaktur/get/byDate/{dates}', [EfakturController::class, 'byDate'])->name('efaktur/get/byDate');
     }
 );
 

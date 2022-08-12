@@ -61,6 +61,18 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Sales</label>
+                                                <input type="hidden" id="sales_name" name="sales_name">
+                                                <select class="form-control form-control-sm  selects2" id="sales_id" name="sales_id" onchange="getSales()">
+                                                    <option selected disabled></option>
+                                                    @foreach($sales as $s)
+                                                    <option value="{{$s->ID_SALES}}" data-name="{{$s->NM_SALES}}">{{$s->ID_SALES." (".$s->NM_SALES.")"}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <label>Due</label>
                                                 <div class="input-group input-group-sm">
@@ -138,12 +150,17 @@
                                                 <label>Tax Serial Number </label>
                                                 <div class="input-group input-group-sm">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="tax_snF">XXX.</span>
+                                                        <span class="input-group-text" style="font-size: 11px;" id="tax_snFlabel">XXX.</span>
+                                                        <input type="hidden" name="tax_snF" id="tax_snF" required>
                                                     </div>
-                                                    <input type="text" class="form-control form-control-sm form-control-border" id="tax_snE" name="tax_snE" readonly>
-                                                    <span class="input-group-append">
+                                                    <datalist id="taxSnList">
+                                                    </datalist>
+                                                    <input class="form-control form-control-sm form-control-border" list="taxSnList" id="tax_snE" name="tax_snE" autocomplete="off">
+
+                                                    <!-- <input type="text" class="form-control form-control-sm form-control-border" id="tax_snE" name="tax_snE" readonly> -->
+                                                    <!-- <span class="input-group-append">
                                                         <button type="button" class="btn btn-sm btn-info" onclick=""><i class="fas fa-search"></i></button>
-                                                    </span>
+                                                    </span> -->
                                                 </div>
 
                                             </div>
@@ -151,7 +168,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Ship To | <a href="javascript:void(0)" id="addBranch">Add Branch</a></label>
-                                                <select class="form-control form-control-sm" id="cmbShipping" style="display: block;">
+                                                <select class="form-control form-control-sm" id="cmbShipping" name="cmbShipping" style="display: block;">
                                                 </select>
                                                 <input type="hidden" name="cmbShipping" id="cmbShippingKey">
                                                 <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="5" readonly></textarea>
@@ -165,12 +182,18 @@
                                         <div class="form-group col-md-6">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label>Received By</label>
-                                                    <input type="text" class="form-control form-control-sm form-control-border" name="received_by" id="received_by">
+                                                    <label>Received Id</label>
+                                                    <input type="text" class="form-control form-control-sm form-control-border" name="received_id" id="received_id">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Received Date</label>
-                                                    <input type="date" class="form-control form-control-sm form-control-border" name="received_by" id="received_by">
+                                                    <input type="date" class="form-control form-control-sm form-control-border" name="received_date" id="received_date">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label>Received By</label>
+                                                    <input type="text" class="form-control form-control-sm form-control-border" name="received_by" id="received_by">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -237,23 +260,33 @@
                                 <div class="row justify-content-end">
                                     <div class="col-3">
                                         <div class="form-group row">
-                                            <label class="col-sm-4">Total DPP</label>
+                                            <label class="col-sm-4">Total</label>
                                             <div class="col-sm-8">
                                                 <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
                                                 <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label class="col-sm-4">Total DP</label>
+                                            <div class="col-sm-8">
+                                                <input type="hidden" name="totalDp" id="totalDp" autocomplete="off">
+                                                <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDp" id="totalDp" onchange="totalPpn()">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group row">
                                             <label class="col-sm-4">Discount</label>
                                             <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" autocomplete="off" placeholder="%"></div>
                                             <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" autocomplete="off"></div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group row">
                                             <label class="col-sm-4">Total PPn</label>
                                             <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-4">Total</label>
+                                            <input type="hidden" name="taxDp" id="taxDp">
+                                            <input type="hidden" name="finalDp" id="finalDp">
+                                            <input type="hidden" name="taxDetail" id="taxDetail">
+                                            <label class="col-sm-4">Grand Total</label>
                                             <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
                                         </div>
                                     </div>
@@ -346,6 +379,7 @@
     var rute_sodp = "{{ URL::to('salesInvoice/data/sodp') }}";
     var get_sodp = "{{ URL::to('salesInvoice/get/sodp') }}";
     var get_vat = "{{ URL::to('vat/data/byDate') }}";
+    var get_efaktur = "{{ URL::to('efaktur/get/byDate')}}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
     var lokasi = <?= json_encode($lokasi); ?>;
