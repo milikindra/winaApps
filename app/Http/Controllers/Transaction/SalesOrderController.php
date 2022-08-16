@@ -446,7 +446,6 @@ class SalesOrderController extends Controller
                     $attach = $request->file('attach')[$i];
                     $filename = $request->input('nomor') . "-" . $i + 1 . "." .  $attach->getClientOriginalExtension();
                     Storage::disk('local')->putFileAs('document/SO/' . date_format(date_create($request->input('date_order')), 'Y'), $attach, $filename);
-                    // Storage::disk('doc')->putFileAs('module', $attach, $filename);
                 }
             }
             Alert::toast($body->message, 'success');

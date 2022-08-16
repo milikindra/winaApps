@@ -13,11 +13,34 @@ function loadAttach() {
         $('#attachUpload').append('<input type="file" style="margin-bottom: 2px;" id="attach-' + i + '" name="attach[]">');
         const fileInput = document.getElementById('attach-' + i);
         var path = url_default + '/local/' + val.path;
-        const myFile = new File(["aa"], path);
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(myFile);
-        fileInput.files = dataTransfer.files;
+        var request = new XMLHttpRequest();
+        request.open('GET', path, true);
+        request.responseType = 'blob';
+        request.onload = function () {
+            var reader = new FileReader();
+            reader.readAsDataURL(request.response);
+            reader.onload = function (e) {
+                var oldFile = dataURLtoFile(e.target.result, val.path)
+                const myFile = new File([oldFile], path);
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(myFile);
+                fileInput.files = dataTransfer.files;
+            };
+        };
+        request.send();
     });
+}
+
+function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
 }
 
 function btnEdit() {
