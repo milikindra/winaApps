@@ -246,13 +246,13 @@ $('#tableCustomerSOA').on('dblclick tbody', 'tr', function (e) {
         $("#cnmInNotes").val('');
         $("#cnmEstDate").val('');
         $("#cnmInvoice").val($(this).closest("tr").children("td:eq(1)").text());
-        if ($(this).closest("tr").children("td:eq(13)").text() != 'null') {
-            $("#cnmInNotes").val($(this).closest("tr").children("td:eq(13)").text());
+        if ($(this).closest("tr").children("td:eq(14)").text() != 'null') {
+            $("#cnmInNotes").val($(this).closest("tr").children("td:eq(14)").text());
         } else {
             $("#cnmInNotes").val('');
         }
-        if ($(this).closest("tr").children("td:eq(14)").text() != 'null') {
-            $("#cnmEstDate").val($(this).closest("tr").children("td:eq(14)").text());
+        if ($(this).closest("tr").children("td:eq(15)").text() != 'null') {
+            $("#cnmEstDate").val($(this).closest("tr").children("td:eq(15)").text());
         } else {
             $("#cnmEstDate").val('');
         }
