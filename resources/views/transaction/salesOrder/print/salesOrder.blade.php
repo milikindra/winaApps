@@ -229,15 +229,24 @@
                 <tbody>
                     <?php $i = 1; ?>
                     @foreach($so->detail as $det)
+                    @if($det->kode_group)
                     <tr style="vertical-align: top;">
-                        <td style="border: 1px solid #ccc; text-align:right;">{{$i}}.</td>
-                        <td style="border: 1px solid #ccc;">{{$det->NO_STOCK}}</td>
-                        <td style="border: 1px solid #ccc;" colspan="4"><?= str_replace(array("\r\n", "\n"), '<br/>', $det->NM_STOCK) ?></td>
-                        <td style="border: 1px solid #ccc;text-align:center;">{{number_format($det->QTY,0)}} {{$det->SAT}}</td>
+                        <td style="border-left: 1px solid #ccc; text-align:right;"></td>
+                        <td style="border-left: 1px solid #ccc;">{{$det->NO_STOCK}}</td>
+                        <td style="border-left: 1px solid #ccc;" colspan="4"><?= str_replace(array("\r\n", "\n"), '<br/>', $det->NM_STOCK) ?></td>
+                        <td style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;text-align:center;">{{number_format($det->QTY,0)}} {{$det->SAT}}</td>
+                    </tr>
+                    @else
+                    <tr style="vertical-align: top;">
+                        <td style="border: 1px solid #ccc; border-bottom: 0;text-align:right;">{{$i}}.</td>
+                        <td style="border: 1px solid #ccc;border-bottom: 0">{{$det->NO_STOCK}}</td>
+                        <td style="border: 1px solid #ccc;border-bottom: 0" colspan="4"><?= str_replace(array("\r\n", "\n"), '<br/>', $det->NM_STOCK) ?></td>
+                        <td style="border: 1px solid #ccc;text-align:center;border-bottom: 0">{{number_format($det->QTY,0)}} {{$det->SAT}}</td>
                     </tr>
                     <?php $i++ ?>
+                    @endif
                     @endforeach
-                    <tr style="border: none;">
+                    <tr style="border: none; border-top: 1px solid #ccc">
                         <td style="height: 1rem;"><span></span></td>
                         <td><span></span></td>
                         <td><span></span></td>
