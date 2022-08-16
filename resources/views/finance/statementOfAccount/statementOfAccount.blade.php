@@ -180,6 +180,7 @@
                                         <th id="no-sort">Customer</th>
                                         <th>Invoice</th>
                                         <th>Invoice Date</th>
+                                        <th>Receipt Date</th>
                                         <th>Due Date</th>
                                         <th>Est Date</th>
                                         <th>PO</th>

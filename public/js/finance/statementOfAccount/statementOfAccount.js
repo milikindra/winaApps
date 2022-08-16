@@ -99,12 +99,13 @@ function tableCustomerSOA() {
         url: rute_customer_soa + '/' + edate + '/' + customer + '/' + so + '/' + sales + '/' + overdue + '/' + isTotalCustomer,
         dataType: 'json',
         success: function (data) {
+            console.log(data);
             $('#titleCustomerSOA').html('PT. VIKTORI PROFINDO AUTOMATION');;
             $('#subtitleCustomerSOA').html('CUSTOMER STATEMENT OF ACCOUNT');;
             $('#filterCustomerSOA').html('Per : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
-            html = '<thead><tr style="text-align:center"><th id="no-sort">Customer</th><th>Invoice</th><th>Invoice Date</th><th>Due Date</th><th>Est Date</th><th>PO</th><th>Total</th><th>Sales</th><th>Overdue > 100 days</th><th>Overdue 1 - 30 days</th><th>Overdue 31 - 60 days</th><th>Overdue 61 - 100 days</th><th>Not Due</th></tr></thead>';
+            html = '<thead><tr style="text-align:center"><th id="no-sort">Customer</th><th>Invoice</th><th>Invoice Date</th><th>Receipt Date</th><th>Due Date</th><th>Est Date</th><th>PO</th><th>Total</th><th>Sales</th><th>Overdue > 100 days</th><th>Overdue 1 - 30 days</th><th>Overdue 31 - 60 days</th><th>Overdue 61 - 100 days</th><th>Not Due</th></tr></thead>';
             html += '<tbody>';
 
             var a = JSON.parse(JSON.stringify(data));
@@ -116,6 +117,10 @@ function tableCustomerSOA() {
                 var tgl_bukti = '';
                 if (item.tgl_bukti != null) {
                     tgl_bukti = moment(item.tgl_bukti).format("DD/MM/YYYY")
+                }
+                var tgl_tt = '';
+                if (item.tgl_tt != null) {
+                    tgl_tt = moment(item.tgl_tt).format("DD/MM/YYYY")
                 }
                 var due_date = '';
                 if (item.tgl_due != null) {
@@ -207,6 +212,7 @@ function tableCustomerSOA() {
                 html += '<td>' + item.nm_cust + '</td>';
                 html += '<td>' + no_inv + '</td>';
                 html += '<td style="text-align:center">' + tgl_bukti + '</td>';
+                html += '<td style="text-align:center">' + tgl_tt + '</td>';
                 html += '<td style="text-align:center">' + due_date + '</td>';
                 html += '<td style="text-align:center">' + est_date + '</td>';
                 html += '<td style="word-wrap: break-word">' + no_po + '</td>';
