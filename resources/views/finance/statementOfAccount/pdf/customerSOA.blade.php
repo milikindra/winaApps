@@ -120,6 +120,7 @@
                         <th style="text-align: center;" id="no-sort">Customer</th>
                         <th style="text-align: center;">Invoice</th>
                         <th style="text-align: center;">Invoice Date</th>
+                        <th style="text-align: center;">Receipt Date</th>
                         <th style="text-align: center;">Due Date</th>
                         <th style="text-align: center;">PO</th>
                         <th style="text-align: center;">Total</th>
@@ -138,6 +139,7 @@
                         <td style="width: 10%; border-right:none;">{{$b->nm_cust}}</td>
                         <td style="width: 10%; border-right:none;">{{$b->no_inv}}</td>
                         <td style="width: 5%; border-right:none;text-align:center;">{{date_format(date_create($b->tgl_bukti), 'd-m-Y') }}</td>
+                        <td style="width: 5%; border-right:none;text-align:center;">{{date_format(date_create($b->tgl_tt), 'd-m-Y') }}</td>
                         <td style="width: 5%; border-right:none;text-align:center;">{{date_format(date_create($b->tgl_due), 'd-m-Y') }}</td>
                         <td style="width: 10%; border-right:none;">{{$b->no_po}}</td>
                         <td style="width: 5%; border-right:none;text-align:right;">{{accDollars($b->total)}}</td>

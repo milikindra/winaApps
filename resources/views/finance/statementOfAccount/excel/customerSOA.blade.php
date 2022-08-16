@@ -126,6 +126,7 @@ echo "Some Text"; //no ending ; here
                         <th style="text-align: center;  border: 1px solid #000000;" id="no-sort">Customer</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Invoice</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Invoice Date</th>
+                        <th style="text-align: center;  border: 1px solid #000000;">Receipt Date</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Due Date</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Est Date</th>
                         <th style="text-align: center;  border: 1px solid #000000;">PO</th>
@@ -149,6 +150,7 @@ echo "Some Text"; //no ending ; here
                         <?php
                         $tgl_bukti = ($b->tgl_bukti != '') ? date_format(date_create($b->tgl_bukti), 'd-m-Y') : '';
                         $tgl_due = ($b->tgl_due != '') ? date_format(date_create($b->tgl_due), 'd-m-Y') : '';
+                        $tgl_tt = ($b->tgl_tt != '') ? date_format(date_create($b->tgl_tt), 'd-m-Y') : '';
                         $est_date = ($b->est_date != '') ? date_format(date_create($b->est_date), 'd-m-Y') : '';
                         $total = ($b->total != '') ? number_format($b->total, 2) : '';
                         $overdue_100 = ($b->overdue_100 != '') ? number_format($b->overdue_100, 2) : '';
@@ -161,6 +163,7 @@ echo "Some Text"; //no ending ; here
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="15%">{{$b->nm_cust}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->no_inv}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$tgl_bukti }}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$tgl_tt }}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$tgl_due }}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$est_date }}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->no_po}}</td>
@@ -176,6 +179,7 @@ echo "Some Text"; //no ending ; here
                     @if(!empty($b->internal_notes))
                     <tr>
                         <td colspan="6" style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;">Internal Notes :<br style="mso-data-placement:same-cell;"> <?= str_replace("<br />", "<br style='mso-data-placement:same-cell;'>", $b->internal_notes) ?></td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;"></td>
