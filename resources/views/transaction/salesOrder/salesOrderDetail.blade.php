@@ -244,7 +244,7 @@
                                                 @endforeach
                                             </div>
                                             <div class="row col-md-12 attachUpload" id="attachUpload" style="display:none;">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -351,7 +351,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="hidden" name="base_qty[]" id="base_qty-{{$j}}" value="{{$det->QTY}}">
-                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal({{$j}})" id="qty-{{$j}}" value="{{$det->QTY}}">
+                                                    <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal({{$j}});child({{$j}});" id="qty-{{$j}}" value="{{$det->QTY}}">
                                                 </td>
                                                 <td>
                                                     <input type=" text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}">
@@ -474,11 +474,6 @@
                                             <input type="hidden" name="totalBruto" id="totalBruto">
                                             <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-4">Discount</label>
-                                        <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" placeholder="%" value="{{$so->head[0]->discH}}"></div>
-                                        <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" value="{{$so->head[0]->rp_disch}}"></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total PPn</label>

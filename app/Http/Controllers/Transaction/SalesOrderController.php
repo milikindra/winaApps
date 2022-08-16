@@ -229,7 +229,6 @@ class SalesOrderController extends Controller
                         "alasan" => '',
                         "nourut" => $get_urut_detail->nourut + 1,
                         "tax" => $request->input('tax')[$i],
-                        "kode_group" => '',
                         "qty_grup" => '0',
                         "VINTRASID" =>  $request->input('itemVintrasId')[$i],
                         "tahun" =>  $request->input('itemTahunVintras')[$i],

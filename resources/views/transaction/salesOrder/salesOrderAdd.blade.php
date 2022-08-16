@@ -309,7 +309,7 @@
                                                     </td>
                                                     <td>
                                                         <input type="hidden" name="base_qty[]" id="base_qty-0">
-                                                        <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0)" autocomplete="off" id="qty-0">
+                                                        <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" onchange="itemTotal(0);child(0)" autocomplete="off" id="qty-0">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-0">
@@ -373,7 +373,7 @@
                                                 <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                             </div>
                                         </div>
-                                       
+
                                         <div class="form-group row">
                                             <label class="col-sm-4">Total PPn</label>
                                             <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>

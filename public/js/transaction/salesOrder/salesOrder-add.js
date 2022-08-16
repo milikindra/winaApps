@@ -543,7 +543,7 @@ window.addRow = function (element) {
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
-        ')"> </td><td> <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-' +
+        ');child(' + rowCount + ')"> </td><td> <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-' +
         rowCount +
         '"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" autocomplete="off"  id="price-' +
         rowCount +
@@ -647,6 +647,7 @@ function addData(uid) {
 
             $("#no_stock-" + uid).val(no_stock);
             $("#nm_stock-" + uid).html($(this).closest("tr").children("td:eq(1)").text());
+            $("#base_qty-" + (uid)).val('1');
             $("#qty-" + uid).val('1');
             $("#sat-" + uid).val($(this).closest("tr").children("td:eq(2)").text());
             $("#itemVintrasId-" + (uid)).val($(this).closest("tr").children("td:eq(5)").text());
@@ -693,14 +694,18 @@ function itemTotal(uid) {
     $("#itemTotal-" + uid).html(total);
     $("#itemTaxValue-" + uid).html(itemTaxValue);
     totalDpp();
+}
 
+function child(uid) {
     var no_stock = $('#no_stock-' + uid).val();
+    var base_qty = $("#base_qty-" + uid).val() != "" ? parseFloat(removePeriod($("#base_qty-" + uid).val(), ',')) : 0;
+    var qty = $("#qty-" + uid).val() != "" ? parseFloat(removePeriod($("#qty-" + uid).val(), ',')) : 0;
     var myTab = document.getElementById("trx");
     for (i = 1; i < myTab.rows.length; i++) {
         var objCells = myTab.rows.item(i).cells;
         if (objCells.item(18).children[0].value == no_stock) {
-            var saldo = $("#base_qty-" + (i - 1)).val();
-            $("#qty-" + (i - 1)).val(saldo * qty);
+            var saldo_base = $("#base_qty-" + (i - 1)).val() / base_qty;
+            $("#qty-" + (i - 1)).val(saldo_base * qty);
         }
     }
 }
