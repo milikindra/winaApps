@@ -81,7 +81,7 @@ Route::group(
         Route::get('salesInvoice/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesInvoiceController::class, 'populate'])->name('salesInvoice/data/populate');
         Route::get('salesInvoiceAdd', [SalesInvoiceController::class, 'salesInvoiceAdd'])->name('salesInvoiceAdd')->middleware('userMatrix:T02.02');
         Route::get('salesInvoice/data/do/{so_id}', [SalesInvoiceController::class, 'dataDo'])->name('salesInvoice/data/do');
-        Route::get('salesInvoice/get/do/{do_id}', [SalesInvoiceController::class, 'getDo'])->name('salesInvoice/get/do');
+        Route::get('salesInvoice/get/do/{so_id}/{do_id}', [SalesInvoiceController::class, 'getDo'])->name('salesInvoice/get/do');
         Route::get('salesInvoice/data/sodp/{so_id}', [SalesInvoiceController::class, 'dataSoDp'])->name('salesInvoice/data/sodp');
         Route::get('salesInvoice/get/sodp/{so_id}/{do_id}', [SalesInvoiceController::class, 'getSoDp'])->name('salesInvoice/get/sodp');
         Route::post('salesInvoiceAddSave', [SalesInvoiceController::class, 'salesInvoiceAddSave'])->name('salesInvoiceAddSave')->middleware('userMatrix:T02.02');

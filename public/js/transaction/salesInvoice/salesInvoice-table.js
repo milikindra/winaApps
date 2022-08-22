@@ -78,6 +78,7 @@ $(document).ready(function () {
                 {
                     data: "TGL_BUKTI",
                     name: "TGL_BUKTI",
+                    className: "dt-body-center",
                     render: function (data, type, row) {
                         return moment(data).format("DD/MM/YYYY");
                     },
@@ -93,6 +94,7 @@ $(document).ready(function () {
                 {
                     data: "TEMPO",
                     name: "TEMPO",
+                    className: "dt-body-right",
                 },
                 {
                     data: "no_so",
@@ -105,10 +107,12 @@ $(document).ready(function () {
                 {
                     data: "rate",
                     name: "rate",
+                    className: "dt-body-right",
                 },
                 {
                     data: "isWapu",
                     name: "isWapu",
+                    className: "dt-body-center",
                 },
                 {
                     data: "no_pajak",
@@ -145,6 +149,7 @@ $(document).ready(function () {
                 {
                     data: "tgl_tt",
                     name: "tgl_tt",
+                    className: "dt-body-center",
                     render: function (data, type, row) {
                         return moment(data).format("DD/MM/YYYY");
                     },
@@ -156,8 +161,13 @@ $(document).ready(function () {
                 {
                     data: "due_date",
                     name: "due_date",
+                    className: "dt-body-center",
                     render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY");
+                        if (data == null) {
+                            return "-";
+                        } else {
+                            return moment(data).format("DD/MM/YYYY");
+                        }
                     },
                 },
                 {
@@ -165,7 +175,11 @@ $(document).ready(function () {
                     name: "age",
                     className: "dt-body-right",
                     render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                        if (data == null) {
+                            return "0.00";
+                        } else {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        }
                     },
                 },
                 {

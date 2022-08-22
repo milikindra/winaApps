@@ -262,6 +262,10 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4">Total</label>
                                             <div class="col-sm-8">
+                                                <input type="hidden" name="totalSo" id="totalSo" autocomplete="off">
+                                                <input type="hidden" name="totalSoDp" id="totalSoDp" autocomplete="off">
+                                                <input type="hidden" name="totalSiDp" id="totalSiDp" autocomplete="off">
+                                                <input type="hidden" name="totalPPnSiDp" id="totalPPnSiDp" autocomplete="off">
                                                 <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
                                                 <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                             </div>
@@ -269,23 +273,18 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4">Total DP</label>
                                             <div class="col-sm-8">
-                                                <input type="hidden" name="totalDp" id="totalDp" autocomplete="off">
-                                                <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDp" id="totalDp" onchange="totalPpn()">
+                                                <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDp" id="totalDp" onchange="cekSiDp()">
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group row">
-                                            <label class="col-sm-4">Discount</label>
-                                            <div class="col-sm-2"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountProcentageHead" id="discountProcentageHead" onchange="discountHead('discountProcentageHead')" autocomplete="off" placeholder="%"></div>
-                                            <div class="col-sm-6"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="discountValueHead" id="discountValueHead" onchange="discountHead('discountValueHead')" autocomplete="off"></div>
-                                        </div> -->
                                         <div class="form-group row">
                                             <label class="col-sm-4">Total PPn</label>
                                             <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
                                         </div>
                                         <div class="form-group row">
+                                            <input type="hidden" name="taxCustomer" id="taxCustomer">
                                             <input type="hidden" name="taxDp" id="taxDp">
-                                            <input type="hidden" name="finalDp" id="finalDp">
                                             <input type="hidden" name="taxDetail" id="taxDetail">
+                                            <input type="hidden" name="finalDp" id="finalDp">
                                             <label class="col-sm-4">Grand Total</label>
                                             <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
                                         </div>
@@ -294,8 +293,8 @@
                             </div>
                             <div class="card-footer">
                                 <input type="hidden" name="process" value="save" id="process" required>
-                                <button type="button" class="btn btn-warning float-right" id="print" title="print"><i class="fa fa-print"></i></button>
-                                <button type="button" class="btn btn-info float-right" id="save" title="save"><i class="fa fa-save"></i></button>
+                                <button type="button" class="btn btn-warning float-right" id="print" title="print" disabled><i class="fa fa-print"></i></button>
+                                <button type="button" class="btn btn-info float-right" id="save" title="save" disabled><i class="fa fa-save"></i></button>
                             </div>
                         </div>
                     </div>

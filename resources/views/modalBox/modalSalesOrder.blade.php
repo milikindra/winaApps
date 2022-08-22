@@ -31,6 +31,7 @@
                                 <th>Account Receivable</th>
                                 <th>WAPU</th>
                                 <th>Total</th>
+                                <th>Total Bruto</th>
                             </tr>
                         </thead>
                         <tbody>

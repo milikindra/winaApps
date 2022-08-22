@@ -142,6 +142,11 @@ function tabelModalSo(field, id) {
                 return addPeriod(parseFloat(data).toFixed(2), ",");
             },
         },
+        {
+            data: "totdpp_rp",
+            name: "totdpp_rp",
+            className: "hidden"
+        },
 
         ],
         order: [

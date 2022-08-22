@@ -119,21 +119,20 @@ class SalesInvoiceController extends Controller
 
     public function salesInvoiceAddSave(Request $request)
     {
-        Log::debug($request);
-        // dd($request);
-
         // try {
         $user_token = session('user')->api_token;
         $url = Config::get('constants.api_url') . '/salesInvoiceAddSave';
 
-        $no_sjx = '';
+        $no_sj = '';
         $no_so_um = '';
         $isUm = '';
+        $no_so = '';
         if ($request->input('use_dp') == "on") {
-            $no_so_um = $request->input('do_soum');
+            $no_so_um = $request->input('so_id');
             $isUm = "Y";
         } else {
-            $no_sjx = $request->input('do_soum');
+            $no_so = $request->input('so_id');
+            $no_sj = $request->input('do_soum');
         }
 
         $wapu = '';
@@ -169,7 +168,6 @@ class SalesInvoiceController extends Controller
             "ID_CUST" => $request->input('customer'),
             "NM_CUST" => $request->input('customer_name'),
             "TEMPO" => $request->input('tempo'),
-            "tgl_due" => date('Y-m-d', strtotime('+' . $request->input('tempo') . ' days', strtotime($request->input('date_order')))),
             "ID_SALES" => $request->input('sales_id'),
             "NM_SALES" => $request->input('sales_name'),
             "KETERANGAN" => $request->input('notes'),
@@ -177,66 +175,50 @@ class SalesInvoiceController extends Controller
             "EDITOR" => session('user')->username,
             "rate" => $request->input('rate_cur'),
             "curr" => $request->input('curr'),
-            "no_sjx" => $no_sjx,
-            "no_so" => $request->input('so_id'),
+            "no_so" => $no_so,
             "alamatkirim" => $request->input('ship_to'),
             "pay_term" => $request->input('payterm'),
             "isUM" => $isUm,
             "no_so_um" => $no_so_um,
-            "uangmuka" =>  $request->input('totalDp') != null && $request->input('totalDp') != '' ? (float)str_replace(',', '', $request->input('totalBruto')) : 0,
-            "totdetail" => (float)str_replace(',', '', $request->input('totalDpp')),
-            "uangmuka_ppn" => (float)str_replace(',', '', $request->input('taxDp')),
-            "ppntotdetail" => (float)str_replace(',', '', $request->input('taxDp')),
-
-
-            "no_pajak" => $request->input('tax_snF') . "" . $request->input('tax_snE'),
+            "uangmuka" =>  $request->input('totalDp') != null && $request->input('totalDp') != '' ? (float)str_replace(',', '', $request->input('totalDp')) : 0,
+            "totdetail" => (float)str_replace(',', '', $request->input('totalBruto')),
+            "uangmuka_ppn" => $request->input('taxDp') != null && $request->input('taxDp') != '' ? (float)str_replace(',', '', $request->input('taxDp')) : 0,
+            "ppntotdetail" => $request->input('taxDetail') != null && $request->input('taxDetail') != '' ? (float)str_replace(',', '', $request->input('taxDetail')) : 0,
+            "no_pajakF" => $request->input('tax_snF'),
+            "no_pajakE" => $request->input('tax_snE'),
             "no_rek" => $request->input('acc_receivable'),
             "isWapu" => $wapu,
             "no_tt" => $request->input('receiced_id'),
             "tgl_tt" => $request->input('received_date'),
             "penerima_tt" => $request->input('received_by'),
             "isSI_UM_FINAL" => $request->input('finalDp'),
-
-
-            // "jenis" => $request->input('jenis'),
-            // "rp_disch" => $request->input('discountValueHead'),
-            // "ppntotdetail" => (float)str_replace(',', '', $request->input('totalBruto')) - (float)str_replace(',', '', $request->input('discountValueHead')),
-            // "uangmuka" => (float)str_replace(',', '', $request->input('totalDp')),
-            // "uangmuka_ppn" => (float)str_replace(',', '', $request->input('totalDpTax')),
-            // "use_branch" => $use_branch,
+            "PPN" =>  $request->input('taxCustomer')
         ];
 
-        dd($post_head);
 
-        // $post_detail = [];
-        // for ($i = 0; $i < count($request->input('no_stock')); $i++) {
-        //     if (!empty($request->input('no_stock'))) {
-        //         $post_detail[] = [
-        //             "NO_BUKTI" => $request->input('nomor'),
-        //             "NO_STOCK" => $request->input('no_stock')[$i],
-        //             "NM_STOCK" => $request->input('nm_stock')[$i],
-        //             "QTY" => $request->input('qty')[$i],
-        //             "KET" => $request->input('ket')[$i],
-        //             "SAT" => $request->input('sat')[$i],
-        //             "HARGA" => (float)str_replace(',', '', $request->input('price')[$i]),
-        //             "DISC1" => (float)str_replace(',', '', $request->input('disc')[$i]),
-        //             "DISC2" => (float)str_replace(',', '', $request->input('disc2')[$i]),
-        //             "DISC3" => 0,
-        //             "DISCRP" => (float)str_replace(',', '', $request->input('disc_val')[$i]),
-        //             "discrp2" => '0',
-        //             "state" => '',
-        //             "alasan" => '',
-        //             "nourut" => $get_urut_detail->nourut + 1,
-        //             "tax" => $request->input('tax')[$i],
-        //             "kode_group" => '',
-        //             "qty_grup" => '0',
-        //             "VINTRASID" =>  $request->input('itemVintrasId')[$i],
-        //             "tahun" =>  $request->input('itemTahunVintras')[$i],
-        //             "kode_group" => $request->input('itemKodeGroup')[$i],
-        //             "merk" => $request->input('merkItem')[$i]
-        //         ];
-        //     }
-        // }
+        $post_detail = [];
+        for ($i = 0; $i < count($request->input('no_stock')); $i++) {
+            if (!empty($request->input('no_stock'))) {
+                $post_detail[] = [
+                    "NO_STOCK" => $request->input('no_stock')[$i],
+                    "NM_STOCK" => $request->input('nm_stock')[$i],
+                    "QTY" => $request->input('qty')[$i],
+                    "SAT" => $request->input('sat')[$i],
+                    "HARGA" => (float)str_replace(',', '', $request->input('price')[$i]),
+                    "DISC1" => (float)str_replace(',', '', $request->input('disc')[$i]),
+                    "DISC2" => (float)str_replace(',', '', $request->input('disc2')[$i]),
+                    "DISC3" => 0,
+                    "DISCRP" => (float)str_replace(',', '', $request->input('disc_val')[$i]),
+                    "discrp2" => '0',
+                    "KET" => $request->input('ket')[$i],
+                    "id_lokasi" => $warehouse = $request->input('warehouse')[$i],
+                    "tax" => $request->input('tax')[$i],
+                    "kode_group" => $request->input('itemKodeGroup')[$i],
+                    "qty_grup" => '0',
+                    "no_sj" => $no_sj
+                ];
+            }
+        }
         // $post_dp = [];
         // for ($i = 0; $i < count($request->input('dp')); $i++) {
         //     if (!empty($request->input('dp')[$i]) || !empty($request->input('dp_val')[$i])) {
@@ -250,20 +232,21 @@ class SalesInvoiceController extends Controller
         //     }
         // }
 
-        // $postData = [
-        //     'head' => $post_head,
-        //     'detail' => $post_detail,
-        //     'um' => $post_dp,
-        //     'customer' => $post_customer,
-        //     'attach' => $post_attach
-        // ];
-        // $request->request->add(['api_token' => $user_token]);
-        // $client = new Client();
-        // $response = $client->request('POST', $url, [
-        //     'json' => $postData,
-        //     'http_errors' => false
-        // ]);
-        // $body = json_decode($response->getBody());
+        $postData = [
+            'head' => $post_head,
+            'detail' => $post_detail,
+            // 'um' => $post_dp,
+            // 'customer' => $post_customer,
+            // 'attach' => $post_attach
+        ];
+
+        $request->request->add(['api_token' => $user_token]);
+        $client = new Client();
+        $response = $client->request('POST', $url, [
+            'json' => $postData,
+            'http_errors' => false
+        ]);
+        $body = json_decode($response->getBody());
         // if ($request->file() != null) {
         //     for ($i = 0; $i < count($request->file('attach')); $i++) {
         //         $attach = $request->file('attach')[$i];
@@ -271,12 +254,14 @@ class SalesInvoiceController extends Controller
         //         Storage::disk('local')->putFileAs('document/SO/' . date_format(date_create($request->input('date_order')), 'Y'), $attach, $filename);
         //     }
         // }
-        // Alert::toast($body->message, 'success');
-        // if ($request->input('process') == 'print') {
-        //     return redirect('salesOrderPrint/' . $request->input('nomor'));
-        // } else {
-        //     return redirect()->back();
-        // }
+        Alert::toast($body->message, 'success');
+        // dd($postData);
+
+        if ($request->input('process') == 'print') {
+            // return redirect('salesOrderPrint/' . $request->input('nomor'));
+        } else {
+            return redirect()->back();
+        }
 
         // } catch (\Exception $e) {
         //     Alert::toast("500 - Failed to Save Data", 'error');
@@ -325,17 +310,17 @@ class SalesInvoiceController extends Controller
             return json_encode($table);
         } catch (\Exception $e) {
             Log::debug($request->path()  . " | " . print_r($_POST, TRUE));
-
             return abort(500);
         }
     }
 
-    public function getDo(Request $request, $do_id)
+    public function getDo(Request $request, $so_id, $do_id)
     {
         try {
             $user_token = session('user')->api_token;
             $post_data = [
                 'user' => session('user')->username,
+                'so_id' => $so_id,
                 'do_id' => base64_decode($do_id),
             ];
 

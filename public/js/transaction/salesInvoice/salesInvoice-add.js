@@ -127,6 +127,8 @@ function getSo() {
         $("#rate_cur").val($(this).closest("tr").children("td:eq(8)").text());
         $("#payterm").val($(this).closest("tr").children("td:eq(13)").text());
         $("#acc_receivable").val($(this).closest("tr").children("td:eq(16)").text());
+        $("#totalSo").val(parseFloat(removePeriod($(this).closest("tr").children("td:eq(19)").text())));
+        $("#totalSiDp").val();
 
         if ($(this).closest("tr").children("td:eq(17)").text() == "Y") {
             $("#cek_wapu").prop('checked', true);
@@ -137,6 +139,7 @@ function getSo() {
         }
         getCustomer();
         $("#modalByDp").attr('disabled', false);
+
 
         $("#modalSO").modal("hide");
     });
@@ -182,34 +185,34 @@ function tabelDo() {
             type: "GET",
             dataType: "JSON",
         },
-        columns: [{
-            data: "NO_BUKTI",
-            name: "sj_head.NO_BUKTI",
-        },
-
-        {
-            data: "TGL_BUKTI",
-            name: "sj_head.TGL_BUKTI",
-            render: function (data, type, row) {
-                return moment(data).format("DD/MM/YYYY");
+        columns: [
+            {
+                data: "NO_BUKTI",
+                name: "sj_head.NO_BUKTI",
             },
-        },
-        {
-            data: "ID_CUST",
-            name: "sj_head.ID_CUST",
-        },
-        {
-            data: "NM_CUST",
-            name: "sj_head.NM_CUST",
-        },
-        {
-            data: "alamatkirim",
-            name: "sj_head.alamatkirim",
-        },
-        {
-            data: "id_lokasi",
-            name: "sj_head.id_lokasi",
-        },
+            {
+                data: "TGL_BUKTI",
+                name: "sj_head.TGL_BUKTI",
+                render: function (data, type, row) {
+                    return moment(data).format("DD/MM/YYYY");
+                },
+            },
+            {
+                data: "ID_CUST",
+                name: "sj_head.ID_CUST",
+            },
+            {
+                data: "NM_CUST",
+                name: "sj_head.NM_CUST",
+            },
+            {
+                data: "alamatkirim",
+                name: "sj_head.alamatkirim",
+            },
+            {
+                data: "id_lokasi",
+                name: "sj_head.id_lokasi",
+            },
         ],
         order: [
             [0, "asc"]
@@ -219,11 +222,12 @@ function tabelDo() {
 
 $('#tabelOutstandingOrder tbody').on('dblclick', 'tr', function (e) {
     var do_id = $(this).closest("tr").children("td:eq(0)").text();
+    var so_id = $('#so_id').val();
     if ($('#do_soum').val() != do_id) {
         $("#trx tbody tr").remove();
         $('#do_soum').val(do_id);
         $.ajax({
-            url: get_do + "/" + btoa(do_id),
+            url: get_do + "/" + so_id + "/" + btoa(do_id),
             type: "GET",
             dataType: "JSON",
             success: function (response) {
@@ -245,6 +249,10 @@ $('#tabelOutstandingOrder tbody').on('dblclick', 'tr', function (e) {
                     $('#itemTahunVintras-' + i).val(val.tahun);
                     itemTotal(i);
                 });
+                $('#totalSiDp').val(response.siDp);
+                $('#totalPPnSiDp').val(response.ppnSiDp);
+                $('#totalDp').val(addPeriod((parseFloat(response.siDp) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ',')).toFixed(2), ","));
+                totalDpp();
             },
         });
     }
@@ -260,10 +268,14 @@ function tabelSoDp() {
         dataType: "JSON",
         success: function (response) {
             if (response.result == true) {
+                var totalSoDp = 0;
                 str = "";
                 jQuery.each(response.soDp, function (i, val) {
                     str += "<tr> <td>" + val.keterangan + "</td><td style='text-align:right;'>" + addPeriod(parseFloat(val.nilai).toFixed(2), ",") + "</td><td style='display:none;'>" + val.idxurut + "</td></tr>";
+                    totalSoDp += parseFloat(val.nilai);
                 });
+                $('#totalSoDp').val(totalSoDp);
+                $('#totalSiDp').val(response.totalSiDp);
             } else {
                 str = "<tr> <td colspan='100%' style='text-align:center;'>" + response.soDp + "</td></tr>";
             }
@@ -282,6 +294,7 @@ $('#tabelOutstandingOrderDp tbody').on('dblclick', 'tr', function (e) {
             type: "GET",
             dataType: "JSON",
             success: function (response) {
+                console.log(response);
                 jQuery.each(response.dp, function (i, val) {
                     addRow();
                     $('#no_stock-' + i).val(val.NO_STOCK)
@@ -289,7 +302,6 @@ $('#tabelOutstandingOrderDp tbody').on('dblclick', 'tr', function (e) {
                     $('#qty-' + i).val('1')
                     $('#sat-' + i).val('-')
                     $('#price-' + i).val(addPeriod(parseFloat(val.nilai).toFixed(2), ","))
-                    $('#warehouse-' + i).val('').change();
                     itemTotal(i);
                 });
             },
@@ -345,6 +357,7 @@ window.removeAttach = function (element) {
 window.addRow = function (element) {
     var rowCount = $('#trx tbody tr').length;
     var vatOption = '';
+    $('#taxCustomer').val(vat[0].prosen);
     jQuery.each(vat, function (i, val) {
         vatOption += "<option>" + val.kode + "</option>";
     });
@@ -360,7 +373,7 @@ window.addRow = function (element) {
         rowCount +
         ')" readonly > </td><td> <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-' +
         rowCount +
-        '" rows="3"></textarea> </td><td> <input type="text" class="form-control form-control-sm" name="ket[]" id="ket--' +
+        '" rows="3"></textarea> </td><td> <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-' +
         rowCount +
         '"> </td><td><input type="hidden" name="base_qty[]" id="base_qty-' +
         rowCount +
@@ -545,32 +558,48 @@ function totalDpp() {
     }
     $("#totalBruto").val(totalBruto);
     $("#totalDpp").val(addPeriod(parseFloat(totalDpp).toFixed(2), ","));
-    totalPpn();
-    // discountHead('discountValueHead');
+    cekSiDp();
+    // totalPpn();
 }
 
-function discountHead(param) {
-    var myTab = document.getElementById("trx");
-    var discountProcentageHead = 0;
-    var discountValueHead = 0;
-    if (param == "discountValueHead" && $('#discountValueHead').val() != '') {
-        discountValueHead = $('#discountValueHead').val();
-        $('#discountProcentageHead').val(parseFloat(discountValueHead) / parseFloat($("#totalBruto").val()) * 100)
-    } else if (param == "discountProcentageHead" && $('#discountProcentageHead').val() != '') {
-        discountProcentageHead = $('#discountProcentageHead').val();
-        discountValueHead = parseFloat(discountProcentageHead) * parseFloat($("#totalBruto").val()) / 100;
-        $('#discountValueHead').val(discountValueHead);
-    }
-
-    for (i = 1; i < myTab.rows.length; i++) {
-        var objCells = myTab.rows.item(i).cells;
-        var itemBruto = objCells.item(17).innerHTML > 0 ? parseFloat(objCells.item(17).innerHTML) : 0;
-        var itemDiscount = 0;
-        if (discountValueHead != 0) {
-            itemDiscount = (itemBruto / $("#totalDpp").val()) * discountValueHead;
+function cekSiDp() {
+    var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
+    var totalSiDp = parseFloat(removePeriod($("#totalSiDp").val(), ','));
+    var totalSoDp = parseFloat(removePeriod($("#totalSoDp").val(), ','));
+    var totalDp = parseFloat(removePeriod($("#totalDp").val(), ','));
+    if ($('#use_dp').is(":checked")) {
+        if (totalSiDp + totalDpp < totalSoDp) {
+            $("#print").attr('disabled', false);
+            $("#save").attr('disabled', false);
+            $('#finalDp').val('');
+        } else if (totalSiDp + totalDpp > totalSoDp) {
+            Swal.fire({
+                title: "Error!",
+                text: "The final total exceeds the down payment ",
+                icon: "error",
+                confirmButtonColor: "#17a2b8",
+            })
+            $("#print").attr('disabled', true);
+            $("#save").attr('disabled', true);
+            $('#finalDp').val('');
+        } else {
+            $("#print").attr('disabled', false);
+            $("#save").attr('disabled', false);
+            $('#finalDp').val('Y');
         }
-        objCells.item(15).innerHTML = itemDiscount;
-        objCells.item(16).innerHTML = itemBruto - itemDiscount;
+    } else {
+        $("#print").attr('disabled', false);
+        $("#save").attr('disabled', false);
+        if (totalDp > totalSiDp) {
+            Swal.fire({
+                title: "Error!",
+                text: "Down Payment exceeds the sales invoce down payment",
+                icon: "error",
+                confirmButtonColor: "#17a2b8",
+            })
+            $('#totalDp').val(addPeriod(parseFloat($('#totalSiDp').val()) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ','), ",").toFixed(2));
+            // } else if () {
+        }
     }
     totalPpn();
 }
@@ -578,12 +607,8 @@ function discountHead(param) {
 function totalPpn() {
     var myTab = document.getElementById("trx");
     var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
-    if ($("#totalDp").val() != '' && $("#totalDp").val() != null && $("#totalDp").val() != NaN) {
-        totalDp = parseFloat(removePeriod($("#totalDp").val(), ','));
-    } else {
-        totalDp = 0;
-    }
-    var totalPpn = 0;
+
+    var totalPpnBruto = 0;
     if (myTab.rows.length > 0) {
         for (i = 1; i < myTab.rows.length; i++) {
             var objCells = myTab.rows.item(i).cells;
@@ -596,13 +621,18 @@ function totalPpn() {
                     var itemTaxTotal = 0;
                 }
             }
-            totalPpn += itemTaxTotal;
+            totalPpnBruto += itemTaxTotal;
         }
     }
 
-    var grandTotal = totalDpp - totalDp + totalPpn;
-    // var grandTotal = totalDpp - discountValueHead + totalPpn;
-    $("#totalPpn").val(addPeriod(parseFloat(totalPpn).toFixed(2), ","));
+    if ($("#totalDp").val() != "" && $("#totalDp").val() != null && $("#totalDp").val() != NaN) {
+        totalDp = parseFloat(removePeriod($("#totalDp").val(), ','));
+    } else {
+        totalDp = 0;
+    }
+    var ppnSiDp = totalPpnBruto - (parseFloat($('#totalSiDp').val()) / parseFloat($('#totalSo').val()) * $('#totalPPnSiDp').val());
+    var grandTotal = totalDpp - totalDp + ppnSiDp;
+    $("#totalPpn").val(addPeriod(parseFloat(ppnSiDp).toFixed(2), ","));
     $("#grandTotal").val(addPeriod(parseFloat(grandTotal).toFixed(2), ","));
 }
 
@@ -614,6 +644,7 @@ function getTax() {
         type: "GET",
         dataType: "JSON",
         success: function (response) {
+            $('#taxCustomer').val(vat[0].prosen);
             $('.tax').html('');
             var html = '';
             jQuery.each(response, function (i, val) {
