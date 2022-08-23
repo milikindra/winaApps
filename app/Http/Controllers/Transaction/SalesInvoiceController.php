@@ -154,10 +154,10 @@ class SalesInvoiceController extends Controller
         //     for ($i = 0; $i < count($request->file('attach')); $i++) {
         //         $attach = $request->file('attach')[$i];
         //         $post_attach[] = [
-        //             'module' => 'SO',
+        //             'module' => 'SI',
         //             'name' => $request->input('nomor'),
         //             'value' => $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension(),
-        //             'path' => 'document/SO/' . date_format(date_create($request->input('date_order')), 'Y') . '/' . $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension()
+        //             'path' => 'document/SI/' . date_format(date_create($request->input('date_order')), 'Y') . '/' . $request->input('nomor') . "-" . $i + 1 . "." . $attach->getClientOriginalExtension()
         //         ];
         //     }
         // }
@@ -171,8 +171,8 @@ class SalesInvoiceController extends Controller
             "ID_SALES" => $request->input('sales_id'),
             "NM_SALES" => $request->input('sales_name'),
             "KETERANGAN" => $request->input('notes'),
-            "CREATOR" => session('user')->username,
-            "EDITOR" => session('user')->username,
+            "CREATOR" => "WINA:" . session('user')->username,
+            "EDITOR" => "WINA:" . session('user')->username,
             "rate" => $request->input('rate_cur'),
             "curr" => $request->input('curr'),
             "no_so" => $no_so,
@@ -194,7 +194,6 @@ class SalesInvoiceController extends Controller
             "isSI_UM_FINAL" => $request->input('finalDp'),
             "PPN" =>  $request->input('taxCustomer')
         ];
-
 
         $post_detail = [];
         for ($i = 0; $i < count($request->input('no_stock')); $i++) {
@@ -257,8 +256,8 @@ class SalesInvoiceController extends Controller
         Alert::toast($body->message, 'success');
         // dd($postData);
 
-        if ($request->input('process') == 'print') {
-            // return redirect('salesOrderPrint/' . $request->input('nomor'));
+        if ($request->input('process') != 'save') {
+            return redirect('salesInvoicePrint/' . $request->input('process') . "/" . base64_encode($body->id));
         } else {
             return redirect()->back();
         }
@@ -376,6 +375,51 @@ class SalesInvoiceController extends Controller
             Log::debug($request->path());
             Log::debug($e);
             return abort(500);
+        }
+    }
+
+    public function salesInvoicePrint(request $request, $format, $si_id)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/salesInvoiceDetail';
+
+            $post_data = [
+                'api_token' => $user_token,
+                'user' => session('user')->username,
+                'NO_BUKTI' => base64_decode($si_id)
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+
+            $module = $this->module;
+            $menu_name = session('user')->menu_name;
+            $topManagement = getGlobalParam('top_management', 'all');
+
+            $f = "";
+            if ($format == "f2") {
+                $f = "_2";
+            } else if ($format == "f3") {
+                $f = "_3";
+            }
+            $data = [
+                'topManagement' => $topManagement,
+                'si' => $body->si,
+                'format' => $f
+            ];
+            // dd($data);
+            // $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
+            // $html2pdf->writeHTML(view('transaction.salesOrder.print.salesOrder', $data));
+            // $html2pdf->output('SO.pdf', 'D');
+            return View('transaction.salesInvoice.print.salesInvoice', $data);
+        } catch (\Exception $e) {
+            Alert::toast("500 - Failed to View Data", 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return redirect()->back();
         }
     }
 }

@@ -2,6 +2,7 @@ $(".selects2").select2();
 $(document).ready(function () {
     $("#overlay").fadeOut(300);
     if (performance.getEntriesByType("navigation")[0].type == "back_forward") {
+        $('#salesInvoiceAddSave').trigger("reset");
         $("#overlay").fadeIn(300);
         location.reload(true);
     }
@@ -294,7 +295,6 @@ $('#tabelOutstandingOrderDp tbody').on('dblclick', 'tr', function (e) {
             type: "GET",
             dataType: "JSON",
             success: function (response) {
-                console.log(response);
                 jQuery.each(response.dp, function (i, val) {
                     addRow();
                     $('#no_stock-' + i).val(val.NO_STOCK)
@@ -655,14 +655,23 @@ function getTax() {
     });
 }
 
-$("#print").click(function (e) {
+$("#f1").click(function (e) {
     e.preventDefault();
-    $('#process').val('print');
-    // cekSo();
+    $('#process').val('f1');
+    $('#salesInvoiceAddSave').submit();
+});
+$("#f2").click(function (e) {
+    e.preventDefault();
+    $('#process').val('f2');
+    $('#salesInvoiceAddSave').submit();
+});
+$("#f3").click(function (e) {
+    e.preventDefault();
+    $('#process').val('f3');
+    $('#salesInvoiceAddSave').submit();
 });
 $("#save").click(function (e) {
     e.preventDefault();
     $('#process').val('save');
-    // cekSo();
     $('#salesInvoiceAddSave').submit();
 });

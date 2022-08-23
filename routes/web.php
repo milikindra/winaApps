@@ -69,7 +69,7 @@ Route::group(
         Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
         Route::get('salesOrderDetail/{void}/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');
         Route::post('salesOrderUpdate', [SalesOrderController::class, 'salesOrderUpdate'])->name('salesOrderUpdate')->middleware('userMatrix:T01.03');
-        Route::get('salesOrderPrint/{id}', [SalesOrderController::class, 'salesOrderPrint'])->name('salesOrderPrint')->middleware('userMatrix:T01.01');
+        Route::get('salesOrderPrint/{id}', [SalesOrderController::class, 'salesOrderPrint'])->name('salesOrderPrint');
         Route::get('salesOrderStatus/{id}', [SalesOrderController::class, 'salesOrderStatus'])->name('salesOrderStatus');
         Route::get('salesOrder/void/{id}', [SalesOrderController::class, 'salesOrderDelete'])->name('salesOrder/void')->middleware('userMatrix:T01.04');
         Route::post('salesOrder/state', [SalesOrderController::class, 'salesOrderUpdateState'])->name('salesOrder/state')->middleware('userMatrix:T01.03');
@@ -85,6 +85,7 @@ Route::group(
         Route::get('salesInvoice/data/sodp/{so_id}', [SalesInvoiceController::class, 'dataSoDp'])->name('salesInvoice/data/sodp');
         Route::get('salesInvoice/get/sodp/{so_id}/{do_id}', [SalesInvoiceController::class, 'getSoDp'])->name('salesInvoice/get/sodp');
         Route::post('salesInvoiceAddSave', [SalesInvoiceController::class, 'salesInvoiceAddSave'])->name('salesInvoiceAddSave')->middleware('userMatrix:T02.02');
+        Route::get('salesInvoicePrint/{f}/{id}', [SalesInvoiceController::class, 'salesInvoicePrint'])->name('salesInvoicePrint');
     }
 );
 

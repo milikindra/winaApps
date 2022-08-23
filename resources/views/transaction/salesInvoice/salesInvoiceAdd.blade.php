@@ -293,7 +293,21 @@
                             </div>
                             <div class="card-footer">
                                 <input type="hidden" name="process" value="save" id="process" required>
-                                <button type="button" class="btn btn-warning float-right" id="print" title="print" disabled><i class="fa fa-print"></i></button>
+                                <div class="btn-group float-right  show">
+                                    <button type="button" class="btn btn-warning dropdown-toggle dropdown-icon" id="print" title="print" disabled data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                                    </button>
+                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
+                                        <button type="button" class="dropdown-item" id="f1" title="Format-1">Format-1</i>
+                                        </button>
+                                        <button type="button" class="dropdown-item" id="f2" title="Format-2">Format-2</i>
+                                        </button>
+                                        <button type="button" class="dropdown-item" id="f3" title="Format3">Format-3</i>
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <!-- <button type="button" class="btn btn-warning float-right" id="print" title="print" disabled></button> -->
                                 <button type="button" class="btn btn-info float-right" id="save" title="save" disabled><i class="fa fa-save"></i></button>
                             </div>
                         </div>
