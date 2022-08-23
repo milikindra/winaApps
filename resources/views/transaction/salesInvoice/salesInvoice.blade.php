@@ -130,7 +130,7 @@
 <script>
     var rute = "{{ URL::to('salesInvoice/data/populate') }}";
     var base_url = "{{ route('salesInvoice') }}";
-    // var view_url = "{{URL::to('salesInvoiceDetail/d')}}";
+    var view_url = "{{URL::to('salesInvoiceDetail/d')}}";
     var url_default = "{{ URL('') }}";
 </script>
 <script src="{{ asset('js/transaction/salesInvoice/salesInvoice-table.js')}}"></script>

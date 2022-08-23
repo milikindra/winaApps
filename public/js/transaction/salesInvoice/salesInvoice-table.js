@@ -151,7 +151,11 @@ $(document).ready(function () {
                     name: "tgl_tt",
                     className: "dt-body-center",
                     render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY");
+                        if (data == null) {
+                            return "-";
+                        } else {
+                            return moment(data).format("DD/MM/YYYY");
+                        }
                     },
                 },
                 {
@@ -460,9 +464,9 @@ $(document).ready(function () {
         filterSI();
     });
 
-    // $('#datatables tbody').on('dblclick', 'tr', function (e) {
-    //     no_stock = $(this).closest("tr").children("td:eq(0)").text();
-    //     window.location.href = view_url + '/' + no_stock;
-    // })
+    $('#datatables tbody').on('dblclick', 'tr', function (e) {
+        no_si = $(this).closest("tr").children("td:eq(0)").text();
+        window.location.href = view_url + '/' + no_stock;
+    })
 
 });
