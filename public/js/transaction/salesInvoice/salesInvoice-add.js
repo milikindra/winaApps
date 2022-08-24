@@ -54,7 +54,7 @@ $('#customerSearch').focus(function () {
 $('#customerSearch').focusout(function () {
     $('#customer_name').val($("#customerList option[value='" + $('#customerSearch').val() + "']").attr('data-name'));
     $('#customer').val($("#customerList option[value='" + $('#customerSearch').val() + "']").attr('data-id'));
-    if ($('#cust_so').val() != $("#customerList option[value='" + $('#customerSearch').val() + "']").attr('data-id')) {
+    if ($('#cust_so').val() != $('#customer').val()) {
         $('#so_id').val('');
     }
     getCustomer();
@@ -62,12 +62,14 @@ $('#customerSearch').focusout(function () {
 
 function getCustomer() {
     var id_cust = $("#customer").val();
-    $("#sales_id").val('');
-    $("#do_soum").val('');
-    $("#ship_to").val('');
-    $("#tax_snFlabel").html('');
-    $("#tax_snF").val('');
-    $("#use_branch").prop('checked', false);
+    if ($('#module').val() != "edit") {
+        $("#sales_id").val('');
+        $("#do_soum").val('');
+        $("#ship_to").val('');
+        $("#tax_snFlabel").html('');
+        $("#tax_snF").val('');
+        $("#use_branch").prop('checked', false);
+    }
     $.ajax({
         url: get_customer + "/" + id_cust,
         type: "GET",
@@ -94,10 +96,12 @@ function getCustomer() {
                     }
                 }
                 $("#cmbShipping").html(opt);
-                $("#cmbShipping").prop("selectedIndex", 0).trigger("change");
-                $("#tax_snFlabel").html(response[0].KodePajak + ".");
-                $("#tax_snF").val(response[0].KodePajak + ".");
-                $("#sales_id").val(response[0].ID_SALES).trigger("change");
+                if ($('#module').val() != "edit") {
+                    $("#cmbShipping").prop("selectedIndex", 0).trigger("change");
+                    $("#tax_snFlabel").html(response[0].KodePajak + ".");
+                    $("#tax_snF").val(response[0].KodePajak + ".");
+                    $("#sales_id").val(response[0].ID_SALES).trigger("change");
+                }
             }
             getEfaktur();
         },
@@ -140,8 +144,6 @@ function getSo() {
         }
         getCustomer();
         $("#modalByDp").attr('disabled', false);
-
-
         $("#modalSO").modal("hide");
     });
 }
@@ -337,7 +339,9 @@ function getEfaktur() {
             });
             sel = response[0].nomor.substring(0, 3) + "-" + response[0].nomor.substring(4)
             $('#taxSnList').html(html);
-            $('#tax_snE').val(sel);
+            if ($('#module').val() != "edit") {
+                $('#tax_snE').val(sel);
+            }
         }
     });
 }
@@ -630,9 +634,12 @@ function totalPpn() {
     } else {
         totalDp = 0;
     }
-    var ppnSiDp = totalPpnBruto - (parseFloat($('#totalSiDp').val()) / parseFloat($('#totalSo').val()) * $('#totalPPnSiDp').val());
+    var ppnDp = (parseFloat($('#totalPPnSiDp').val()) / $('#totalSiDp').val() * totalDp);
+    var ppnSiDp = totalPpnBruto - ppnDp;
     var grandTotal = totalDpp - totalDp + ppnSiDp;
     $("#totalPpn").val(addPeriod(parseFloat(ppnSiDp).toFixed(2), ","));
+    $("#taxDp").val(addPeriod(parseFloat(ppnDp).toFixed(2), ","));
+    $("#taxDetail").val(addPeriod(parseFloat(totalPpnBruto).toFixed(2), ","));
     $("#grandTotal").val(addPeriod(parseFloat(grandTotal).toFixed(2), ","));
 }
 

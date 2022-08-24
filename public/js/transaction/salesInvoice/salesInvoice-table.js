@@ -66,138 +66,144 @@ $(document).ready(function () {
                     type: "GET",
                     dataType: "JSON",
                 },
-                columns: [{
-                    data: "no_bukti2",
-                    name: "no_bukti2",
-                },
-                {
-                    data: "tag",
-                    name: "tag",
+                columns: [
+                    {
+                        data: "NO_BUKTI",
+                        name: "NO_BUKTI",
+                        className: "hidden"
+                    },
+                    {
+                        data: "no_bukti2",
+                        name: "no_bukti2",
+                    },
+                    {
+                        data: "tag",
+                        name: "tag",
 
-                },
-                {
-                    data: "TGL_BUKTI",
-                    name: "TGL_BUKTI",
-                    className: "dt-body-center",
-                    render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY");
                     },
-                },
-                {
-                    data: "NM_CUST",
-                    name: "NM_CUST",
-                },
-                {
-                    data: "NM_SALES",
-                    name: "NM_SALES",
-                },
-                {
-                    data: "TEMPO",
-                    name: "TEMPO",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "no_so",
-                    name: "no_so",
-                },
-                {
-                    data: "curr",
-                    name: "curr",
-                },
-                {
-                    data: "rate",
-                    name: "rate",
-                    className: "dt-body-right",
-                },
-                {
-                    data: "isWapu",
-                    name: "isWapu",
-                    className: "dt-body-center",
-                },
-                {
-                    data: "no_pajak",
-                    name: "no_pajak",
-                },
-                {
-                    data: "totdpp_rp",
-                    name: "totdpp_rp",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
-                    },
-                },
-                {
-                    data: "totppn_rp",
-                    name: "totppn_rp",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
-                    },
-                },
-                {
-                    data: "total_rp",
-                    name: "total_rp",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
-                    },
-                },
-                {
-                    data: "no_tt",
-                    name: "no_tt",
-                },
-                {
-                    data: "tgl_tt",
-                    name: "tgl_tt",
-                    className: "dt-body-center",
-                    render: function (data, type, row) {
-                        if (data == null) {
-                            return "-";
-                        } else {
+                    {
+                        data: "TGL_BUKTI",
+                        name: "TGL_BUKTI",
+                        className: "dt-body-center",
+                        render: function (data, type, row) {
                             return moment(data).format("DD/MM/YYYY");
-                        }
+                        },
                     },
-                },
-                {
-                    data: "penerima_tt",
-                    name: "penerima_tt",
-                },
-                {
-                    data: "due_date",
-                    name: "due_date",
-                    className: "dt-body-center",
-                    render: function (data, type, row) {
-                        if (data == null) {
-                            return "-";
-                        } else {
-                            return moment(data).format("DD/MM/YYYY");
-                        }
+                    {
+                        data: "NM_CUST",
+                        name: "NM_CUST",
                     },
-                },
-                {
-                    data: "age",
-                    name: "age",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        if (data == null) {
-                            return "0.00";
-                        } else {
+                    {
+                        data: "NM_SALES",
+                        name: "NM_SALES",
+                    },
+                    {
+                        data: "TEMPO",
+                        name: "TEMPO",
+                        className: "dt-body-right",
+                    },
+                    {
+                        data: "no_so",
+                        name: "no_so",
+                    },
+                    {
+                        data: "curr",
+                        name: "curr",
+                    },
+                    {
+                        data: "rate",
+                        name: "rate",
+                        className: "dt-body-right",
+                    },
+                    {
+                        data: "isWapu",
+                        name: "isWapu",
+                        className: "dt-body-center",
+                    },
+                    {
+                        data: "no_pajak",
+                        name: "no_pajak",
+                    },
+                    {
+                        data: "totdpp_rp",
+                        name: "totdpp_rp",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
-                        }
+                        },
                     },
-                },
-                {
-                    data: "income",
-                    name: "income",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        if (data == null) {
-                            return "0.00";
-                        } else {
+                    {
+                        data: "totppn_rp",
+                        name: "totppn_rp",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
-                        }
+                        },
                     },
-                },
+                    {
+                        data: "total_rp",
+                        name: "total_rp",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        },
+                    },
+                    {
+                        data: "no_tt",
+                        name: "no_tt",
+                    },
+                    {
+                        data: "tgl_tt",
+                        name: "tgl_tt",
+                        className: "dt-body-center",
+                        render: function (data, type, row) {
+                            if (data == null) {
+                                return "-";
+                            } else {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                        },
+                    },
+                    {
+                        data: "penerima_tt",
+                        name: "penerima_tt",
+                    },
+                    {
+                        data: "due_date",
+                        name: "due_date",
+                        className: "dt-body-center",
+                        render: function (data, type, row) {
+                            if (data == null) {
+                                return "-";
+                            } else {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                        },
+                    },
+                    {
+                        data: "age",
+                        name: "age",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
+                            if (data == null) {
+                                return "0.00";
+                            } else {
+                                return addPeriod(parseFloat(data).toFixed(2), ",");
+                            }
+                        },
+                    },
+                    {
+                        data: "income",
+                        name: "income",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
+                            if (data == null) {
+                                return "0.00";
+                            } else {
+                                return addPeriod(parseFloat(data).toFixed(2), ",");
+                            }
+                        },
+                    },
                 ],
                 order: [
                     [0, "asc"]
@@ -258,157 +264,163 @@ $(document).ready(function () {
                     type: "GET",
                     dataType: "JSON",
                 },
-                columns: [{
-                    data: "no_bukti2",
-                    name: "no_bukti2",
-                },
-                {
-                    data: "tag",
-                    name: "tag",
+                columns: [
+                    {
+                        data: "NO_BUKTI",
+                        name: "NO_BUKTI",
+                        className: "hidden"
+                    },
+                    {
+                        data: "no_bukti2",
+                        name: "no_bukti2",
+                    },
+                    {
+                        data: "tag",
+                        name: "tag",
 
-                },
-                {
-                    data: "TGL_BUKTI",
-                    name: "TGL_BUKTI",
-                    render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY");
                     },
-                },
-                {
-                    data: "NM_CUST",
-                    name: "NM_CUST",
-                },
-                {
-                    data: "NM_SALES",
-                    name: "NM_SALES",
-                },
-                {
-                    data: "TEMPO",
-                    name: "TEMPO",
-                },
-                {
-                    data: "no_so",
-                    name: "no_so",
-                },
-                {
-                    data: "curr",
-                    name: "curr",
-                },
-                {
-                    data: "rate",
-                    name: "rate",
-                },
-                {
-                    data: "isWapu",
-                    name: "isWapu",
-                },
-                {
-                    data: "no_pajak",
-                    name: "no_pajak",
-                },
-                {
-                    data: "totdpp_rp",
-                    name: "totdpp_rp",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    {
+                        data: "TGL_BUKTI",
+                        name: "TGL_BUKTI",
+                        render: function (data, type, row) {
+                            return moment(data).format("DD/MM/YYYY");
+                        },
                     },
-                },
-                {
-                    data: "totppn_rp",
-                    name: "totppn_rp",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    {
+                        data: "NM_CUST",
+                        name: "NM_CUST",
                     },
-                },
-                {
-                    data: "total_rp",
-                    name: "total_rp",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    {
+                        data: "NM_SALES",
+                        name: "NM_SALES",
                     },
-                },
-                {
-                    data: "no_tt",
-                    name: "no_tt",
-                },
-                {
-                    data: "tgl_tt",
-                    name: "tgl_tt",
-                    render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY");
+                    {
+                        data: "TEMPO",
+                        name: "TEMPO",
                     },
-                },
-                {
-                    data: "penerima_tt",
-                    name: "penerima_tt",
-                },
-                {
-                    data: "due_date",
-                    name: "due_date",
-                    render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY");
+                    {
+                        data: "no_so",
+                        name: "no_so",
                     },
-                },
-                {
-                    data: "age",
-                    name: "age",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    {
+                        data: "curr",
+                        name: "curr",
                     },
-                },
-                {
-                    data: "no_sj",
-                    name: "no_sj",
-                },
-                {
-                    data: "NO_STOCK",
-                    name: "NO_STOCK",
-                },
-                {
-                    data: "NM_STOCK",
-                    name: "NM_STOCK",
-                },
-                {
-                    data: "QTY",
-                    name: "QTY",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    {
+                        data: "rate",
+                        name: "rate",
                     },
-                },
-                {
-                    data: "SAT",
-                    name: "SAT",
-                },
-                {
-                    data: "HARGA",
-                    name: "HARGA",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    {
+                        data: "isWapu",
+                        name: "isWapu",
                     },
-                },
-                {
-                    data: "JUMLAH",
-                    name: "JUMLAH",
-                    render: function (data, type, row) {
-                        return addPeriod(parseFloat(data).toFixed(2), ",");
+                    {
+                        data: "no_pajak",
+                        name: "no_pajak",
                     },
-                },
-                {
-                    data: "income",
-                    name: "income",
-                    className: "dt-body-right",
-                    render: function (data, type, row) {
-                        if (data == null) {
-                            return "0.00";
-                        } else {
+                    {
+                        data: "totdpp_rp",
+                        name: "totdpp_rp",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
                             return addPeriod(parseFloat(data).toFixed(2), ",");
-                        }
+                        },
                     },
-                },
+                    {
+                        data: "totppn_rp",
+                        name: "totppn_rp",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        },
+                    },
+                    {
+                        data: "total_rp",
+                        name: "total_rp",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        },
+                    },
+                    {
+                        data: "no_tt",
+                        name: "no_tt",
+                    },
+                    {
+                        data: "tgl_tt",
+                        name: "tgl_tt",
+                        render: function (data, type, row) {
+                            return moment(data).format("DD/MM/YYYY");
+                        },
+                    },
+                    {
+                        data: "penerima_tt",
+                        name: "penerima_tt",
+                    },
+                    {
+                        data: "due_date",
+                        name: "due_date",
+                        render: function (data, type, row) {
+                            return moment(data).format("DD/MM/YYYY");
+                        },
+                    },
+                    {
+                        data: "age",
+                        name: "age",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        },
+                    },
+                    {
+                        data: "no_sj",
+                        name: "no_sj",
+                    },
+                    {
+                        data: "NO_STOCK",
+                        name: "NO_STOCK",
+                    },
+                    {
+                        data: "NM_STOCK",
+                        name: "NM_STOCK",
+                    },
+                    {
+                        data: "QTY",
+                        name: "QTY",
+                        render: function (data, type, row) {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        },
+                    },
+                    {
+                        data: "SAT",
+                        name: "SAT",
+                    },
+                    {
+                        data: "HARGA",
+                        name: "HARGA",
+                        render: function (data, type, row) {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        },
+                    },
+                    {
+                        data: "JUMLAH",
+                        name: "JUMLAH",
+                        render: function (data, type, row) {
+                            return addPeriod(parseFloat(data).toFixed(2), ",");
+                        },
+                    },
+                    {
+                        data: "income",
+                        name: "income",
+                        className: "dt-body-right",
+                        render: function (data, type, row) {
+                            if (data == null) {
+                                return "0.00";
+                            } else {
+                                return addPeriod(parseFloat(data).toFixed(2), ",");
+                            }
+                        },
+                    },
                 ],
                 order: [
                     [0, "asc"]
@@ -426,11 +438,11 @@ $(document).ready(function () {
 
         $("#dtheader tr").remove();
         if (voids == "N") {
-            tbl = '<tr style="text-align: center;"> <th>SI</th> <th>Tag</th> <th>Date</th> <th>Customers</th> <th>Sales</th> <th>Due</th> <th>SO</th> <th>Currency</th> <th>Rate</th> <th>WAPU</th> <th>Tax Number</th> <th>Total DPP</th> <th>Total Tax</th> <th>Total</th> <th>Receipt Number</th> <th>Receipt Date</th> <th>Received By</th> <th>Due Date</th> <th>Age</th> <th>Paid</th> </tr>';
+            tbl = '<tr style="text-align: center;"> <th>Id</th><th>SI</th> <th>Tag</th> <th>Date</th> <th>Customers</th> <th>Sales</th> <th>Due</th> <th>SO</th> <th>Currency</th> <th>Rate</th> <th>WAPU</th> <th>Tax Number</th> <th>Total DPP</th> <th>Total Tax</th> <th>Total</th> <th>Receipt Number</th> <th>Receipt Date</th> <th>Received By</th> <th>Due Date</th> <th>Age</th> <th>Paid</th> </tr>';
             $("#datatables thead").append(tbl);
         } else {
             tbl =
-                ' <tr style="text-align: center;"> <th>SI</th> <th>Tag</th> <th>Date</th> <th>Customers</th> <th>Sales</th> <th>Due</th> <th>SO</th> <th>Currency</th> <th>Rate</th> <th>WAPU</th> <th>Tax Number</th> <th>Total DPP</th> <th>Total Tax</th> <th>Total</th> <th>Receipt Number</th> <th>Receipt Date</th> <th>Received By</th> <th>Due Date</th> <th>Age</th> <th>DO</th> <th>Inventory Id</th> <th>Inventory Name</th> <th>Qty</th> <th>UoM</th> <th>Price</th> <th>Total Inventory</th> <th>Paid</th> </tr>';
+                ' <tr style="text-align: center;"> <th>Id</th><th>SI</th> <th>Tag</th> <th>Date</th> <th>Customers</th> <th>Sales</th> <th>Due</th> <th>SO</th> <th>Currency</th> <th>Rate</th> <th>WAPU</th> <th>Tax Number</th> <th>Total DPP</th> <th>Total Tax</th> <th>Total</th> <th>Receipt Number</th> <th>Receipt Date</th> <th>Received By</th> <th>Due Date</th> <th>Age</th> <th>DO</th> <th>Inventory Id</th> <th>Inventory Name</th> <th>Qty</th> <th>UoM</th> <th>Price</th> <th>Total Inventory</th> <th>Paid</th> </tr>';
             $("#datatables thead").append(tbl);
         }
         var kategori = $("#kategoriFilter").val();
@@ -466,7 +478,7 @@ $(document).ready(function () {
 
     $('#datatables tbody').on('dblclick', 'tr', function (e) {
         no_si = $(this).closest("tr").children("td:eq(0)").text();
-        window.location.href = view_url + '/' + no_stock;
+        window.location.href = view_url + '/' + btoa(no_si);
     })
 
 });

@@ -43,7 +43,7 @@ function tabelModalSo(field, id) {
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         drawCallback: function (settings, json) { },
         ajax: {
-            url: get_salesOrder + '/' + field + '/' + id,
+            url: url_default + "/" + get_salesOrder + '/' + field + '/' + id,
             type: "GET",
             dataType: "JSON",
         },

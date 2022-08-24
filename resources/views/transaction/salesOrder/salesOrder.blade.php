@@ -53,7 +53,7 @@
                                 <label>Category</label>
                                 <select class="form-control form-control-sm selects2" id="kategoriFilter" style="width: 100%;">
                                     <option value="outstanding" selected>Outstanding</option>
-                                    <option value="lunas">Lunas</option>
+                                    <option value="lunas">Complete</option>
                                     <option value="all">All</option>
                                 </select>
                             </div>
