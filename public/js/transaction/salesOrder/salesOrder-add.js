@@ -886,7 +886,8 @@ function cekSo() {
                         reverseButtons: true,
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            if (cekVintras == true) {
+                            var result = cekVintras();
+                            if (result === true) {
                                 $('#salesOrderAddSave').submit();
                             } else {
                                 Swal.fire({
@@ -899,7 +900,8 @@ function cekSo() {
                         }
                     });
                 } else {
-                    if (cekVintras == true) {
+                    var result = cekVintras();
+                    if (result === true) {
                         $('#salesOrderAddSave').submit();
                     } else {
                         Swal.fire({
