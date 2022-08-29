@@ -487,14 +487,22 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="{{ url('salesOrderPrint/'.$so->head[0]->NO_BUKTI) }}" target="_blank" class="btn btn-sm btn-warning  float-right" id="printPage" title="print"><i class="fas fa-print"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
+                            <div class="col-md-12 row">
+                                <div class="col-sm-6">
+                                    Created By : {{$so->head[0]->CREATOR . " | ". date_format(date_create($so->head[0]->TGLCREATE),'d-m-Y H:i:s')}}
+                                    <br />
+                                    Updated By : {{$so->head[0]->EDITOR . " | ". date_format(date_create($so->head[0]->TGLEDIT),'d-m-Y H:i:s')}}
+                                </div>
+                                <div class="col-sm-6 float-right">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
+                                    <a href="{{ url('salesOrderPrint/'.$so->head[0]->NO_BUKTI) }}" target="_blank" class="btn btn-sm btn-warning  float-right" id="printPage" title="print"><i class="fas fa-print"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
 
-                            <input type="hidden" name="process" value="save" id="process" required>
-                            <button type="button" class="btn btn-sm btn-warning float-right" id="printEdit" title="print" style="display: none;"><i class="fa fa-print"></i></button>
-                            <button type="button" class="btn btn-sm btn-info float-right" id="saveEdit" title="save" style="display: none;"><i class="fa fa-save"></i></button>
-
+                                    <input type="hidden" name="process" value="save" id="process" required>
+                                    <button type="button" class="btn btn-sm btn-warning float-right" id="printEdit" title="print" style="display: none;"><i class="fa fa-print"></i></button>
+                                    <button type="button" class="btn btn-sm btn-info float-right" id="saveEdit" title="save" style="display: none;"><i class="fa fa-save"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

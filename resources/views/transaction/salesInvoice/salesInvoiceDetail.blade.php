@@ -356,36 +356,47 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <div id="det">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
-                                <div class="btn-group float-right show" id="btnPrintDetail">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printDetail" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
-                                    </a>
-                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
-                                        <a href="{{ URL::to('salesInvoicePrint/f1/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f1Detail" title="Format-1">Format-1</a>
-                                        <a href="{{ URL::to('salesInvoicePrint/f2/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f2Detail" title="Format-2">Format-2</a>
-                                        <a href="{{ URL::to('salesInvoicePrint/f3/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f3Detail" title="Format-3">Format-3</a>
+                            <div class="col-md-12 row">
+                                <div class="col-sm-6">
+                                    Created By : {{$si->head[0]->CREATOR . " | ". date_format(date_create($si->head[0]->TGLCREATE),'d-m-Y H:i:s')}}
+                                    <br />
+                                    Updated By : {{$si->head[0]->EDITOR . " | ". date_format(date_create($si->head[0]->TGLEDIT),'d-m-Y H:i:s')}}
+                                </div>
+                                <div class="col-sm-6 float-right">
+                                    <div id="det">
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
+                                        <div class="btn-group float-right show" id="btnPrintDetail">
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printDetail" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                                            </a>
+                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
+                                                <a href="{{ URL::to('salesInvoicePrint/f1/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f1Detail" title="Format-1">Format-1</a>
+                                                <a href="{{ URL::to('salesInvoicePrint/f2/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f2Detail" title="Format-2">Format-2</a>
+                                                <a href="{{ URL::to('salesInvoicePrint/f3/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f3Detail" title="Format-3">Format-3</a>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
+                                    </div>
+
+                                    <div id="edit">
+                                        <input type="hidden" name="process" value="save" id="process" required>
+                                        <div class="btn-group float-right show" style="display: none;" id="btnPrintDetail">
+                                            <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printUpdate" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                                            </button>
+                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
+                                                <button type="button" class="dropdown-item" id="f1Update" title="Format-1">Format-1</i>
+                                                </button>
+                                                <button type="button" class="dropdown-item" id="f2Update" title="Format-2">Format-2</i>
+                                                </button>
+                                                <button type="button" class="dropdown-item" id="f3Update" title="Format3">Format-3</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-info float-right" id="update" title="save" style="display: none;"><i class="fa fa-save"></i></button>
                                     </div>
                                 </div>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
                             </div>
 
-                            <div id="edit">
-                                <input type="hidden" name="process" value="save" id="process" required>
-                                <div class="btn-group float-right show" style="display: none;" id="btnPrintDetail">
-                                    <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printUpdate" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
-                                    </button>
-                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
-                                        <button type="button" class="dropdown-item" id="f1Update" title="Format-1">Format-1</i>
-                                        </button>
-                                        <button type="button" class="dropdown-item" id="f2Update" title="Format-2">Format-2</i>
-                                        </button>
-                                        <button type="button" class="dropdown-item" id="f3Update" title="Format3">Format-3</i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-sm btn-info float-right" id="update" title="save" style="display: none;"><i class="fa fa-save"></i></button>
-                            </div>
+
 
                         </div>
                     </div>
