@@ -62,41 +62,44 @@ function btnEdit() {
     $('#attachUpload').css("display", 'block');
 }
 
-// function btnDelete() {
-//     var id = $('#nomor_old').val();
-
-//     Swal.fire({
-//         title: "Delete Sales Order!",
-//         text: "Are you sure to delete this SO : " + id + "?",
-//         icon: "warning",
-//         confirmButtonColor: "#17a2b8",
-//         confirmButtonText: "Yes, Of Course",
-//         reverseButtons: true,
-//         showCancelButton: true,
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             $.ajax({
-//                 url: get_statusSo + "/" + id,
-//                 type: "GET",
-//                 dataType: "JSON",
-//                 success: function (response) {
-//                     if (response.status > 0) {
-//                         Swal.fire({
-//                             title: "Cannot delete!",
-//                             text: "This SO already processing",
-//                             icon: "error",
-//                             confirmButtonColor: "#17a2b8",
-//                             confirmButtonText: "Ok",
-//                             reverseButtons: true,
-//                         })
-//                     } else {
-//                         window.location = void_url + "/" + id;
-//                     }
-//                 },
-//             });
-//         }
-//     });
-// }
+function btnDel() {
+    console.log("A");
+}
+function btnDelete() {
+    var id = $('#si_id').val();
+    Swal.fire({
+        title: "Delete Sales Invoice!",
+        text: "Are you sure to delete this SO : " + id + "?",
+        icon: "warning",
+        confirmButtonColor: "#17a2b8",
+        confirmButtonText: "Yes, Of Course",
+        reverseButtons: true,
+        showCancelButton: true,
+    }).then((result) => {
+        window.location = void_url + "/" + btoa(id);
+        // if (result.isConfirmed) {
+        //     $.ajax({
+        //         url: get_statusSi + "/" + btoa(id),
+        //         type: "GET",
+        //         dataType: "JSON",
+        //         success: function (response) {
+        //             if (response.status > 0) {
+        //                 Swal.fire({
+        //                     title: "Cannot delete!",
+        //                     text: "This SI already processing",
+        //                     icon: "error",
+        //                     confirmButtonColor: "#17a2b8",
+        //                     confirmButtonText: "Ok",
+        //                     reverseButtons: true,
+        //                 })
+        //             } else {
+        //                 window.location = void_url + "/" + btoa(id);
+        //             }
+        //         },
+        //     });
+        // }
+    });
+}
 
 $("#f1Update").click(function (e) {
     e.preventDefault();

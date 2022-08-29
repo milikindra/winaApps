@@ -41,3 +41,4 @@
 <!-- customJS -->
 <script src="{{ asset('js/custom/helper.js')}}"></script>
 <script src="{{ asset('dist/js/editable-table.js')}}"></script>
+<script src="{{asset('plugins/html2pdf/html2pdf.bundle.min.js')}}"></script>

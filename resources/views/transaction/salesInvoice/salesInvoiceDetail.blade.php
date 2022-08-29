@@ -234,163 +234,164 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <table class="table table-modal scroly" id="trx" style="width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 5%">Item</th>
-                                                    <th style="width: 10%">Name</th>
-                                                    <th style="width: 5%">Desc</th>
-                                                    <th style="width: 2%">Qty</th>
-                                                    <th style="width: 2%">UoM</th>
-                                                    <th style="width: 2%">Price</th>
-                                                    <th style="width: 2%">Disc % 1</th>
-                                                    <th style="width: 2%">Disc % 2</th>
-                                                    <th style="width: 2%">Disc</th>
-                                                    <th style="width: 2%">Total</th>
-                                                    <th style="width: 2%">Tax</th>
-                                                    <th style="width: 2%">DO Number</th>
-                                                    <th style="width: 2%">Warehouse</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $j = 0; ?>
-                                                @foreach($si->detail as $det)
-                                                <tr>
-                                                    <td> <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-{{$j}}" onclick="addData({{$j}})" value="{{$det->NO_STOCK}}" readonly> </td>
-                                                    <td> <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-{{$j}}" rows="3">{{$det->NM_STOCK}}</textarea> </td>
-                                                    <td> <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-{{$j}}" value="{{$det->KET}}"> </td>
-                                                    <td><input type="hidden" name="base_qty[]" id="base_qty-{{$j}}" value="{{$det->QTY}}"> <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" value="{{number_format($det->QTY,2,'.',',')}}" autocomplete="off" id="qty-{{$j}}" onchange="itemTotal({{$j}})"> </td>
-                                                    <td> <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}"> </td>
-                                                    <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" autocomplete="off" id="price-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->HARGA,2)}}"> </td>
-                                                    <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" autocomplete="off" id="disc-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->DISC1,2)}}"> </td>
-                                                    <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" autocomplete="off" id="disc2-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->DISC2,2)}}"> </td>
-                                                    <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" autocomplete="off" id="disc_val-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->DISCRP,2)}}"> </td>
-                                                    <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" autocomplete="off" id="total-{{$j}}" value="{{number_format($det->JUMLAH,2)}}" readonly>
-                                                    <td>
-                                                        <select class="form-control form-control-sm tax" name="tax[]" id="tax-{{$j}}" onchange="itemTotal({{$j}})">
-                                                            @foreach($vat as $v)
-                                                            @if($v->kode == $det->tax)
-                                                            <option value="{{$v->kode}}" selected>{{$v->kode}}</option>
-                                                            @else
-                                                            <option value="{{$v->kode}}">{{$v->kode}}</option>
-                                                            @endif
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    <td> <input type="text" class="form-control form-control-sm" name="sj[]" id="sj-{{$j}}" value="{{$det->no_sj}}" readonly> </td>
-                                                    <td>
-                                                        <select class="form form-control form-control-sm" name="warehouse[]" id="warehouse-{{$j}}">
-                                                            @foreach($lokasi as $w)
-                                                            @if($w->id_lokasi == $det->id_lokasi)
-                                                            <option value="{{$w->id_lokasi}}" selected>{{$w->id_lokasi}}</option>
-                                                            @else
-                                                            <option value="{{$w->id_lokasi}}">{{$w->id_lokasi}}</option>
-                                                            @endif
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    <td style="display:none" id="itemTotal-{{$j}}"></td>
-                                                    <td style="display:none" id="itemTax-{{$j}}"> </td>
-                                                    <td style="display:none" id="itemDisc-{{$j}}"> </td>
-                                                    <td style="display:none" id="itemTotalDiscHead-{{$j}}"> </td>
-                                                    <td style="display:none" id="itemBruto-{{$j}}"> </td>
-                                                    <td style="display:none" id="itemTaxValue-{{$j}}"> </td>
-                                                    <td style="display:none"> <input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-{{$j}}"> </td>
-                                                    <td style="display:none"> <input type="hidden" name="itemVintrasId[]" id="itemVintrasId-{{$j}}"> </td>
-                                                    <td style="display:none"> <input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-{{$j}}"> </td>
-                                                    <td style="display:none"> <input type="hidden" name="merkItem[]" id="merkItem-{{$j}}"> </td>
-                                                </tr>
-                                                <?php $j++; ?>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                        <table width="100%">
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-modal scroly" id="trx" style="width: 100%;">
+                                        <thead>
                                             <tr>
-                                                <td style="width: 100%;">
-                                                    <a href="javascript:void(0)" onclick="removeRow(this)" accesskey="r" class="btn btn-xs btn-warning float-right" title="remove row (alt+r)"><i class="fa fa-minus"></i></a>
-                                                    <a href="javascript:void(0)" onclick="addRow(this)" accesskey="a" class="btn btn-xs btn-info float-right" title="add row (alt+a)"><i class="fa fa-plus"></i></a>
-                                                </td>
+                                                <th style="width: 5%">Item</th>
+                                                <th style="width: 10%">Name</th>
+                                                <th style="width: 5%">Desc</th>
+                                                <th style="width: 2%">Qty</th>
+                                                <th style="width: 2%">UoM</th>
+                                                <th style="width: 2%">Price</th>
+                                                <th style="width: 2%">Disc % 1</th>
+                                                <th style="width: 2%">Disc % 2</th>
+                                                <th style="width: 2%">Disc</th>
+                                                <th style="width: 2%">Total</th>
+                                                <th style="width: 2%">Tax</th>
+                                                <th style="width: 2%">DO Number</th>
+                                                <th style="width: 2%">Warehouse</th>
                                             </tr>
-                                        </table>
+                                        </thead>
+                                        <tbody>
+                                            <?php $j = 0; ?>
+                                            @foreach($si->detail as $det)
+                                            <tr>
+                                                <td> <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-{{$j}}" onclick="addData({{$j}})" value="{{$det->NO_STOCK}}" readonly> </td>
+                                                <td> <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-{{$j}}" rows="3">{{$det->NM_STOCK}}</textarea> </td>
+                                                <td> <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-{{$j}}" value="{{$det->KET}}"> </td>
+                                                <td><input type="hidden" name="base_qty[]" id="base_qty-{{$j}}" value="{{$det->QTY}}"> <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" value="{{number_format($det->QTY,2,'.',',')}}" autocomplete="off" id="qty-{{$j}}" onchange="itemTotal({{$j}})"> </td>
+                                                <td> <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}"> </td>
+                                                <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" autocomplete="off" id="price-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->HARGA,2)}}"> </td>
+                                                <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" autocomplete="off" id="disc-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->DISC1,2)}}"> </td>
+                                                <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc2[]" autocomplete="off" id="disc2-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->DISC2,2)}}"> </td>
+                                                <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc_val[]" autocomplete="off" id="disc_val-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->DISCRP,2)}}"> </td>
+                                                <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="total[]" autocomplete="off" id="total-{{$j}}" value="{{number_format($det->JUMLAH,2)}}" readonly>
+                                                <td>
+                                                    <select class="form-control form-control-sm tax" name="tax[]" id="tax-{{$j}}" onchange="itemTotal({{$j}})">
+                                                        @foreach($vat as $v)
+                                                        @if($v->kode == $det->tax)
+                                                        <option value="{{$v->kode}}" selected>{{$v->kode}}</option>
+                                                        @else
+                                                        <option value="{{$v->kode}}">{{$v->kode}}</option>
+                                                        @endif
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td> <input type="text" class="form-control form-control-sm" name="sj[]" id="sj-{{$j}}" value="{{$det->no_sj}}" readonly> </td>
+                                                <td>
+                                                    <select class="form form-control form-control-sm" name="warehouse[]" id="warehouse-{{$j}}">
+                                                        @foreach($lokasi as $w)
+                                                        @if($w->id_lokasi == $det->id_lokasi)
+                                                        <option value="{{$w->id_lokasi}}" selected>{{$w->id_lokasi}}</option>
+                                                        @else
+                                                        <option value="{{$w->id_lokasi}}">{{$w->id_lokasi}}</option>
+                                                        @endif
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td style="display:none" id="itemTotal-{{$j}}"></td>
+                                                <td style="display:none" id="itemTax-{{$j}}"> </td>
+                                                <td style="display:none" id="itemDisc-{{$j}}"> </td>
+                                                <td style="display:none" id="itemTotalDiscHead-{{$j}}"> </td>
+                                                <td style="display:none" id="itemBruto-{{$j}}"> </td>
+                                                <td style="display:none" id="itemTaxValue-{{$j}}"> </td>
+                                                <td style="display:none"> <input type="hidden" name="itemKodeGroup[]" id="itemKodeGroup-{{$j}}"> </td>
+                                                <td style="display:none"> <input type="hidden" name="itemVintrasId[]" id="itemVintrasId-{{$j}}"> </td>
+                                                <td style="display:none"> <input type="hidden" name="itemTahunVintras[]" id="itemTahunVintras-{{$j}}"> </td>
+                                                <td style="display:none"> <input type="hidden" name="merkItem[]" id="merkItem-{{$j}}"> </td>
+                                            </tr>
+                                            <?php $j++; ?>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width: 100%;">
+                                                <a href="javascript:void(0)" onclick="removeRow(this)" accesskey="r" class="btn btn-xs btn-warning float-right" title="remove row (alt+r)"><i class="fa fa-minus"></i></a>
+                                                <a href="javascript:void(0)" onclick="addRow(this)" accesskey="a" class="btn btn-xs btn-info float-right" title="add row (alt+a)"><i class="fa fa-plus"></i></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-end">
+                                <div class="col-3">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4">Total</label>
+                                        <div class="col-sm-8">
+                                            <input type="hidden" name="totalSo" id="totalSo" value="{{$si->so[0]->totdpp_rp}}" autocomplete="off">
+                                            <input type="hidden" name="totalSoDp" id="totalSoDp" value="{{$si->so[0]->uangmuka}}" autocomplete="off">
+                                            <input type="hidden" name="totalSiDp" id="totalSiDp" value="{{$si->um[0]->total}}" autocomplete=" off">
+                                            <input type="hidden" name="totalPPnSiDp" id="totalPPnSiDp" value="{{$si->um[0]->ppn}}" autocomplete="off">
+                                            <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
+                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4">Total DP</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDp" id="totalDp" value="{{number_format($si->head[0]->uangmuka,2)}}" onchange="cekSiDp()">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4">Total PPn</label>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <input type="hidden" name="taxCustomer" id="taxCustomer">
+                                        <input type="hidden" name="taxDp" id="taxDp">
+                                        <input type="hidden" name="taxDetail" id="taxDetail">
+                                        <input type="hidden" name="finalDp" id="finalDp">
+                                        <label class="col-sm-4">Grand Total</label>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row justify-content-end">
-                                    <div class="col-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4">Total</label>
-                                            <div class="col-sm-8">
-                                                <input type="hidden" name="totalSo" id="totalSo" value="{{$si->so[0]->totdpp_rp}}" autocomplete="off">
-                                                <input type="hidden" name="totalSoDp" id="totalSoDp" value="{{$si->so[0]->uangmuka}}" autocomplete="off">
-                                                <input type="hidden" name="totalSiDp" id="totalSiDp" value="{{$si->um[0]->total}}" autocomplete=" off">
-                                                <input type="hidden" name="totalPPnSiDp" id="totalPPnSiDp" value="{{$si->um[0]->ppn}}" autocomplete="off">
-                                                <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
-                                                <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4">Total DP</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDp" id="totalDp" value="{{number_format($si->head[0]->uangmuka,2)}}" onchange="cekSiDp()">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4">Total PPn</label>
-                                            <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <input type="hidden" name="taxCustomer" id="taxCustomer">
-                                            <input type="hidden" name="taxDp" id="taxDp">
-                                            <input type="hidden" name="taxDetail" id="taxDetail">
-                                            <input type="hidden" name="finalDp" id="finalDp">
-                                            <label class="col-sm-4">Grand Total</label>
-                                            <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
-                                        </div>
+                        </div>
+                        <div class="card-footer">
+                            <div id="det">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
+                                <div class="btn-group float-right show" id="btnPrintDetail">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printDetail" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                                    </a>
+                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
+                                        <a href="{{ URL::to('salesInvoicePrint/f1/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f1Detail" title="Format-1">Format-1</a>
+                                        <a href="{{ URL::to('salesInvoicePrint/f2/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f2Detail" title="Format-2">Format-2</a>
+                                        <a href="{{ URL::to('salesInvoicePrint/f3/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f3Detail" title="Format-3">Format-3</a>
                                     </div>
                                 </div>
+                                <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
                             </div>
-                            <div class="card-footer">
-                                <div id="det">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
-                                    <div class="btn-group float-right show" id="btnPrintDetail">
-                                        <a href="javascript:void(0)" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printDetail" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
-                                        </a>
-                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
-                                            <a href="{{ URL::to('salesInvoicePrint/f1/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f1Detail" title="Format-1">Format-1</a>
-                                            <a href="{{ URL::to('salesInvoicePrint/f2/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f2Detail" title="Format-2">Format-2</a>
-                                            <a href="{{ URL::to('salesInvoicePrint/f3/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f3Detail" title="Format-3">Format-3</a>
-                                        </div>
-                                    </div>
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
-                                </div>
 
-                                <div id="edit">
-                                    <input type="hidden" name="process" value="save" id="process" required>
-                                    <div class="btn-group float-right show" style="display: none;" id="btnPrintDetail">
-                                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printUpdate" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                            <div id="edit">
+                                <input type="hidden" name="process" value="save" id="process" required>
+                                <div class="btn-group float-right show" style="display: none;" id="btnPrintDetail">
+                                    <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printUpdate" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                                    </button>
+                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
+                                        <button type="button" class="dropdown-item" id="f1Update" title="Format-1">Format-1</i>
                                         </button>
-                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
-                                            <button type="button" class="dropdown-item" id="f1Update" title="Format-1">Format-1</i>
-                                            </button>
-                                            <button type="button" class="dropdown-item" id="f2Update" title="Format-2">Format-2</i>
-                                            </button>
-                                            <button type="button" class="dropdown-item" id="f3Update" title="Format3">Format-3</i>
-                                            </button>
-                                        </div>
+                                        <button type="button" class="dropdown-item" id="f2Update" title="Format-2">Format-2</i>
+                                        </button>
+                                        <button type="button" class="dropdown-item" id="f3Update" title="Format3">Format-3</i>
+                                        </button>
                                     </div>
-                                    <button type="button" class="btn btn-sm btn-info float-right" id="update" title="save" style="display: none;"><i class="fa fa-save"></i></button>
                                 </div>
-
+                                <button type="button" class="btn btn-sm btn-info float-right" id="update" title="save" style="display: none;"><i class="fa fa-save"></i></button>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 </form>
 <!-- Modal -->
@@ -470,6 +471,8 @@
     var get_sodp = "{{ URL::to('salesInvoice/get/sodp') }}";
     var get_vat = "{{ URL::to('vat/data/byDate') }}";
     var get_efaktur = "{{ URL::to('efaktur/get/byDate')}}";
+    var get_statusSi = "{{ URL::to('salesInvoiceStatus') }}";
+    var void_url = "{{ URL::to('salesInvoice/void') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
     var lokasi = <?= json_encode($lokasi); ?>;

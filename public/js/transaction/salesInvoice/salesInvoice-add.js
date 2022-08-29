@@ -550,6 +550,7 @@ function itemTotal(uid) {
 }
 
 function totalDpp() {
+
     var myTab = document.getElementById("trx");
     var totalBruto = 0;
     var totalDpp = 0;
@@ -609,6 +610,7 @@ function cekSiDp() {
 }
 
 function totalPpn() {
+
     var myTab = document.getElementById("trx");
     var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
 
@@ -634,7 +636,12 @@ function totalPpn() {
     } else {
         totalDp = 0;
     }
+
     var ppnDp = (parseFloat($('#totalPPnSiDp').val()) / $('#totalSiDp').val() * totalDp);
+    if (isNaN(ppnDp)) {
+        ppnDp = 0;
+    }
+
     var ppnSiDp = totalPpnBruto - ppnDp;
     var grandTotal = totalDpp - totalDp + ppnSiDp;
     $("#totalPpn").val(addPeriod(parseFloat(ppnSiDp).toFixed(2), ","));

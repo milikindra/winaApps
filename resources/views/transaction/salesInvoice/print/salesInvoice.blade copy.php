@@ -2,66 +2,33 @@
 <html>
 
 <head>
-    <script>
-        function subst() {
-            var vars = {};
-            var query_strings_from_url = document.location.search.substring(1).split('&');
-            for (var query_string in query_strings_from_url) {
-                if (query_strings_from_url.hasOwnProperty(query_string)) {
-                    var temp_var = query_strings_from_url[query_string].split('=', 2);
-                    vars[temp_var[0]] = decodeURI(temp_var[1]);
-                }
-            }
-            var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
-            for (var css_class in css_selector_classes) {
-                if (css_selector_classes.hasOwnProperty(css_class)) {
-                    var element = document.getElementsByClassName(css_selector_classes[css_class]);
-                    for (var j = 0; j < element.length; ++j) {
-                        element[j].textContent = vars[css_selector_classes[css_class]];
-                    }
-                }
-            }
-        }
-    </script>
     <title>
         SI : {{$si->head[0]->NO_BUKTI}}
     </title>
 
     <style>
+        /* @page {
+            margin-top: 0.5rem;
+            margin-right: 1rem;
+            margin-right: 0.5rem;
+            margin-bottom: 3rem;
+        } */
+
         @media print {
-            @page {
-                size: auto;
-                /* margin: 20mm 0 10mm 0; */
-                /* margin-top: 100cm;
-                margin-right: 1rem;
-                margin-right: 1rem;
-                margin-bottom: 3rem; */
+            .home-page-footer {
+                display: none;
             }
 
-            body {
-                display: table;
-                table-layout: fixed;
-                /* padding-top: 2.5cm; */
-                /* padding-bottom: 2.5cm; */
-                height: auto;
+            footer {
+                display: block;
+                position: fixed;
+                bottom: 0;
             }
 
-            table {
-                page-break-before: auto
-            }
-
-            div {
-                page-break-before: auto
-            }
-
-            tr {
-                page-break-inside: avoid;
-                page-break-after: auto
-            }
-
-            td {
-                page-break-inside: avoid;
-                page-break-after: auto
+            header {
+                display: none;
+                position: fixed;
+                top: 0;
             }
 
             thead {
@@ -69,10 +36,8 @@
             }
 
             tfoot {
-                display: table-footer-group
+                display: table-footer-group;
             }
-
-
 
             /* a[href]:after {
                 display: none;
@@ -85,25 +50,65 @@
 
         }
 
+
         body {
-            /* margin-top: 20px; */
-            /* margin-bottom: 20px; */
-            /* margin-left: 20px; */
-            /* margin-right: 20px; */
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            margin-right: 20px;
             -webkit-print-color-adjust: exact !important;
+            /* margin: 0; */
             font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
+        /* 
+        .tableBorder {
+            border-spacing: 0;
+            border: 0.5px;
+            border-collapse: collapse;
+        } */
+
         .table {
             display: table;
-            /* height: 100px; */
+            height: 100px;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+
+        /* .tableBorder td {
+            border-spacing: 0;
+            padding: 0.5px;
+            border: 0.5px solid #000;
+            font-size: 10px;
+        } */
+
+        table .bottom {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .fixed-bottom {
             width: 100%;
         }
 
-        tbody {
-            height: auto;
-            min-height: 200px;
-            display: contents
+        ol {
+            vertical-align: top;
+            margin: 5px 0;
+            padding-left: 22px;
+            font-family: helvetica, sans-serif;
+            font-size: 10px;
+        }
+
+        ol li {
+            font-family: helvetica, sans-serif;
+            font-size: 10px;
         }
 
         .footer {
@@ -116,26 +121,30 @@
             height: 80px;
         }
 
+        .form-control:disabled,
+        .form-control[readonly] {
+            background-color: #fff;
+        }
 
         .column {
             float: left;
         }
 
-        /* .row:after {
+        .row:after {
             content: "";
             display: table;
             clear: both;
-        } */
+        }
     </style>
 </head>
 
 <body style="font-size: 12px;">
     <div style="padding:0px; box-sizing: border-box; position: relative;">
         <div class="container-fluid">
-            <table class="table tableBorder" id="tb" style="width: 100%; height:auto; border-collapse: collapse;">
+            <table class="table tableBorder" style="width: 100%; height:auto; border-collapse: collapse;">
                 <thead>
-                    <!-- <tr>
-                        <th style="width: 6%;"><span></span></th>
+                    <tr>
+                        <th height="2rem" style="width: 6%;"><span></span></th>
                         <th style="width: 5%;"><span></span></th>
                         <th style="width: 20%;"><span></span></th>
                         <th style="width: 20%;"><span></span></th>
@@ -143,7 +152,7 @@
                         <th style="width: 12%;"><span></span></th>
                         <th style="width: 12%;"><span></span></th>
                         <th style="width: 15%;"><span></span></th>
-                    </tr> -->
+                    </tr>
                     <tr>
                         <th colspan="3" style="text-align:left; vertical-align: top; font-size:12px;">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">{{strtoupper($si->company[0]->name)}}</span></div>
@@ -162,14 +171,14 @@
                         <th colspan="2" style="vertical-align: top;"><img src="{{ asset('images/apps/logo.png')}}" style="max-width: 100%;"></th>
                     </tr>
                     <tr>
-                        <th style="width: 6%;"><span></span></th>
-                        <th style="width: 5%;"><span></span></th>
-                        <th style="width: 20%;"><span></span></th>
-                        <th style="width: 20%;"><span></span></th>
-                        <th style="width: 10%;"><span></span></th>
-                        <th style="width: 12%;"><span></span></th>
-                        <th style="width: 12%;"><span></span></th>
-                        <th style="width: 15%;"><span></span></th>
+                        <th style="font-size: 4px;">&nbsp;</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     <tr>
                         <th colspan="2" style="text-align:left; vertical-align: top; font-size:12px;">
@@ -243,6 +252,16 @@
                     $j--; ?>
                     @endif
                     @endforeach
+                    <?php for ($k = 0; $k < $j; $k++) { ?>
+                        <tr>
+                            <td style="border: 0.5px solid #000; ;text-align:right;border-bottom: 0px;border-top:0px;">&nbsp;</td>
+                            <td style="border: 0.5px solid #000;border-bottom: 0px; border-top:0px;" colspan="3"></td>
+                            <td style="border: 0.5px solid #000;text-align:center;border-bottom: 0px;border-top:0px;"></td>
+                            <td style="border: 0.5px solid #000;text-align:right;border-bottom: 0px;border-top:0px; padding-right:10px;"></td>
+                            <td style="border: 0.5px solid #000;text-align:right;border-bottom: 0px;border-top:0px; padding-right:10px;"></td>
+                            <td style="border: 0.5px solid #000;text-align:right;border-bottom: 0px;border-top:0px; padding-right:10px;"></td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
                 <tfoot>
                     <tr style="border: none; border-top: 0.5px solid #000">
@@ -259,7 +278,7 @@
                         <td colspan="5" style="text-align: left; vertical-align: top; font-weight:bold">Say : #
                             <?php
                             $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
-                            echo ucwords($f->format($si->head[0]->total_rp));
+                            echo $f->format($si->head[0]->total_rp);
                             ?>
                         </td>
                         <td colspan="2" style="text-align: right; font-weight:bold;">
@@ -321,32 +340,7 @@
 </body>
 
 </html>
-<script src="{{asset('plugins/html2pdf/html2pdf.bundle.min.js')}}"></script>
 <script type="text/javascript">
-    var element = document.getElementById('tb');
-    var opt = {
-        margin: [30, 0, 30, 0],
-        filename: 'a.pdf',
-        image: {
-            type: 'pdf',
-            quality: 0.98
-        },
-        html2canvas: {
-            scale: 2
-        },
-        jsPDF: {
-            unit: 'pt',
-            format: 'a4',
-            orientation: 'portrait'
-        },
-        pageBreak: {
-            mode: 'css',
-            after: '.break-page'
-        }
-    };
-
-    // New Promise-based usage:
-    // html2pdf().set(opt).from(element).save();
     // window.onafterprint = window.close;
-    // window.print();
+    window.print();
 </script>

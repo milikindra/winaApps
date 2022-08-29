@@ -220,98 +220,99 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <table class="table table-modal scroly" id="trx" style="width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 5%">Item</th>
-                                                    <th style="width: 10%">Name</th>
-                                                    <th style="width: 5%">Desc</th>
-                                                    <th style="width: 2%">Qty</th>
-                                                    <th style="width: 2%">UoM</th>
-                                                    <th style="width: 2%">Price</th>
-                                                    <th style="width: 2%">Disc % 1</th>
-                                                    <th style="width: 2%">Disc % 2</th>
-                                                    <th style="width: 2%">Disc</th>
-                                                    <th style="width: 2%">Total</th>
-                                                    <th style="width: 2%">Tax</th>
-                                                    <th style="width: 2%">DO Number</th>
-                                                    <th style="width: 2%">Warehouse</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                        <table width="100%">
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-modal scroly" id="trx" style="width: 100%;">
+                                        <thead>
                                             <tr>
-                                                <td style="width: 100%;">
-                                                    <a href="javascript:void(0)" onclick="removeRow(this)" accesskey="r" class="btn btn-xs btn-warning float-right" title="remove row (alt+r)"><i class="fa fa-minus"></i></a>
-                                                    <a href="javascript:void(0)" onclick="addRow(this)" accesskey="a" class="btn btn-xs btn-info float-right" title="add row (alt+a)"><i class="fa fa-plus"></i></a>
-                                                </td>
+                                                <th style="width: 5%">Item</th>
+                                                <th style="width: 10%">Name</th>
+                                                <th style="width: 5%">Desc</th>
+                                                <th style="width: 2%">Qty</th>
+                                                <th style="width: 2%">UoM</th>
+                                                <th style="width: 2%">Price</th>
+                                                <th style="width: 2%">Disc % 1</th>
+                                                <th style="width: 2%">Disc % 2</th>
+                                                <th style="width: 2%">Disc</th>
+                                                <th style="width: 2%">Total</th>
+                                                <th style="width: 2%">Tax</th>
+                                                <th style="width: 2%">DO Number</th>
+                                                <th style="width: 2%">Warehouse</th>
                                             </tr>
-                                        </table>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width: 100%;">
+                                                <a href="javascript:void(0)" onclick="removeRow(this)" accesskey="r" class="btn btn-xs btn-warning float-right" title="remove row (alt+r)"><i class="fa fa-minus"></i></a>
+                                                <a href="javascript:void(0)" onclick="addRow(this)" accesskey="a" class="btn btn-xs btn-info float-right" title="add row (alt+a)"><i class="fa fa-plus"></i></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-end">
+                                <div class="col-3">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4">Total</label>
+                                        <div class="col-sm-8">
+                                            <input type="hidden" name="totalSo" id="totalSo" autocomplete="off">
+                                            <input type="hidden" name="totalSoDp" id="totalSoDp" autocomplete="off">
+                                            <input type="hidden" name="totalSiDp" id="totalSiDp" autocomplete="off">
+                                            <input type="hidden" name="totalPPnSiDp" id="totalPPnSiDp" autocomplete="off">
+                                            <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
+                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4">Total DP</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDp" id="totalDp" onchange="cekSiDp()">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4">Total PPn</label>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <input type="hidden" name="taxCustomer" id="taxCustomer">
+                                        <input type="hidden" name="taxDp" id="taxDp">
+                                        <input type="hidden" name="taxDetail" id="taxDetail">
+                                        <input type="hidden" name="finalDp" id="finalDp">
+                                        <label class="col-sm-4">Grand Total</label>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row justify-content-end">
-                                    <div class="col-3">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4">Total</label>
-                                            <div class="col-sm-8">
-                                                <input type="hidden" name="totalSo" id="totalSo" autocomplete="off">
-                                                <input type="hidden" name="totalSoDp" id="totalSoDp" autocomplete="off">
-                                                <input type="hidden" name="totalSiDp" id="totalSiDp" autocomplete="off">
-                                                <input type="hidden" name="totalPPnSiDp" id="totalPPnSiDp" autocomplete="off">
-                                                <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
-                                                <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4">Total DP</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDp" id="totalDp" onchange="cekSiDp()">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4">Total PPn</label>
-                                            <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <input type="hidden" name="taxCustomer" id="taxCustomer">
-                                            <input type="hidden" name="taxDp" id="taxDp">
-                                            <input type="hidden" name="taxDetail" id="taxDetail">
-                                            <input type="hidden" name="finalDp" id="finalDp">
-                                            <label class="col-sm-4">Grand Total</label>
-                                            <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <input type="hidden" name="process" value="save" id="process" required>
-                                <div class="btn-group float-right  show">
-                                    <button type="button" class="btn btn-sm  btn-warning dropdown-toggle dropdown-icon" id="print" title="print" disabled data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                        </div>
+                        <div class="card-footer">
+                            <input type="hidden" name="process" value="save" id="process" required>
+                            <div class="btn-group float-right  show">
+                                <button type="button" class="btn btn-sm  btn-warning dropdown-toggle dropdown-icon" id="print" title="print" disabled data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                                </button>
+                                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
+                                    <button type="button" class="btn-sm  dropdown-item" id="f1" title="Format-1">Format-1</i>
                                     </button>
-                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
-                                        <button type="button" class="btn-sm  dropdown-item" id="f1" title="Format-1">Format-1</i>
-                                        </button>
-                                        <button type="button" class=" btn-sm dropdown-item" id="f2" title="Format-2">Format-2</i>
-                                        </button>
-                                        <button type="button" class=" btn-sm dropdown-item" id="f3" title="Format3">Format-3</i>
-                                        </button>
+                                    <button type="button" class=" btn-sm dropdown-item" id="f2" title="Format-2">Format-2</i>
+                                    </button>
+                                    <button type="button" class=" btn-sm dropdown-item" id="f3" title="Format3">Format-3</i>
+                                    </button>
 
-                                    </div>
                                 </div>
-                                <button type="button" class="btn btn-sm  btn-info float-right" id="save" title="save" disabled><i class="fa fa-save"></i></button>
                             </div>
+                            <button type="button" class="btn btn-sm  btn-info float-right" id="save" title="save" disabled><i class="fa fa-save"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 </form>
 <!-- Modal -->

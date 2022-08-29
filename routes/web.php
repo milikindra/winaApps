@@ -85,9 +85,11 @@ Route::group(
         Route::get('salesInvoice/data/sodp/{so_id}', [SalesInvoiceController::class, 'dataSoDp'])->name('salesInvoice/data/sodp');
         Route::get('salesInvoice/get/sodp/{so_id}/{do_id}', [SalesInvoiceController::class, 'getSoDp'])->name('salesInvoice/get/sodp');
         Route::post('salesInvoiceAddSave', [SalesInvoiceController::class, 'salesInvoiceAddSave'])->name('salesInvoiceAddSave')->middleware('userMatrix:T02.02');
-        Route::get('salesInvoiceDetail/{void}/{id}', [SalesInvoiceController::class, 'salesInvoiceDetail'])->name('salesOrderDetail')->middleware('userMatrix:T02.01');
+        Route::get('salesInvoiceDetail/{void}/{id}', [SalesInvoiceController::class, 'salesInvoiceDetail'])->name('salesInvoiceDetail')->middleware('userMatrix:T02.01');
         Route::get('salesInvoicePrint/{f}/{id}', [SalesInvoiceController::class, 'salesInvoicePrint'])->name('salesInvoicePrint');
         Route::post('salesInvoiceUpdate', [SalesInvoiceController::class, 'salesInvoiceUpdate'])->name('salesInvoiceUpdate')->middleware('userMatrix:T02.03');
+        Route::get('salesInvoice/void/{id}', [SalesInvoiceController::class, 'salesInvoiceDelete'])->name('salesInvoice/void')->middleware('userMatrix:T02.04');
+        Route::get('salesInvoiceStatus/{id}', [SalesInvoiceController::class, 'salesinvoiceStatus'])->name('salesinvoiceStatus');
     }
 );
 

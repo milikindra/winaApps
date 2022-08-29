@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
+use Spipu\Html2Pdf\Html2Pdf;
 
 class SalesInvoiceController extends Controller
 {
@@ -361,44 +362,46 @@ class SalesInvoiceController extends Controller
 
     public function salesInvoiceDetail(Request $request, $void, $si_id)
     {
-        $user_token = session('user')->api_token;
-        $module = $this->module;
-        $menu_name = session('user')->menu_name;
-        $sales = salesGetRawData('ID_SALES', 'ASC');
-        $lokasi = lokasiGetRawData();
-        $vat = vatGetData(date('Y-m-d'), 'all');
-        $url = Config::get('constants.api_url') . '/salesInvoiceDetail';
-        $post_data = [
-            'api_token' => $user_token,
-            'user' => session('user')->username,
-            'NO_BUKTI' => base64_decode($si_id)
-        ];
-        $client = new Client();
-        $response = $client->request('POST', $url, [
-            'json' => $post_data,
-            'http_errors' => false
-        ]);
-        $body = json_decode($response->getBody());
+        try {
+            $user_token = session('user')->api_token;
+            $module = $this->module;
+            $menu_name = session('user')->menu_name;
+            $sales = salesGetRawData('ID_SALES', 'ASC');
+            $lokasi = lokasiGetRawData();
+            $vat = vatGetData(date('Y-m-d'), 'all');
+            $url = Config::get('constants.api_url') . '/salesInvoiceDetail';
+            $post_data = [
+                'api_token' => $user_token,
+                'user' => session('user')->username,
+                'NO_BUKTI' => base64_decode($si_id),
+                'param' => $void
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
 
-        $module = $this->module;
-        $menu_name = session('user')->menu_name;
-        $data = [
-            'title' => $menu_name->$module->module_name,
-            'parent_page' => $menu_name->$module->parent_name,
-            'page' => $menu_name->$module->module_name,
-            'sales' => $sales,
-            'lokasi' => $lokasi,
-            'vat' => $vat,
-            'sales' => $sales,
-            'si' => $body->si,
-        ];
-        // dd($data);
-        return View('transaction.salesInvoice.salesInvoiceDetail', $data);
-        // } catch (\Exception $e) {
-        //     Alert::toast("500 - Failed to View Data", 'danger');
-        //     Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
-        //     return redirect()->back();
-        // }
+            $module = $this->module;
+            $menu_name = session('user')->menu_name;
+            $data = [
+                'title' => $menu_name->$module->module_name,
+                'parent_page' => $menu_name->$module->parent_name,
+                'page' => $menu_name->$module->module_name,
+                'sales' => $sales,
+                'lokasi' => $lokasi,
+                'vat' => $vat,
+                'sales' => $sales,
+                'si' => $body->si,
+            ];
+            // dd($data);
+            return View('transaction.salesInvoice.salesInvoiceDetail', $data);
+        } catch (\Exception $e) {
+            Alert::toast("500 - Failed to View Data", 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return redirect()->back();
+        }
     }
 
     public function salesInvoicePrint(request $request, $format, $si_id)
@@ -435,9 +438,10 @@ class SalesInvoiceController extends Controller
                 'format' => $f
             ];
             // dd($data);
-            // $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array(5, 5, 5, 8));
-            // $html2pdf->writeHTML(view('transaction.salesOrder.print.salesOrder', $data));
-            // $html2pdf->output('SO.pdf', 'D');
+            // $html2pdf = new Html2Pdf('P', 'Letter', 'en', true, 'UTF-8', array(5, 5, 5, 8));
+            // $html2pdf->writeHTML(view('transaction.salesInvoice.print.salesInvoice', $data));
+            // $html2pdf->writeHTML("A");
+            // $html2pdf->output('SI.pdf');
             return View('transaction.salesInvoice.print.salesInvoice', $data);
         } catch (\Exception $e) {
             Alert::toast("500 - Failed to View Data", 'danger');
@@ -576,6 +580,60 @@ class SalesInvoiceController extends Controller
             Alert::toast("500 - Failed to Save Data", 'error');
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
             return redirect()->back();
+        }
+    }
+
+    // public function salesInvoiceStatus(request $request, $si_id)
+    // {
+    //     $user_token = session('user')->api_token;
+    //     $url = Config::get('constants.api_url') . '/salesInvoiceStatus';
+
+    //     $post_data = [
+    //         'api_token' => $user_token,
+    //         'user' => session('user')->username,
+    //         'NO_BUKTI' => $si_id
+    //     ];
+    //     $client = new Client();
+    //     $response = $client->request('POST', $url, [
+    //         'json' => $post_data,
+    //         'http_errors' => false
+    //     ]);
+    //     $body = json_decode($response->getBody());
+    //     return json_encode($body);
+    // }
+
+    public function salesInvoiceDelete(Request $request, $si_id)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/salesInvoiceDelete';
+
+            $post_data = [
+                'api_token' => $user_token,
+                'user' => session('user')->username,
+                'NO_BUKTI' => base64_decode($si_id)
+            ];
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $post_data,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+
+            foreach ($body->fileLocal as $local) {
+                Storage::disk('local')->delete($local->path);
+            }
+            if ($body->result == true) {
+                Alert::toast($body->message, 'success');
+                return redirect('salesInvoice');
+            } else {
+                Alert::toast($body->message, 'danger');
+                return redirect('salesInvoiceDetail/d/' . $si_id);
+            }
+        } catch (\Exception $e) {
+            Alert::toast('Error delete', 'danger');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return redirect('salesInvoiceDetail/d/' . $si_id);
         }
     }
 }
