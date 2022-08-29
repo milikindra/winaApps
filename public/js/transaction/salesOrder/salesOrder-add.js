@@ -1,10 +1,12 @@
 $(".selects2").select2();
 $(document).ready(function () {
     $("#overlay").fadeOut(300);
-    if (performance.getEntriesByType("navigation")[0].type == "back_forward") {
-        $("#overlay").fadeIn(300);
-        location.reload(true);
-    }
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+            $("#overlay").fadeIn(300);
+            window.location.reload();
+        }
+    });
     var Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -774,20 +776,23 @@ function cekSo() {
     var po = $('#po_customer').val();
     var customer = $('#customer').val();
     var so_id = $('#nomor').val();
-
     var bu = $("#bu_val").val();
     var totalBu = 0;
     var arr_bu = bu.split(";");
     for (var i = 0; i < arr_bu.length; i++) {
         arr_val = arr_bu[i].split(":");
-        totalBu += parseInt(arr_val[1])
+        if (arr_val != '') {
+            totalBu += parseInt(arr_val[1])
+        }
     }
     var dept = $("#dept_val").val();
     var totalDept = 0;
     var arr_dept = dept.split(";");
     for (var i = 0; i < arr_dept.length; i++) {
         arr_val = arr_dept[i].split(":");
-        totalDept += parseInt(arr_val[1])
+        if (arr_val != '') {
+            totalDept += parseInt(arr_val[1])
+        }
     }
 
     if (so_id == '') {
@@ -819,7 +824,8 @@ function cekSo() {
             confirmButtonColor: "#17a2b8",
         })
 
-    } else if (totalBu < 100 || isNaN(totalBu)) {
+    } else if (totalBu < 100) {
+        console.log(totalBu);
         Swal.fire({
             title: "Cannot Add Sales Order!",
             text: "Bussiness Unit value less than 100%",
@@ -880,12 +886,29 @@ function cekSo() {
                         reverseButtons: true,
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            $('#salesOrderAddSave').submit();
-
+                            if (cekVintras == true) {
+                                $('#salesOrderAddSave').submit();
+                            } else {
+                                Swal.fire({
+                                    title: "Cannot Add Sales Order!",
+                                    text: "Something went wrong with vintras",
+                                    icon: "error",
+                                    confirmButtonColor: "#17a2b8",
+                                })
+                            }
                         }
                     });
                 } else {
-                    $('#salesOrderAddSave').submit();
+                    if (cekVintras == true) {
+                        $('#salesOrderAddSave').submit();
+                    } else {
+                        Swal.fire({
+                            title: "Cannot Add Sales Order!",
+                            text: "Something went wrong with vintras",
+                            icon: "error",
+                            confirmButtonColor: "#17a2b8",
+                        })
+                    }
                 }
             },
             error: function (e) {
@@ -898,8 +921,18 @@ function cekSo() {
             }
         });
     }
-
 };
+
+function cekVintras() {
+    var vintras_year = '';
+    var t_det = $('.trx tbody tr').length;
+    for (var i = 0; i < t_det; i++) {
+        if ($('#itemVintrasId-' + i).val() != '' && $('#itemTahunVintras-' + i).val() == '') {
+            return false;
+        }
+    }
+    return true;
+}
 
 $("#print").click(function (e) {
     e.preventDefault();
