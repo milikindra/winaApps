@@ -630,7 +630,6 @@ function addData(uid) {
                             $("#total-" + (uid + i + 1)).css('display', 'none');
                             $("#tax-" + (uid + i + 1)).css('display', 'none');
                             $("#tax-" + (uid + i + 1)).html('<option selected value="" ></option>');
-
                             $("#no_stock-" + (uid + i + 1)).val(val.no_stock);
                             $("#base_qty-" + (uid + i + 1)).val(val.saldo);
                             $("#qty-" + (uid + i + 1)).val(val.saldo);
@@ -775,57 +774,131 @@ function cekSo() {
     var po = $('#po_customer').val();
     var customer = $('#customer').val();
     var so_id = $('#nomor').val();
-    let _token = $('meta[name="csrf-token"]').attr('content');
-    $.ajax({
-        type: 'POST',
-        url: rute_cekSo,
-        data: {
-            po: po,
-            customer: customer,
-            so_id: so_id,
-            _token: _token
-        },
-        dataType: "text",
-        success: function (resultData) {
-            var msg = JSON.parse(resultData);
-            if (msg.so > 0) {
+
+    var bu = $("#bu_val").val();
+    var totalBu = 0;
+    var arr_bu = bu.split(";");
+    for (var i = 0; i < arr_bu.length; i++) {
+        arr_val = arr_bu[i].split(":");
+        totalBu += parseInt(arr_val[1])
+    }
+    var dept = $("#dept_val").val();
+    var totalDept = 0;
+    var arr_dept = dept.split(";");
+    for (var i = 0; i < arr_dept.length; i++) {
+        arr_val = arr_dept[i].split(":");
+        totalDept += parseInt(arr_val[1])
+    }
+
+    if (so_id == '') {
+        Swal.fire({
+            title: "Cannot Add Sales Order!",
+            text: "Empty SO Id",
+            icon: "error",
+            confirmButtonColor: "#17a2b8",
+        })
+    } else if (customer == '') {
+        Swal.fire({
+            title: "Cannot Add Sales Order!",
+            text: "Empty Customer",
+            icon: "error",
+            confirmButtonColor: "#17a2b8",
+        })
+    } else if (po == '') {
+        Swal.fire({
+            title: "Cannot Add Sales Order!",
+            text: "Empty PO Customer",
+            icon: "error",
+            confirmButtonColor: "#17a2b8",
+        })
+    } else if ($('#sales').val() == null) {
+        Swal.fire({
+            title: "Cannot Add Sales Order!",
+            text: "Sales is empty",
+            icon: "error",
+            confirmButtonColor: "#17a2b8",
+        })
+
+    } else if (totalBu < 100 || isNaN(totalBu)) {
+        Swal.fire({
+            title: "Cannot Add Sales Order!",
+            text: "Bussiness Unit value less than 100%",
+            icon: "error",
+            confirmButtonColor: "#17a2b8",
+        })
+    } else if (totalDept < 100 || isNaN(totalDept)) {
+        Swal.fire({
+            title: "Cannot Add Sales Order!",
+            text: "Department value less than 100%",
+            icon: "error",
+            confirmButtonColor: "#17a2b8",
+        })
+    } else if ($('#no_stock-0').val() == '' || $('#price-0').val() == '') {
+        Swal.fire({
+            title: "Cannot Add Sales Order!",
+            text: "Item code or price in the first line is empty",
+            icon: "error",
+            confirmButtonColor: "#17a2b8",
+        })
+    } else {
+        let _token = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'POST',
+            url: rute_cekSo,
+            data: {
+                po: po,
+                customer: customer,
+                so_id: so_id,
+                _token: _token
+            },
+            dataType: "text",
+            success: function (resultData) {
+                var msg = JSON.parse(resultData);
+                if (msg.so > 0) {
+                    Swal.fire({
+                        title: "Cannot Add Sales Order!",
+                        text: "Sales order number has been used",
+                        icon: "error",
+                        confirmButtonColor: "#17a2b8",
+                    })
+                } else if (msg.customer.length > 0) {
+                    Swal.fire({
+                        title: "Cannot Add Sales Order!",
+                        text: "Customer and PO Customer has been used",
+                        icon: "error",
+                        confirmButtonColor: "#17a2b8",
+                    })
+                } else if (msg.po.length > 0) {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "This PO Customer that has been registered on SO: " + msg.po[0].NO_BUKTI,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#17a2b8",
+                        cancelButtonColor: "#FFC107",
+                        confirmButtonText: "Yes, Process it!",
+                        reverseButtons: true,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#salesOrderAddSave').submit();
+
+                        }
+                    });
+                } else {
+                    $('#salesOrderAddSave').submit();
+                }
+            },
+            error: function (e) {
                 Swal.fire({
                     title: "Cannot Add Sales Order!",
-                    text: "Sales order number has been used",
+                    text: "Something went wrong",
                     icon: "error",
                     confirmButtonColor: "#17a2b8",
                 })
-            } else if (msg.customer.length > 0) {
-                Swal.fire({
-                    title: "Cannot Add Sales Order!",
-                    text: "Customer and PO Customer has been used",
-                    icon: "error",
-                    confirmButtonColor: "#17a2b8",
-                })
-            } else if (msg.po.length > 0) {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "This PO Customer that has been registered on SO: " + msg.po[0].NO_BUKTI,
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#17a2b8",
-                    cancelButtonColor: "#FFC107",
-                    confirmButtonText: "Yes, Process it!",
-                    reverseButtons: true,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#salesOrderAddSave').submit();
-                    }
-                });
-            } else {
-                $('#salesOrderAddSave').submit();
             }
-        },
-        error: function (e) {
-            console.log(e);
-            console.log("Something went wrong");
-        }
-    });
+        });
+    }
+
 };
 
 $("#print").click(function (e) {
