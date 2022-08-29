@@ -186,10 +186,10 @@
                                         <th>PO</th>
                                         <th>Total</th>
                                         <th>Sales</th>
-                                        <th>Overdue > 100 days</th>
                                         <th>Overdue 1 - 30 days</th>
                                         <th>Overdue 31 - 60 days</th>
                                         <th>Overdue 61 - 100 days</th>
+                                        <th>Overdue > 100 days</th>
                                         <th>Not Due</th>
                                     </tr>
                                 </thead>

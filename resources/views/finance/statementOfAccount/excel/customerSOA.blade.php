@@ -132,10 +132,10 @@ echo "Some Text"; //no ending ; here
                         <th style="text-align: center;  border: 1px solid #000000;">PO</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Total</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Sales</th>
-                        <th style="text-align: center;  border: 1px solid #000000;">Overdue > 100 days</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Overdue 1 - 30 days</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Overdue 31 - 60 days</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Overdue 61 - 100 days</th>
+                        <th style="text-align: center;  border: 1px solid #000000;">Overdue > 100 days</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Not Due</th>
                         <th style="text-align: center;  border: 1px solid #000000;">Grand Total</th>
                     </tr>
@@ -169,10 +169,10 @@ echo "Some Text"; //no ending ; here
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->no_po}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$total}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black;" width="7%">{{$b->sales}}</td>
-                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_100}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_1_30}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_31_60}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_61_100}}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$overdue_100}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$notdue}}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 10px;border: thin solid black; text-align:right" width="7%">{{$sisa}}</td>
                     </tr>

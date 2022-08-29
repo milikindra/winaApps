@@ -125,10 +125,10 @@
                         <th style="text-align: center;">PO</th>
                         <th style="text-align: center;">Total</th>
                         <th style="text-align: center;">Sales</th>
-                        <th style="text-align: center;">Overdue > 100 days</th>
                         <th style="text-align: center;">Overdue 1 - 30 days</th>
                         <th style="text-align: center;">Overdue 31 - 60 days</th>
                         <th style="text-align: center;">Overdue 61 - 100 days</th>
+                        <th style="text-align: center;">Overdue > 100 days</th>
                         <th style="text-align: center;">Not Due</th>
                         <th style="text-align: center;">Grand Total</th>
                     </tr>
@@ -144,10 +144,10 @@
                         <td style="width: 10%; border-right:none;">{{$b->no_po}}</td>
                         <td style="width: 5%; border-right:none;text-align:right;">{{accDollars($b->total)}}</td>
                         <td style="width: 5%; border-right:none;">{{$b->sales}}</td>
-                        <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_100)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_1_30)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_31_60)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_61_100)}}</td>
+                        <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->overdue_100)}}</td>
                         <td style="width: 5%; border-right:none; text-align:right;">{{accDollars($b->notdue)}}</td>
                         <td style="width: 5%; text-align:right;">{{accDollars($b->sisa)}}</td>
                     </tr>

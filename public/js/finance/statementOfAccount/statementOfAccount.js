@@ -105,7 +105,7 @@ function tableCustomerSOA() {
             $('#filterCustomerSOA').html('Per : ' + moment(edate).format("DD/MM/YYYY"));
 
             var html = '';
-            html = '<thead><tr style="text-align:center"><th id="no-sort">Customer</th><th>Invoice</th><th>Invoice Date</th><th>Receipt Date</th><th>Due Date</th><th>Est Date</th><th>PO</th><th>Total</th><th>Sales</th><th>Overdue > 100 days</th><th>Overdue 1 - 30 days</th><th>Overdue 31 - 60 days</th><th>Overdue 61 - 100 days</th><th>Not Due</th></tr></thead>';
+            html = '<thead><tr style="text-align:center"><th id="no-sort">Customer</th><th>Invoice</th><th>Invoice Date</th><th>Receipt Date</th><th>Due Date</th><th>Est Date</th><th>PO</th><th>Total</th><th>Sales</th><th>Overdue 1 - 30 days</th><th>Overdue 31 - 60 days</th><th>Overdue 61 - 100 days</th><th>Overdue > 100 days</th><th>Not Due</th></tr></thead>';
             html += '<tbody>';
 
             var a = JSON.parse(JSON.stringify(data));
@@ -218,10 +218,10 @@ function tableCustomerSOA() {
                 html += '<td style="word-wrap: break-word">' + no_po + '</td>';
                 html += '<td style="text-align:right">' + total + '</td>';
                 html += '<td>' + sales + '</td>';
-                html += '<td style="text-align:right">' + overdue_100 + '</td>';
                 html += '<td style="text-align:right">' + overdue_1_30 + '</td>';
                 html += '<td style="text-align:right">' + overdue_31_60 + '</td>';
                 html += '<td style="text-align:right">' + overdue_61_100 + '</td>';
+                html += '<td style="text-align:right">' + overdue_100 + '</td>';
                 html += '<td style="text-align:right">' + notdue + '</td>';
                 html += '<td style="display:none">' + item.internal_notes + '</td>';
                 html += '<td style="display:none">' + item.est_date + '</td>';
