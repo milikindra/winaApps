@@ -358,9 +358,9 @@
                         <div class="card-footer">
                             <div class="col-md-12 row">
                                 <div class="col-sm-6">
-                                    Created By : {{$si->head[0]->CREATOR . " | ". date_format(date_create($si->head[0]->TGLCREATE),'d-m-Y H:i:s')}}
+                                    Created By :{{($si->head[0]->CREATOR==''?"-":$si->head[0]->CREATOR). " | ". date_format(date_create($si->head[0]->create_date),'d-m-Y H:i:s')}}
                                     <br />
-                                    Updated By : {{$si->head[0]->EDITOR . " | ". date_format(date_create($si->head[0]->TGLEDIT),'d-m-Y H:i:s')}}
+                                    Updated By : {{($si->head[0]->EDITOR==''?"-":$si->head[0]->EDITOR) . " | ". date_format(date_create($si->head[0]->edit_date),'d-m-Y H:i:s')}}
                                 </div>
                                 <div class="col-sm-6 float-right">
                                     <div id="det">

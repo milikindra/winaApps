@@ -489,9 +489,9 @@
                         <div class="card-footer">
                             <div class="col-md-12 row">
                                 <div class="col-sm-6">
-                                    Created By : {{$so->head[0]->CREATOR . " | ". date_format(date_create($so->head[0]->TGLCREATE),'d-m-Y H:i:s')}}
+                                    Created By : {{($so->head[0]->CREATOR==''?"-":$so->head[0]->CREATOR). " | ". date_format(date_create($so->head[0]->create_date),'d-m-Y H:i:s')}}
                                     <br />
-                                    Updated By : {{$so->head[0]->EDITOR . " | ". date_format(date_create($so->head[0]->TGLEDIT),'d-m-Y H:i:s')}}
+                                    Updated By : {{($so->head[0]->EDITOR==''?"-":$so->head[0]->EDITOR) . " | ". date_format(date_create($so->head[0]->edit_date),'d-m-Y H:i:s')}}
                                 </div>
                                 <div class="col-sm-6 float-right">
                                     <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
