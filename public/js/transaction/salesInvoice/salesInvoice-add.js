@@ -1,11 +1,12 @@
 $(".selects2").select2();
 $(document).ready(function () {
     $("#overlay").fadeOut(300);
-    if (performance.getEntriesByType("navigation")[0].type == "back_forward") {
-        $('#salesInvoiceAddSave').trigger("reset");
-        $("#overlay").fadeIn(300);
-        location.reload(true);
-    }
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+            $("#overlay").fadeIn(300);
+            window.location.reload();
+        }
+    });
     var Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -577,6 +578,8 @@ function cekSiDp() {
             $("#print").attr('disabled', false);
             $("#save").attr('disabled', false);
             $('#finalDp').val('');
+            totalPpn();
+            return false;
         } else if (totalSiDp + totalDpp > totalSoDp) {
             Swal.fire({
                 title: "Error!",
@@ -587,10 +590,14 @@ function cekSiDp() {
             $("#print").attr('disabled', true);
             $("#save").attr('disabled', true);
             $('#finalDp').val('');
+            totalPpn();
+            return false;
         } else {
             $("#print").attr('disabled', false);
             $("#save").attr('disabled', false);
             $('#finalDp').val('Y');
+            totalPpn();
+            return true;
         }
     } else {
         $("#print").attr('disabled', false);
@@ -603,17 +610,17 @@ function cekSiDp() {
                 confirmButtonColor: "#17a2b8",
             })
             $('#totalDp').val(addPeriod(parseFloat($('#totalSiDp').val()) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ','), ",").toFixed(2));
-            // } else if () {
+            totalPpn();
+            return false;
         }
+        totalPpn();
+        return true;
     }
-    totalPpn();
 }
 
 function totalPpn() {
-
     var myTab = document.getElementById("trx");
     var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
-
     var totalPpnBruto = 0;
     if (myTab.rows.length > 0) {
         for (i = 1; i < myTab.rows.length; i++) {
@@ -671,21 +678,29 @@ function getTax() {
 
 $("#f1").click(function (e) {
     e.preventDefault();
-    $('#process').val('f1');
-    $('#salesInvoiceAddSave').submit();
+    if (cekSiDp() === true) {
+        $('#process').val('f1');
+        $('#salesInvoiceAddSave').submit();
+    }
 });
 $("#f2").click(function (e) {
     e.preventDefault();
-    $('#process').val('f2');
-    $('#salesInvoiceAddSave').submit();
+    if (cekSiDp() === true) {
+        $('#process').val('f2');
+        $('#salesInvoiceAddSave').submit();
+    }
 });
 $("#f3").click(function (e) {
     e.preventDefault();
-    $('#process').val('f3');
-    $('#salesInvoiceAddSave').submit();
+    if (cekSiDp() === true) {
+        $('#process').val('f3');
+        $('#salesInvoiceAddSave').submit();
+    }
 });
 $("#save").click(function (e) {
     e.preventDefault();
-    $('#process').val('save');
-    $('#salesInvoiceAddSave').submit();
+    if (cekSiDp() === true) {
+        $('#process').val('save');
+        $('#salesInvoiceAddSave').submit();
+    }
 });

@@ -69,7 +69,7 @@ function btnDelete() {
     var id = $('#si_id').val();
     Swal.fire({
         title: "Delete Sales Invoice!",
-        text: "Are you sure to delete this SO : " + id + "?",
+        text: "Are you sure to delete this Sales Invoice : " + id + "?",
         icon: "warning",
         confirmButtonColor: "#17a2b8",
         confirmButtonText: "Yes, Of Course",

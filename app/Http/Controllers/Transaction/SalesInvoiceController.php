@@ -631,7 +631,9 @@ class SalesInvoiceController extends Controller
                 return redirect('salesInvoiceDetail/d/' . $si_id);
             }
         } catch (\Exception $e) {
-            Alert::toast('Error delete', 'danger');
+            Alert::warning('Error Delete', $body->message);
+            // Alert::toast('Error delete', 'danger');
+            // Log::debug($body->message);
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
             return redirect('salesInvoiceDetail/d/' . $si_id);
         }
