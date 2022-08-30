@@ -275,6 +275,7 @@
 @endpush
 @push('other-script')
 <script>
+    var url_default = "{{ URL('') }}";
     var rute_accountHistory = "{{ URL::to('generalLedger/data/populateAccountHistory') }}";
     var rute_coaTransaction = "{{ URL::to('generalLedger/data/populateCoaTransaction') }}";
     var rute_cashBankDetail = "{{ URL::to('generalLedger/data/populateCashBankDetail') }}";
