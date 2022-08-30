@@ -573,11 +573,56 @@ class SalesInvoiceController extends Controller
                     return redirect('salesInvoiceDetail/d/' . base64_encode($body->id));
                 }
             } else {
-                Alert::toast($body->message, 'error');
+                // Alert::warning('Update Failed', htmlspecialchars_decode($body->message))->showConfirmButton('Confirm', '#17A2B8');
+                if ($body->message->lock == "finance") {
+                    Alert::html(
+                        'Update Failed',
+                        'Unable to update data. <br/>Finance has been locked : ' . date_format(date_create($body->message->dates), 'd-m-Y') . ', change can create different values in the general ledger 
+                    <p><br/></p> 
+                    <div style="font-size:12px;">
+                        <div class="col-12 row" style="text-align:left">From</div>
+                        <div  class="col-12 row">
+                            <div class="col-5" style="text-align:left">' . $body->message->old[0]->nama_akun . '</div>
+                            <div class="col-1" style="text-align:left"></div>
+                            <div class="col-5" style="text-align:left">: ' . number_format($body->message->old[0]->debet_rp, 2) . '(D)</div>
+                            <div class="col-1" style="text-align:left"></div>
+                        </div>
+                        <div  class="col-12 row">
+                            <div class="col-1" style="text-align:left"></div>
+                            <div class="col-5" style="text-align:left">Unbilled</div>
+                            <div class="col-1" style="text-align:left">:</div>
+                            <div class="col-5" style="text-align:left">' . number_format($body->message->old[0]->kredit_rp, 2) . '(C)</div>
+                        </div>
+                        <div class="col-12 row" style="text-align:left">To</div>
+                        <div  class="col-12 row">
+                            <div class="col-5" style="text-align:left">' . $body->message->new[0]->nama_akun . '</div>
+                            <div class="col-1" style="text-align:left"></div>
+                            <div class="col-5" style="text-align:left">: ' . number_format($body->message->new[0]->debet_rp, 2) . '(D)</div>
+                            <div class="col-1" style="text-align:left"></div>
+                        </div>
+                        <div  class="col-12 row">
+                            <div class="col-1" style="text-align:left"></div>
+                            <div class="col-5" style="text-align:left">Unbilled</div>
+                            <div class="col-1" style="text-align:left">:</div>
+                            <div class="col-5" style="text-align:left">' . number_format($body->message->new[0]->kredit_rp, 2) . '(C)</div>
+                        </div>
+                    </div>
+                    ',
+                        'error'
+                    )->showConfirmButton('Ok', '#17A2B8');
+                } else if ($body->message->lock == "inventory") {
+                    Alert::html(
+                        'Update Failed',
+                        'Unable to update data.<br/> Inventory has been locked : ' . date_format(date_create($body->message->dates), 'd-m-Y'),
+                        'error'
+                    )->showConfirmButton('Ok', '#17A2B8');
+                } else {
+                    Alert::warning('Update Failed', $body->message)->showConfirmButton('Ok', '#17A2B8');
+                }
                 return redirect()->back();
             }
         } catch (\Exception $e) {
-            Alert::toast("500 - Failed to Save Data", 'error');
+            Alert::warning('Update Failed', $body->message)->showConfirmButton('Ok', '#17A2B8');
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
             return redirect()->back();
         }
@@ -631,7 +676,7 @@ class SalesInvoiceController extends Controller
                 return redirect('salesInvoiceDetail/d/' . $si_id);
             }
         } catch (\Exception $e) {
-            Alert::warning('Error Delete', $body->message);
+            Alert::warning('Error Delete', $body->message)->showConfirmButton('Confirm', '#17A2B8');;
             // Alert::toast('Error delete', 'danger');
             // Log::debug($body->message);
             Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());

@@ -109,7 +109,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Date</label>
-                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_order" id="date_order" value="{{$si->head[0]->TGL_BUKTI}}" required onchange="getTax()">
+                                                <input type="date" class="form-control form-control-sm form-control-border" name="date_order" id="date_order" value="{{$si->head[0]->TGL_BUKTI}}" required onchange="getTax();lockInv()">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -264,7 +264,7 @@
                                                 <td> <input type="text" class="form-control form-control-sm" name="no_stock[]" id="no_stock-{{$j}}" onclick="addData({{$j}})" value="{{$det->NO_STOCK}}" readonly> </td>
                                                 <td> <textarea class="form-control form-control-sm r1" name="nm_stock[]" id="nm_stock-{{$j}}" rows="3">{{$det->NM_STOCK}}</textarea> </td>
                                                 <td> <input type="text" class="form-control form-control-sm" name="ket[]" id="ket-{{$j}}" value="{{$det->KET}}"> </td>
-                                                <td><input type="hidden" name="base_qty[]" id="base_qty-{{$j}}" value="{{$det->QTY}}"> <input type="number" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="qty[]" value="{{number_format($det->QTY,2,'.',',')}}" autocomplete="off" id="qty-{{$j}}" onchange="itemTotal({{$j}})"> </td>
+                                                <td><input type="hidden" name="base_qty[]" id="base_qty-{{$j}}" value="{{$det->QTY}}"> <input type="number" class="form-control form-control-sm numajaDesimal qtyItem" style="text-align: right;" name="qty[]" value="{{number_format($det->QTY,2,'.',',')}}" autocomplete="off" id="qty-{{$j}}" onchange="itemTotal({{$j}})"> </td>
                                                 <td> <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}"> </td>
                                                 <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" autocomplete="off" id="price-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->HARGA,2)}}"> </td>
                                                 <td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" autocomplete="off" id="disc-{{$j}}" onchange="itemTotal({{$j}})" value="{{number_format($det->DISC1,2)}}"> </td>
@@ -488,6 +488,7 @@
     var sales = <?= json_encode($sales); ?>;
     var lokasi = <?= json_encode($lokasi); ?>;
     var attach = <?= json_encode($si->attach); ?>;
+    var lock_inventory = <?= json_encode($si->lock_inventory); ?>;
 </script>
 <script src="{{ asset('js/custom/salesOrder.js')}}"></script>
 <script src="{{ asset('js/transaction/salesInvoice/salesInvoice-add.js?')}}"></script>

@@ -47,6 +47,19 @@ function dataURLtoFile(dataurl, filename) {
     }
     return new File([u8arr], filename, { type: mime });
 }
+function lockInv() {
+    var sdate = $('#date_order').val();
+    if (sdate < lock_inventory) {
+        Swal.fire({
+            title: "Inventory Locked",
+            text: "Qty of inventory has been locked : " + moment(lock_inventory).format("DD-MM-YYYY"),
+            icon: "warning",
+        })
+        $(".qtyItem").prop("readonly", true);
+    } else {
+        $(".qtyItem").prop("readonly", false);
+    }
+}
 
 function btnEdit() {
     $("#salesInvoiceUpdate input").prop("disabled", false);
@@ -60,6 +73,7 @@ function btnEdit() {
     $('#printPage').css("display", 'none');
     $('#attachDownload').css("display", 'none');
     $('#attachUpload').css("display", 'block');
+    lockInv();
 }
 
 function btnDel() {
