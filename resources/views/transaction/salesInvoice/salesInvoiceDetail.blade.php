@@ -364,7 +364,6 @@
                                 </div>
                                 <div class="col-sm-6 float-right">
                                     <div id="det">
-                                        <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
                                         <div class="btn-group float-right show" id="btnPrintDetail">
                                             <a href="javascript:void(0)" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printDetail" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
                                             </a>
@@ -374,12 +373,12 @@
                                                 <a href="{{ URL::to('salesInvoicePrint/f3/'.base64_encode($si->head[0]->NO_BUKTI)) }}" target="_blank" class="dropdown-item" id="f3Detail" title="Format-3">Format-3</a>
                                             </div>
                                         </div>
-                                        <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
                                     </div>
 
-                                    <div id="edit">
+                                    <div id="editGroup" style="display: none;">
                                         <input type="hidden" name="process" value="save" id="process" required>
-                                        <div class="btn-group float-right show" style="display: none;" id="btnPrintDetail">
+                                        <div class="btn-group float-right show" id="btnPrintDetail">
                                             <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printUpdate" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
                                             </button>
                                             <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
@@ -393,6 +392,8 @@
                                         </div>
                                         <button type="button" class="btn btn-sm btn-info float-right" id="update" title="save" style="display: none;"><i class="fa fa-save"></i></button>
                                     </div>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-danger  float-right" id="delete" title="delete" onclick="btnDelete()"><i class="fas fa-trash-alt"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-success float-right " title="General Ledger" onclick="modalGl()"><i class="fa fa-book"></i></a>
                                 </div>
                             </div>
 
@@ -469,6 +470,7 @@
 @push('other-modal')
 @include('modalBox.modalInventory')
 @include('modalBox.modalSalesOrder')
+@include('modalBox.modalGeneralLedger')
 @endpush
 @push('other-script')
 <script>
@@ -491,6 +493,7 @@
     var lock_inventory = <?= json_encode($si->lock_inventory); ?>;
 </script>
 <script src="{{ asset('js/custom/salesOrder.js')}}"></script>
+<script src="{{ asset('js/custom/generalLedger.js')}}"></script>
 <script src="{{ asset('js/transaction/salesInvoice/salesInvoice-add.js?')}}"></script>
 <script src="{{ asset('js/transaction/salesInvoice/salesInvoice-edit.js?')}}"></script>
 @endpush

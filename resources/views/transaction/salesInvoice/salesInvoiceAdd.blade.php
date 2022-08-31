@@ -246,14 +246,6 @@
                                         <tbody>
                                         </tbody>
                                     </table>
-                                    <table width="100%">
-                                        <tr>
-                                            <td style="width: 100%;">
-                                                <a href="javascript:void(0)" onclick="removeRow(this)" accesskey="r" class="btn btn-xs btn-warning float-right" title="remove row (alt+r)"><i class="fa fa-minus"></i></a>
-                                                <a href="javascript:void(0)" onclick="addRow(this)" accesskey="a" class="btn btn-xs btn-info float-right" title="add row (alt+a)"><i class="fa fa-plus"></i></a>
-                                            </td>
-                                        </tr>
-                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -294,6 +286,7 @@
                         </div>
                         <div class="card-footer">
                             <input type="hidden" name="process" value="save" id="process" required>
+                            <button type="button" class="btn btn-sm  btn-primary float-right" id="efakturModal" title="efaktur" disabled><i class="fa fa-file-csv"></i></button>
                             <div class="btn-group float-right  show">
                                 <button type="button" class="btn btn-sm  btn-warning dropdown-toggle dropdown-icon" id="print" title="print" disabled data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
                                 </button>
@@ -314,6 +307,31 @@
             </div>
         </div>
     </section>
+    <!-- modal efaktur -->
+    <div class="modal fade" id="modalEfaktur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Efaktur Generator</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2">BA</div>
+                        <div class="col-md-10"><input type="text" class="form-control form-control-sm" name="baEfaktur" autocomplete="off"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">BC</div>
+                        <div class="col-md-10"><input type="text" class="form-control form-control-sm" name="bcEfaktur" autocomplete="off"></div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-primary float-right" id="btnEfaktur" title="Efaktur">Generate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </form>
 <!-- Modal -->
 <div class="modal fade" id="modalDo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -336,6 +354,7 @@
                                 <th>Customer</th>
                                 <th>Ship To</th>
                                 <th>Location</th>
+                                <th style="display: none;">Print Date</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -234,11 +234,14 @@ class SalesInvoiceController extends Controller
                     }
                 }
                 Alert::toast($body->message, 'success');
-
-                if ($request->input('process') != 'save') {
-                    return redirect('salesInvoicePrint/' . $request->input('process') . "/" . base64_encode($body->id));
+                if ($request->input('process') != 'efaktur') {
+                    if ($request->input('process') != 'save') {
+                        return redirect('salesInvoicePrint/' . $request->input('process') . "/" . base64_encode($body->id));
+                    } else {
+                        return redirect()->back();
+                    }
                 } else {
-                    return redirect()->back();
+                    return redirect('efakturGenerator/' . base64_encode($body->id) . '/' . base64_encode($request->input('baEfaktur')) . '/' . base64_encode($request->input('bcEfaktur')));
                 }
             } else {
                 Alert::toast($body->message, 'error');

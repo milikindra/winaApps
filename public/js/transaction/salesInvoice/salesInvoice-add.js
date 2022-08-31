@@ -217,6 +217,11 @@ function tabelDo() {
                 data: "id_lokasi",
                 name: "sj_head.id_lokasi",
             },
+            {
+                data: "tglcetak",
+                name: "sj_head.tglcetak",
+                className: "hidden"
+            },
         ],
         order: [
             [0, "asc"]
@@ -227,38 +232,48 @@ function tabelDo() {
 $('#tabelOutstandingOrder tbody').on('dblclick', 'tr', function (e) {
     var do_id = $(this).closest("tr").children("td:eq(0)").text();
     var so_id = $('#so_id').val();
-    if ($('#do_soum').val() != do_id) {
-        $("#trx tbody tr").remove();
-        $('#do_soum').val(do_id);
-        $.ajax({
-            url: get_do + "/" + so_id + "/" + btoa(do_id),
-            type: "GET",
-            dataType: "JSON",
-            success: function (response) {
-                jQuery.each(response.do, function (i, val) {
-                    addRow();
-                    $('#no_stock-' + i).val(val.NO_STOCK)
-                    $('#nm_stock-' + i).val(val.NM_STOCK)
-                    $('#ket-' + i).val(val.KET)
-                    $('#qty-' + i).val(val.QTY)
-                    $('#sat-' + i).val(val.SAT)
-                    $('#price-' + i).val(addPeriod(parseFloat(val.HARGA).toFixed(2), ","))
-                    $('#disc-' + i).val(val.DISC1 >= 0 && val.DISC1 != '' && val.DISC1 != null ? addPeriod(parseFloat(val.DISC1).toFixed(2), ",") : 0)
-                    $('#disc2-' + i).val(val.DISC2 >= 0 && val.DISC2 != '' && val.DISC2 != null ? addPeriod(parseFloat(val.DISC2).toFixed(2), ",") : 0)
-                    $('#disc_val-' + i).val(val.DISCRP >= 0 && val.DISCRP != '' && val.DISCRP != null ? addPeriod(parseFloat(val.DISCRP).toFixed(2), ",") : 0)
-                    $('#sj-' + i).val(do_id)
-                    $('#warehouse-' + i).val(val.id_lokasi).change();
-                    $('#itemKodeGroup-' + i).val(val.kode_group);
-                    $('#itemVintrasId-' + i).val(val.VINTRASID);
-                    $('#itemTahunVintras-' + i).val(val.tahun);
-                    itemTotal(i);
-                });
-                $('#totalSiDp').val(response.siDp);
-                $('#totalPPnSiDp').val(response.ppnSiDp);
-                $('#totalDp').val(addPeriod((parseFloat(response.siDp) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ',')).toFixed(2), ","));
-                totalDpp();
-            },
-        });
+    console.log($(this).closest("tr").children("td:eq(6)").text());
+    if ($(this).closest("tr").children("td:eq(6)").text() == '' || $(this).closest("tr").children("td:eq(0)").text() == null || $(this).closest("tr").children("td:eq(0)").text() == "0000-00-00") {
+        Swal.fire({
+            title: "Error!",
+            text: "This DO has not been printed yet",
+            icon: "error",
+            confirmButtonColor: "#17a2b8",
+        })
+    } else {
+        if ($('#do_soum').val() != do_id) {
+            $("#trx tbody tr").remove();
+            $('#do_soum').val(do_id);
+            $.ajax({
+                url: get_do + "/" + so_id + "/" + btoa(do_id),
+                type: "GET",
+                dataType: "JSON",
+                success: function (response) {
+                    jQuery.each(response.do, function (i, val) {
+                        addRow();
+                        $('#no_stock-' + i).val(val.NO_STOCK)
+                        $('#nm_stock-' + i).val(val.NM_STOCK)
+                        $('#ket-' + i).val(val.KET)
+                        $('#qty-' + i).val(val.QTY)
+                        $('#sat-' + i).val(val.SAT)
+                        $('#price-' + i).val(addPeriod(parseFloat(val.HARGA).toFixed(2), ","))
+                        $('#disc-' + i).val(val.DISC1 >= 0 && val.DISC1 != '' && val.DISC1 != null ? addPeriod(parseFloat(val.DISC1).toFixed(2), ",") : 0)
+                        $('#disc2-' + i).val(val.DISC2 >= 0 && val.DISC2 != '' && val.DISC2 != null ? addPeriod(parseFloat(val.DISC2).toFixed(2), ",") : 0)
+                        $('#disc_val-' + i).val(val.DISCRP >= 0 && val.DISCRP != '' && val.DISCRP != null ? addPeriod(parseFloat(val.DISCRP).toFixed(2), ",") : 0)
+                        $('#sj-' + i).val(do_id)
+                        $('#warehouse-' + i).val(val.id_lokasi).change();
+                        $('#itemKodeGroup-' + i).val(val.kode_group);
+                        $('#itemVintrasId-' + i).val(val.VINTRASID);
+                        $('#itemTahunVintras-' + i).val(val.tahun);
+                        itemTotal(i);
+                    });
+                    $('#totalSiDp').val(response.siDp);
+                    $('#totalPPnSiDp').val(response.ppnSiDp);
+                    $('#totalDp').val(addPeriod((parseFloat(response.siDp) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ',')).toFixed(2), ","));
+                    totalDpp();
+                },
+            });
+        }
     }
     $("#modalDo").modal("hide");
 })
@@ -386,7 +401,7 @@ window.addRow = function (element) {
         rowCount +
         '" onchange="itemTotal(' +
         rowCount +
-        ')"> </td><td> <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-' +
+        ')" readonly> </td><td> <input type="text" class="form-control form-control-sm" name="sat[]" id="sat-' +
         rowCount +
         '"> </td><td> <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" autocomplete="off"  id="price-' +
         rowCount +
@@ -575,11 +590,12 @@ function cekSiDp() {
     var totalDp = parseFloat(removePeriod($("#totalDp").val(), ','));
     if ($('#use_dp').is(":checked")) {
         if (totalSiDp + totalDpp < totalSoDp) {
+            $("#efakturModal").attr('disabled', false);
             $("#print").attr('disabled', false);
             $("#save").attr('disabled', false);
             $('#finalDp').val('');
             totalPpn();
-            return false;
+            return true;
         } else if (totalSiDp + totalDpp > totalSoDp) {
             Swal.fire({
                 title: "Error!",
@@ -587,12 +603,14 @@ function cekSiDp() {
                 icon: "error",
                 confirmButtonColor: "#17a2b8",
             })
+            $("#efakturModal").attr('disabled', true);
             $("#print").attr('disabled', true);
             $("#save").attr('disabled', true);
             $('#finalDp').val('');
             totalPpn();
             return false;
         } else {
+            $("#efakturModal").attr('disabled', false);
             $("#print").attr('disabled', false);
             $("#save").attr('disabled', false);
             $('#finalDp').val('Y');
@@ -600,6 +618,7 @@ function cekSiDp() {
             return true;
         }
     } else {
+        $("#efakturModal").attr('disabled', false);
         $("#print").attr('disabled', false);
         $("#save").attr('disabled', false);
         if (totalDp > totalSiDp) {
@@ -701,6 +720,19 @@ $("#save").click(function (e) {
     e.preventDefault();
     if (cekSiDp() === true) {
         $('#process').val('save');
+        $('#salesInvoiceAddSave').submit();
+    }
+});
+
+$("#efakturModal").click(function (e) {
+    e.preventDefault();
+    $("#modalEfaktur").modal("show");
+});
+
+$("#btnEfaktur").click(function (e) {
+    e.preventDefault();
+    if (cekSiDp() === true) {
+        $('#process').val('efaktur');
         $('#salesInvoiceAddSave').submit();
     }
 });

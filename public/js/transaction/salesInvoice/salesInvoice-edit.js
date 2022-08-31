@@ -69,16 +69,14 @@ function btnEdit() {
     $("#salesInvoiceUpdate .input-group-append-edit").css("display", 'block');
     $("#salesInvoiceUpdate select").prop("disabled", false);
     $("#salesInvoiceUpdate button").css("display", 'block');
-    $('#edit').css("display", 'none');
-    $('#printPage').css("display", 'none');
+
+    $('#det').css("display", 'none');
+    $('#editGroup').css("display", 'block');
     $('#attachDownload').css("display", 'none');
     $('#attachUpload').css("display", 'block');
     lockInv();
 }
 
-function btnDel() {
-    console.log("A");
-}
 function btnDelete() {
     var id = $('#si_id').val();
     Swal.fire({
@@ -91,28 +89,7 @@ function btnDelete() {
         showCancelButton: true,
     }).then((result) => {
         window.location = void_url + "/" + btoa(id);
-        // if (result.isConfirmed) {
-        //     $.ajax({
-        //         url: get_statusSi + "/" + btoa(id),
-        //         type: "GET",
-        //         dataType: "JSON",
-        //         success: function (response) {
-        //             if (response.status > 0) {
-        //                 Swal.fire({
-        //                     title: "Cannot delete!",
-        //                     text: "This SI already processing",
-        //                     icon: "error",
-        //                     confirmButtonColor: "#17a2b8",
-        //                     confirmButtonText: "Ok",
-        //                     reverseButtons: true,
-        //                 })
-        //             } else {
-        //                 window.location = void_url + "/" + btoa(id);
-        //             }
-        //         },
-        //     });
-        // }
-    });
+      });
 }
 
 $("#f1Update").click(function (e) {

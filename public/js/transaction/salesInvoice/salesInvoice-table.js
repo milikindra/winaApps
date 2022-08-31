@@ -206,7 +206,7 @@ $(document).ready(function () {
                     },
                 ],
                 order: [
-                    [0, "asc"]
+                    [3, "desc"]
                 ],
             });
         } else {
@@ -423,7 +423,7 @@ $(document).ready(function () {
                     },
                 ],
                 order: [
-                    [0, "asc"]
+                    [3, "desc"]
                 ],
             });
         }

@@ -169,7 +169,7 @@ class GeneralLedgerController extends Controller
             'sdate' => $sdate,
             'edate' => $edate,
             'trx_type' => $trx_type,
-            'trx_id' => $trx_id,
+            'trx_id' => $trx_id == 'all' ? 'all' : base64_decode($trx_id),
         ];
         $url = Config::get('constants.api_url') . '/accountGl/getListCoaTransaction';
         $client = new Client();

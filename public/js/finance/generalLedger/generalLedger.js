@@ -114,127 +114,127 @@ function tableAccountHistory() {
             dataType: "JSON",
         },
         columns: [{
-                data: "no_rek",
-                name: "no_rek",
-                orderable: false,
+            data: "no_rek",
+            name: "no_rek",
+            orderable: false,
+        },
+        {
+            data: "nm_rek",
+            name: "nm_rek",
+            orderable: false,
+        },
+        {
+            data: "no_bukti",
+            name: "no_bukti",
+            orderable: false,
+        },
+        {
+            data: "tgl_bukti",
+            name: "tgl_bukti",
+            render: function (data, type, row) {
+                return moment(data).format("DD/MM/YYYY");
             },
-            {
-                data: "nm_rek",
-                name: "nm_rek",
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "no_SO",
+            name: "no_SO",
+            orderable: false,
+        },
+        {
+            data: "id_kyw",
+            name: "id_kyw",
+            orderable: false,
+        },
+        {
+            data: "uraian",
+            name: "uraian",
+            orderable: false,
+        },
+        {
+            data: "debet",
+            name: "debet",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "no_bukti",
-                name: "no_bukti",
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "kredit",
+            name: "kredit",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "tgl_bukti",
-                name: "tgl_bukti",
-                render: function (data, type, row) {
-                    return moment(data).format("DD/MM/YYYY");
-                },
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "saldo",
+            name: "saldo",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "no_SO",
-                name: "no_SO",
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "debet_us",
+            name: "debet_us",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "id_kyw",
-                name: "id_kyw",
-                orderable: false,
-            },
-            {
-                data: "uraian",
-                name: "uraian",
-                orderable: false,
-            },
-            {
-                data: "debet",
-                name: "debet",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
-            {
-                data: "kredit",
-                name: "kredit",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
-            {
-                data: "saldo",
-                name: "saldo",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
-            {
-                data: "debet_us",
-                name: "debet_us",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
+            orderable: false,
+        },
 
-            {
-                data: "kredit_us",
-                name: "kredit_us",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
+        {
+            data: "kredit_us",
+            name: "kredit_us",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "saldo_valas",
-                name: "saldo_valas",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "saldo_valas",
+            name: "saldo_valas",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "dept",
-                name: "dept",
-                orderable: false,
-            },
+            orderable: false,
+        },
+        {
+            data: "dept",
+            name: "dept",
+            orderable: false,
+        },
         ],
     });
 }
@@ -257,8 +257,7 @@ function tableCoaTransaction() {
     }
 
     if ($('#trx_id').val() != "") {
-        var trx = $('#trx_id').val();
-        var trxId = trx.replaceAll('/', ":")
+        var trxId = btoa($('#trx_id').val());
     } else {
         var trxId = 'all';
     }
@@ -288,96 +287,96 @@ function tableCoaTransaction() {
             }
         },
         columns: [{
-                data: "trx",
-                name: "trx",
-                orderable: false,
+            data: "trx",
+            name: "trx",
+            orderable: false,
+        },
+        {
+            data: "no_rek",
+            name: "no_rek",
+            orderable: false,
+        },
+        {
+            data: "nm_rek",
+            name: "nm_rek",
+            orderable: false,
+        },
+        {
+            data: "no_bukti",
+            name: "no_bukti",
+            orderable: false,
+        },
+        {
+            data: "tgl_bukti",
+            name: "tgl_bukti",
+            render: function (data, type, row) {
+                return moment(data).format("DD/MM/YYYY");
             },
-            {
-                data: "no_rek",
-                name: "no_rek",
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "uraian",
+            name: "uraian",
+            orderable: false,
+        },
+        {
+            data: "debet",
+            name: "debet",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "nm_rek",
-                name: "nm_rek",
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "kredit",
+            name: "kredit",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "no_bukti",
-                name: "no_bukti",
-                orderable: false,
-            },
-            {
-                data: "tgl_bukti",
-                name: "tgl_bukti",
-                render: function (data, type, row) {
-                    return moment(data).format("DD/MM/YYYY");
-                },
-                orderable: false,
-            },
-            {
-                data: "uraian",
-                name: "uraian",
-                orderable: false,
-            },
-            {
-                data: "debet",
-                name: "debet",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
-            {
-                data: "kredit",
-                name: "kredit",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
+            orderable: false,
+        },
 
-            {
-                data: "debet_us",
-                name: "debet_us",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
+        {
+            data: "debet_us",
+            name: "debet_us",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "kredit_us",
-                name: "kredit_us",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "kredit_us",
+            name: "kredit_us",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "dept",
-                name: "dept",
-                orderable: false,
-            },
+            orderable: false,
+        },
+        {
+            data: "dept",
+            name: "dept",
+            orderable: false,
+        },
 
         ],
 
@@ -418,112 +417,112 @@ function tableCashBank() {
             dataType: "JSON",
         },
         columns: [{
-                data: "NO_REK",
-                name: "NO_REK",
-                orderable: false,
+            data: "NO_REK",
+            name: "NO_REK",
+            orderable: false,
+        },
+        {
+            data: "NM_REK",
+            name: "NM_REK",
+            orderable: false,
+        },
+        {
+            data: "Nomor",
+            name: "Nomor",
+            orderable: false,
+        },
+        {
+            data: "tgl_bukti",
+            name: "tgl_bukti",
+            render: function (data, type, row) {
+                return moment(data).format("DD/MM/YYYY");
             },
-            {
-                data: "NM_REK",
-                name: "NM_REK",
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "uraian",
+            name: "uraian",
+            orderable: false,
+        },
+        {
+            data: "debet",
+            name: "debet",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "Nomor",
-                name: "Nomor",
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "kredit",
+            name: "kredit",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "tgl_bukti",
-                name: "tgl_bukti",
-                render: function (data, type, row) {
-                    return moment(data).format("DD/MM/YYYY");
-                },
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "saldo",
+            name: "saldo",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "uraian",
-                name: "uraian",
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "debet_us",
+            name: "debet_us",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "debet",
-                name: "debet",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
-            {
-                data: "kredit",
-                name: "kredit",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
-            {
-                data: "saldo",
-                name: "saldo",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
-            {
-                data: "debet_us",
-                name: "debet_us",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
-            },
+            orderable: false,
+        },
 
-            {
-                data: "kredit_us",
-                name: "kredit_us",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
+        {
+            data: "kredit_us",
+            name: "kredit_us",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
-            {
-                data: "saldo_valas",
-                name: "saldo_valas",
-                className: "dt-body-right",
-                render: function (data, type, row) {
-                    return numbro(data).format({
-                        thousandSeparated: true,
-                        negative: "parenthesis",
-                        mantissa: 2
-                    })
-                },
-                orderable: false,
+            orderable: false,
+        },
+        {
+            data: "saldo_valas",
+            name: "saldo_valas",
+            className: "dt-body-right",
+            render: function (data, type, row) {
+                return numbro(data).format({
+                    thousandSeparated: true,
+                    negative: "parenthesis",
+                    mantissa: 2
+                })
             },
+            orderable: false,
+        },
 
         ],
     });
