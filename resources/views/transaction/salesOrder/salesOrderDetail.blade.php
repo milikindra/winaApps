@@ -357,7 +357,7 @@
                                                     <input type=" text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onload="itemTotal({{$j}})" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{$det->HARGA}}">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="price[]" onload="itemTotal({{$j}})" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{number_format($det->HARGA,2)}}">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm numajaDesimal" style="text-align: right;" name="disc[]" onchange="itemTotal({{$j}})" id="disc-{{$j}}" value="{{$det->DISC1}}">
@@ -415,7 +415,7 @@
                                                     <input type=" text" class="form-control form-control-sm" name="sat[]" id="sat-{{$j}}" value="{{$det->SAT}}" readonly>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="display: none;" name="price[]" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{$det->HARGA}}">
+                                                    <input type="text" class="form-control form-control-sm numajaDesimal" style="display: none;" name="price[]" onchange="itemTotal({{$j}})" id="price-{{$j}}" value="{{number_format($det->HARGA,2)}}">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm numajaDesimal" style="display: none;" name="disc[]" onchange="itemTotal({{$j}})" id="disc-{{$j}}" value="{{$det->DISC1}}">
