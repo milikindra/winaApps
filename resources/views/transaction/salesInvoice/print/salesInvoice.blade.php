@@ -91,7 +91,7 @@
             /* margin-left: 20px; */
             /* margin-right: 20px; */
             -webkit-print-color-adjust: exact !important;
-            font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-family: "Arial", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
         .table {
@@ -145,7 +145,7 @@
                         <th style="width: 15%;"><span></span></th>
                     </tr> -->
                     <tr>
-                        <th colspan="3" style="text-align:left; vertical-align: top; font-size:12px;">
+                        <th colspan="3" style="text-align:left; vertical-align: top; font-size:14px;">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">{{strtoupper($si->company[0]->name)}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->address1}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->address2}}</span></div>
@@ -297,6 +297,8 @@
                         </td>
                         <td colspan="2" style="text-align: left; vertical-align:midle; padding-left: 5rem;">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">Finance,</span></div>
+                            <br />
+                            <br />
                             <br />
                             <br />
                             <br />
