@@ -228,7 +228,7 @@
                     ?>
                     @foreach($si->detail as $det)
                     @if(empty($det->kode_group))
-                    <tr style="vertical-align: top; font-weight:bold;">
+                    <tr style="vertical-align: top; font-weight:normal;">
                         <td style="border: 0.5px solid #000; ;text-align:right;border-bottom: 0px;border-top:0px;">{{$i}}.</td>
                         <td style="border: 0.5px solid #000;border-bottom: 0px; border-top:0px;" colspan="3"><?= str_replace(array("\r\n", "\n"), '<br/>', $det->NM_STOCK) ?></td>
                         <td style="border: 0.5px solid #000;text-align:center;border-bottom: 0px;border-top:0px;">{{number_format($det->QTY,0)}} {{$det->SAT}}</td>
@@ -295,15 +295,14 @@
                                 $bank1 = "bank1" . $format;
                                 $bank2 = "bank2" . $format;
                                 ?>
-                                <span style="font-weight: bold;"><?php print_r(str_replace(array("\r\n", "\n"), '<br/>', $si->company_bank[0]->$bank1)) ?></span>
+                                <span style="font-weight: normal;"><?php print_r(str_replace(array("\r\n", "\n"), '<br/>', $si->company_bank[0]->$bank1)) ?></span>
                             </div>
                             <div class="column" style="width: 45%;  padding-left:5px;">
-                                <span style="font-weight: bold;"><?php print_r(str_replace(array("\r\n", "\n"), '<br/>', $si->company_bank[0]->$bank2)) ?></span>
+                                <span style="font-weight: normal;"><?php print_r(str_replace(array("\r\n", "\n"), '<br/>', $si->company_bank[0]->$bank2)) ?></span>
                             </div>
                         </td>
-                        <td colspan="2" style="text-align: left; vertical-align:midle; ">
+                        <td colspan="2" style="text-align: left; vertical-align:midle; padding-left:5px">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">Finance,</span></div>
-                            <br />
                             <br />
                             <br />
                             <br />
@@ -357,6 +356,6 @@
 
     // New Promise-based usage:
     // html2pdf().set(opt).from(element).save();
-    // window.onafterprint = window.close;
-    // window.print();
+    window.onafterprint = window.close;
+    window.print();
 </script>
