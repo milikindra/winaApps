@@ -146,25 +146,31 @@
                     </tr> -->
                     <tr>
                         <th colspan="3" style="text-align:left; vertical-align: top; font-size:14px;">
-                            <div class="column" style="width: 100%;"><span style="font-weight: bold;">{{strtoupper($si->company[0]->name)}}</span></div>
+                            <!-- <div class="column" style="width: 100%;"><span style="font-weight: bold;">{{strtoupper($si->company[0]->name)}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->address1}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->address2}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->city." - ".$si->company[0]->postal_code." - ".strtoupper($si->company[0]->country)}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: normal;">Phone {{$si->company[0]->phone}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: normal;">Fax {{$si->company[0]->fax}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: normal;">Email : {{$si->company[0]->email}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->tax_id}}</span></div>
+                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->tax_id}}</span></div> -->
+                        </th>
+                        <th colspan="3" style="vertical-align: bottom;">
+                        </th>
+                        <th colspan="2" style="vertical-align: top;"><img src="{{ asset('images/apps/logo.png')}}" style="max-width: 100%;"></th>
+                    </tr>
+                    <tr>
+                        <th colspan="3" style="text-align:left; vertical-align: top; font-size:14px;">
                         </th>
                         <th colspan="3" style="vertical-align: bottom;">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold; font-size: 18px">SALES INVOICE</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold; font-size: 14px">{{$si->head[0]->no_bukti2}}</span></div>
                         </th>
-                        <th colspan="2" style="vertical-align: top;"><img src="{{ asset('images/apps/logo.png')}}" style="max-width: 100%;"></th>
                     </tr>
                     <tr>
                         <th style="width: 6%;"><span></span></th>
                         <th style="width: 5%;"><span></span></th>
-                        <th style="width: 20%;"><span></span></th>
+                        <th style="width: 10%;"><span></span></th>
                         <th style="width: 20%;"><span></span></th>
                         <th style="width: 10%;"><span></span></th>
                         <th style="width: 12%;"><span></span></th>
