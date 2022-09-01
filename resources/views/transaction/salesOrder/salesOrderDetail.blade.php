@@ -25,9 +25,9 @@
                                 <div class="col-12">
                                     <h5 class="card-title">Detail Sales Order</h5>
                                     <div class="card-tools float-right">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
+                                        <a href="{{ route('salesOrder') }}" class="btn btn-tool" title="back to list">
+                                            <i class="fas fa-reply"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

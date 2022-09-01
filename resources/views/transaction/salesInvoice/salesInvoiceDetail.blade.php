@@ -26,9 +26,9 @@
                                 <div class="col-12">
                                     <h3 class="card-title">Detail Sales Invoice | {{$si->head[0]->no_bukti2}}</h3>
                                     <div class="card-tools float-right">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
+                                        <a href="{{ route('salesInvoice') }}" class="btn btn-tool" title="back to list">
+                                            <i class="fas fa-reply"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
