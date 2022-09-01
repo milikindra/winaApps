@@ -355,6 +355,6 @@
 
     // New Promise-based usage:
     // html2pdf().set(opt).from(element).save();
-    // window.onafterprint = window.close;
-    // window.print();
+    window.onafterprint = window.close;
+    window.print();
 </script>
