@@ -91,7 +91,7 @@
             /* margin-left: 20px; */
             /* margin-right: 20px; */
             -webkit-print-color-adjust: exact !important;
-            font-family: "Arial", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-family: "sans-serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
         .table {
@@ -107,7 +107,7 @@
         }
 
         .footer {
-            font-family: helvetica, sans-serif;
+            font-family: sans-serif;
             font-size: 8px;
             position: fixed;
             left: 62%;
@@ -172,10 +172,10 @@
                         <th style="width: 5%;"><span></span></th>
                         <th style="width: 10%;"><span></span></th>
                         <th style="width: 20%;"><span></span></th>
-                        <th style="width: 10%;"><span></span></th>
-                        <th style="width: 12%;"><span></span></th>
-                        <th style="width: 12%;"><span></span></th>
                         <th style="width: 15%;"><span></span></th>
+                        <th style="width: 15%;"><span></span></th>
+                        <th style="width: 10%;"><span></span></th>
+                        <th style="width: 10%;"><span></span></th>
                     </tr>
                     <tr>
                         <th colspan="2" style="text-align:left; vertical-align: top; font-size:12px;">
@@ -297,12 +297,14 @@
                                 ?>
                                 <span style="font-weight: bold;"><?php print_r(str_replace(array("\r\n", "\n"), '<br/>', $si->company_bank[0]->$bank1)) ?></span>
                             </div>
-                            <div class="column" style="width: 50%;">
+                            <div class="column" style="width: 45%;  padding-left:5px;">
                                 <span style="font-weight: bold;"><?php print_r(str_replace(array("\r\n", "\n"), '<br/>', $si->company_bank[0]->$bank2)) ?></span>
                             </div>
                         </td>
-                        <td colspan="2" style="text-align: left; vertical-align:midle; padding-left: 5rem;">
+                        <td colspan="2" style="text-align: left; vertical-align:midle; ">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">Finance,</span></div>
+                            <br />
+                            <br />
                             <br />
                             <br />
                             <br />
@@ -355,6 +357,6 @@
 
     // New Promise-based usage:
     // html2pdf().set(opt).from(element).save();
-    window.onafterprint = window.close;
-    window.print();
+    // window.onafterprint = window.close;
+    // window.print();
 </script>
