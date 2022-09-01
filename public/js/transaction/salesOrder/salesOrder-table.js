@@ -149,7 +149,7 @@ $(document).ready(function () {
                 },
                 ],
                 order: [
-                    [0, "asc"]
+                    [1, "desc"]
                 ],
             });
         } else {
@@ -197,7 +197,7 @@ $(document).ready(function () {
                     name: "TGL_BUKTI",
                     width: "5%",
                     render: function (data, type, row) {
-                        return moment(data).format("DD/MMM/YYYY");
+                        return moment(data).format("DD/MM/YYYY");
                     },
                 },
                 {
@@ -289,7 +289,7 @@ $(document).ready(function () {
                 },
                 ],
                 order: [
-                    [0, "asc"]
+                    [1, "desc"]
                 ],
             });
         }
