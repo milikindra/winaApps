@@ -266,19 +266,21 @@
                             <?php
                             $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
                             echo ucwords($f->format($si->head[0]->total_rp));
-                            ?>                                                                   
+                            ?>
                         </td>
                         <td colspan="2" style="text-align: right; font-weight:bold;">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">Total Ammount : IDR</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">Down Payment : IDR</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">Discount : IDR</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: bold;">VAT : IDR</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">TOTAL INV : IDR</span></div>
-                        </td>    
+                            <div class="column" style="width: 100%;"><span style="font-weight: bold;">VAT : IDR</span></div>
+                            <div class="column" style="width: 100%;"><span style="font-weight: bold;">GRAND TOTAL : IDR</span></div>
+                        </td>
                         <td style="text-align: right; font-weight:bold;padding-right:10px">
-                            <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->detail[0]->totdpp_rp,2)}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->head[0]->totdpp_rp,2)}}</span></div>
+                            <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->detail[0]->totdetail,2)}}</span></div>
+                            <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{$si->head[0]->isUM=="Y"?0:number_format($si->head[0]->uangmuka,2)}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->head[0]->rp_disch,2)}}</span></div>
+                            <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->head[0]->totdpp_rp,2)}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->head[0]->totppn_rp,2)}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->head[0]->total_rp,2)}}</span></div>
                         </td>
