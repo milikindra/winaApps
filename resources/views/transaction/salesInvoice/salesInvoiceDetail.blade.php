@@ -26,8 +26,14 @@
                                 <div class="col-12">
                                     <h3 class="card-title">Detail Sales Invoice | {{$si->head[0]->no_bukti2}}</h3>
                                     <div class="card-tools float-right">
-                                        <a href="{{ route('salesInvoice') }}" class="btn btn-tool" title="back to list">
+                                        <a href="javascript:void(0)" onclick="window.location.reload()" class="btn btn-tool" title="Reset Page">
+                                            <i class="fas fa-sync"></i>
+                                        </a>
+                                        <a href="{{ route('salesInvoice') }}" class="btn btn-tool" title="Back To The List">
                                             <i class="fas fa-reply"></i>
+                                        </a>
+                                        <a href="{{ route('salesInvoiceAdd') }}" class="btn btn-tool" title="Add New Sales Invoice">
+                                            <i class="fas fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>

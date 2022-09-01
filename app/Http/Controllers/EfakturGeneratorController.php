@@ -25,8 +25,8 @@ class EfakturGeneratorController extends Controller
         $matrixUrl = Config::get('constants.api_url') . '/efakturGenerator';
         $postData = array(
             'si' => base64_decode($si),
-            'ba' => base64_decode($ba),
-            'bc' => base64_decode($bc),
+            'ba' => base64_decode($ba) == "void" ? null : base64_decode($ba),
+            'bc' => base64_decode($bc) == "void" ? null : base64_decode($bc),
         );
         $client = new Client();
         $response = $client->request('POST', $matrixUrl, ['json' => $postData]);

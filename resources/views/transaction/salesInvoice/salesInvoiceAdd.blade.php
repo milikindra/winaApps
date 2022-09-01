@@ -25,6 +25,9 @@
                                 <div class="col-12">
                                     <h3 class="card-title">Add Sales Invoice</h3>
                                     <div class="card-tools float-right">
+                                        <a href="javascript:void(0)" onclick="window.location.reload()" class="btn btn-tool" title="Reset Page">
+                                            <i class="fas fa-sync"></i>
+                                        </a>
                                         <a href="{{ route('salesInvoice') }}" class="btn btn-tool" title="back to list">
                                             <i class="fas fa-reply"></i>
                                         </a>
@@ -270,6 +273,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-sm-4">Total Invoice</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalInv" id="totalInv" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-sm-4">Total PPn</label>
                                         <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
                                     </div>
@@ -286,9 +295,9 @@
                         </div>
                         <div class="card-footer">
                             <input type="hidden" name="process" value="save" id="process" required>
-                            <button type="button" class="btn btn-sm  btn-primary float-right" id="efakturModal" title="efaktur" disabled><i class="fa fa-file-csv"></i></button>
+                            <button type="button" class="btn btn-sm  btn-primary float-right" id="efakturModal" title="Save And Generate Efaktur" disabled><i class="fa fa-file-csv"></i></button>
                             <div class="btn-group float-right  show">
-                                <button type="button" class="btn btn-sm  btn-warning dropdown-toggle dropdown-icon" id="print" title="print" disabled data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
+                                <button type="button" class="btn btn-sm  btn-warning dropdown-toggle dropdown-icon" id="print" title="Save And Print" disabled data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
                                 </button>
                                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-97px, 38px, 0px);">
                                     <button type="button" class="btn-sm  dropdown-item" id="f1" title="Format-1">Format-1</i>
@@ -300,7 +309,8 @@
 
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-sm  btn-info float-right" id="save" title="save" disabled><i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-success btn-sm float-right" id="saveView" title="Save And View" disabled><i class="fas fa-share-square"></i></i></button>
+                            <button type="button" class="btn btn-sm  btn-info float-right" id="saveNew" title="Save And New" disabled><i class="fa fa-save"></i></button>
                         </div>
                     </div>
                 </div>
@@ -326,7 +336,7 @@
                         <div class="col-md-2">BC</div>
                         <div class="col-md-10"><input type="text" class="form-control form-control-sm" name="bcEfaktur" autocomplete="off"></div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-primary float-right" id="btnEfaktur" title="Efaktur">Generate</button>
+                    <button type="button" class="btn btn-sm btn-primary float-right" id="btnEfaktur" target="_blank" title="Efaktur">Generate</button>
                 </div>
             </div>
         </div>
@@ -350,11 +360,11 @@
                             <tr style="text-align: center;">
                                 <th>DO</th>
                                 <th>Date</th>
+                                <th>Print Date</th>
                                 <th>ID Customer</th>
                                 <th>Customer</th>
                                 <th>Ship To</th>
                                 <th>Location</th>
-                                <th style="display: none;">Print Date</th>
                             </tr>
                         </thead>
                         <tbody>

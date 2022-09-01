@@ -202,6 +202,19 @@ function tabelDo() {
                 },
             },
             {
+                data: "tglcetak",
+                name: "sj_head.tglcetak",
+                render: function (data, type, row) {
+                    if (data == null) {
+                        return "-";
+                    } else if (data == "0000-00-00") {
+                        return "-";
+                    } else {
+                        return moment(data).format("DD/MM/YYYY");
+                    }
+                },
+            },
+            {
                 data: "ID_CUST",
                 name: "sj_head.ID_CUST",
             },
@@ -217,11 +230,6 @@ function tabelDo() {
                 data: "id_lokasi",
                 name: "sj_head.id_lokasi",
             },
-            {
-                data: "tglcetak",
-                name: "sj_head.tglcetak",
-                className: "hidden"
-            },
         ],
         order: [
             [0, "asc"]
@@ -232,8 +240,8 @@ function tabelDo() {
 $('#tabelOutstandingOrder tbody').on('dblclick', 'tr', function (e) {
     var do_id = $(this).closest("tr").children("td:eq(0)").text();
     var so_id = $('#so_id').val();
-    console.log($(this).closest("tr").children("td:eq(6)").text());
-    if ($(this).closest("tr").children("td:eq(6)").text() == '' || $(this).closest("tr").children("td:eq(0)").text() == null || $(this).closest("tr").children("td:eq(0)").text() == "0000-00-00") {
+    console.log($(this).closest("tr").children("td:eq(2)").text())
+    if ($(this).closest("tr").children("td:eq(2)").text() == "-") {
         Swal.fire({
             title: "Error!",
             text: "This DO has not been printed yet",
@@ -592,7 +600,8 @@ function cekSiDp() {
         if (totalSiDp + totalDpp < totalSoDp) {
             $("#efakturModal").attr('disabled', false);
             $("#print").attr('disabled', false);
-            $("#save").attr('disabled', false);
+            $("#saveNew").attr('disabled', false);
+            $("#saveView").attr('disabled', false);
             $('#finalDp').val('');
             totalPpn();
             return true;
@@ -605,14 +614,16 @@ function cekSiDp() {
             })
             $("#efakturModal").attr('disabled', true);
             $("#print").attr('disabled', true);
-            $("#save").attr('disabled', true);
+            $("#saveNew").attr('disabled', true);
+            $("#saveView").attr('disabled', true);
             $('#finalDp').val('');
             totalPpn();
             return false;
         } else {
             $("#efakturModal").attr('disabled', false);
             $("#print").attr('disabled', false);
-            $("#save").attr('disabled', false);
+            $("#saveNew").attr('disabled', false);
+            $("#saveView").attr('disabled', false);
             $('#finalDp').val('Y');
             totalPpn();
             return true;
@@ -620,7 +631,8 @@ function cekSiDp() {
     } else {
         $("#efakturModal").attr('disabled', false);
         $("#print").attr('disabled', false);
-        $("#save").attr('disabled', false);
+        $("#saveNew").attr('disabled', false);
+        $("#saveView").attr('disabled', false);
         if (totalDp > totalSiDp) {
             Swal.fire({
                 title: "Error!",
@@ -670,6 +682,7 @@ function totalPpn() {
 
     var ppnSiDp = totalPpnBruto - ppnDp;
     var grandTotal = totalDpp - totalDp + ppnSiDp;
+    $("#totalInv").val(addPeriod(parseFloat(totalDpp - totalDp).toFixed(2), ","));
     $("#totalPpn").val(addPeriod(parseFloat(ppnSiDp).toFixed(2), ","));
     $("#taxDp").val(addPeriod(parseFloat(ppnDp).toFixed(2), ","));
     $("#taxDetail").val(addPeriod(parseFloat(totalPpnBruto).toFixed(2), ","));
@@ -716,10 +729,17 @@ $("#f3").click(function (e) {
         $('#salesInvoiceAddSave').submit();
     }
 });
-$("#save").click(function (e) {
+$("#saveNew").click(function (e) {
     e.preventDefault();
     if (cekSiDp() === true) {
-        $('#process').val('save');
+        $('#process').val('saveNew');
+        $('#salesInvoiceAddSave').submit();
+    }
+});
+$("#saveView").click(function (e) {
+    e.preventDefault();
+    if (cekSiDp() === true) {
+        $('#process').val('saveView');
         $('#salesInvoiceAddSave').submit();
     }
 });
@@ -734,5 +754,6 @@ $("#btnEfaktur").click(function (e) {
     if (cekSiDp() === true) {
         $('#process').val('efaktur');
         $('#salesInvoiceAddSave').submit();
+        window.location.reload();
     }
 });

@@ -234,14 +234,16 @@ class SalesInvoiceController extends Controller
                     }
                 }
                 Alert::toast($body->message, 'success');
-                if ($request->input('process') != 'efaktur') {
-                    if ($request->input('process') != 'save') {
-                        return redirect('salesInvoicePrint/' . $request->input('process') . "/" . base64_encode($body->id));
-                    } else {
-                        return redirect()->back();
-                    }
+                if ($request->input('process') == 'saveNew') {
+                    return redirect()->back();
+                } else if ($request->input('process') == 'saveView') {
+                    return redirect('salesInvoiceDetail/d/' . base64_encode($body->id));
+                } else if ($request->input('process') == 'efaktur') {
+                    $ba = $request->input('baEfaktur') != null ? $request->input('baEfaktur') : "void";
+                    $bc = $request->input('bcEfaktur') != null ? $request->input('bcEfaktur') : "void";
+                    return redirect('efakturGenerator/' . base64_encode($body->id) . '/' . base64_encode($ba) . '/' . base64_encode($bc));
                 } else {
-                    return redirect('efakturGenerator/' . base64_encode($body->id) . '/' . base64_encode($request->input('baEfaktur')) . '/' . base64_encode($request->input('bcEfaktur')));
+                    return redirect('salesInvoicePrint/' . $request->input('process') . "/" . base64_encode($body->id));
                 }
             } else {
                 Alert::toast($body->message, 'error');
