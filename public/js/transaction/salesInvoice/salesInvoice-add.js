@@ -754,6 +754,6 @@ $("#btnEfaktur").click(function (e) {
     if (cekSiDp() === true) {
         $('#process').val('efaktur');
         $('#salesInvoiceAddSave').submit();
-        window.location.reload();
+        // window.location.reload();
     }
 });

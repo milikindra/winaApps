@@ -262,11 +262,11 @@
                         <td height="2rem"><span></span></td>
                     </tr>
                     <tr style="text-align: left;">
-                        <td colspan="5" style="text-align: left; vertical-align: top; font-weight:bold">Say : #
+                        <td colspan="5" style="text-align: left; vertical-align: top;"><b>Say : #</b>
                             <?php
                             $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
                             echo ucwords($f->format($si->head[0]->total_rp));
-                            ?>
+                            ?>                                                                   
                         </td>
                         <td colspan="2" style="text-align: right; font-weight:bold;">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">Total Ammount : IDR</span></div>
@@ -274,7 +274,7 @@
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">Discount : IDR</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">VAT : IDR</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;">TOTAL INV : IDR</span></div>
-                        </td>
+                        </td>    
                         <td style="text-align: right; font-weight:bold;padding-right:10px">
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->detail[0]->totdpp_rp,2)}}</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold;"> {{number_format($si->head[0]->totdpp_rp,2)}}</span></div>
