@@ -25,8 +25,14 @@
                                 <div class="col-12">
                                     <h5 class="card-title">Detail Sales Order</h5>
                                     <div class="card-tools float-right">
-                                        <a href="{{ route('salesOrder') }}" class="btn btn-tool" title="back to list">
+                                        <a href="javascript:void(0)" onclick="window.location.reload()" class="btn btn-tool" title="Reset Page">
+                                            <i class="fas fa-sync"></i>
+                                        </a>
+                                        <a href="{{ route('salesOrder') }}" class="btn btn-tool" title="Back To The List">
                                             <i class="fas fa-reply"></i>
+                                        </a>
+                                        <a href="{{ route('salesOrderAdd') }}" class="btn btn-tool" title="Add New Sales Order">
+                                            <i class="fas fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>

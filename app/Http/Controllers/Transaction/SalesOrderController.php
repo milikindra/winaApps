@@ -272,8 +272,10 @@ class SalesOrderController extends Controller
                 }
             }
             Alert::toast($body->message, 'success');
-            if ($request->input('process') == 'print') {
+            if ($request->input('process') == 'savePrint') {
                 return redirect('salesOrderPrint/' . $request->input('nomor'));
+            } else if ($request->input('process') == 'saveView') {
+                return redirect('salesOrderDetail/d/' . $request->input('nomor'));
             } else {
                 return redirect()->back();
             }

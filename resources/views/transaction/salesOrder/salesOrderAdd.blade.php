@@ -25,6 +25,9 @@
                                 <div class="col-12">
                                     <h3 class="card-title">Add Sales Order</h3>
                                     <div class="card-tools float-right">
+                                        <a href="javascript:void(0)" onclick="window.location.reload()" class="btn btn-tool" title="Reset Page">
+                                            <i class="fas fa-sync"></i>
+                                        </a>
                                         <a href="{{ route('salesOrder') }}" class="btn btn-tool" title="back to list">
                                             <i class="fas fa-reply"></i>
                                         </a>
@@ -389,8 +392,9 @@
                         <div class="card-footer">
                             <input type="hidden" name="process" value="save" id="process" required>
                             <!-- <button type="submit" class="btn btn-warning float-right" value="print" id="print" name="process" title="print" formtarget="_blank" onclick="refreshWindow()"><i class="fa fa-print"></i></button> -->
-                            <button type="button" class="btn btn-warning float-right" id="print" title="print"><i class="fa fa-print"></i></button>
-                            <button type="button" class="btn btn-info float-right" id="save" title="save"><i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-warning btn-sm float-right" id="savePrint" title="Save And Print"><i class="fa fa-print"></i></button>
+                            <button type="button" class="btn btn-info btn-sm float-right" id="saveNew" title="Save And New"><i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-success btn-sm float-right" id="saveView" title="save And View"><i class="fas fa-share-square"></i></i></button>
                         </div>
                     </div>
                 </div>

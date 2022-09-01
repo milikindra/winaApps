@@ -936,13 +936,18 @@ function cekVintras() {
     return true;
 }
 
-$("#print").click(function (e) {
+$("#savePrint").click(function (e) {
     e.preventDefault();
-    $('#process').val('print');
+    $('#process').val('savePrint');
     cekSo();
 });
-$("#save").click(function (e) {
+$("#saveNew").click(function (e) {
     e.preventDefault();
-    $('#process').val('save');
+    $('#process').val('saveNew');
+    cekSo();
+});
+$("#saveView").click(function (e) {
+    e.preventDefault();
+    $('#process').val('saveView');
     cekSo();
 });

@@ -241,8 +241,8 @@
                     ?>
                     <tr style="vertical-align: top;">
                         <td style="border-left: 1px solid #ccc; text-align:right;"></td>
-                        <td style="border-left: 1px solid #ccc;">{{$base." -- "}}{{$det->NO_STOCK}}</td>
-                        <td style="border-left: 1px solid #ccc;" colspan="4"><?= str_replace(array("\r\n", "\n"), '<br/>', $det->NM_STOCK) ?></td>
+                        <td style="border-left: 1px solid #ccc;">{{$det->NO_STOCK}}</td>
+                        <td style="border-left: 1px solid #ccc;" colspan="4">{{$base." -- "}}<?= str_replace(array("\r\n", "\n"), '<br/>', $det->NM_STOCK) ?></td>
                         <td style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;text-align:center;">{{number_format($det->QTY,0)}} {{$det->SAT}}</td>
                     </tr>
                     @else
