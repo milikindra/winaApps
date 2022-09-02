@@ -2,80 +2,42 @@
 <html>
 
 <head>
-    <script>
-        function subst() {
-            var vars = {};
-            var query_strings_from_url = document.location.search.substring(1).split('&');
-            for (var query_string in query_strings_from_url) {
-                if (query_strings_from_url.hasOwnProperty(query_string)) {
-                    var temp_var = query_strings_from_url[query_string].split('=', 2);
-                    vars[temp_var[0]] = decodeURI(temp_var[1]);
-                }
-            }
-            var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
-            for (var css_class in css_selector_classes) {
-                if (css_selector_classes.hasOwnProperty(css_class)) {
-                    var element = document.getElementsByClassName(css_selector_classes[css_class]);
-                    for (var j = 0; j < element.length; ++j) {
-                        element[j].textContent = vars[css_selector_classes[css_class]];
-                    }
-                }
-            }
-        }
-    </script>
     <title>
         SI : {{$si->head[0]->NO_BUKTI}}
     </title>
 
     <style>
-        @media screen {
-            div.divFooter {
-                display: none;
-            }
-        }
-
-        @media print {}
-
-
         @media print {
             @page {
-                size: auto;
-                /* margin: 20mm 0 10mm 0; */
-                /* margin-top: 100cm;
-                margin-right: 1rem;
-                margin-right: 1rem;
-                margin-bottom: 3rem; */
+                size: letter;
+                size: potrait;
+                margin-top: 0.8cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+                margin-bottom: 1.2cm;
+
             }
 
             #pageFooter {
                 position: fixed;
                 bottom: 0;
+                height: max-content;
             }
+
+            /* #pageFooter:after {
+                counter-reset: 0;
+                counter-increment: page;
+                content: "Page "counter(page);
+            } */
 
             body {
                 display: table;
-                table-layout: fixed;
-                /* padding-top: 2.5cm; */
-                /* padding-bottom: 2.5cm; */
+                padding-bottom: 2.5cm;
                 height: auto;
             }
 
-            table {
-                page-break-before: auto
-            }
-
-            div {
-                page-break-before: auto
-            }
-
-            tr {
-                page-break-inside: avoid;
-                page-break-after: auto
-            }
-
-            td {
-                page-break-inside: avoid;
-                page-break-after: auto
+            tbody tr {
+                page-break-before: always,
             }
 
             thead {
@@ -83,41 +45,18 @@
             }
 
             tfoot {
-                display: table-footer-group
+                display: table-footer-group;
             }
-
-
-
-            /* a[href]:after {
-                display: none;
-                visibility: hidden;
-            } */
-
-            a[href]:after {
-                content: " ("attr(href) ")";
-            }
-
         }
 
         body {
-            /* margin-top: 20px; */
-            /* margin-bottom: 20px; */
-            /* margin-left: 20px; */
-            /* margin-right: 20px; */
             -webkit-print-color-adjust: exact !important;
             font-family: "sans-serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
-        .table {
+        table {
             display: table;
-            /* height: 100px; */
             width: 100%;
-        }
-
-        tbody {
-            height: auto;
-            min-height: 200px;
-            display: contents
         }
 
         .footer {
@@ -130,44 +69,19 @@
             height: 80px;
         }
 
-
         .column {
             float: left;
         }
-
-        /* .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        } */
     </style>
 </head>
 
-<body style="font-size: 12px;">
+<body style="font-size: 12px;" id="bd">
     <div style="padding:0px; box-sizing: border-box; position: relative;">
         <div class="container-fluid">
             <table class="table tableBorder" id="tb" style="width: 100%; height:auto; border-collapse: collapse;">
                 <thead>
-                    <!-- <tr>
-                        <th style="width: 6%;"><span></span></th>
-                        <th style="width: 5%;"><span></span></th>
-                        <th style="width: 20%;"><span></span></th>
-                        <th style="width: 20%;"><span></span></th>
-                        <th style="width: 10%;"><span></span></th>
-                        <th style="width: 12%;"><span></span></th>
-                        <th style="width: 12%;"><span></span></th>
-                        <th style="width: 15%;"><span></span></th>
-                    </tr> -->
                     <tr>
                         <th colspan="3" style="text-align:left; vertical-align: top; font-size:14px;">
-                            <!-- <div class="column" style="width: 100%;"><span style="font-weight: bold;">{{strtoupper($si->company[0]->name)}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->address1}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->address2}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->city." - ".$si->company[0]->postal_code." - ".strtoupper($si->company[0]->country)}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">Phone {{$si->company[0]->phone}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">Fax {{$si->company[0]->fax}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">Email : {{$si->company[0]->email}}</span></div>
-                            <div class="column" style="width: 100%;"><span style="font-weight: normal;">{{$si->company[0]->tax_id}}</span></div> -->
                         </th>
                         <th colspan="3" style="vertical-align: bottom;">
                         </th>
@@ -236,14 +150,14 @@
                         <th style="border: 0.5px solid #000;"><span style="font-weight: bold;">Amount</span></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbBody">
                     <?php
                     $i = 1;
                     $j = 10;
                     ?>
                     @foreach($si->detail as $det)
                     @if(empty($det->kode_group))
-                    <tr style="vertical-align: top; font-weight:normal;">
+                    <tr style="vertical-align: top; font-weight:normal;" class="pagebreak">
                         <td style="border: 0.5px solid #000; ;text-align:right;border-bottom: 0px;border-top:0px;">{{$i}}.</td>
                         <td style="border: 0.5px solid #000;border-bottom: 0px; border-top:0px;" colspan="3"><?= str_replace(array("\r\n", "\n"), '<br/>', $det->NM_STOCK) ?></td>
                         <td style="border: 0.5px solid #000;text-align:center;border-bottom: 0px;border-top:0px;">{{number_format($det->QTY,0)}} {{$det->SAT}}</td>
@@ -252,7 +166,8 @@
                         <td style="border: 0.5px solid #000;text-align:right;border-bottom: 0px;border-top:0px; padding-right:10px;">{{number_format(($det->HARGA*$det->QTY)-$det->JMLDISKON,2)}} </td>
                     </tr>
                     <tr>
-                        <td style="font-size: 4px;border: 0.5px solid #000;border-bottom: 0px;border-top:0px;">&nbsp;</td>
+                    <tr style="vertical-align: top; font-weight:normal; border-bottom:0.5px solid #000" class="pagebreak">
+                        <td style="border: 0.5px solid #000;border-bottom: 0px;border-top:0px;">&nbsp;</td>
                         <td style="border: 0.5px solid #000;border-bottom: 0px; border-top:0px;" colspan="3"></td>
                         <td style="border: 0.5px solid #000;border-bottom: 0px;border-top:0px;"></td>
                         <td style="border: 0.5px solid #000;border-bottom: 0px;border-top:0px; "></td>
@@ -337,36 +252,67 @@
                     </tr>
                 </tfoot>
             </table>
-            <br />
             <div id="content">
-                <div id="pageFooter">
-                    <strong>{{strtoupper($si->company[0]->name)}}</strong><br />
-                    {{$si->company[0]->address1}}{{$si->company[0]->address2}}{{$si->company[0]->city." - ".$si->company[0]->postal_code." - ".strtoupper($si->company[0]->country)}}<br />
-                    Telp : {{$si->company[0]->phone}} / Fax : {{$si->company[0]->fax}}, Email : {{$si->company[0]->email}}, NPWP : {{$si->company[0]->tax_id}}
+                <div id="pageFooter" style="width:100%;">
+                    <div class=" column" style="width:100%; padding-top:20px">
+                        <hr />
+                        <strong>{{strtoupper($si->company[0]->name)}}</strong><br />
+                        {{$si->company[0]->address1}}{{$si->company[0]->address2}}{{$si->company[0]->city." - ".$si->company[0]->postal_code." - ".strtoupper($si->company[0]->country)}}<br />
+                        Telp : {{$si->company[0]->phone}} / Fax : {{$si->company[0]->fax}}, Email : {{$si->company[0]->email}}, NPWP : {{$si->company[0]->tax_id}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
+<script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('plugins/html2pdf/html2pdf.bundle.min.js')}}"></script>
 <script type="text/javascript">
-    // var element = document.getElementById('tb');
+    // var body = document.body,
+    //     html = document.documentElement;
+
+    // var height = Math.max(body.scrollHeight, body.offsetHeight,
+    //     html.clientHeight, html.scrollHeight, html.offsetHeight);
+    // console.log(height);
+    // if (height > 1200) {
+    //     $('#tbBody tr').css({
+    //         "page-break-after": "always",
+    //         // "border": "none",
+    //         "vertical-align": "top",
+    //         "font-weight": "normal",
+    //         // "border-bottom": "0.5px solid #000"
+    //     });
+    // } else if (height < 1200) {
+    //     $('#tbBody tr').css({
+    //         "vertical-align": "top",
+    //         "font-weight": "normal",
+    //     });
+    //     $('#tb').css({
+    //         "height": "600px"
+    //     });
+    // } else {
+    //     $('#tbBody tr').css({
+    //         "vertical-align": "top",
+    //         "font-weight": "normal",
+    //     });
+    // }
+
+    // var element = document.getElementById('bd');
     // var opt = {
-    //     margin: [30, 0, 30, 0],
+    //     margin: [0.8, 1, 1, 0.8],
     //     filename: 'a.pdf',
     //     image: {
     //         type: 'pdf',
     //         quality: 0.98
     //     },
-    //     html2canvas: {
-    //         scale: 2
-    //     },
+    //     // html2canvas: {
+    //     //     scale: 2
+    //     // },
     //     jsPDF: {
-    //         unit: 'pt',
-    //         format: 'a4',
+    //         unit: 'cm',
+    //         format: 'letter',
     //         orientation: 'portrait'
     //     },
     //     pageBreak: {
@@ -377,6 +323,6 @@
 
     // New Promise-based usage:
     // html2pdf().set(opt).from(element).save();
-    // window.onafterprint = window.close;
-    // window.print();
+    window.onafterprint = window.close;
+    window.print();
 </script>
