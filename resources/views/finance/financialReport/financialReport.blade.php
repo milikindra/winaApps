@@ -435,6 +435,7 @@
 @endpush
 @push('other-script')
 <script>
+    var url_default = "{{ URL('') }}";
     var rute_incomeStatement = "{{ URL::to('financialReport/data/populateIncomeStatement') }}";
     var rute_balanceSheet = "{{ URL::to('financialReport/data/populateBalanceSheet') }}";
     var rute_pnlProjectTable = "{{ URL::to('financialReport/data/populatePnlProject') }}";
