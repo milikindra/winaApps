@@ -28,6 +28,15 @@
     </title>
 
     <style>
+        @media screen {
+            div.divFooter {
+                display: none;
+            }
+        }
+
+        @media print {}
+
+
         @media print {
             @page {
                 size: auto;
@@ -36,6 +45,11 @@
                 margin-right: 1rem;
                 margin-right: 1rem;
                 margin-bottom: 3rem; */
+            }
+
+            #pageFooter {
+                position: fixed;
+                bottom: 0;
             }
 
             body {
@@ -166,16 +180,17 @@
                             <div class="column" style="width: 100%;"><span style="font-weight: bold; font-size: 18px">SALES INVOICE</span></div>
                             <div class="column" style="width: 100%;"><span style="font-weight: bold; font-size: 14px">{{$si->head[0]->no_bukti2}}</span></div>
                         </th>
+                        <th colspan="2" style="vertical-align: bottom;"></th>
                     </tr>
                     <tr>
-                        <th style="width: 6%;"><span></span></th>
                         <th style="width: 5%;"><span></span></th>
-                        <th style="width: 10%;"><span></span></th>
-                        <th style="width: 20%;"><span></span></th>
+                        <th style="width: 5%;"><span></span></th>
                         <th style="width: 15%;"><span></span></th>
+                        <th style="width: 25%;"><span></span></th>
+                        <th style="width: 5%;"><span></span></th>
                         <th style="width: 15%;"><span></span></th>
                         <th style="width: 10%;"><span></span></th>
-                        <th style="width: 10%;"><span></span></th>
+                        <th style="width: 15%;"><span></span></th>
                     </tr>
                     <tr>
                         <th colspan="2" style="text-align:left; vertical-align: top; font-size:12px;">
@@ -322,8 +337,12 @@
                     </tr>
                 </tfoot>
             </table>
+            <br />
             <div id="content">
                 <div id="pageFooter">
+                    <strong>{{strtoupper($si->company[0]->name)}}</strong><br />
+                    {{$si->company[0]->address1}}{{$si->company[0]->address2}}{{$si->company[0]->city." - ".$si->company[0]->postal_code." - ".strtoupper($si->company[0]->country)}}<br />
+                    Telp : {{$si->company[0]->phone}} / Fax : {{$si->company[0]->fax}}, Email : {{$si->company[0]->email}}, NPWP : {{$si->company[0]->tax_id}}
                 </div>
             </div>
         </div>
@@ -334,30 +353,30 @@
 </html>
 <script src="{{asset('plugins/html2pdf/html2pdf.bundle.min.js')}}"></script>
 <script type="text/javascript">
-    var element = document.getElementById('tb');
-    var opt = {
-        margin: [30, 0, 30, 0],
-        filename: 'a.pdf',
-        image: {
-            type: 'pdf',
-            quality: 0.98
-        },
-        html2canvas: {
-            scale: 2
-        },
-        jsPDF: {
-            unit: 'pt',
-            format: 'a4',
-            orientation: 'portrait'
-        },
-        pageBreak: {
-            mode: 'css',
-            after: '.break-page'
-        }
-    };
+    // var element = document.getElementById('tb');
+    // var opt = {
+    //     margin: [30, 0, 30, 0],
+    //     filename: 'a.pdf',
+    //     image: {
+    //         type: 'pdf',
+    //         quality: 0.98
+    //     },
+    //     html2canvas: {
+    //         scale: 2
+    //     },
+    //     jsPDF: {
+    //         unit: 'pt',
+    //         format: 'a4',
+    //         orientation: 'portrait'
+    //     },
+    //     pageBreak: {
+    //         mode: 'css',
+    //         after: '.break-page'
+    //     }
+    // };
 
     // New Promise-based usage:
     // html2pdf().set(opt).from(element).save();
-    window.onafterprint = window.close;
-    window.print();
+    // window.onafterprint = window.close;
+    // window.print();
 </script>

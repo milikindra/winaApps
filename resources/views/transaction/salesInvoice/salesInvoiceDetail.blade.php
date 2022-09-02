@@ -347,6 +347,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-sm-4">Total Invoice</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalInv" id="totalInv" value="{{number_format($si->head[0]->totdpp_rp,2)}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-sm-4">Total PPn</label>
                                         <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
                                     </div>
@@ -402,9 +408,6 @@
                                     <a href="javascript:void(0)" class="btn btn-sm btn-success float-right " title="General Ledger" onclick="modalGl()"><i class="fa fa-book"></i></a>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
