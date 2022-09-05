@@ -24,10 +24,10 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    <h3 class="card-title">Detail Sales Invoice | {{$si->head[0]->no_bukti2}}</h3>
+                                    <h5 class="card-title">Detail Sales Invoice | {{$si->head[0]->no_bukti2}}</h5>
                                     <div class="card-tools float-right">
                                         <a href="javascript:void(0)" onclick="window.location.reload()" class="btn btn-tool" title="Reset Page">
-                                            <i class="fas fa-sync"></i>
+                                            <i class="fas fa-sync-alt"></i>
                                         </a>
                                         <a href="{{ route('salesInvoice') }}" class="btn btn-tool" title="Back To The List">
                                             <i class="fas fa-reply"></i>

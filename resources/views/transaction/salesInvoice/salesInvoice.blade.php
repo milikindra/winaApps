@@ -104,9 +104,9 @@
                             <div class="col-12">
                                 <h5 class="card-title">Data Sales Invoice</h5>
                                 <div class="card-tools float-right">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
+                                    <a href="javascript:void(0)" onclick="window.location.reload()" class="btn btn-tool" title="Reset Page">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
