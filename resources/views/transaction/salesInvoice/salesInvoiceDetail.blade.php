@@ -375,6 +375,7 @@
                                     Updated By : {{($si->head[0]->EDITOR==''?"-":$si->head[0]->EDITOR) . " | ". date_format(date_create($si->head[0]->edit_date),'d-m-Y H:i:s')}}
                                 </div>
                                 <div class="col-sm-6 float-right">
+                                    <button type="button" class="btn btn-sm  btn-primary float-right" id="efakturModal" title="Generate Efaktur"><i class="fa fa-file-csv"></i></button>
                                     <div id="det">
                                         <div class="btn-group float-right show" id="btnPrintDetail">
                                             <a href="javascript:void(0)" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printDetail" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
@@ -387,9 +388,9 @@
                                         </div>
                                         <a href="javascript:void(0)" class="btn btn-sm btn-info  float-right" id="edit" title="edit" onclick="btnEdit()"><i class="fas fa-pencil-alt"></i></a>
                                     </div>
-
                                     <div id="editGroup" style="display: none;">
                                         <input type="hidden" name="process" value="save" id="process" required>
+                                        <button type="button" class="btn btn-sm  btn-primary float-right" id="efakturModal" title="Generate Efaktur"><i class="fa fa-file-csv"></i></button>
                                         <div class="btn-group float-right show" id="btnPrintDetail">
                                             <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printUpdate" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
                                             </button>
@@ -414,8 +415,34 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="modalEfaktur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Efaktur Generator</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2">BA</div>
+                        <div class="col-md-10"><input type="text" class="form-control form-control-sm" name="baEfaktur" id="baEfaktur" autocomplete="off"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">BC</div>
+                        <div class="col-md-10"><input type="text" class="form-control form-control-sm" name="bcEfaktur" id="bcEfaktur" autocomplete="off"></div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-primary float-right" id="btnEfakturUpdate" style="display: none;" title="Efaktur">Generate</button>
+                    <button type="button" class="btn btn-sm btn-primary float-right" id="btnEfakturView" title="Efaktur">Generate</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 <!-- Modal -->
+
+
 <div class="modal fade" id="modalDo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -495,6 +522,7 @@
     var get_efaktur = "{{ URL::to('efaktur/get/byDate')}}";
     var get_statusSi = "{{ URL::to('salesInvoiceStatus') }}";
     var void_url = "{{ URL::to('salesInvoice/void') }}";
+    var efaktur_url = "{{ URL::to('efakturGenerator') }}";
     var vat = <?= json_encode($vat); ?>;
     var sales = <?= json_encode($sales); ?>;
     var lokasi = <?= json_encode($lokasi); ?>;

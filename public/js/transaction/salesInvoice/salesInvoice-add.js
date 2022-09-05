@@ -240,7 +240,6 @@ function tabelDo() {
 $('#tabelOutstandingOrder tbody').on('dblclick', 'tr', function (e) {
     var do_id = $(this).closest("tr").children("td:eq(0)").text();
     var so_id = $('#so_id').val();
-    console.log($(this).closest("tr").children("td:eq(2)").text())
     if ($(this).closest("tr").children("td:eq(2)").text() == "-") {
         Swal.fire({
             title: "Error!",
@@ -752,8 +751,9 @@ $("#efakturModal").click(function (e) {
 $("#btnEfaktur").click(function (e) {
     e.preventDefault();
     if (cekSiDp() === true) {
+        $('#salesInvoiceAddSave').attr("target", "_blank");
         $('#process').val('efaktur');
         $('#salesInvoiceAddSave').submit();
-        // window.location.reload();
+        window.location.reload();
     }
 });

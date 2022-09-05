@@ -142,7 +142,6 @@ class SalesInvoiceController extends Controller
                 $wapu = "Y";
             }
 
-
             $post_attach = [];
             if ($request->file() != null) {
                 for ($i = 0; $i < count($request->file('attach')); $i++) {
@@ -243,8 +242,14 @@ class SalesInvoiceController extends Controller
                     $bc = $request->input('bcEfaktur') != null ? $request->input('bcEfaktur') : "void";
                     return redirect('efakturGenerator/' . base64_encode($body->id) . '/' . base64_encode($ba) . '/' . base64_encode($bc));
                 } else {
-                    return redirect('salesInvoicePrint/' . $request->input('process') . "/" . base64_encode($body->id));
+                    $urlPrint = 'salesInvoicePrint/' . $request->input('process') . '/' . base64_encode($body->id);
+                    // $urlView = 'salesInvoiceDetail/d/' . base64_encode($body->id);
+                    echo "<script>window.open('" . $urlPrint . "', '_blank')</script>";
+                    // echo "<script>window.open('" . $urlView . "')</script>";
+                    // return redirect('salesInvoicePrint/' . $request->input('process') . "/" . base64_encode($body->id));
+                    return redirect('salesInvoiceDetail/d/' . base64_encode($body->id));
                 }
+                // self::salesInvoiceDetail("d", base64_encode($body->id));
             } else {
                 Alert::toast($body->message, 'error');
                 return redirect()->back();
@@ -365,7 +370,7 @@ class SalesInvoiceController extends Controller
         }
     }
 
-    public function salesInvoiceDetail(Request $request, $void, $si_id)
+    public function salesInvoiceDetail($void, $si_id)
     {
         try {
             $user_token = session('user')->api_token;
@@ -400,7 +405,6 @@ class SalesInvoiceController extends Controller
                 'sales' => $sales,
                 'si' => $body->si,
             ];
-            // dd($data);
             return View('transaction.salesInvoice.salesInvoiceDetail', $data);
         } catch (\Exception $e) {
             Alert::toast("500 - Failed to View Data", 'danger');

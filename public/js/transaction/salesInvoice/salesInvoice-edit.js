@@ -5,6 +5,9 @@ $(document).ready(function () {
     $("#btnSo ").prop("disabled", true);
     $("#modalByDp ").prop("disabled", true);
 
+    $("#baEfaktur ").prop("disabled", false);
+    $("#bcEfaktur ").prop("disabled", false);
+
     $("#salesInvoiceUpdate .btn-xs").css("display", 'none');
     $("#salesInvoiceUpdate .input-group-append-edit").css("display", 'none');
     $("#salesInvoiceUpdate select").prop("disabled", true);
@@ -70,10 +73,14 @@ function btnEdit() {
     $("#salesInvoiceUpdate select").prop("disabled", false);
     $("#salesInvoiceUpdate button").css("display", 'block');
 
+
     $('#det').css("display", 'none');
     $('#editGroup').css("display", 'block');
     $('#attachDownload').css("display", 'none');
     $('#attachUpload').css("display", 'block');
+    $('#btnEfakturUpdate').css("display", 'block');
+    $('#btnEfakturView').css("display", 'none');
+
     lockInv();
 }
 
@@ -89,7 +96,7 @@ function btnDelete() {
         showCancelButton: true,
     }).then((result) => {
         window.location = void_url + "/" + btoa(id);
-      });
+    });
 }
 
 $("#f1Update").click(function (e) {
@@ -111,4 +118,20 @@ $("#update").click(function (e) {
     e.preventDefault();
     $('#process').val('save');
     $('#salesInvoiceUpdate').submit();
+});
+
+$("#btnEfakturUpdate").click(function (e) {
+    e.preventDefault();
+    $('#salesInvoiceUpdate').attr("target", "_blank");
+    $('#process').val('efaktur');
+    $('#salesInvoiceUpdate').submit();
+    window.location.reload();
+});
+
+$("#btnEfakturView").click(function (e) {
+    e.preventDefault();
+    window.open(efaktur_url + "/" + btoa($('#si_id').val()) + "/" + btoa($('#baEfaktur').val()) + "/" + btoa($('#bcEfaktur').val()), '_blank');
+    $("#modalDo").modal("hide");
+    $('#baEfaktur').val('');
+    $('#bcEfaktur').val('');
 });
