@@ -65,7 +65,7 @@ Route::group(
         // salesOrder
         Route::get('salesOrder', [SalesOrderController::class, 'salesOrderShow'])->name('salesOrder')->middleware('userMatrix:T01.01');
         Route::get('salesOrder/data/populate/{void}/{kategori}/{fdate}/{sdate}/{edate}', [SalesOrderController::class, 'populate'])->name('salesOrder/data/populate');
-        Route::get('salesOrder/data/populateHead/{field}/{value}', [SalesOrderController::class, 'populateHead'])->name('salesOrder/data/populateHead');
+        Route::get('salesOrder/data/populateHead/{field}/{value}/{cat}', [SalesOrderController::class, 'populateHead'])->name('salesOrder/data/populateHead');
         Route::get('salesOrderAdd', [SalesOrderController::class, 'salesOrderAdd'])->name('salesOrderAdd')->middleware('userMatrix:T01.02');
         Route::post('salesOrderAddSave', [SalesOrderController::class, 'salesOrderAddSave'])->name('salesOrderAddSave')->middleware('userMatrix:T01.02');
         Route::get('salesOrderDetail/{void}/{id}', [SalesOrderController::class, 'salesOrderDetail'])->name('salesOrderDetail')->middleware('userMatrix:T01.01');

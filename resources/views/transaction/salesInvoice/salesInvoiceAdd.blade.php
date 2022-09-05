@@ -58,7 +58,7 @@
                                                     <input type="hidden" class="" id="cust_so" name="cust_so">
                                                     <input type="text" class="form-control form-control-sm form-control-border" id="so_id" name="so_id" readonly>
                                                     <span class="input-group-append">
-                                                        <button type="button" class="btn btn-sm btn-info" onclick="getSo()"><i class="fas fa-search"></i></button>
+                                                        <button type="button" class="btn btn-sm btn-info" onclick="getSo(this)"><i class="fas fa-search"></i></button>
                                                     </span>
                                                 </div>
                                             </div>
@@ -265,6 +265,7 @@
                                             <input type="hidden" name="totalSiDp" id="totalSiDp" autocomplete="off">
                                             <input type="hidden" name="totalPPnSiDp" id="totalPPnSiDp" autocomplete="off">
                                             <input type="hidden" name="totalBruto" id="totalBruto" autocomplete="off">
+                                            <input type="hidden" name="usedDp" id="usedDp" autocomplete="off">
                                             <input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalDpp" id="totalDpp" readonly>
                                         </div>
                                     </div>

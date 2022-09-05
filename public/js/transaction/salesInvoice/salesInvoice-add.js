@@ -118,9 +118,9 @@ function getSo() {
     var customer_id = $("#customer").val();
 
     if (customer_id == '' || customer_id == null) {
-        tabelModalSo('all', 'all');
+        tabelModalSo('all', 'all','outstanding');
     } else {
-        tabelModalSo('kontrak_head.ID_CUST', customer_id);
+        tabelModalSo('kontrak_head.ID_CUST', customer_id,'outstanding');
     }
     $("#tabelModalSo").one("click", "tbody tr", function () {
         $("#so_id").val($(this).closest("tr").children("td:eq(0)").text());
@@ -276,7 +276,8 @@ $('#tabelOutstandingOrder tbody').on('dblclick', 'tr', function (e) {
                     });
                     $('#totalSiDp').val(response.siDp);
                     $('#totalPPnSiDp').val(response.ppnSiDp);
-                    $('#totalDp').val(addPeriod((parseFloat(response.siDp) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ',')).toFixed(2), ","));
+                    $('#usedDp').val(response.usedDp);
+                    $('#totalDp').val(addPeriod((parseFloat(response.siDp - response.usedDp) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ',')).toFixed(2), ","));
                     totalDpp();
                 },
             });
@@ -593,6 +594,7 @@ function totalDpp() {
 function cekSiDp() {
     var totalDpp = parseFloat(removePeriod($("#totalDpp").val(), ','));
     var totalSiDp = parseFloat(removePeriod($("#totalSiDp").val(), ','));
+    var usedDp = parseFloat(removePeriod($("#usedDp").val(), ','));
     var totalSoDp = parseFloat(removePeriod($("#totalSoDp").val(), ','));
     var totalDp = parseFloat(removePeriod($("#totalDp").val(), ','));
     if ($('#use_dp').is(":checked")) {
@@ -639,11 +641,23 @@ function cekSiDp() {
                 icon: "error",
                 confirmButtonColor: "#17a2b8",
             })
-            $('#totalDp').val(addPeriod(parseFloat($('#totalSiDp').val()) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ','), ",").toFixed(2));
+            $('#totalDp').val(addPeriod(parseFloat($('#totalSiDp').val() - $('#usedDp').val()) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ','), ",").toFixed(2));
             totalPpn();
             return false;
+        } else if (totalDp > (totalSiDp - usedDp)) {
+            Swal.fire({
+                title: "Error!",
+                text: "Down Payment already used",
+                icon: "error",
+                confirmButtonColor: "#17a2b8",
+            })
+            $('#totalDp').val(addPeriod(parseFloat($('#totalSiDp').val() - $('#usedDp').val()) / parseFloat($('#totalSo').val()) * removePeriod($("#totalDpp").val(), ','), ",").toFixed(2));
+            totalPpn();
+            return false;
+        } else {
+
+            totalPpn();
         }
-        totalPpn();
         return true;
     }
 }
@@ -682,8 +696,6 @@ function totalPpn() {
     var ppnSiDp = totalPpnBruto - ppnDp;
     var grandTotal = totalDpp - totalDp + ppnSiDp;
     var totalInv = totalDpp - totalDp;
-
-    console.log(totalInv);
     if (totalInv < $('#sWapu').val() && $("#cek_wapu").prop('checked', true)) {
         $('#tax_snFlabel').html($('#nonWapu').val());
     } else {

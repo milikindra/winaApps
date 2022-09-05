@@ -609,7 +609,7 @@ class SalesOrderController extends Controller
         }
     }
 
-    public function populateHead(Request $request, $field, $value)
+    public function populateHead(Request $request, $field, $value,$cat)
     {
         try {
             $user_token = session('user')->api_token;
@@ -636,7 +636,8 @@ class SalesOrderController extends Controller
                 'per_page' => $limit,
                 'user' => session('user')->username,
                 'field' => $field,
-                'value' => $value
+                'value' => $value,
+                'cat' =>$cat
             ];
             $url = Config::get('constants.api_url') . '/salesOrder/getlistHead';
             $client = new Client();

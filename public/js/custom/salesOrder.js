@@ -7,7 +7,7 @@ arr = [];
 function modalSo() {
     // arr.push(uid);
     $("#modalSO").modal("show");
-    tabelModalSo('all', 'all');
+    tabelModalSo('all', 'all', 'all');
     $("#tabelModalSo").one("click", "tbody tr", function () {
         no_so = $(this).closest("tr").children("td:eq(0)").text();
         $("#so_id").val(no_so);
@@ -26,7 +26,7 @@ function modalSo() {
     });
 }
 
-function tabelModalSo(field, id) {
+function tabelModalSo(field, id, cat) {
     $("#tabelModalSo").DataTable().clear().destroy();
     var table = $("#tabelModalSo").DataTable({
         processing: true,
@@ -43,7 +43,7 @@ function tabelModalSo(field, id) {
             "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         drawCallback: function (settings, json) { },
         ajax: {
-            url: url_default + "/" + get_salesOrder + '/' + field + '/' + id,
+            url: url_default + "/" + get_salesOrder + '/' + field + '/' + id + '/' + cat,
             type: "GET",
             dataType: "JSON",
         },
