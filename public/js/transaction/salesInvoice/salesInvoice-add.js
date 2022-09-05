@@ -118,9 +118,9 @@ function getSo() {
     var customer_id = $("#customer").val();
 
     if (customer_id == '' || customer_id == null) {
-        tabelModalSo('all', 'all','outstanding');
+        tabelModalSo('all', 'all', 'outstanding');
     } else {
-        tabelModalSo('kontrak_head.ID_CUST', customer_id,'outstanding');
+        tabelModalSo('wina_v_salesorder.ID_CUST', customer_id, 'outstanding');
     }
     $("#tabelModalSo").one("click", "tbody tr", function () {
         $("#so_id").val($(this).closest("tr").children("td:eq(0)").text());
