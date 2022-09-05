@@ -696,4 +696,38 @@ class SalesInvoiceController extends Controller
             return redirect('salesInvoiceDetail/d/' . $si_id);
         }
     }
+
+    public function salesinvoiceUpdateReceipt(request $request)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get('constants.api_url') . '/salesInvoiceupdateReceipt';
+
+
+            $post_head = [
+                "api_token" => $user_token,
+                "si_id" => $request->input('si_id'),
+                "EDITOR" => "WINA : " . session('user')->username,
+                "no_tt" => $request->input('received_id'),
+                "tgl_tt" => $request->input('received_date'),
+                "penerima_tt" => $request->input('received_by'),
+            ];
+
+            $postData = [
+                'head' => $post_head,
+            ];
+
+            $request->request->add(['api_token' => $user_token]);
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'json' => $postData,
+                'http_errors' => false
+            ]);
+            $body = json_decode($response->getBody());
+        } catch (\Exception $e) {
+            Alert::warning('Update Failed', $body->message)->showConfirmButton('Ok', '#17A2B8');
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+            return redirect()->back();
+        }
+    }
 }

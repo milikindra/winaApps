@@ -128,13 +128,39 @@
         </div>
     </div>
 </section>
-@endsection
-@push('other-script')
-<script>
-    var rute = "{{ URL::to('salesInvoice/data/populate') }}";
-    var base_url = "{{ route('salesInvoice') }}";
-    var view_url = "{{URL::to('salesInvoiceDetail/d')}}";
-    var url_default = "{{ URL('') }}";
-</script>
-<script src="{{ asset('js/transaction/salesInvoice/salesInvoice-table.js')}}"></script>
-@endpush
+<!-- modal efaktur -->
+<div class="modal fade" id="modalReceipt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Received Data (<span id="si_id"></span>)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="row form-group">
+                    <div class="col-md-2">Received Id</div>
+                    <div class="col-md-4"><input type="text" class="form-control form-control-sm" id="received_id" autocomplete="off"></div>
+                    <div class="col-md-2">Received Date</div>
+                    <div class="col-md-4"><input type="date" class="form-control form-control-sm" id="received_date" autocomplete="off"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2">Received By</div>
+                    <div class="col-md-10"><input type="text" class="form-control form-control-sm" id="received_by" autocomplete="off"></div>
+                </div>
+                <button type="button" class="btn btn-sm btn-info float-right" onclick="btnReceived()">Update</button>
+            </div>
+        </div>
+    </div>
+    @endsection
+    @push('other-script')
+    <script>
+        var rute = "{{ URL::to('salesInvoice/data/populate') }}";
+        var base_url = "{{ route('salesInvoice') }}";
+        var view_url = "{{URL::to('salesInvoiceDetail/d')}}";
+        var rute_tt = "{{ URL::to('salesInvoice/receipt/update') }}";
+        var url_default = "{{ URL('') }}";
+    </script>
+    <script src="{{ asset('js/transaction/salesInvoice/salesInvoice-table.js')}}"></script>
+    @endpush

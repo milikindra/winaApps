@@ -91,6 +91,7 @@ Route::group(
         Route::post('salesInvoiceUpdate', [SalesInvoiceController::class, 'salesInvoiceUpdate'])->name('salesInvoiceUpdate')->middleware('userMatrix:T02.03');
         Route::get('salesInvoice/void/{id}', [SalesInvoiceController::class, 'salesInvoiceDelete'])->name('salesInvoice/void')->middleware('userMatrix:T02.04');
         Route::get('salesInvoiceStatus/{id}', [SalesInvoiceController::class, 'salesinvoiceStatus'])->name('salesinvoiceStatus');
+        Route::post('salesInvoice/receipt/update', [SalesInvoiceController::class, 'salesinvoiceUpdateReceipt'])->name('salesInvoice/receipt/update');
     }
 );
 
