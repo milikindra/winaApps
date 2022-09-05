@@ -681,7 +681,15 @@ function totalPpn() {
 
     var ppnSiDp = totalPpnBruto - ppnDp;
     var grandTotal = totalDpp - totalDp + ppnSiDp;
-    $("#totalInv").val(addPeriod(parseFloat(totalDpp - totalDp).toFixed(2), ","));
+    var totalInv = totalDpp - totalDp;
+
+    console.log(totalInv);
+    if (totalInv < $('#sWapu').val() && $("#cek_wapu").prop('checked', true)) {
+        $('#tax_snFlabel').html($('#nonWapu').val());
+    } else {
+        getCustomer();
+    }
+    $("#totalInv").val(addPeriod(parseFloat(totalInv).toFixed(2), ","));
     $("#totalPpn").val(addPeriod(parseFloat(ppnSiDp).toFixed(2), ","));
     $("#taxDp").val(addPeriod(parseFloat(ppnDp).toFixed(2), ","));
     $("#taxDetail").val(addPeriod(parseFloat(totalPpnBruto).toFixed(2), ","));

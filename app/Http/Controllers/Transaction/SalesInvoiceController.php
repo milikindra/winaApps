@@ -103,6 +103,8 @@ class SalesInvoiceController extends Controller
             $sales = salesGetRawData('ID_SALES', 'ASC');
             $lokasi = lokasiGetRawData();
             $vat = vatGetData(date('Y-m-d'), 'all');
+            $nonWapu = getGlobalParam('wapu', 'nonWapu');
+            $sWapu = getGlobalParam('wapu', 'sWapu');
             $data = [
                 'title' => $menu_name->$module->module_name,
                 'parent_page' => $menu_name->$module->parent_name,
@@ -111,6 +113,8 @@ class SalesInvoiceController extends Controller
                 'lokasi' => $lokasi,
                 'vat' => $vat,
                 'sales' => $sales,
+                'nonWapu' => $nonWapu,
+                'sWapu' => $sWapu,
             ];
             return View('transaction.salesInvoice.salesInvoiceAdd', $data);
         } catch (\Exception $e) {
