@@ -107,6 +107,9 @@
                                     <a href="javascript:void(0)" onclick="window.location.reload()" class="btn btn-tool" title="Reset Page">
                                         <i class="fas fa-sync-alt"></i>
                                     </a>
+                                    <button id="refreshSI" class="btn btn-tool" title="Refresh Table">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>

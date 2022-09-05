@@ -104,8 +104,11 @@
                             <div class="col-12">
                                 <h5 class="card-title">Data Sales Order</h5>
                                 <div class="card-tools float-right">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
+                                    <a href="javascript:void(0)" onclick="window.location.reload()" class="btn btn-tool" title="Reset Page">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </a>
+                                    <button id="refreshSO" class="btn btn-tool" title="Refresh Table">
+                                        <i class="fas fa-redo-alt"></i>
                                     </button>
                                 </div>
                             </div>

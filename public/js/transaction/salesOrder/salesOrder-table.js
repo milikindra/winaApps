@@ -342,6 +342,9 @@ $(document).ready(function () {
     $("#void").change(function () {
         filterSO();
     });
+    $("#refreshSO").on('click', function (e) {
+        filterSO();
+    });
 
     $('#datatables tbody').on('dblclick', 'tr', function (e) {
         no_stock = $(this).closest("tr").children("td:eq(0)").text();

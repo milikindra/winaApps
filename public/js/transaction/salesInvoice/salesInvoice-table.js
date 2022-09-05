@@ -475,6 +475,9 @@ $(document).ready(function () {
     $("#void").change(function () {
         filterSI();
     });
+    $("#refreshSI").on('click', function (e) {
+        filterSI();
+    });
 
     $('#datatables tbody').on('dblclick', 'tr', function (e) {
         no_si = $(this).closest("tr").children("td:eq(0)").text();
