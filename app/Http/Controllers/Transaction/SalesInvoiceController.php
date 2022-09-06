@@ -125,8 +125,6 @@ class SalesInvoiceController extends Controller
 
     public function salesInvoiceAddSave(Request $request)
     {
-        dd($request);
-
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/salesInvoiceAddSave';
@@ -220,7 +218,6 @@ class SalesInvoiceController extends Controller
                 'detail' => $post_detail,
                 'attach' => $post_attach
             ];
-            dd($postData);
             $request->request->add(['api_token' => $user_token]);
             $client = new Client();
             $response = $client->request('POST', $url, [
