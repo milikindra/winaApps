@@ -92,13 +92,21 @@ $(document).ready(function () {
     });
 
     window.getActions = function (data, tyoe, row) {
-        var action_view ='<a href="' +url_default +"/employeeDetail/" +data +'" title="View Detail" class="btn btn-xs btn-info" style="margin-right: 5px;color:white"><i class="fa fa-search"></i></a>';
+        var action_view = '<a href="' + url_default + "/employeeDetail/" + data + '" title="View Detail" class="btn btn-xs btn-info" style="margin-right: 5px;color:white"><i class="fa fa-search"></i></a>';
         action_view +=
             '<a href="' +
             url_default +
             "/employeeEdit/" +
             data +
-            '" title="Edit" class="btn btn-xs btn-warning" style="margin-right: 5px;color:white"><i class="fa fa-edit"></i></a>';
+            '" title="Edit Employee" class="btn btn-xs btn-warning" style="margin-right: 5px;color:white"><i class="fa fa-edit"></i></a>';
+
+        action_view +=
+            '<a href="' +
+            url_default +
+            "/showEmployeeGroupMatrix/" +
+            data +
+            '" title="Matrix Access" class="btn btn-xs btn-danger" style="margin-right: 5px;color:white"><i class="fa fa-list"></i></a>';
+
 
         return action_view;
     };

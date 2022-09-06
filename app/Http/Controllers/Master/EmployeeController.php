@@ -269,4 +269,67 @@ class EmployeeController extends Controller
             return abort(500);
         }
     }
+
+    public function showEmployeeGroupMatrix(Request $request, $id)
+    {
+        // try {
+        $module = $this->module;
+
+        $menu_name = session('user')->menu_name;
+        $user_token = session('user')->api_token;
+        $url = Config::get("constants.api_url") . "/employee/employeeGroupMatrix";
+        $client = new Client();
+        $post_data = [
+            "api_token" => $user_token,
+            "userGroup" => $id,
+            "user" => session('user')->username
+        ];
+        $response = $client->request('POST', $url, [
+            'json' => $post_data,
+            'http_errors' => false
+        ]);
+        $body = json_decode($response->getBody());
+        $data = [
+            'title' => 'Edit ' . $menu_name->$module->module_name,
+            'parent_page' => $menu_name->$module->parent_name,
+            'page' => $menu_name->$module->module_name,
+            'menuUser' => $body->menu,
+            'userAccess' => $body->userAccess,
+            'userId' => $id
+        ];
+        return view('master.employee.employeeGroupmatrix', $data);
+        // return view('master.user.userGroupmatrix')
+        //     ->with('page', 'User')
+        //     ->with('titlePage', 'User Group Matrix')
+        //     ->with('userID', $id)
+        //     ->with('parent_page', 'Setting')
+
+        //     ->with('model', (object) $body->menu)
+        //     ->with('userAccess', $body->userAccess);
+        // } catch (\Exception $e) {
+        //     Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+        //     return abort(500);
+        // }
+    }
+
+    public function getEmployeeMatrixList(Request $request)
+    {
+        try {
+            $user_token = session('user')->api_token;
+            $url = Config::get("constants.api_url") . "/employee/getEmployeeMatrixList";
+            $post = array(
+                "api_token" => $user_token,
+                "user" => session('user')->user_id
+            );
+            $client = new Client();
+            $response = $client->request('POST', $url, ['json' => $post]);
+            $body = json_decode($response->getBody());
+
+            return response($response->getBody());
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage() . ' in ' . $e->getFile() . ' line ' . $e->getLine());
+
+            return abort(500);
+        }
+    }
 }

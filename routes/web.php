@@ -136,7 +136,8 @@ Route::group(
         Route::get('employeeDetail/{id}', [EmployeeController::class, 'employeeDetail'])->name('employeeDetail')->middleware('userMatrix:M03.01');
         Route::get('employeeEdit/{id}', [EmployeeController::class, 'employeeEdit'])->name('employeeEdit')->middleware('userMatrix:M03.03');
         // Route::post('employeeEditSave', [EmployeeController::class, 'employeeEditSave'])->name('employeeEditSave')->middleware('userMatrix:M03.03');
-
+        Route::get('showEmployeeGroupMatrix/{id}', [EmployeeController::class, 'showEmployeeGroupMatrix'])->name('showEmployeeGroupMatrix')->middleware('userMatrix:M03.03');
+        Route::get('employee/getEmployeeMatrixList', [EmployeeController::class, 'getEmployeeMatrixList'])->name('employee/getEmployeeMatrixList')->middleware('userMatrix:M03.03');
         // province
 
         // city

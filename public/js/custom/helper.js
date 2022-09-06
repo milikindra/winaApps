@@ -31,11 +31,11 @@ $(document).ready(function () {
             return true;
         else return false;
     });
-    $(function () {
-        $(".datepicker").datepicker({
-            dateFormat: "dd/mm/yy"
-        }).val();
-    });
+    // $(function () {
+    //     $(".datepicker").datepicker({
+    //         dateFormat: "dd/mm/yy"
+    //     }).val();
+    // });
 });
 
 function dtModalInventory(voids, kategori, subkategori, um) {
