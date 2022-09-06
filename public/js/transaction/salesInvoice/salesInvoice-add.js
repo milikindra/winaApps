@@ -102,6 +102,7 @@ function getCustomer() {
                     $("#tax_snFlabel").html(response[0].KodePajak + ".");
                     $("#tax_snF").val(response[0].KodePajak + ".");
                     $("#sales_id").val(response[0].ID_SALES).trigger("change");
+                    $("#sales").val(response[0].ID_SALES);
                 }
             }
             getEfaktur();

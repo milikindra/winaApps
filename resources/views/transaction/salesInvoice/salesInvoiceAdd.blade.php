@@ -67,6 +67,7 @@
                                             <div class="col-md-12">
                                                 <label>Sales</label>
                                                 <input type="hidden" id="sales_name" name="sales_name">
+                                                <input type="hidden" id="sales" name="sales">
                                                 <select class="form-control form-control-sm  selects2" id="sales_id" name="sales_id" onchange="getSales()">
                                                     <option selected disabled></option>
                                                     @foreach($sales as $s)
