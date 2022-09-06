@@ -390,7 +390,7 @@
                                     </div>
                                     <div id="editGroup" style="display: none;">
                                         <input type="hidden" name="process" value="save" id="process" required>
-                                        <button type="button" class="btn btn-sm  btn-primary float-right" id="efakturModal" title="Generate Efaktur"><i class="fa fa-file-csv"></i></button>
+                                        <!-- <button type="button" class="btn btn-sm  btn-primary float-right" id="efakturModal" title="Generate Efaktur"><i class="fa fa-file-csv"></i></button> -->
                                         <div class="btn-group float-right show" id="btnPrintDetail">
                                             <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" id="printUpdate" title="print" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-print"></i>
                                             </button>
