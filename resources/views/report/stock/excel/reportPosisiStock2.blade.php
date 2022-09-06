@@ -22,13 +22,14 @@ header("Content-Disposition: attachment; filename=Report Posisi Stock.xls");
     <tr></tr>
     <thead>
         <tr>
-            <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Kode</th>
+            <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Item</th>
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Nama Barang</th>
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Satuan</th>
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Qty</th>
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Total</th>
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Harga Rata-rata</th>
             <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Status Konsiyansi</th>
+            <th style="background-color: #b3baff; font-weight: bold; border: 1px solid #000000;">Lokasi</th>
         </tr>
     </thead>
     <tbody>
@@ -48,12 +49,14 @@ header("Content-Disposition: attachment; filename=Report Posisi Stock.xls");
                 <td style="border: 1px solid #000000;">{{$posisi->jml_pok}}</td>
                 <td style="border: 1px solid #000000;">{{$posisi->rata}}</td>
                 <td style="border: 1px solid #000000;">{{$posisi->isKonsi}}</td>
+                <td style="border: 1px solid #000000;">{{$posisi->id_lokasi}}</td>
             </tr>
         <?php } ?>
         <tr>
             <td style="border: 1px solid #000000;" colspan="4"><b>Total</b></td>
             <td style="border: 1px solid #000000;">{{$total}}</td>
             <td style="border: 1px solid #000000;">{{$total_rata}}</td>
+            <td style="border: 1px solid #000000;"></td>
             <td style="border: 1px solid #000000;"></td>
         </tr>
         </tr>

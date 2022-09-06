@@ -109,6 +109,7 @@
                     <th style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;" width="10%">Total</th>
                     <th style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;" width="10%">Harga Rata-rata</th>
                     <th style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;" width="10%">Status Konsinyasi</th>
+                    <th style="font-family: helvetica,sans-serif;font-size: 10px; font-weight: 700;" width="10%">Lokasi</th>
                 </tr>
             </thead>
             <tbody>
@@ -127,12 +128,14 @@
                         <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($posisi->jml_pok,2) }}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($posisi->rata,2) }}</td>
                         <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:center;">{{$posisi->isKonsi }}</td>
+                        <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:center;">{{$posisi->id_lokasi }}</td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;" colspan="4"><b>Total</b></td>
                     <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($total,2) }}</td>
                     <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;">{{number_format($total_rata,2) }}</td>
+                    <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;"></td>
                     <td style="font-family: helvetica,sans-serif;font-size: 9px; font-weight: 500; text-align:right;"></td>
                 </tr>
             </tbody>
