@@ -218,7 +218,7 @@ class SalesInvoiceController extends Controller
                 'detail' => $post_detail,
                 'attach' => $post_attach
             ];
-
+            Log::debug($postData);
             $request->request->add(['api_token' => $user_token]);
             $client = new Client();
             $response = $client->request('POST', $url, [
