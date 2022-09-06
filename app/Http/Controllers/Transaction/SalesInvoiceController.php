@@ -125,7 +125,6 @@ class SalesInvoiceController extends Controller
 
     public function salesInvoiceAddSave(Request $request)
     {
-        dd($request);
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/salesInvoiceAddSave';
@@ -164,7 +163,7 @@ class SalesInvoiceController extends Controller
                 "ID_CUST" => $request->input('customer'),
                 "NM_CUST" => $request->input('customer_name'),
                 "TEMPO" => $request->input('tempo'),
-                "ID_SALES" => $request->input('sales_id'),
+                "ID_SALES" => $request->input('sales'),
                 "NM_SALES" => $request->input('sales_name'),
                 "KETERANGAN" => $request->input('notes'),
                 "CREATOR" => "WINA : " . session('user')->username,
