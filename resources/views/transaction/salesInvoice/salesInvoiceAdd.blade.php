@@ -137,8 +137,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="cek_wapu" id="cek_wapu" onclick="return false;" style="display: none;"></input>
-                                                    <!-- <label>WAPU/KWB</label> -->
+                                                    <input type="checkbox" class="form-check-input" name="cek_wapu" id="cek_wapu" onclick="return false;"></input>
+                                                    <label>WAPU/KWB</label>
                                                     <h2 id="wapu" style="display: none; color: red; font-weight: bold;">
                                                         W.A.P.U
                                                     </h2>

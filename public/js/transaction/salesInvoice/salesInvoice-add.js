@@ -697,7 +697,7 @@ function totalPpn() {
     var ppnSiDp = totalPpnBruto - ppnDp;
     var grandTotal = totalDpp - totalDp + ppnSiDp;
     var totalInv = totalDpp - totalDp;
-    if (totalInv < $('#sWapu').val()) {
+    if (totalInv <= $('#sWapu').val()) {
         $("#cek_wapu").prop('checked', false);
         $('#tax_snFlabel').html($('#nonWapu').val());
         $('#tax_snF').val($('#nonWapu').val());

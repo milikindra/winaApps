@@ -13,7 +13,7 @@ $(document).ready(function () {
     $("#salesInvoiceUpdate select").prop("disabled", true);
     $("#cmbShippingKey").val($("#cmbShipping option:selected").text());
     getCustomer();
-    $("#modalByDp").attr('disabled', false);
+    // $("#modalByDp").attr('disabled', false);
     loadAttach();
 });
 function loadAttach() {

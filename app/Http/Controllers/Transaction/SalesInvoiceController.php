@@ -208,7 +208,9 @@ class SalesInvoiceController extends Controller
                         "tax" => $request->input('tax')[$i],
                         "kode_group" => $request->input('itemKodeGroup')[$i],
                         "qty_grup" => '0',
-                        "no_sj" => $no_sj
+                        "no_sj" => $no_sj,
+                        "vintrasId" => $request->input('itemVintrasId')[$i],
+                        "vintrasTahun" => $request->input('itemTahunVintras')[$i],
                     ];
                 }
             }

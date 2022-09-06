@@ -353,7 +353,7 @@
                 </div>
                 <div class=" modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" style="text-align:left;" data-dismiss="modal">Close</button>
-                    <button type="submit" id="btnAddSave" class="btn btn-info">Save</button>
+                    <button type="submit" id="addSaveInventory" class="btn btn-info">Save</button>
                 </div>
             </form>
         </div>
