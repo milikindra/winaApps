@@ -464,6 +464,7 @@ class SalesInvoiceController extends Controller
 
     public function salesInvoiceUpdate(Request $request)
     {
+        dd($request);
         try {
             $user_token = session('user')->api_token;
             $url = Config::get('constants.api_url') . '/salesInvoiceUpdate';
