@@ -139,7 +139,7 @@ $("#btnEfakturView").click(function (e) {
         bc = $('#bcEfaktur').val();
     }
     window.open(efaktur_url + "/" + btoa($('#si_id').val()) + "/" + btoa(ba) + "/" + btoa(bc), '_blank');
-    $("#modalDo").modal("hide");
+    $("#modalEfaktur").modal("hide");
     $('#baEfaktur').val('');
     $('#bcEfaktur').val('');
 });
