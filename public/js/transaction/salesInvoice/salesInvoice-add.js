@@ -66,7 +66,7 @@ function getCustomer() {
     if ($('#module').val() != "edit") {
         $("#sales_id").val('');
         $("#do_soum").val('');
-        $("#ship_to").val('');
+        $("#shipping").val('');
         $("#tax_snFlabel").html('');
         $("#tax_snF").val('');
         $("#use_branch").prop('checked', false);
@@ -338,13 +338,13 @@ $('#tabelOutstandingOrderDp tbody').on('dblclick', 'tr', function (e) {
 })
 
 $("#cmbShipping").change(function () {
-    $("#ship_to").val('');
+    $("#shipping").val('');
     $("#cmbShippingKey").val('');
     if ($("#cmbShipping").val() != '' && $("#cmbShipping").val() != null) {
-        $("#ship_to").val($("#cmbShipping").val());
+        $("#shipping").val($("#cmbShipping").val());
         $("#cmbShippingKey").val($("#cmbShipping option:selected").text());
     } else {
-        $("#ship_to").prop("readonly", true);
+        $("#shipping").prop("readonly", true);
     }
 });
 
@@ -700,6 +700,7 @@ function totalPpn() {
     if (totalInv < $('#sWapu').val()) {
         $("#cek_wapu").prop('checked', false);
         $('#tax_snFlabel').html($('#nonWapu').val());
+        $('#tax_snF').val($('#nonWapu').val());
         $("#wapu").css('display', 'none');
     } else {
         getCustomer();

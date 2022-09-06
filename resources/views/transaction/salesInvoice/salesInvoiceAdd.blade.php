@@ -177,7 +177,7 @@
                                                 <select class="form-control form-control-sm" id="cmbShipping" name="cmbShipping" style="display: block;">
                                                 </select>
                                                 <input type="hidden" name="cmbShipping" id="cmbShippingKey">
-                                                <textarea class="form-control form-control-sm" name="ship_to" id="ship_to" rows="5" readonly></textarea>
+                                                <textarea class="form-control form-control-sm" name="shipping" id="shipping" rows="5" readonly></textarea>
                                             </div>
                                         </div>
                                     </div>
