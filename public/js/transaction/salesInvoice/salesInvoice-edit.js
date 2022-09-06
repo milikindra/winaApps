@@ -130,7 +130,15 @@ $("#btnEfakturUpdate").click(function (e) {
 
 $("#btnEfakturView").click(function (e) {
     e.preventDefault();
-    window.open(efaktur_url + "/" + btoa($('#si_id').val()) + "/" + btoa($('#baEfaktur').val()) + "/" + btoa($('#bcEfaktur').val()), '_blank');
+    var ba = 'void';
+    if ($('#baEfaktur').val() != '') {
+        ba = $('#baEfaktur').val();
+    }
+    var bc = 'void';
+    if ($('#bcEfaktur').val() != '') {
+        bc = $('#bcEfaktur').val();
+    }
+    window.open(efaktur_url + "/" + btoa($('#si_id').val()) + "/" + btoa(ba) + "/" + btoa(bc), '_blank');
     $("#modalDo").modal("hide");
     $('#baEfaktur').val('');
     $('#bcEfaktur').val('');
