@@ -59,4 +59,19 @@ class ReportHelperController extends Controller
         // dd($request);
         return view('report.helper.print.reportTransmitalReceipt', $data);
     }
+
+    public function reportOfferingLetter(request $request)
+    {
+        dd($request);
+        // $module = $this->module;
+        // $menu_name = session('user')->menu_name;
+        // $user_token = session('user')->api_token;
+        // $data = [
+        //     'title' => $menu_name->$module->module_name,
+        //     'edate' => Carbon::parse($request->edate)->format('d-m-Y'),
+        //     'val' => $request->input(),
+        // ];
+        // dd($request);
+        // return view('report.helper.print.reportTransmitalReceipt', $data);
+    }
 }

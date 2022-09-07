@@ -2,7 +2,7 @@ $(".selects2").select2();
 $(".eds").editableSelect();
 
 $(document).ready(function () {
-    $("#reportType").prop("selectedIndex", 1).trigger("change");
+    $("#reportType").prop("selectedIndex", 2).trigger("change");
     filterReport();
     $("#reportType").change(function () {
         filterReport();
@@ -10,15 +10,17 @@ $(document).ready(function () {
 
     function filterReport() {
         var reportType = $("#reportType").val();
+        $("#appTransmitalReceipt").css("display", "none");
+        $("#appOfferingLetter").css("display", "none");
         if (reportType == "appTransmitalReceipt") {
             $("#appTransmitalReceipt").css("display", "block");
-            $("#type").val("appTransmitalReceipt");
-        } else {
-            $("#appTransmitalReceipt").css("display", "none");
+            // $("#type").val("appTransmitalReceipt");
+        } else if (reportType == "appOfferingLetter") {
+            $("#appOfferingLetter").css("display", "block");
+            // $("#type").val("appOfferingLetter");
         }
     }
     addRowTrTbody(this);
-
 });
 
 $("#trCustomer").change(function () {
@@ -158,3 +160,31 @@ function addRowTr(id) {
     str += '<td><a href=" javascript:void(0)" onclick="removeRowTr(&apos;' + trId + '&apos;)" class="btn btn-xs btn-warning float-right" title="remove row"><i class="fa fa-minus"></i></a></td></tr> ';
     $("#" + id).append(str);
 }
+
+
+$("#printTransmitalReceipt").click(function (e) {
+    e.preventDefault();
+    $('#frmTransmitalReceipt').submit(); // Submit the form
+    window.location.reload();
+});
+$("#printOfferingLetter").click(function (e) {
+    e.preventDefault();
+    $('#frmOfferingLetter').submit(); // Submit the form
+    window.location.reload();
+});
+
+$("#olYear").change(function (e) {
+    $('#olQuotationRef').html('<option selected disabled></option>')
+    $.ajax({
+        url: get_quotation + "/" + $("#olYear").val(),
+        type: "GET",
+        dataType: "JSON",
+        success: function (response) {
+            var len = response.length;
+            for (var i = 0; i < len; i++) {
+                var kode_ref = response[i]['Kode_Ref'];
+                $('#olQuotationRef').append("<option>" + kode_ref + "</option>");
+            }
+        },
+    });
+});

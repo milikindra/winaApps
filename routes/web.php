@@ -194,6 +194,7 @@ Route::group(
 
         // vintras
         Route::get('vintras/data/populate/{period}', [VintrasController::class, 'populate'])->name('vintras/data/populate');
+        Route::get('vintras/getQuotationByPeriod/{period}', [VintrasController::class, 'getQuotationByPeriod'])->name('vintras/getQuotationByPeriod');
 
         // vat
         Route::get('vat', [VatController::class, 'vatShow'])->name('vat')->middleware('userMatrix:M11.01');
@@ -215,6 +216,7 @@ Route::group(
         // helper
         Route::get('reportHelper', [ReportHelperController::class, 'reportHelperShow'])->name('reportHelper')->middleware('userMatrix:R02.01');
         Route::post('reportTransmitalReceipt', [ReportHelperController::class, 'reportTransmitalReceipt'])->name('reportTransmitalReceipt')->middleware('userMatrix:RY01.01');
+        Route::post('reportOfferingLetter', [ReportHelperController::class, 'reportOfferingLetter'])->name('reportOfferingLetter')->middleware('userMatrix:RY02.01');
     }
 );
 

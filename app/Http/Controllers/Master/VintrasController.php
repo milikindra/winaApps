@@ -56,4 +56,15 @@ class VintrasController extends Controller
         $table['data'] = $body->vintras;
         return json_encode($table);
     }
+
+    public function getQuotationByPeriod(Request $request, $period)
+    {
+        $post = [
+            'period' => $period
+        ];
+        $url = Config::get('constants.api_url') . '/vintrasGetQuotationByPeriod';
+        $client = new Client();
+        $response = $client->request('POST', $url, ['json' => $post]);
+        return $response->getBody();
+    }
 }
