@@ -229,11 +229,10 @@ class SalesInvoiceController extends Controller
             $body = json_decode($response->getBody());
 
             if ($body->result == true) {
-                $no_si = str_replace("/", "_", $body->id);
                 if ($request->file() != null) {
                     for ($i = 0; $i < count($request->file('attach')); $i++) {
                         $attach = $request->file('attach')[$i];
-                        $filename = $no_si . "-" . $i + 1 . "." .  $attach->getClientOriginalExtension();
+                        $filename = $body->fname . "-" . ($i + 1) . "." .  $attach->getClientOriginalExtension();
                         Storage::disk('local')->putFileAs('document/SI/' . date_format(date_create($request->input('date_order')), 'Y'), $attach, $filename);
                     }
                 }
