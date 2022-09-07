@@ -669,7 +669,7 @@ class SalesInvoiceController extends Controller
 
             $post_data = [
                 'api_token' => $user_token,
-                'user' => session('user')->username,
+                'user' => 'WINA : ' . session('user')->username,
                 'NO_BUKTI' => base64_decode($si_id)
             ];
             $client = new Client();
