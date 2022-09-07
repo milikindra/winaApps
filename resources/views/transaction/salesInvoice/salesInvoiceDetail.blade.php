@@ -354,7 +354,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4">Total PPn</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" readonly></div>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="totalPpn" id="totalPpn" value="{{number_format($si->head[0]->totppn_rp,2)}}"readonly></div>
                                     </div>
                                     <div class="form-group row">
                                         <input type="hidden" name="taxCustomer" id="taxCustomer">
@@ -362,7 +362,7 @@
                                         <input type="hidden" name="taxDetail" id="taxDetail">
                                         <input type="hidden" name="finalDp" id="finalDp">
                                         <label class="col-sm-4">Grand Total</label>
-                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" readonly></div>
+                                        <div class="col-sm-8"><input type="text" class="form-control form-control-sm form-control-border numajaDesimal" style="text-align: right;" name="grandTotal" id="grandTotal" value="{{number_format($si->head[0]->total_rp,2)}}" readonly></div>
                                     </div>
                                 </div>
                             </div>
