@@ -232,7 +232,7 @@ class SalesInvoiceController extends Controller
                 if ($request->file() != null) {
                     for ($i = 0; $i < count($request->file('attach')); $i++) {
                         $attach = $request->file('attach')[$i];
-                        $filename = $body->fname . "-" . ($i + 1) . "." .  $attach->getClientOriginalExtension();
+                        $filename = $body->fName . "-" . ($i + 1) . "." .  $attach->getClientOriginalExtension();
                         Storage::disk('local')->putFileAs($body->folder, $attach, $filename);
                     }
                 }
