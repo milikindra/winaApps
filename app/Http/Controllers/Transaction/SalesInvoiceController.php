@@ -233,7 +233,7 @@ class SalesInvoiceController extends Controller
                     for ($i = 0; $i < count($request->file('attach')); $i++) {
                         $attach = $request->file('attach')[$i];
                         $filename = $body->fname . "-" . ($i + 1) . "." .  $attach->getClientOriginalExtension();
-                        Storage::disk('local')->putFileAs('document/SI/' . date_format(date_create($request->input('date_order')), 'Y'), $attach, $filename);
+                        Storage::disk('local')->putFileAs($body->folder, $attach, $filename);
                     }
                 }
                 Alert::toast($body->message, 'success');
